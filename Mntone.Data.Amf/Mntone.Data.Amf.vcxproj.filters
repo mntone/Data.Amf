@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Amf0Parser.cpp" />
+    <ClCompile Include="AmfArray.cpp" />
+    <ClCompile Include="AmfObject.cpp" />
+    <ClCompile Include="AmfValue.cpp" />
+    <ClCompile Include="Utilities.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="amf0_type.h" />
+    <ClInclude Include="Amf0Parser.h" />
+    <ClInclude Include="amf3_type.h" />
+    <ClInclude Include="AmfArray.h" />
+    <ClInclude Include="AmfEncodingType.h" />
+    <ClInclude Include="AmfObject.h" />
+    <ClInclude Include="AmfValue.h" />
+    <ClInclude Include="AmfValueType.h" />
+    <ClInclude Include="IAmfArray.h" />
+    <ClInclude Include="IAmfObject.h" />
+    <ClInclude Include="IAmfValue.h" />
+  </ItemGroup>
+</Project>
