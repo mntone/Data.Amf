@@ -1,18 +1,18 @@
 # AmfValue class
 Represents a AmfArray containing a array of **IAmfValue**.
 
-A **AmfArray** inherits the **IAmfArray**, **IAmfValue**, **IVector<IAmfValue>** and **IIterable<IAmfValue>** interfaces, which provide methods to iterate through the elements in the array and update its contents.
+A **AmfArray** inherits the **IAmfArray**, **IAmfValue**, **IVector&lt;IAmfValue&gt;**, **IIterable&lt;IAmfValue&gt;**, IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents.
 
 ## Syntax
 
 ### C＃
-public sealed class AmfArray : IAmfArray, IAmfValue, IList<IAmfValue>, IEnumerable<IAmfValue>
+public sealed class AmfArray : IAmfArray, IAmfValue, IList&lt;IAmfValue&gt;, IEnumerable&lt;IAmfValue&gt;, IStringable
 
 ### C++
-public ref calss AmfArray sealed : public IAmfArray, public IAmfValue, public IVector<IAmfValue>, public IIterable<IAmfValue>
+public ref calss AmfArray sealed : public IAmfArray, public IAmfValue, public IVector&lt;IAmfValue&gt;, public IIterable&lt;IAmfValue&gt;, public IStringable
 
 ### VB
-Public NotInheritable Class AmfArray Implements IAmfValue, IList(Of IAmfValue), IEnumerable(Of IAmfValue)
+Public NotInheritable Class AmfArray Implements IAmfValue, IList(Of IAmfValue), IEnumerable(Of IAmfValue), IStringable
 
 ## Attributes
 
@@ -67,13 +67,13 @@ GetDateAt     |Gets the Date value at the specified index if the ValueType of th
 GetObjectAt   |Gets the Object value at the specified index if the ValueType of the value at that index is Object.
 GetArrayAt    |Gets the Array value at the specified index if the ValueType of the value at that index is Array.
 
-#### IIterable<IAmfValue> [C++]
+#### IIterable&lt;IAmfValue&gt; [C++]
 
 Method     |Description
 -----------|-----------
 First [C++]|Returns the iterator for iteration over the items in the array.
 
-#### IVector<IAmfValue> [C++] / IList<IAmfValue> [C#, VB]
+#### IVector&lt;IAmfValue&gt; [C++] / IList&lt;IAmfValue&gt; [C#, VB]
 
 Method           |Description
 -----------------|-----------
@@ -94,6 +94,12 @@ Clear            |Removes all items from the array.
 Contains [C#, VB]|Determines whether an element is in the collection.
 CopyTo [C#, VB]  |Copies the elements of the collection to an array, starting at a particular array index.
 
+#### IStringable
+
+Method  |Description
+--------|-----------
+ToString|Provides a way to represent the current object as a string. 
+
 #### __IAmfArrayStatics
 
 Method  |Description
@@ -111,7 +117,7 @@ Property |Access type|Description
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
 Value    |Read-only  |Gets the Amf value in the object.
 
-#### IVector<IAmfValue> [C++] / IList<IAmfValue> [C#, VB]
+#### IVector&lt;IAmfValue&gt; [C++] / IList&lt;IAmfValue&gt; [C#, VB]
 
 Property           |Access type|Description
 -------------------|-----------|-----------
@@ -120,4 +126,4 @@ Count [C#, VB]     |Read-only  |Gets the number of elements contained in the col
 IsReadOnly [C#, VB]|Read-only  |Gets a value indicating whether the collection is read-only.
 Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 
-##### Update date: Sep 13, 2013
+##### Update date: Sep 14, 2013

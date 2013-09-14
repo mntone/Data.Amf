@@ -8,13 +8,13 @@ A **AmfValue** object has overloaded constructors to instantiate a new object fr
 ## Syntax
 
 ### C＃
-public sealed class AmfValue : IAmfValue
+public sealed class AmfValue : IAmfValue, IStringable
 
 ### C++
-public ref calss AmfValue sealed : public IAmfValue
+public ref calss AmfValue sealed : public IAmfValue, public IStringable
 
 ### VB
-Public NotInheritable Class AmfValue Implements IAmfValue
+Public NotInheritable Class AmfValue Implements IAmfValue, IStringable
 
 ## Attributes
 
@@ -56,6 +56,12 @@ GetDate     |Gets the Date if the ValueType of the encapsulated value is Date.
 GetObject   |Gets the Object if the ValueType of the encapsulated value is Object.
 GetArray    |Gets the Array if the ValueType of the encapsulated value is Array.
 
+#### IStringable
+
+Method  |Description
+--------|-----------
+ToString|Provides a way to represent the current object as a string. 
+
 #### __IAmfValueStatics
 
 Method              |Description
@@ -67,6 +73,7 @@ CreateIntegerValue  |Creates a AmfValue from a Integer.
 CreateStringValue   |Creates a AmfValue from a String.
 CreateReferenceValue|Creates a AmfValue from a Reference.
 CreateDateValue     |Creates a AmfValue from a Date.
+CreateXmlValue      |Creates a AmfValue from a Xml.
 Parse               |Parses the specified Amf array into a AmfValue.
 TryParse            |Parses the specified Amf array into a AmfValue.
 
@@ -80,4 +87,4 @@ Property |Access type|Description
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
 Value    |Read-only  |Gets the Amf value in the object.
 
-##### Update date: Sep 13, 2013
+##### Update date: Sep 14, 2013

@@ -18,8 +18,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		try
 		{
-			auto data = Amf0Parser::Parse( input );
-			*result = safe_cast<AmfValue^>( data );
+			*result = Amf0Parser::Parse( input );
 		}
 		catch( Platform::FailureException^ ) { return false; }
 		catch( Platform::InvalidCastException^ ) { return false; }
@@ -48,7 +47,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		case amf0_type::amf0_strict_array: return ParseStrictArray( input, length );
 		case amf0_type::amf0_date: return ParseDate( input, length );
 		case amf0_type::amf0_long_string: return ParseLongString( input, length );
-		case amf0_type::amf0_xml_document: return ParseLongString( input, length );
+		case amf0_type::amf0_xml_document: return ParseXmlDocument( input, length );
 		case amf0_type::amf0_typed_object: return ParseTypedObject( input, length );
 		default: throw ref new Platform::FailureException( "Invalid type." );
 		}
@@ -104,8 +103,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	IAmfValue^ Amf0Parser::ParseStrictArray( uint8 *& input, uint32& length )
 	{
-		// U32 (count) | Value (min U8) 
-		if( length < 5 )
+		if( length < 4 )
 			throw ref new Platform::FailureException( "Invalid strictArray." );
 
 		uint32 count;
@@ -143,6 +141,11 @@ namespace Mntone { namespace Data { namespace Amf {
 		return AmfValue::CreateStringValue( ParseUtf8Long( input, length ) );
 	}
 
+	IAmfValue^ Amf0Parser::ParseXmlDocument( uint8 *& input, uint32& length )
+	{
+		return AmfValue::CreateXmlValue( ParseUtf8Long( input, length ) );
+	}
+
 	Platform::String^ Amf0Parser::ParseUtf8( uint8 *& input, uint32& length )
 	{
 		if( length < 3 )
@@ -171,15 +174,18 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	Platform::String^ Amf0Parser::ParseUtf8Base( uint8 *& input, uint32& length, const uint32 textLength )
 	{
-		if( textLength == 0 && length < 2 || textLength != 0 && textLength < length )
-			throw ref new Platform::FailureException( "Invalid string." );
-
 		if( textLength == 0 )
 		{
+			if( length < 2 )
+				throw ref new Platform::FailureException( "Invalid string." );
+
 			input += 2;
 			length -= 2;
 			return "";
 		}
+
+		if( length < textLength )
+			throw ref new Platform::FailureException( "Invalid string." );
 
 		std::stringstream buf;
 		buf.write( reinterpret_cast<char *>( input ), textLength );
@@ -195,20 +201,28 @@ namespace Mntone { namespace Data { namespace Amf {
 			throw ref new Platform::FailureException( "Invalid object." );
 
 		std::map<Platform::String^, IAmfValue^> data;
-		while( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
+		while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
 			data.emplace( ParseProperty( input, length ) );
+
+		if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
+			throw ref new Platform::FailureException( "Invalid object." );
+
+		input += 3;
+		length -= 3;
 
 		return ref new AmfObject( data );
 	}
 
 	IAmfValue^ Amf0Parser::ParseEcmaArray( uint8 *& input, uint32& length )
 	{
-		// U32 (count) | *Prop (min 0) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 7 bytes
+		// U32 (count) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 7 bytes
 		if( length < 7 )
 			throw ref new Platform::FailureException( "Invalid ecmaArray." );
 
-		uint32 count;
+		uint32 count( 0 );
 		ConvertFromBigEndian( input, &count, 4 );
+		input += 4;
+		length -= 4;
 
 		std::map<Platform::String^, IAmfValue^> data;
 		for( auto i = 0u; i < count; ++i )
@@ -216,6 +230,9 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
 			throw ref new Platform::FailureException( "Invalid ecmaArray." );
+
+		input += 3;
+		length -= 3;
 
 		return ref new AmfObject( data );
 	}
@@ -226,14 +243,17 @@ namespace Mntone { namespace Data { namespace Amf {
 		if( length < 6 )
 			throw ref new Platform::FailureException( "Invalid typedObject." );
 
-		auto className = ParseUtf8Long( input, length );
+		auto className = ParseUtf8( input, length );
 
 		std::map<Platform::String^, IAmfValue^> data;
-		while( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
+		while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
 			data.emplace( ParseProperty( input, length ) );
 
 		if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
 			throw ref new Platform::FailureException( "Invalid typedObject." );
+
+		input += 3;
+		length -= 3;
 
 		auto obj = ref new AmfObject( data );
 		obj->ClassName = className;

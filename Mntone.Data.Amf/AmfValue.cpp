@@ -1,7 +1,5 @@
 #include "pch.h"
 #include "AmfValue.h"
-#include "AmfArray.h"
-#include "AmfObject.h"
 #include "Amf0Parser.h"
 
 namespace Mntone { namespace Data { namespace Amf {
@@ -27,8 +25,10 @@ namespace Mntone { namespace Data { namespace Amf {
 	Platform::String^ AmfValue::GetString( void ) { return safe_cast<Platform::String^>( _Value ); }
 	uint16 AmfValue::GetReference( void ) { return safe_cast<uint16>( _Value ); }
 	Windows::Foundation::DateTime AmfValue::GetDate( void ) { return safe_cast<Windows::Foundation::DateTime>( _Value ); }
-	AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException(); }
-	AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException(); }
+	AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+	AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+	
+	Platform::String^ AmfValue::ToString( void ) { return Value->ToString(); }
 
 	AmfValue^ AmfValue::CreateUndefinedValue( void )
 	{
@@ -86,6 +86,14 @@ namespace Mntone { namespace Data { namespace Amf {
 		return out;
 	}
 
+	AmfValue^ AmfValue::CreateXmlValue( Platform::String^ input )
+	{
+		auto out = ref new AmfValue();
+		out->_ValueType = AmfValueType::Xml;
+		out->_Value = input;
+		return out;
+	}
+
 	AmfValue^ AmfValue::Parse( const Platform::Array<uint8>^ input )
 	{
 		//return safe_cast<AmfValue^>( Amf3Parser::Parse( input ) );
@@ -95,7 +103,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	AmfValue^ AmfValue::Parse( const Platform::Array<uint8>^ input, AmfEncodingType type )
 	{
 		if( type == AmfEncodingType::Amf0 )
-			return safe_cast<AmfValue^>( Amf0Parser::Parse( input ) );
+			return reinterpret_cast<AmfValue^>( Amf0Parser::Parse( input ) );
 
 		//return safe_cast<AmfValue^>( Amf3Parser::Parse( input ) );
 		throw ref new Platform::NotImplementedException();
@@ -110,9 +118,9 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	bool AmfValue::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfValue^* result )
 	{
-		IAmfValue^ buf = *result;
+		auto buf = reinterpret_cast<IAmfValue^*>( result );
 		if( type == AmfEncodingType::Amf0 )
-			return Amf0Parser::TryParse( input, &buf );
+			return Amf0Parser::TryParse( input, buf );
 
 		//return Amf3Parser::TryParse( input, &buf );
 		throw ref new Platform::NotImplementedException();

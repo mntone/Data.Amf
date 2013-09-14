@@ -44,14 +44,14 @@ namespace Mntone { namespace Data { namespace Amf {
 		return std::string( buffer.data() );
 	}
 
-	uint64 WindowsTimeToUnixTime( const uint64 windowsTime )
+	uint64 WindowsTimeToUnixTime( const int64 windowsTime )
 	{
-		return static_cast<uint32>( ( windowsTime - 116444736000000000ll ) / 10000000 );
+		return ( windowsTime - 116444736000000000ull ) / 10000ull;
 	}
 
-	uint64 UnixTimeToWindowsTime( const uint64 unixTime )
+	int64 UnixTimeToWindowsTime( const uint64 unixTime )
 	{
-		return 10000000 * static_cast<uint64>( unixTime ) + 116444736000000000ll;
+		return 10000ll * unixTime + 116444736000000000ll;
 	}
 
 	uint64 DateTimeToUnixTime( Windows::Foundation::DateTime dateTime )

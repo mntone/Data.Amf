@@ -1,18 +1,18 @@
 # AmfObject class
 Represents a AmfObject containing a array of name and **IAmfValue** pairs.
 
-A **AmfObject** inherits the **IAmfObject**, **IAmfValue**, **IMap<IAmfValue>** and **IIterable<IKeyValuePair<String,IAmfValue>>** interfaces, which provide methods to iterate through the elements in the array and update its contents. When these are values with duplicated names, the last name/value pair will be stored.
+A **AmfObject** inherits the **IAmfObject**, **IAmfValue**, **IMap&lt;IAmfValue&gt;**, **IIterable&lt;IKeyValuePair&lt;String,IAmfValue&gt;&gt;** and IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents. When these are values with duplicated names, the last name/value pair will be stored.
 
 ## Syntax
 
 ### C＃
-public sealed class AmfArray : IAmfArray, IAmfValue, IDictionary<String, IAmfValue>, IEnumerable<KeyValuePair<String, IAmfValue>>
+public sealed class AmfArray : IAmfArray, IAmfValue, IDictionary&lt;String, IAmfValue&gt;, IEnumerable&lt;KeyValuePair&lt;String, IAmfValue&gt;&gt;, IStringable
 
 ### C++
-public ref calss AmfArray sealed : public IAmfArray, public IAmfValue, public IMap<String, IAmfValue>, public IIterable<IKeyValuePair<String, IAmfValue>>
+public ref calss AmfArray sealed : public IAmfArray, public IAmfValue, public IMap&lt;String, IAmfValue&gt;, public IIterable&lt;IKeyValuePair&lt;String, IAmfValue&gt;&gt;, public IStringable
 
 ### VB
-Public NotInheritable Class AmfArray Implements IAmfValue, IDictionary(Of String, IAmfValue), IEnumerable(Of KeyValuePair(Of String, IAmfValue))
+Public NotInheritable Class AmfArray Implements IAmfValue, IDictionary(Of String, IAmfValue), IEnumerable(Of KeyValuePair(Of String, IAmfValue)), IStringable
 
 ## Attributes
 
@@ -69,13 +69,13 @@ GetNamedDate     |Gets the Date value with the specified name, or nullptr if no 
 GetNamedObject   |Gets the Object value with the specified name, or nullptr if no such named value is found.
 GetNamedArray    |Gets the Array value with the specified name, or nullptr if no such named value is found.
 
-#### IIterable<IKeyValuePair<String, IAmfValue>> [C++]
+#### IIterable&lt;IKeyValuePair&lt;String, IAmfValue&gt;&gt; [C++]
 
 Method     |Description
 -----------|-----------
 First [C++]|Returns the iterator for iteration over the key/value pairs in the JsonValue object.
 
-#### IMap<String, IAmfValue> [C++] / IDictionary<String, IAmfValue> [C#, VB]
+#### IMap&lt;String, IAmfValue&gt; [C++] / IDictionary&lt;String, IAmfValue&gt; [C#, VB]
 
 Method                       |Description
 -----------------------------|-----------
@@ -94,6 +94,12 @@ ContainsKey [C#, VB]         |Returns a value that indicates whether a specified
 CopyTo [C#, VB]              |Copies the elements of the collection to an array, starting at a particular array index.
 TryGetValue [C#, VB]         |Returns a value that indicates whether a specified key exists in the AmfObject. If an item with that key exists, the item is retrieved as an out parameter.
 
+#### IStringable
+
+Method  |Description
+--------|-----------
+ToString|Provides a way to represent the current object as a string. 
+
 #### __IAmfObjectStatics
 
 Method  |Description
@@ -111,7 +117,7 @@ Property |Access type|Description
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
 Value    |Read-only  |Gets the Amf value in the object.
 
-#### IMap<String, IAmfValue> [C++] / IDictionary<String, IAmfValue> [C#, VB]
+#### IMap&lt;String, IAmfValue&gt; [C++] / IDictionary&lt;String, IAmfValue&gt; [C#, VB]
 
 Property           |Access type|Description
 -------------------|-----------|-----------
@@ -122,4 +128,4 @@ Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 Keys [C#, VB]      |Read-only  |Gets an ICollection object containing the keys of the AmfObject.
 Values [C#, VB]    |Read-only  |Gets an ICollection object containing the values of the AmfObject.
 
-##### Update date: Sep 13, 2013
+##### Update date: Sep 14, 2013

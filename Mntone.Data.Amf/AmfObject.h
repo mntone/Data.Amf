@@ -10,7 +10,8 @@ namespace Mntone { namespace Data { namespace Amf {
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class AmfObject sealed:
 		public IAmfObject,
-		public Windows::Foundation::Collections::IMap<Platform::String^, IAmfValue^>
+		public Windows::Foundation::Collections::IMap<Platform::String^, IAmfValue^>,
+		public Windows::Foundation::IStringable
 	{
 	public:
 		AmfObject( void );
@@ -51,6 +52,9 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual bool Insert( Platform::String^ key, IAmfValue^ value );
 		virtual void Remove( Platform::String^ key );
 		virtual void Clear( void );
+
+		// IStringable
+		virtual Platform::String^ ToString( void );
 
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input );
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );

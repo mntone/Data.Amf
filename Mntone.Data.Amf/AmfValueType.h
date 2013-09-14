@@ -14,6 +14,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		String,
 		Reference,
 		Date,
+		Xml,
 		Object,
 		Array,
 	};

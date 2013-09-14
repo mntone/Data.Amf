@@ -9,7 +9,8 @@ namespace Mntone { namespace Data { namespace Amf {
 	[Windows::Foundation::Metadata::Threading( Windows::Foundation::Metadata::ThreadingModel::Both )]
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class AmfValue sealed:
-		public IAmfValue
+		public IAmfValue,
+		public Windows::Foundation::IStringable
 	{
 	public:
 		AmfValue( void );
@@ -26,6 +27,9 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
 
+		// IStringable
+		virtual Platform::String^ ToString( void );
+
 		static AmfValue^ CreateUndefinedValue( void );
 		static AmfValue^ CreateBooleanValue( bool input );
 		static AmfValue^ CreateDoubleValue( float64 input );
@@ -33,6 +37,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static AmfValue^ CreateStringValue( Platform::String^ input );
 		static AmfValue^ CreateReferenceValue( uint16 input );
 		static AmfValue^ CreateDateValue( Windows::Foundation::DateTime input );
+		static AmfValue^ CreateXmlValue( Platform::String^ input );
 
 		static AmfValue^ Parse( const Platform::Array<uint8>^ input );
 		static AmfValue^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );

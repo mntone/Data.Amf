@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "AmfArray.h"
-#include "AmfObject.h"
 #include "Amf0Parser.h"
 
 namespace Mntone { namespace Data { namespace Amf {
@@ -25,13 +24,13 @@ namespace Mntone { namespace Data { namespace Amf {
 		throw ref new Platform::NotImplementedException();
 	}
 
-	bool AmfArray::GetBoolean( void ) { return safe_cast<bool>( _Value ); }
-	float64 AmfArray::GetDouble( void ) { return safe_cast<float64>( _Value ); }
-	int32 AmfArray::GetInteger( void ) { return safe_cast<int32>( _Value ); }
-	Platform::String^ AmfArray::GetString( void ) { return safe_cast<Platform::String^>( _Value ); }
-	uint16 AmfArray::GetReference( void ) { return safe_cast<uint16>( _Value ); }
-	Windows::Foundation::DateTime AmfArray::GetDate( void ) { return safe_cast<Windows::Foundation::DateTime>( _Value ); }
-	AmfObject^ AmfArray::GetObject( void ) { throw ref new Platform::FailureException(); }
+	bool AmfArray::GetBoolean( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+	float64 AmfArray::GetDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+	int32 AmfArray::GetInteger( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+	Platform::String^ AmfArray::GetString( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+	uint16 AmfArray::GetReference( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+	Windows::Foundation::DateTime AmfArray::GetDate( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+	AmfObject^ AmfArray::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 	AmfArray^ AmfArray::GetArray( void ) { return safe_cast<AmfArray^>( this ); }
 
 	bool AmfArray::GetBooleanAt( uint32 index ) { return Vector->GetAt( index )->GetBoolean(); }
@@ -59,6 +58,20 @@ namespace Mntone { namespace Data { namespace Amf {
 	uint32 AmfArray::GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfValue^>^ items ) { return Vector->GetMany( startIndex, items ); }
 	void AmfArray::ReplaceAll( const Platform::Array<IAmfValue^>^ items ) { Vector->ReplaceAll( items ); }
 
+	Platform::String^ AmfArray::ToString( void )
+	{
+		std::wstringstream buf;
+		buf << '[';
+		for each( auto item in Vector )
+		{
+			auto out = item->ToString();
+			buf.write( out->Data(), out->Length() );
+			buf.write( L", ", 2 );
+		}
+		buf << ']';
+		return ref new Platform::String( buf.str().c_str() );
+	}
+
 	AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input )
 	{
 		//return safe_cast<AmfArray^>( Amf3Parser::Parse( input ) );
@@ -68,7 +81,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input, AmfEncodingType type )
 	{
 		if( type == AmfEncodingType::Amf0 )
-			return safe_cast<AmfArray^>( Amf0Parser::Parse( input ) );
+			return reinterpret_cast<AmfArray^>( Amf0Parser::Parse( input ) );
 
 		//return safe_cast<AmfArray^>( Amf3Parser::Parse( input ) );
 		throw ref new Platform::NotImplementedException();
@@ -83,9 +96,9 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	bool AmfArray::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfArray^* result )
 	{
-		IAmfValue^ buf = *result;
+		auto buf = reinterpret_cast<IAmfValue^*>( result );
 		if( type == AmfEncodingType::Amf0 )
-			return Amf0Parser::TryParse( input, &buf );
+			return Amf0Parser::TryParse( input, buf );
 
 		//return Amf3Parser::TryParse( input, &buf );
 		throw ref new Platform::NotImplementedException();

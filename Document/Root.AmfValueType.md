@@ -30,7 +30,8 @@ Integer  |4    |The **IAmfValue** object is **Integer**.
 String   |5    |The **IAmfValue** object is **String**.
 Reference|6    |The **IAmfValue** object is **Reference**.
 Date     |7    |The **IAmfValue** object is **Date**.
-Object   |8    |The **IAmfValue** object is **Object**.
-Array    |9    |The **IAmfValue** object is **Array**.
+Xml      |8    |The **IAmfValue** object is **Xml**.
+Object   |9    |The **IAmfValue** object is **Object**.
+Array    |10   |The **IAmfValue** object is **Array**.
 
-##### Update date: Sep 13, 2013
+##### Update date: Sep 14, 2013

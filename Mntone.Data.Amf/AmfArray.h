@@ -10,7 +10,8 @@ namespace Mntone { namespace Data { namespace Amf {
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class AmfArray sealed:
 		public IAmfArray,
-		public Windows::Foundation::Collections::IVector<IAmfValue^>
+		public Windows::Foundation::Collections::IVector<IAmfValue^>,
+		public Windows::Foundation::IStringable
 	{
 	public:
 		AmfArray( void );
@@ -56,6 +57,9 @@ namespace Mntone { namespace Data { namespace Amf {
 		// IVector: bulk transfer methods
 		virtual uint32 GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfValue^>^ items );
 		virtual void ReplaceAll( const Platform::Array<IAmfValue^>^ items );
+
+		// IStringable
+		virtual Platform::String^ ToString( void );
 
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input );
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );
