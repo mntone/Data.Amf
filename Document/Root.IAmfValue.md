@@ -45,6 +45,5 @@ The **IAmfValue** class has these properties.
 Property |Access type|Description
 ---------|-----------|-----------
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
-Value    |Read-only  |Gets the Amf value in the object.
 
-##### Update date: Sep 13, 2013
+##### Update date: Sep 15, 2013

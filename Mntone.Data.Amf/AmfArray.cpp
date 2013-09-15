@@ -6,12 +6,12 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	AmfArray::AmfArray( void ) :
 		_ValueType( AmfValueType::Array ),
-		_Value( ref new Platform::Collections::Vector<IAmfValue^>( ) )
+		_vector( ref new Platform::Collections::Vector<IAmfValue^>( ) )
 	{ }
 
 	AmfArray::AmfArray( const std::vector<IAmfValue^>& data ) :
 		_ValueType( AmfValueType::Array ),
-		_Value( ref new Platform::Collections::Vector<IAmfValue^>( std::move( data ) ) )
+		_vector( ref new Platform::Collections::Vector<IAmfValue^>( std::move( data ) ) )
 	{ }
 
 	Platform::Array<uint8>^ AmfArray::Sequenceify( void )
@@ -33,36 +33,36 @@ namespace Mntone { namespace Data { namespace Amf {
 	AmfObject^ AmfArray::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 	AmfArray^ AmfArray::GetArray( void ) { return safe_cast<AmfArray^>( this ); }
 
-	bool AmfArray::GetBooleanAt( uint32 index ) { return Vector->GetAt( index )->GetBoolean(); }
-	float64 AmfArray::GetDoubleAt( uint32 index ) { return Vector->GetAt( index )->GetDouble(); }
-	int32 AmfArray::GetIntegerAt( uint32 index ) { return Vector->GetAt( index )->GetInteger(); }
-	Platform::String^ AmfArray::GetStringAt( uint32 index ) { return Vector->GetAt( index )->GetString(); }
-	uint16 AmfArray::GetReferenceAt( uint32 index ) { return Vector->GetAt( index )->GetReference(); }
-	Windows::Foundation::DateTime AmfArray::GetDateAt( uint32 index ) { return Vector->GetAt( index )->GetDate(); }
-	AmfObject^ AmfArray::GetObjectAt( uint32 index ) { return Vector->GetAt( index )->GetObject(); }
-	AmfArray^ AmfArray::GetArrayAt( uint32 index ) { return Vector->GetAt( index )->GetArray(); }
+	bool AmfArray::GetBooleanAt( uint32 index ) { return _vector->GetAt( index )->GetBoolean(); }
+	float64 AmfArray::GetDoubleAt( uint32 index ) { return _vector->GetAt( index )->GetDouble(); }
+	int32 AmfArray::GetIntegerAt( uint32 index ) { return _vector->GetAt( index )->GetInteger(); }
+	Platform::String^ AmfArray::GetStringAt( uint32 index ) { return _vector->GetAt( index )->GetString(); }
+	uint16 AmfArray::GetReferenceAt( uint32 index ) { return _vector->GetAt( index )->GetReference(); }
+	Windows::Foundation::DateTime AmfArray::GetDateAt( uint32 index ) { return _vector->GetAt( index )->GetDate(); }
+	AmfObject^ AmfArray::GetObjectAt( uint32 index ) { return _vector->GetAt( index )->GetObject(); }
+	AmfArray^ AmfArray::GetArrayAt( uint32 index ) { return _vector->GetAt( index )->GetArray(); }
 
-	Windows::Foundation::Collections::IIterator<IAmfValue^>^ AmfArray::First( void ) { return Vector->First(); }
+	Windows::Foundation::Collections::IIterator<IAmfValue^>^ AmfArray::First( void ) { return _vector->First(); }
 
-	IAmfValue^ AmfArray::GetAt( uint32 index ) { return Vector->GetAt( index ); }
-	Windows::Foundation::Collections::IVectorView<IAmfValue^>^ AmfArray::GetView( void ) { return Vector->GetView(); }
-	bool AmfArray::IndexOf( IAmfValue^ value, uint32 *index ) { return Vector->IndexOf( value, index ); }
+	IAmfValue^ AmfArray::GetAt( uint32 index ) { return _vector->GetAt( index ); }
+	Windows::Foundation::Collections::IVectorView<IAmfValue^>^ AmfArray::GetView( void ) { return _vector->GetView(); }
+	bool AmfArray::IndexOf( IAmfValue^ value, uint32 *index ) { return _vector->IndexOf( value, index ); }
 
-	void AmfArray::SetAt( uint32 index, IAmfValue^ value ) { Vector->SetAt( index, value ); }
-	void AmfArray::InsertAt( uint32 index, IAmfValue^ value ) { Vector->InsertAt( index, value ); }
-	void AmfArray::RemoveAt( uint32 index ) { Vector->RemoveAt( index ); }
-	void AmfArray::Append( IAmfValue^ value ) { Vector->Append( value ); }
-	void AmfArray::RemoveAtEnd( void ) { Vector->RemoveAtEnd(); }
-	void AmfArray::Clear( void ) { Vector->Clear(); }
+	void AmfArray::SetAt( uint32 index, IAmfValue^ value ) { _vector->SetAt( index, value ); }
+	void AmfArray::InsertAt( uint32 index, IAmfValue^ value ) { _vector->InsertAt( index, value ); }
+	void AmfArray::RemoveAt( uint32 index ) { _vector->RemoveAt( index ); }
+	void AmfArray::Append( IAmfValue^ value ) { _vector->Append( value ); }
+	void AmfArray::RemoveAtEnd( void ) { _vector->RemoveAtEnd(); }
+	void AmfArray::Clear( void ) { _vector->Clear(); }
 
-	uint32 AmfArray::GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfValue^>^ items ) { return Vector->GetMany( startIndex, items ); }
-	void AmfArray::ReplaceAll( const Platform::Array<IAmfValue^>^ items ) { Vector->ReplaceAll( items ); }
+	uint32 AmfArray::GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfValue^>^ items ) { return _vector->GetMany( startIndex, items ); }
+	void AmfArray::ReplaceAll( const Platform::Array<IAmfValue^>^ items ) { _vector->ReplaceAll( items ); }
 
 	Platform::String^ AmfArray::ToString( void )
 	{
 		std::wstringstream buf;
 		buf << '[';
-		for each( auto item in Vector )
+		for each( auto item in _vector )
 		{
 			auto out = item->ToString();
 			buf.write( out->Data(), out->Length() );

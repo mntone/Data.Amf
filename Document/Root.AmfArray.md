@@ -67,11 +67,12 @@ GetDateAt     |Gets the Date value at the specified index if the ValueType of th
 GetObjectAt   |Gets the Object value at the specified index if the ValueType of the value at that index is Object.
 GetArrayAt    |Gets the Array value at the specified index if the ValueType of the value at that index is Array.
 
-#### IIterable&lt;IAmfValue&gt; [C++]
+#### IIterable&lt;IAmfValue&gt; [C++] / IEnumerable&lt;IAmfValue&gt; [C#, VB]
 
-Method     |Description
------------|-----------
-First [C++]|Returns the iterator for iteration over the items in the array.
+Method                |Description
+----------------------|-----------
+First [C++]           |Returns the iterator for iteration over the items in the array.
+GetEnumerator [C#, VB]|Returns an enumerator that iterates through a collection.
 
 #### IVector&lt;IAmfValue&gt; [C++] / IList&lt;IAmfValue&gt; [C#, VB]
 
@@ -115,7 +116,6 @@ The **AmfArray** class has these properties.
 Property |Access type|Description
 ---------|-----------|-----------
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
-Value    |Read-only  |Gets the Amf value in the object.
 
 #### IVector&lt;IAmfValue&gt; [C++] / IList&lt;IAmfValue&gt; [C#, VB]
 
@@ -126,4 +126,4 @@ Count [C#, VB]     |Read-only  |Gets the number of elements contained in the col
 IsReadOnly [C#, VB]|Read-only  |Gets a value indicating whether the collection is read-only.
 Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 
-##### Update date: Sep 14, 2013
+##### Update date: Sep 15, 2013

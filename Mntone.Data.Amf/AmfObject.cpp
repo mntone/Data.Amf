@@ -6,12 +6,12 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	AmfObject::AmfObject( void ) :
 		_ValueType( AmfValueType::Object ),
-		_Value( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() )
+		_map( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() )
 	{ }
 
 	AmfObject::AmfObject( const std::map<Platform::String^, IAmfValue^>& data ) :
 		_ValueType( AmfValueType::Object ),
-		_Value( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( std::move( data ) ) )
+		_map( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( std::move( data ) ) )
 	{ }
 
 	Platform::Array<uint8>^ AmfObject::Sequenceify( void )
@@ -33,32 +33,32 @@ namespace Mntone { namespace Data { namespace Amf {
 	AmfObject^ AmfObject::GetObject( void ) { return safe_cast<AmfObject^>( this ); }
 	AmfArray^ AmfObject::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 
-	AmfValue^ AmfObject::GetNamedValue( Platform::String^ name ) { return safe_cast<AmfValue^>( Map->Lookup( name ) ); }
-	void AmfObject::SetNamedValue( Platform::String^ name, IAmfValue^ value ) { Map->Insert( name, value ); }
-	bool AmfObject::GetNamedBoolean( Platform::String^ name ) { return Map->Lookup( name )->GetBoolean(); }
-	float64 AmfObject::GetNamedDouble( Platform::String^ name ) { return Map->Lookup( name )->GetDouble(); }
-	int32 AmfObject::GetNamedInteger( Platform::String^ name ) { return Map->Lookup( name )->GetInteger(); }
-	Platform::String^ AmfObject::GetNamedString( Platform::String^ name ) { return Map->Lookup( name )->GetString(); }
-	uint16 AmfObject::GetNamedReference( Platform::String^ name ) { return Map->Lookup( name )->GetReference(); }
-	Windows::Foundation::DateTime AmfObject::GetNamedDate( Platform::String^ name ) { return Map->Lookup( name )->GetDate(); }
-	AmfObject^ AmfObject::GetNamedObject( Platform::String^ name ) { return Map->Lookup( name )->GetObject(); }
-	AmfArray^ AmfObject::GetNamedArray( Platform::String^ name ) { return Map->Lookup( name )->GetArray(); }
+	AmfValue^ AmfObject::GetNamedValue( Platform::String^ name ) { return safe_cast<AmfValue^>( _map->Lookup( name ) ); }
+	void AmfObject::SetNamedValue( Platform::String^ name, IAmfValue^ value ) { _map->Insert( name, value ); }
+	bool AmfObject::GetNamedBoolean( Platform::String^ name ) { return _map->Lookup( name )->GetBoolean(); }
+	float64 AmfObject::GetNamedDouble( Platform::String^ name ) { return _map->Lookup( name )->GetDouble(); }
+	int32 AmfObject::GetNamedInteger( Platform::String^ name ) { return _map->Lookup( name )->GetInteger(); }
+	Platform::String^ AmfObject::GetNamedString( Platform::String^ name ) { return _map->Lookup( name )->GetString(); }
+	uint16 AmfObject::GetNamedReference( Platform::String^ name ) { return _map->Lookup( name )->GetReference(); }
+	Windows::Foundation::DateTime AmfObject::GetNamedDate( Platform::String^ name ) { return _map->Lookup( name )->GetDate(); }
+	AmfObject^ AmfObject::GetNamedObject( Platform::String^ name ) { return _map->Lookup( name )->GetObject(); }
+	AmfArray^ AmfObject::GetNamedArray( Platform::String^ name ) { return _map->Lookup( name )->GetArray(); }
 
-	Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ AmfObject::First( void ) { return Map->First(); }
+	Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ AmfObject::First( void ) { return _map->First(); }
 
-	IAmfValue^ AmfObject::Lookup( Platform::String^ key ) { return Map->Lookup( key ); }
-	bool AmfObject::HasKey( Platform::String^ key ) { return Map->HasKey( key ); }
-	Windows::Foundation::Collections::IMapView<Platform::String^, IAmfValue^>^ AmfObject::GetView( void ) { return Map->GetView(); }
+	IAmfValue^ AmfObject::Lookup( Platform::String^ key ) { return _map->Lookup( key ); }
+	bool AmfObject::HasKey( Platform::String^ key ) { return _map->HasKey( key ); }
+	Windows::Foundation::Collections::IMapView<Platform::String^, IAmfValue^>^ AmfObject::GetView( void ) { return _map->GetView(); }
 
-	bool AmfObject::Insert( Platform::String^ key, IAmfValue^ value ) { return Map->Insert( key, value ); }
-	void AmfObject::Remove( Platform::String^ key ) { Map->Remove( key ); }
-	void AmfObject::Clear( void ) { Map->Clear(); }
+	bool AmfObject::Insert( Platform::String^ key, IAmfValue^ value ) { return _map->Insert( key, value ); }
+	void AmfObject::Remove( Platform::String^ key ) { _map->Remove( key ); }
+	void AmfObject::Clear( void ) { _map->Clear(); }
 
 	Platform::String^ AmfObject::ToString( void )
 	{
 		std::wstringstream buf;
 		buf << '{';
-		for each( auto item in Map )
+		for each( auto item in _map )
 		{
 			auto key = item->Key->ToString();
 			auto value = item->Value->ToString();

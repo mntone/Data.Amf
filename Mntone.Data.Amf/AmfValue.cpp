@@ -6,7 +6,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	AmfValue::AmfValue( void ):
 		_ValueType( AmfValueType::Null ),
-		_Value( nullptr )
+		_value( nullptr )
 	{ }
 
 	Platform::Array<uint8>^ AmfValue::Sequenceify( void )
@@ -19,22 +19,22 @@ namespace Mntone { namespace Data { namespace Amf {
 		throw ref new Platform::NotImplementedException();
 	}
 
-	bool AmfValue::GetBoolean( void ) { return safe_cast<bool>( _Value ); }
-	float64 AmfValue::GetDouble( void ) { return safe_cast<float64>( _Value ); }
-	int32 AmfValue::GetInteger( void ) { return safe_cast<int32>( _Value ); }
-	Platform::String^ AmfValue::GetString( void ) { return safe_cast<Platform::String^>( _Value ); }
-	uint16 AmfValue::GetReference( void ) { return safe_cast<uint16>( _Value ); }
-	Windows::Foundation::DateTime AmfValue::GetDate( void ) { return safe_cast<Windows::Foundation::DateTime>( _Value ); }
+	bool AmfValue::GetBoolean( void ) { return safe_cast<bool>( _value ); }
+	float64 AmfValue::GetDouble( void ) { return safe_cast<float64>( _value ); }
+	int32 AmfValue::GetInteger( void ) { return safe_cast<int32>( _value ); }
+	Platform::String^ AmfValue::GetString( void ) { return safe_cast<Platform::String^>( _value ); }
+	uint16 AmfValue::GetReference( void ) { return safe_cast<uint16>( _value ); }
+	Windows::Foundation::DateTime AmfValue::GetDate( void ) { return safe_cast<Windows::Foundation::DateTime>( _value ); }
 	AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 	AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 	
-	Platform::String^ AmfValue::ToString( void ) { return Value->ToString(); }
+	Platform::String^ AmfValue::ToString( void ) { return _value->ToString(); }
 
 	AmfValue^ AmfValue::CreateUndefinedValue( void )
 	{
 		auto out = ref new AmfValue();
 		out->_ValueType = AmfValueType::Undefined;
-		out->_Value = nullptr;
+		out->_value = nullptr;
 		return out;
 	}
 
@@ -42,7 +42,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		auto out = ref new AmfValue();
 		out->_ValueType = AmfValueType::Boolean;
-		out->_Value = input;
+		out->_value = input;
 		return out;
 	}
 
@@ -50,7 +50,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		auto out = ref new AmfValue();
 		out->_ValueType = AmfValueType::Double;
-		out->_Value = input;
+		out->_value = input;
 		return out;
 	}
 
@@ -58,7 +58,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		auto out = ref new AmfValue();
 		out->_ValueType = AmfValueType::Integer;
-		out->_Value = input;
+		out->_value = input;
 		return out;
 	}
 
@@ -66,7 +66,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		auto out = ref new AmfValue();
 		out->_ValueType = AmfValueType::String;
-		out->_Value = input;
+		out->_value = input;
 		return out;
 	}
 
@@ -74,7 +74,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		auto out = ref new AmfValue();
 		out->_ValueType = AmfValueType::Reference;
-		out->_Value = input;
+		out->_value = input;
 		return out;
 	}
 
@@ -82,7 +82,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		auto out = ref new AmfValue();
 		out->_ValueType = AmfValueType::Date;
-		out->_Value = input;
+		out->_value = input;
 		return out;
 	}
 
@@ -90,7 +90,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		auto out = ref new AmfValue();
 		out->_ValueType = AmfValueType::Xml;
-		out->_Value = input;
+		out->_value = input;
 		return out;
 	}
 

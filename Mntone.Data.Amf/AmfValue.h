@@ -50,14 +50,10 @@ namespace Mntone { namespace Data { namespace Amf {
 		{
 			virtual AmfValueType get( void ) { return _ValueType; }
 		}
-		property Platform::Object^ Value
-		{
-			virtual Platform::Object^ get( void ) { return _Value; }
-		}
 
 	private:
 		AmfValueType _ValueType;
-		Platform::Object^ _Value;
+		Platform::Object^ _value;
 	};
 
 } } }

@@ -7,6 +7,7 @@
     <ClCompile Include="AmfObject.cpp" />
     <ClCompile Include="AmfValue.cpp" />
     <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="Amf0Sequencer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -22,5 +23,6 @@
     <ClInclude Include="IAmfArray.h" />
     <ClInclude Include="IAmfObject.h" />
     <ClInclude Include="IAmfValue.h" />
+    <ClInclude Include="Amf0Sequencer.h" />
   </ItemGroup>
 </Project>

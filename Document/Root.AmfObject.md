@@ -69,11 +69,12 @@ GetNamedDate     |Gets the Date value with the specified name, or nullptr if no 
 GetNamedObject   |Gets the Object value with the specified name, or nullptr if no such named value is found.
 GetNamedArray    |Gets the Array value with the specified name, or nullptr if no such named value is found.
 
-#### IIterable&lt;IKeyValuePair&lt;String, IAmfValue&gt;&gt; [C++]
+#### IIterable&lt;IKeyValuePair&lt;String, IAmfValue&gt;&gt; [C++], IEnumerator&lt;IKeyValuePair&lt;String, IAmfValue&gt;&gt; [C#, VB]
 
-Method     |Description
------------|-----------
-First [C++]|Returns the iterator for iteration over the key/value pairs in the JsonValue object.
+Method                |Description
+----------------------|-----------
+First [C++]           |Returns the iterator for iteration over the key/value pairs in the JsonObject.
+GetEnumerator [C#, VB]|Returns an enumerator that iterates through a collection.
 
 #### IMap&lt;String, IAmfValue&gt; [C++] / IDictionary&lt;String, IAmfValue&gt; [C#, VB]
 
@@ -115,7 +116,6 @@ The **AmfObject** class has these properties.
 Property |Access type|Description
 ---------|-----------|-----------
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
-Value    |Read-only  |Gets the Amf value in the object.
 
 #### IMap&lt;String, IAmfValue&gt; [C++] / IDictionary&lt;String, IAmfValue&gt; [C#, VB]
 
@@ -128,4 +128,4 @@ Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 Keys [C#, VB]      |Read-only  |Gets an ICollection object containing the keys of the AmfObject.
 Values [C#, VB]    |Read-only  |Gets an ICollection object containing the values of the AmfObject.
 
-##### Update date: Sep 14, 2013
+##### Update date: Sep 15, 2013

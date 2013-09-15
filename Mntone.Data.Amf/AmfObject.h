@@ -77,29 +77,16 @@ namespace Mntone { namespace Data { namespace Amf {
 		{
 			virtual AmfValueType get( void ) { return _ValueType; }
 		}
-		property Platform::Object^ Value
-		{
-			virtual Platform::Object^ get( void ) { return _Value; }
-		}
 
 		// IMap
 		property uint32 Size
 		{
-			virtual uint32 get( void ) { return Map->Size; }
-		}
-
-	internal:
-		property Platform::Collections::Map<Platform::String^, IAmfValue^>^ Map
-		{
-			Platform::Collections::Map<Platform::String^, IAmfValue^>^ get( void )
-			{
-				return safe_cast<Platform::Collections::Map<Platform::String^, IAmfValue^>^>( _Value );
-			}
+			virtual uint32 get( void ) { return _map->Size; }
 		}
 
 	private:
 		AmfValueType _ValueType;
-		Platform::Object^ _Value;
+		Platform::Collections::Map<Platform::String^, IAmfValue^>^ _map;
 
 		Platform::String^ _ClassName;
 	};

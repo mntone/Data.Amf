@@ -230,6 +230,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Amf0Parser.h" />
+    <ClInclude Include="Amf0Sequencer.h" />
     <ClInclude Include="amf0_type.h" />
     <ClInclude Include="amf3_type.h" />
     <ClInclude Include="AmfArray.h" />
@@ -245,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Amf0Parser.cpp" />
+    <ClCompile Include="Amf0Sequencer.cpp" />
     <ClCompile Include="AmfArray.cpp" />
     <ClCompile Include="AmfObject.cpp" />
     <ClCompile Include="AmfValue.cpp" />

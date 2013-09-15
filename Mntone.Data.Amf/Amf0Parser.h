@@ -4,26 +4,18 @@
 
 namespace Mntone { namespace Data { namespace Amf {
 
+#if _DEBUG
 	[Windows::Foundation::Metadata::WebHostHidden]
-#if _DEBUG
-	public
-#endif
+	public ref class Amf0Parser sealed
+#else
 	ref class Amf0Parser
-#if _DEBUG
-	sealed
 #endif
 	{
-#if _DEBUG
 	public:
-#else
-	internal:
-#endif
 		static IAmfValue^ Parse( const Platform::Array<uint8>^ input );
 		static bool TryParse( const Platform::Array<uint8>^ input, IAmfValue^* result );
 
-#if _DEBUG
 	internal:
-#endif
 		static IAmfValue^ ParseValue( uint8 *& input, uint32& length );
 
 		static IAmfValue^ ParseNumber( uint8 *& input, uint32& length );

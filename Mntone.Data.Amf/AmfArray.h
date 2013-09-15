@@ -75,26 +75,16 @@ namespace Mntone { namespace Data { namespace Amf {
 		{
 			virtual AmfValueType get( void ) { return _ValueType; }
 		}
-		property Platform::Object^ Value
-		{
-			virtual Platform::Object^ get( void ) { return _Value; }
-		}
 
 		// IVector
 		property uint32 Size
 		{
-			virtual uint32 get( void ) { return Vector->Size; }
-		}
-
-	internal:
-		property Platform::Collections::Vector<IAmfValue^>^ Vector
-		{
-			Platform::Collections::Vector<IAmfValue^>^ get( void ) { return safe_cast<Platform::Collections::Vector<IAmfValue^>^>( _Value ); }
+			virtual uint32 get( void ) { return _vector->Size; }
 		}
 
 	private:
 		AmfValueType _ValueType;
-		Platform::Object^ _Value;
+		Platform::Collections::Vector<IAmfValue^>^ _vector;
 	};
 
 } } }
