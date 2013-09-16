@@ -59,7 +59,7 @@ namespace Mntone { namespace Data { namespace Amf {
 			throw ref new Platform::FailureException( "Invalid number." );
 
 		float64 data;
-		ConvertFromBigEndian( input, &data, 8 );
+		ConvertBigEndian( input, &data, 8 );
 		input += 8;
 		length -= 8;
 
@@ -94,7 +94,7 @@ namespace Mntone { namespace Data { namespace Amf {
 			throw ref new Platform::FailureException( "Invalid reference." );
 
 		uint16 data;
-		ConvertFromBigEndian( input, &data, 2 );
+		ConvertBigEndian( input, &data, 2 );
 		input += 2;
 		length -= 2;
 
@@ -107,7 +107,7 @@ namespace Mntone { namespace Data { namespace Amf {
 			throw ref new Platform::FailureException( "Invalid strictArray." );
 
 		uint32 count;
-		ConvertFromBigEndian( input, &count, 4 );
+		ConvertBigEndian( input, &count, 4 );
 		input += 4;
 		length -= 4;
 
@@ -124,7 +124,7 @@ namespace Mntone { namespace Data { namespace Amf {
 			throw ref new Platform::FailureException( "Invalid date." );
 
 		float64 data;
-		ConvertFromBigEndian( input, &data, 8 );
+		ConvertBigEndian( input, &data, 8 );
 		input += 10;
 		length -= 10;
 
@@ -152,7 +152,7 @@ namespace Mntone { namespace Data { namespace Amf {
 			throw ref new Platform::FailureException( "Invalid string." );
 
 		uint32 textLength( 0 );
-		ConvertFromBigEndian( input, &textLength, 2 );
+		ConvertBigEndian( input, &textLength, 2 );
 		input += 2;
 		length -= 2;
 
@@ -165,7 +165,7 @@ namespace Mntone { namespace Data { namespace Amf {
 			throw ref new Platform::FailureException( "Invalid string." );
 
 		uint32 textLength( 0 );
-		ConvertFromBigEndian( input, &textLength, 4 );
+		ConvertBigEndian( input, &textLength, 4 );
 		input += 4;
 		length -= 4;
 
@@ -220,7 +220,7 @@ namespace Mntone { namespace Data { namespace Amf {
 			throw ref new Platform::FailureException( "Invalid ecmaArray." );
 
 		uint32 count( 0 );
-		ConvertFromBigEndian( input, &count, 4 );
+		ConvertBigEndian( input, &count, 4 );
 		input += 4;
 		length -= 4;
 

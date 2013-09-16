@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AmfValue.h"
 #include "Amf0Parser.h"
+#include "Amf0Sequencer.h"
 
 namespace Mntone { namespace Data { namespace Amf {
 
@@ -16,6 +17,9 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	Platform::Array<uint8>^ AmfValue::Sequenceify( AmfEncodingType type )
 	{
+		if( type == AmfEncodingType::Amf0 )
+			return Amf0Sequencer::Sequenceify( this );
+
 		throw ref new Platform::NotImplementedException();
 	}
 
@@ -28,7 +32,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 	AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 	
-	Platform::String^ AmfValue::ToString( void ) { return _value->ToString(); }
+	//Platform::String^ AmfValue::ToString( void ) { return _value->ToString(); }
 
 	AmfValue^ AmfValue::CreateUndefinedValue( void )
 	{
@@ -109,7 +113,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		throw ref new Platform::NotImplementedException();
 	}
 
-	bool AmfValue::TryParse( const Platform::Array<uint8>^ input, AmfValue^* result )
+	bool AmfValue::TryParse( const Platform::Array<uint8>^ /*input*/, AmfValue^* /*result*/ )
 	{
 		//IAmfValue^ buf = *result;
 		//return Amf3Parser::TryParse( input, &buf );

@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 
 namespace Mntone { namespace Data { namespace Amf {
 

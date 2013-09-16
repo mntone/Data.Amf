@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "IAmfValue.h"
 
 namespace Mntone { namespace Data { namespace Amf {
@@ -7,11 +6,13 @@ namespace Mntone { namespace Data { namespace Amf {
 #if _DEBUG
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class Amf0Sequencer sealed
-#else
-	ref class Amf0Sequencer
-#endif
 	{
 	public:
+#else
+	ref class Amf0Sequencer sealed
+	{
+	internal:
+#endif
 		static Platform::Array<uint8>^ Sequenceify( IAmfValue^ input );
 
 	internal:

@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "IAmfObject.h"
 
 namespace Mntone { namespace Data { namespace Amf {
@@ -10,8 +9,8 @@ namespace Mntone { namespace Data { namespace Amf {
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class AmfObject sealed:
 		public IAmfObject,
-		public Windows::Foundation::Collections::IMap<Platform::String^, IAmfValue^>,
-		public Windows::Foundation::IStringable
+		public Windows::Foundation::Collections::IMap<Platform::String^, IAmfValue^>
+		//public Windows::Foundation::IStringable
 	{
 	public:
 		AmfObject( void );
@@ -54,7 +53,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual void Clear( void );
 
 		// IStringable
-		virtual Platform::String^ ToString( void );
+		//virtual Platform::String^ ToString( void );
 
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input );
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );

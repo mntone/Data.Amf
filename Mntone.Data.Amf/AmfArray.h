@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "IAmfArray.h"
 
 namespace Mntone { namespace Data { namespace Amf {
@@ -10,8 +9,8 @@ namespace Mntone { namespace Data { namespace Amf {
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class AmfArray sealed:
 		public IAmfArray,
-		public Windows::Foundation::Collections::IVector<IAmfValue^>,
-		public Windows::Foundation::IStringable
+		public Windows::Foundation::Collections::IVector<IAmfValue^>
+		//public Windows::Foundation::IStringable
 	{
 	public:
 		AmfArray( void );
@@ -59,7 +58,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual void ReplaceAll( const Platform::Array<IAmfValue^>^ items );
 
 		// IStringable
-		virtual Platform::String^ ToString( void );
+		//virtual Platform::String^ ToString( void );
 
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input );
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );

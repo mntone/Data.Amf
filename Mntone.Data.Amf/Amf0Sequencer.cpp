@@ -58,7 +58,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		auto data = input->GetDouble();
 		uint8 buf[8];
-		ConvertToBigEndian( &data, buf, 8 );
+		ConvertBigEndian( &data, buf, 8 );
 		stream.write( buf, 8 );
 	}
 
@@ -68,7 +68,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		auto data = static_cast<float64>( input->GetDouble() );
 		uint8 buf[8];
-		ConvertToBigEndian( &data, buf, 8 );
+		ConvertBigEndian( &data, buf, 8 );
 		stream.write( buf, 8 );
 	}
 
@@ -93,7 +93,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		auto data = input->GetReference();
 		uint8 buf[2];
-		ConvertToBigEndian( &data, buf, 2 );
+		ConvertBigEndian( &data, buf, 2 );
 		stream.write( buf, 2 );
 	}
 
@@ -103,7 +103,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		auto data = static_cast<float64>( DateTimeToUnixTime( input->GetDate() ) );
 		uint8 buf[10];
-		ConvertToBigEndian( &data, buf, 8 );
+		ConvertBigEndian( &data, buf, 8 );
 
 		// Set to timezone 0x0000
 		buf[8] = 0;
@@ -149,7 +149,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		auto size = vec->Size;
 
 		uint8 buf[4];
-		ConvertToBigEndian( &size, buf, 4 );
+		ConvertBigEndian( &size, buf, 4 );
 		stream.write( buf, 4 );
 
 		for each( auto item in vec )
@@ -161,7 +161,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		uint16 length = static_cast<uint16>( input.length() );
 
 		uint8 buf[2];
-		ConvertToBigEndian( &length, buf, 2 );
+		ConvertBigEndian( &length, buf, 2 );
 		stream.write( buf, 2 );
 
 		if( length == 0 )
@@ -188,7 +188,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		uint32 length = static_cast<uint32>( input.length() );
 
 		uint8 buf[4];
-		ConvertToBigEndian( &length, buf, 4 );
+		ConvertBigEndian( &length, buf, 4 );
 		stream.write( buf, 4 );
 
 		stream.write( reinterpret_cast<const uint8 *>( input.c_str() ), input.length() );

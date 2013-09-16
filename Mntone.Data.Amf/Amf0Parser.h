@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "IAmfValue.h"
 
 namespace Mntone { namespace Data { namespace Amf {
@@ -7,11 +6,13 @@ namespace Mntone { namespace Data { namespace Amf {
 #if _DEBUG
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class Amf0Parser sealed
-#else
-	ref class Amf0Parser
-#endif
 	{
 	public:
+#else
+	ref class Amf0Parser sealed
+	{
+	internal:
+#endif
 		static IAmfValue^ Parse( const Platform::Array<uint8>^ input );
 		static bool TryParse( const Platform::Array<uint8>^ input, IAmfValue^* result );
 

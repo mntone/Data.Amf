@@ -1,5 +1,4 @@
 #pragma once
-#include "pch.h"
 #include "AmfEncodingType.h"
 #include "AmfValueType.h"
 

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AmfObject.h"
 #include "Amf0Parser.h"
+#include "Amf0Sequencer.h"
 
 namespace Mntone { namespace Data { namespace Amf {
 
@@ -21,6 +22,9 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	Platform::Array<uint8>^ AmfObject::Sequenceify( AmfEncodingType type )
 	{
+		if( type == AmfEncodingType::Amf0 )
+			return Amf0Sequencer::Sequenceify( this );
+
 		throw ref new Platform::NotImplementedException();
 	}
 
@@ -54,22 +58,22 @@ namespace Mntone { namespace Data { namespace Amf {
 	void AmfObject::Remove( Platform::String^ key ) { _map->Remove( key ); }
 	void AmfObject::Clear( void ) { _map->Clear(); }
 
-	Platform::String^ AmfObject::ToString( void )
-	{
-		std::wstringstream buf;
-		buf << '{';
-		for each( auto item in _map )
-		{
-			auto key = item->Key->ToString();
-			auto value = item->Value->ToString();
-			buf.write( key->Data(), key->Length() );
-			buf.write( L": ", 2 );
-			buf.write( value->Data(), value->Length() );
-			buf.write( L", ", 2 );
-		}
-		buf << '}';
-		return ref new Platform::String( buf.str().c_str() );
-	}
+	//Platform::String^ AmfObject::ToString( void )
+	//{
+	//	std::wstringstream buf;
+	//	buf << '{';
+	//	for each( auto item in _map )
+	//	{
+	//		auto key = item->Key->ToString();
+	//		auto value = item->Value->ToString();
+	//		buf.write( key->Data(), key->Length() );
+	//		buf.write( L": ", 2 );
+	//		buf.write( value->Data(), value->Length() );
+	//		buf.write( L", ", 2 );
+	//	}
+	//	buf << '}';
+	//	return ref new Platform::String( buf.str().c_str() );
+	//}
 
 	AmfObject^ AmfObject::Parse( const Platform::Array<uint8>^ input )
 	{
@@ -86,7 +90,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		throw ref new Platform::NotImplementedException();
 	}
 
-	bool AmfObject::TryParse( const Platform::Array<uint8>^ input, AmfObject^* result )
+	bool AmfObject::TryParse( const Platform::Array<uint8>^ /*input*/, AmfObject^* /*result*/ )
 	{
 		//IAmfValue^ buf = *result;
 		//return Amf3Parser::TryParse( input, &buf );

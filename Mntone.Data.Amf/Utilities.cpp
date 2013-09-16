@@ -3,32 +3,13 @@
 
 namespace Mntone { namespace Data { namespace Amf {
 
-	void ConvertFromBigEndian( const void *const from, void *const to, const size_t size )
+	void ConvertBigEndian( const void *const from, void *const to, const size_t size )
 	{
 		auto const from_ptr = reinterpret_cast<const uint8 *>( from );
 		auto const to_ptr = reinterpret_cast<uint8 *>( to );
 
 		for( auto i = 0u; i < size; ++i )
 			to_ptr[i] = from_ptr[size - i - 1];
-	}
-
-	void ConvertFromLittleEndian( const void *const from, void *const to, const size_t size )
-	{
-		memcpy( to, from, size );
-	}
-
-	void ConvertToBigEndian( const void *const from, void *const to, const size_t size )
-	{
-		auto const from_ptr = reinterpret_cast<const uint8 *>( from );
-		auto const to_ptr = reinterpret_cast<uint8 *>( to );
-
-		for( auto i = 0u; i < size; ++i )
-			to_ptr[i] = from_ptr[size - i - 1];
-	}
-
-	void ConvertToLittleEndian( const void *const from, void *const to, const size_t size )
-	{
-		memcpy( to, from, size );
 	}
 
 	Platform::String^ CharUtf8ToPlatformString( const std::string& charUtf8 )
