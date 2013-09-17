@@ -62,19 +62,19 @@ namespace Mntone { namespace Data { namespace Amf {
 	uint32 AmfArray::GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfValue^>^ items ) { return _vector->GetMany( startIndex, items ); }
 	void AmfArray::ReplaceAll( const Platform::Array<IAmfValue^>^ items ) { _vector->ReplaceAll( items ); }
 
-	//Platform::String^ AmfArray::ToString( void )
-	//{
-	//	std::wstringstream buf;
-	//	buf << '[';
-	//	for each( auto item in _vector )
-	//	{
-	//		auto out = item->ToString();
-	//		buf.write( out->Data(), out->Length() );
-	//		buf.write( L", ", 2 );
-	//	}
-	//	buf << ']';
-	//	return ref new Platform::String( buf.str().c_str() );
-	//}
+	Platform::String^ AmfArray::ToString( void )
+	{
+		std::wstringstream buf;
+		buf << '[';
+		for each( auto item in _vector )
+		{
+			auto out = item->ToString();
+			buf.write( out->Data(), out->Length() );
+			buf.write( L", ", 2 );
+		}
+		buf << ']';
+		return ref new Platform::String( buf.str().c_str() );
+	}
 
 	AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input )
 	{

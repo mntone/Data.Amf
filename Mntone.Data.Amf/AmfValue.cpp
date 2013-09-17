@@ -32,7 +32,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 	AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 	
-	//Platform::String^ AmfValue::ToString( void ) { return _value->ToString(); }
+	Platform::String^ AmfValue::ToString( void ) { return _value->ToString(); }
 
 	AmfValue^ AmfValue::CreateUndefinedValue( void )
 	{

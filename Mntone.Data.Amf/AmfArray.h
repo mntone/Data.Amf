@@ -10,7 +10,6 @@ namespace Mntone { namespace Data { namespace Amf {
 	public ref class AmfArray sealed:
 		public IAmfArray,
 		public Windows::Foundation::Collections::IVector<IAmfValue^>
-		//public Windows::Foundation::IStringable
 	{
 	public:
 		AmfArray( void );
@@ -58,7 +57,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual void ReplaceAll( const Platform::Array<IAmfValue^>^ items );
 
 		// IStringable
-		//virtual Platform::String^ ToString( void );
+		virtual Platform::String^ ToString( void ) override sealed;
 
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input );
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );

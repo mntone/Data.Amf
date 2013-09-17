@@ -9,7 +9,6 @@ namespace Mntone { namespace Data { namespace Amf {
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class AmfValue sealed:
 		public IAmfValue
-		//public Windows::Foundation::IStringable
 	{
 	public:
 		AmfValue( void );
@@ -27,7 +26,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfArray^ GetArray( void );
 
 		// IStringable
-		//virtual Platform::String^ ToString( void );
+		virtual Platform::String^ ToString( void ) override sealed;
 
 		static AmfValue^ CreateUndefinedValue( void );
 		static AmfValue^ CreateBooleanValue( bool input );

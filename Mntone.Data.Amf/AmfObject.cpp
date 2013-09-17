@@ -58,22 +58,23 @@ namespace Mntone { namespace Data { namespace Amf {
 	void AmfObject::Remove( Platform::String^ key ) { _map->Remove( key ); }
 	void AmfObject::Clear( void ) { _map->Clear(); }
 
-	//Platform::String^ AmfObject::ToString( void )
-	//{
-	//	std::wstringstream buf;
-	//	buf << '{';
-	//	for each( auto item in _map )
-	//	{
-	//		auto key = item->Key->ToString();
-	//		auto value = item->Value->ToString();
-	//		buf.write( key->Data(), key->Length() );
-	//		buf.write( L": ", 2 );
-	//		buf.write( value->Data(), value->Length() );
-	//		buf.write( L", ", 2 );
-	//	}
-	//	buf << '}';
-	//	return ref new Platform::String( buf.str().c_str() );
-	//}
+	Platform::String^ AmfObject::ToString( void )
+	{
+		std::wstringstream buf;
+		buf << '{';
+		for each( auto item in _map )
+		{
+			auto key = item->Key->ToString();
+			auto value = item->Value->ToString();
+			buf.put( L'"' );
+			buf.write( key->Data(), key->Length() );
+			buf.write( L"\": ", 3 );
+			buf.write( value->Data(), value->Length() );
+			buf.write( L", ", 2 );
+		}
+		buf << '}';
+		return ref new Platform::String( buf.str().c_str() );
+	}
 
 	AmfObject^ AmfObject::Parse( const Platform::Array<uint8>^ input )
 	{
