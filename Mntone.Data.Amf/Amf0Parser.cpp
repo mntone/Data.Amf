@@ -115,7 +115,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		for( auto i = 0u; i < count; ++i )
 			data.emplace_back( ParseValue( input, length ) );
 
-		return ref new AmfArray( data );
+		return ref new AmfArray( std::move( data ) );
 	}
 
 	IAmfValue^ Amf0Parser::ParseDate( uint8 *& input, uint32& length )
@@ -210,7 +210,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		input += 3;
 		length -= 3;
 
-		return ref new AmfObject( data );
+		return ref new AmfObject( std::move( data ) );
 	}
 
 	IAmfValue^ Amf0Parser::ParseEcmaArray( uint8 *& input, uint32& length )
@@ -234,7 +234,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		input += 3;
 		length -= 3;
 
-		return ref new AmfObject( data );
+		return ref new AmfObject( std::move( data ) );
 	}
 
 	IAmfValue^ Amf0Parser::ParseTypedObject( uint8 *& input, uint32& length )
@@ -255,7 +255,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		input += 3;
 		length -= 3;
 
-		auto obj = ref new AmfObject( data );
+		auto obj = ref new AmfObject( std::move( data ) );
 		obj->ClassName = className;
 		return obj;
 	}

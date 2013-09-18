@@ -10,7 +10,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		_vector( ref new Platform::Collections::Vector<IAmfValue^>( ) )
 	{ }
 
-	AmfArray::AmfArray( const std::vector<IAmfValue^>& data ) :
+	AmfArray::AmfArray( std::vector<IAmfValue^>&& data ) :
 		_ValueType( AmfValueType::Array ),
 		_vector( ref new Platform::Collections::Vector<IAmfValue^>( std::move( data ) ) )
 	{ }

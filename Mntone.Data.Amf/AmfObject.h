@@ -60,7 +60,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static bool TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfObject^* result );
 
 	internal:
-		AmfObject( const std::map<Platform::String^, IAmfValue^>& data );
+		AmfObject( std::map<Platform::String^, IAmfValue^>&& data );
 
 	public:
 		property Platform::String^ ClassName
