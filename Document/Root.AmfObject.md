@@ -1,18 +1,18 @@
 # AmfObject class
-Represents a AmfObject containing a array of name and **IAmfValue** pairs.
+Represents a AmfObject containing a array of name and **[IAmfValue](Root.IAmfValue.md)** pairs.
 
-A **AmfObject** inherits the **IAmfObject**, **IAmfValue**, **IMap&lt;IAmfValue&gt;**, **IIterable&lt;IKeyValuePair&lt;String,IAmfValue&gt;&gt;** and IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents. When these are values with duplicated names, the last name/value pair will be stored.
+A **AmfObject** inherits the **[IAmfObject](Root.IAmfObject.md)**, **[IAmfValue](Root.IAmfValue.md)**, **IMap&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, **IIterable&lt;IKeyValuePair&lt;String,[IAmfValue](Root.IAmfValue.md)&gt;&gt;** and IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents. When these are values with duplicated names, the last name/value pair will be stored.
 
 ## Syntax
 
 ### C＃
-public sealed class AmfArray : IAmfArray, IAmfValue, IDictionary&lt;String, IAmfValue&gt;, IEnumerable&lt;KeyValuePair&lt;String, IAmfValue&gt;&gt;, IStringable
+public sealed class AmfObject : [IAmfObject](Root.IAmfObject.md), [IAmfValue](Root.IAmfValue.md), IDictionary&lt;String, [IAmfValue](Root.IAmfValue.md)&gt;, IEnumerable&lt;KeyValuePair&lt;String, [IAmfValue](Root.IAmfValue.md)&gt;&gt;, IStringable
 
 ### C++
-public ref calss AmfArray sealed : public IAmfArray, public IAmfValue, public IMap&lt;String, IAmfValue&gt;, public IIterable&lt;IKeyValuePair&lt;String, IAmfValue&gt;&gt;, public IStringable
+public ref calss AmfObject sealed : public [IAmfObject](Root.IAmfObject.md), public [IAmfValue](Root.IAmfValue.md), public IMap&lt;String, [IAmfValue](Root.IAmfValue.md)&gt;, public IIterable&lt;IKeyValuePair&lt;String, [IAmfValue](Root.IAmfValue.md)&gt;&gt;, public IStringable
 
 ### VB
-Public NotInheritable Class AmfArray Implements IAmfValue, IDictionary(Of String, IAmfValue), IEnumerable(Of KeyValuePair(Of String, IAmfValue)), IStringable
+Public NotInheritable Class AmfObject Implements [IAmfObject](Root.IAmfObject.md), [IAmfValue](Root.IAmfValue.md), IDictionary(Of String, IAmfValue), IEnumerable(Of KeyValuePair(Of String, [IAmfValue](Root.IAmfValue.md))), IStringable
 
 ## Attributes
 
@@ -40,7 +40,7 @@ AmfArray   |Creates a new AmfObject object that represents a AmfObject.
 ### Methods
 The **AmfObject** class has these methods. It also inherits methods from the **Object** class.
 
-#### IAmfValue
+#### [IAmfValue](Root.IAmfValue.md)
 
 Method      |Description
 ------------|-----------
@@ -54,7 +54,7 @@ GetDate     |Gets the Date if the ValueType of the encapsulated value is Date.
 GetObject   |Gets the Object if the ValueType of the encapsulated value is Object.
 GetArray    |Gets the Array if the ValueType of the encapsulated value is Array.
 
-#### IAmfObject
+#### [IAmfObject](Root.IAmfObject.md)
 
 Method           |Description
 -----------------|-----------
@@ -69,14 +69,14 @@ GetNamedDate     |Gets the Date value with the specified name, or nullptr if no 
 GetNamedObject   |Gets the Object value with the specified name, or nullptr if no such named value is found.
 GetNamedArray    |Gets the Array value with the specified name, or nullptr if no such named value is found.
 
-#### IIterable&lt;IKeyValuePair&lt;String, IAmfValue&gt;&gt; [C++], IEnumerator&lt;IKeyValuePair&lt;String, IAmfValue&gt;&gt; [C#, VB]
+#### IIterable&lt;IKeyValuePair&lt;String, [IAmfValue](Root.IAmfValue.md)&gt;&gt; [C++], IEnumerator&lt;IKeyValuePair&lt;String, [IAmfValue](Root.IAmfValue.md)&gt;&gt; [C#, VB]
 
 Method                |Description
 ----------------------|-----------
 First [C++]           |Returns the iterator for iteration over the key/value pairs in the JsonObject.
 GetEnumerator [C#, VB]|Returns an enumerator that iterates through a collection.
 
-#### IMap&lt;String, IAmfValue&gt; [C++] / IDictionary&lt;String, IAmfValue&gt; [C#, VB]
+#### IMap&lt;String, [IAmfValue](Root.IAmfValue.md)&gt; [C++] / IDictionary&lt;String, [IAmfValue](Root.IAmfValue.md)&gt; [C#, VB]
 
 Method                       |Description
 -----------------------------|-----------
@@ -111,13 +111,13 @@ TryParse|Parses the specified Amf object into a AmfObject.
 ### Properties
 The **AmfObject** class has these properties.
 
-#### IAmfValue
+#### [IAmfValue](Root.IAmfValue.md)
 
 Property |Access type|Description
 ---------|-----------|-----------
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
 
-#### IMap&lt;String, IAmfValue&gt; [C++] / IDictionary&lt;String, IAmfValue&gt; [C#, VB]
+#### IMap&lt;String, [IAmfValue](Root.IAmfValue.md)&gt; [C++] / IDictionary&lt;String, [IAmfValue](Root.IAmfValue.md)&gt; [C#, VB]
 
 Property           |Access type|Description
 -------------------|-----------|-----------
@@ -128,4 +128,4 @@ Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 Keys [C#, VB]      |Read-only  |Gets an ICollection object containing the keys of the AmfObject.
 Values [C#, VB]    |Read-only  |Gets an ICollection object containing the values of the AmfObject.
 
-##### Update date: Sep 15, 2013
+##### Update date: Sep 20, 2013

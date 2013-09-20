@@ -1,18 +1,18 @@
-# AmfValue class
-Represents a AmfArray containing a array of **IAmfValue**.
+# AmfArray class
+Represents a AmfArray containing a array of **[IAmfValue](Root.IAmfValue.md)**.
 
-A **AmfArray** inherits the **IAmfArray**, **IAmfValue**, **IVector&lt;IAmfValue&gt;**, **IIterable&lt;IAmfValue&gt;**, IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents.
+A **AmfArray** inherits the **[IAmfArray](Root.IAmfArray.md)**, **[IAmfValue](Root.IAmfValue.md)**, **IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, **IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents.
 
 ## Syntax
 
 ### C＃
-public sealed class AmfArray : IAmfArray, IAmfValue, IList&lt;IAmfValue&gt;, IEnumerable&lt;IAmfValue&gt;, IStringable
+public sealed class AmfArray : [IAmfArray](Root.IAmfArray.md), [IAmfValue](Root.IAmfValue.md), IList&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IEnumerable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IStringable
 
 ### C++
-public ref calss AmfArray sealed : public IAmfArray, public IAmfValue, public IVector&lt;IAmfValue&gt;, public IIterable&lt;IAmfValue&gt;, public IStringable
+public ref calss AmfArray sealed : public [IAmfArray](Root.IAmfArray.md), public [IAmfValue](Root.IAmfValue.md), public IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IStringable
 
 ### VB
-Public NotInheritable Class AmfArray Implements IAmfValue, IList(Of IAmfValue), IEnumerable(Of IAmfValue), IStringable
+Public NotInheritable Class AmfArray Implements [IAmfArray](Root.IAmfArray.md), [IAmfValue](Root.IAmfValue.md), IList(Of [IAmfValue](Root.IAmfValue.md)), IEnumerable(Of [IAmfValue](Root.IAmfValue.md)), IStringable
 
 ## Attributes
 
@@ -40,7 +40,7 @@ AmfArray   |Creates a new AmfArray object that represents a AmfArray.
 ### Methods
 The **AmfArray** class has these methods. It also inherits methods from the **Object** class.
 
-#### IAmfValue
+#### [IAmfValue](Root.IAmfValue.md)
 
 Method      |Description
 ------------|-----------
@@ -54,7 +54,7 @@ GetDate     |Gets the Date if the ValueType of the encapsulated value is Date.
 GetObject   |Gets the Object if the ValueType of the encapsulated value is Object.
 GetArray    |Gets the Array if the ValueType of the encapsulated value is Array.
 
-#### IAmfArray
+#### [IAmfArray](Root.IAmfArray.md)
 
 Method        |Description
 --------------|-----------
@@ -67,14 +67,14 @@ GetDateAt     |Gets the Date value at the specified index if the ValueType of th
 GetObjectAt   |Gets the Object value at the specified index if the ValueType of the value at that index is Object.
 GetArrayAt    |Gets the Array value at the specified index if the ValueType of the value at that index is Array.
 
-#### IIterable&lt;IAmfValue&gt; [C++] / IEnumerable&lt;IAmfValue&gt; [C#, VB]
+#### IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt; [C++] / IEnumerable&lt;[IAmfValue](Root.IAmfValue.md)&gt; [C#, VB]
 
 Method                |Description
 ----------------------|-----------
 First [C++]           |Returns the iterator for iteration over the items in the array.
 GetEnumerator [C#, VB]|Returns an enumerator that iterates through a collection.
 
-#### IVector&lt;IAmfValue&gt; [C++] / IList&lt;IAmfValue&gt; [C#, VB]
+#### IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt; [C++] / IList&lt;[IAmfValue](Root.IAmfValue.md)&gt; [C#, VB]
 
 Method           |Description
 -----------------|-----------
@@ -111,13 +111,13 @@ TryParse|Parses the specified Amf array into a AmfArray.
 ### Properties
 The **AmfArray** class has these properties.
 
-#### IAmfValue
+#### [IAmfValue](Root.IAmfValue.md)
 
 Property |Access type|Description
 ---------|-----------|-----------
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
 
-#### IVector&lt;IAmfValue&gt; [C++] / IList&lt;IAmfValue&gt; [C#, VB]
+#### IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt; [C++] / IList&lt;[IAmfValue](Root.IAmfValue.md)&gt; [C#, VB]
 
 Property           |Access type|Description
 -------------------|-----------|-----------
@@ -126,4 +126,4 @@ Count [C#, VB]     |Read-only  |Gets the number of elements contained in the col
 IsReadOnly [C#, VB]|Read-only  |Gets a value indicating whether the collection is read-only.
 Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 
-##### Update date: Sep 15, 2013
+##### Update date: Sep 20, 2013

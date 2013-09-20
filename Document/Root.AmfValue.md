@@ -8,13 +8,13 @@ A **AmfValue** object has overloaded constructors to instantiate a new object fr
 ## Syntax
 
 ### C＃
-public sealed class AmfValue : IAmfValue, IStringable
+public sealed class AmfValue : [IAmfValue](Root.IAmfValue.md), IStringable
 
 ### C++
-public ref calss AmfValue sealed : public IAmfValue, public IStringable
+public ref calss AmfValue sealed : public [IAmfValue](Root.IAmfValue.md), public IStringable
 
 ### VB
-Public NotInheritable Class AmfValue Implements IAmfValue, IStringable
+Public NotInheritable Class AmfValue Implements [IAmfValue](Root.IAmfValue.md), IStringable
 
 ## Attributes
 
@@ -42,7 +42,7 @@ AmfValue   |Creates a new AmfValue object that represents a Amf value.
 ### Methods
 The **AmfValue** class has these methods. It also inherits methods from the **Object** class.
 
-#### IAmfValue
+#### [IAmfValue](Root.IAmfValue.md)
 
 Method      |Description
 ------------|-----------
@@ -80,10 +80,10 @@ TryParse            |Parses the specified Amf array into a AmfValue.
 ### Properties
 The **AmfValue** class has these properties.
 
-#### IAmfValue
+#### [IAmfValue](Root.IAmfValue.md)
 
 Property |Access type|Description
 ---------|-----------|-----------
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
 
-##### Update date: Sep 15, 2013
+##### Update date: Sep 20, 2013
