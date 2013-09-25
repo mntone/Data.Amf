@@ -10,7 +10,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		_map( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() )
 	{ }
 
-	AmfObject::AmfObject( std::map<Platform::String^, IAmfValue^>&& data ) :
+	AmfObject::AmfObject( std::map<Platform::String^, IAmfValue^> data ) :
 		_ValueType( AmfValueType::Object ),
 		_map( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( std::move( data ) ) )
 	{ }

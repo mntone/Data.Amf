@@ -129,7 +129,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		else
 			stream.put( amf0_type::amf0_object );
 
-		for each( auto item in obj->GetView() )
+		for( const auto& item : obj->GetView() )
 		{
 			SequenceifyUtf8( item->Key, stream );
 			SequenceifyValue( item->Value, stream );
@@ -152,7 +152,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		ConvertBigEndian( &size, buf, 4 );
 		stream.write( buf, 4 );
 
-		for each( auto item in vec )
+		for( const auto& item : vec )
 			SequenceifyValue( item, stream );
 	}
 

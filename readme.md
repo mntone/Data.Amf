@@ -2,7 +2,7 @@
 
 ## License
 This library and demoapp is “3-clause BSD license.”
-You must check “license.en-US.md.”
+You must check “[license.en-US.md](./license.en-US.md).”
 
 ## API reference for Mntone::Data::Amf
 If you know this library in detail, you check “[Document](./Document/)” folder.

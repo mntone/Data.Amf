@@ -65,7 +65,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static bool TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfArray^* result );
 
 	internal:
-		AmfArray( std::vector<IAmfValue^>&& data );
+		AmfArray( std::vector<IAmfValue^> data );
 
 	public:
 		// IAmfValue
