@@ -31,6 +31,8 @@ namespace Mntone { namespace Data { namespace Amf {
 		static IAmfValue^ ParseLongString( uint8 *& input, uint32& length );
 		static IAmfValue^ ParseXmlDocument( uint8 *& input, uint32& length );
 
+		static IAmfValue^ ParseFlexibleArray( uint8 *& input, uint32& length );
+
 		static Platform::String^ ParseUtf8( uint8 *& input, uint32& length );
 		static Platform::String^ ParseUtf8Long( uint8 *& input, uint32& length );
 		static Platform::String^ ParseUtf8Base( uint8 *& input, uint32& length, const uint32 textLength );

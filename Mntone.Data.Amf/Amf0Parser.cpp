@@ -49,6 +49,7 @@ IAmfValue^ Amf0Parser::ParseValue( uint8 *& input, uint32& length )
 	case amf0_type::amf0_long_string: return ParseLongString( input, length );
 	case amf0_type::amf0_xml_document: return ParseXmlDocument( input, length );
 	case amf0_type::amf0_typed_object: return ParseTypedObject( input, length );
+	case amf0_type::_amf0_flexible_array: return ParseFlexibleArray( input, length );
 	default: throw ref new Platform::FailureException( "Invalid type." );
 	}
 }
@@ -144,6 +145,25 @@ IAmfValue^ Amf0Parser::ParseLongString( uint8 *& input, uint32& length )
 IAmfValue^ Amf0Parser::ParseXmlDocument( uint8 *& input, uint32& length )
 {
 	return AmfValue::CreateXmlValue( ParseUtf8Long( input, length ) );
+}
+
+IAmfValue^ Amf0Parser::ParseFlexibleArray( uint8 *& input, uint32& length )
+{
+	// *Prop (min 0) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 3 bytes
+	if( length < 3 )
+		throw ref new Platform::FailureException( "Invalid flexibleArray." );
+
+	std::vector<IAmfValue^> data;
+	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
+		data.emplace_back( ParseValue( input, length ) );
+
+	if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
+		throw ref new Platform::FailureException( "Invalid flexibleArray." );
+
+	input += 3;
+	length -= 3;
+
+	return ref new AmfArray( std::move( data ) );
 }
 
 Platform::String^ Amf0Parser::ParseUtf8( uint8 *& input, uint32& length )
