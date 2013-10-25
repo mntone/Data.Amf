@@ -37,24 +37,14 @@ std::string Mntone::Data::Amf::PlatformStringToCharUtf8( Platform::String^ platf
 	return std::string( buffer.data() );
 }
 
-uint64 Mntone::Data::Amf::WindowsTimeToUnixTime( const int64 windowsTime )
-{
-	return ( windowsTime - 116444736000000000ull ) / 10000ull;
-}
-
-int64 Mntone::Data::Amf::UnixTimeToWindowsTime( const uint64 unixTime )
-{
-	return 10000ll * unixTime + 116444736000000000ll;
-}
-
 uint64 Mntone::Data::Amf::DateTimeToUnixTime( Windows::Foundation::DateTime dateTime )
 {
-	return WindowsTimeToUnixTime( dateTime.UniversalTime );
+	return ( dateTime.UniversalTime - 116444736000000000ull ) / 10000ull;
 }
 
 Windows::Foundation::DateTime Mntone::Data::Amf::UnixTimeToDateTime( const uint64 unixTime )
 {
 	Windows::Foundation::DateTime d;
-	d.UniversalTime = UnixTimeToWindowsTime( unixTime );
+	d.UniversalTime = 10000ll * unixTime + 116444736000000000ll;
 	return d;
 }
