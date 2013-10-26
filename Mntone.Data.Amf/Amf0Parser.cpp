@@ -168,7 +168,7 @@ IAmfValue^ Amf0Parser::ParseFlexibleArray( uint8 *& input, uint32& length )
 
 Platform::String^ Amf0Parser::ParseUtf8( uint8 *& input, uint32& length )
 {
-	if( length < 3 )
+	if( length < 2 )
 		throw ref new Platform::FailureException( "Invalid string." );
 
 	uint32 textLength( 0 );
@@ -181,7 +181,7 @@ Platform::String^ Amf0Parser::ParseUtf8( uint8 *& input, uint32& length )
 
 Platform::String^ Amf0Parser::ParseUtf8Long( uint8 *& input, uint32& length )
 {
-	if( length < 5 )
+	if( length < 4 )
 		throw ref new Platform::FailureException( "Invalid string." );
 
 	uint32 textLength( 0 );
@@ -195,14 +195,7 @@ Platform::String^ Amf0Parser::ParseUtf8Long( uint8 *& input, uint32& length )
 Platform::String^ Amf0Parser::ParseUtf8Base( uint8 *& input, uint32& length, const uint32 textLength )
 {
 	if( textLength == 0 )
-	{
-		if( length < 2 )
-			throw ref new Platform::FailureException( "Invalid string." );
-
-		input += 2;
-		length -= 2;
 		return "";
-	}
 
 	if( length < textLength )
 		throw ref new Platform::FailureException( "Invalid string." );

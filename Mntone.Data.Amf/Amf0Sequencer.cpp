@@ -164,12 +164,7 @@ void Amf0Sequencer::SequenceifyUtf8( const std::string& input, std::basic_string
 	ConvertBigEndian( &length, buf, 2 );
 	stream.write( buf, 2 );
 
-	if( length == 0 )
-	{
-		stream.put( 0 );
-		stream.put( 0 );
-	}
-	else
+	if( length != 0 )
 		stream.write( reinterpret_cast<const uint8 *>( input.c_str() ), input.length() );
 }
 
