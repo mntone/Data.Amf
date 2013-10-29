@@ -58,7 +58,7 @@ void Amf0Sequencer::SequenceifyDouble( IAmfValue^ input, std::basic_stringstream
 {
 	stream.put( amf0_type::amf0_number );
 
-	auto data = input->GetDouble();
+	const auto& data = input->GetDouble();
 	uint8 buf[8];
 	ConvertBigEndian( &data, buf, 8 );
 	stream.write( buf, 8 );
@@ -68,7 +68,7 @@ void Amf0Sequencer::SequenceifyInteger( IAmfValue^ input, std::basic_stringstrea
 {
 	stream.put( amf0_type::amf0_number );
 
-	auto data = static_cast<float64>( input->GetDouble() );
+	const auto& data = static_cast<float64>( input->GetDouble() );
 	uint8 buf[8];
 	ConvertBigEndian( &data, buf, 8 );
 	stream.write( buf, 8 );
@@ -76,7 +76,7 @@ void Amf0Sequencer::SequenceifyInteger( IAmfValue^ input, std::basic_stringstrea
 
 void Amf0Sequencer::SequenceifyString( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
 {
-	auto data = PlatformStringToCharUtf8( input->GetString() );
+	const auto& data = PlatformStringToCharUtf8( input->GetString() );
 	if( data.length() > 0xffff )
 	{
 		stream.put( amf0_type::amf0_long_string );
@@ -103,7 +103,7 @@ void Amf0Sequencer::SequenceifyDate( IAmfValue^ input, std::basic_stringstream<u
 {
 	stream.put( amf0_type::amf0_date );
 
-	auto data = static_cast<float64>( DateTimeToUnixTime( input->GetDate() ) );
+	const auto& data = static_cast<float64>( DateTimeToUnixTime( input->GetDate() ) );
 	uint8 buf[10];
 	ConvertBigEndian( &data, buf, 8 );
 
@@ -138,7 +138,7 @@ void Amf0Sequencer::SequenceifyObject( IAmfValue^ input, std::basic_stringstream
 
 void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
 {
-	auto obj = input->GetObject( );
+	const auto& obj = input->GetObject( );
 	stream.put( amf0_type::amf0_ecma_array );
 
 	const auto& associativeCount = obj->GetAssociativeCount( );
@@ -159,7 +159,7 @@ void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstr
 
 void Amf0Sequencer::SequenceifyTypedObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
 {
-	auto obj = input->GetObject();
+	const auto& obj = input->GetObject();
 	stream.put( amf0_type::amf0_typed_object );
 	SequenceifyUtf8( obj->GetClassName(), stream );
 
@@ -178,9 +178,9 @@ void Amf0Sequencer::SequenceifyArray( IAmfValue^ input, std::basic_stringstream<
 {
 	stream.put( amf0_type::amf0_strict_array );
 
-	auto ary = input->GetArray();
-	auto vec = ary->GetView();
-	auto size = vec->Size;
+	const auto& ary = input->GetArray();
+	const auto& vec = ary->GetView();
+	const auto& size = vec->Size;
 
 	uint8 buf[4];
 	ConvertBigEndian( &size, buf, 4 );
@@ -192,7 +192,7 @@ void Amf0Sequencer::SequenceifyArray( IAmfValue^ input, std::basic_stringstream<
 
 void Amf0Sequencer::SequenceifyUtf8( const std::string& input, std::basic_stringstream<uint8>& stream )
 {
-	uint16 length = static_cast<uint16>( input.length() );
+	const auto& length = static_cast<uint16>( input.length() );
 
 	uint8 buf[2];
 	ConvertBigEndian( &length, buf, 2 );
@@ -214,7 +214,7 @@ void Amf0Sequencer::SequenceifyUtf8( IAmfValue^ input, std::basic_stringstream<u
 
 void Amf0Sequencer::SequenceifyUtf8Long( const std::string& input, std::basic_stringstream<uint8>& stream )
 {
-	uint32 length = static_cast<uint32>( input.length() );
+	const auto& length = static_cast<uint32>( input.length() );
 
 	uint8 buf[4];
 	ConvertBigEndian( &length, buf, 4 );
