@@ -38,6 +38,9 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfObject^ GetNamedObject( Platform::String^ name );
 		virtual AmfArray^ GetNamedArray( Platform::String^ name );
 
+		virtual uint32 GetAssociativeCount( void );
+		virtual Platform::String^ GetClassName( void );
+
 		// IIterator
 		virtual Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ First( void );
 
@@ -54,6 +57,9 @@ namespace Mntone { namespace Data { namespace Amf {
 		// IStringable
 		virtual Platform::String^ ToString( void ) override sealed;
 
+		static AmfObject^ CreateEcmaArray( uint32 associativeCount );
+		static AmfObject^ CreateTypedObject( Platform::String^ className );
+
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input );
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );
 		static bool TryParse( const Platform::Array<uint8>^ input, AmfObject^* result );
@@ -62,14 +68,10 @@ namespace Mntone { namespace Data { namespace Amf {
 	internal:
 		AmfObject( std::map<Platform::String^, IAmfValue^> data );
 
-	public:
-		property Platform::String^ ClassName
-		{
-			Platform::String^ get( void ) { return _ClassName; }
-		internal:
-			void set( Platform::String^ value ) { _ClassName = value; }
-		}
+		static AmfObject^ CreateEcmaArray( uint32 associativeCount, std::map<Platform::String^, IAmfValue^> data );
+		static AmfObject^ CreateTypedObject( Platform::String^ className, std::map<Platform::String^, IAmfValue^> data );
 
+	public:
 		// IAmfValue
 		property AmfValueType ValueType
 		{
@@ -86,7 +88,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		AmfValueType _ValueType;
 		Platform::Collections::Map<Platform::String^, IAmfValue^>^ _map;
 
-		Platform::String^ _ClassName;
+		Platform::Object^ _otherData;
 	};
 
 } } }

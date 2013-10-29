@@ -48,6 +48,9 @@ Windows::Foundation::DateTime AmfObject::GetNamedDate( Platform::String^ name ) 
 AmfObject^ AmfObject::GetNamedObject( Platform::String^ name ) { return _map->Lookup( name )->GetObject(); }
 AmfArray^ AmfObject::GetNamedArray( Platform::String^ name ) { return _map->Lookup( name )->GetArray(); }
 
+uint32 AmfObject::GetAssociativeCount( void ) { return safe_cast<uint32>( _otherData ); }
+Platform::String^ AmfObject::GetClassName( void ) { return safe_cast<Platform::String^>( _otherData ); }
+
 Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ AmfObject::First( void ) { return _map->First(); }
 
 IAmfValue^ AmfObject::Lookup( Platform::String^ key ) { return _map->Lookup( key ); }
@@ -74,6 +77,38 @@ Platform::String^ AmfObject::ToString( void )
 	}
 	buf << '}';
 	return ref new Platform::String( buf.str().c_str() );
+}
+
+AmfObject^ AmfObject::CreateEcmaArray( uint32 associativeCount )
+{
+	auto out = ref new AmfObject();
+	out->_ValueType = AmfValueType::EcmaArray;
+	out->_otherData = associativeCount;
+	return out;
+}
+
+AmfObject^ AmfObject::CreateEcmaArray( uint32 associativeCount, std::map<Platform::String^, IAmfValue^> data )
+{
+	auto out = ref new AmfObject( std::move( data ) );
+	out->_ValueType = AmfValueType::EcmaArray;
+	out->_otherData = associativeCount;
+	return out;
+}
+
+AmfObject^ AmfObject::CreateTypedObject( Platform::String^ className )
+{
+	auto out = ref new AmfObject();
+	out->_ValueType = AmfValueType::TypedObject;
+	out->_otherData = className;
+	return out;
+}
+
+AmfObject^ AmfObject::CreateTypedObject( Platform::String^ className, std::map<Platform::String^, IAmfValue^> data )
+{
+	auto out = ref new AmfObject( std::move( data ) );
+	out->_ValueType = AmfValueType::TypedObject;
+	out->_otherData = className;
+	return out;
 }
 
 AmfObject^ AmfObject::Parse( const Platform::Array<uint8>^ input )

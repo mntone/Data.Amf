@@ -31,6 +31,8 @@ void Amf0Sequencer::SequenceifyValue( IAmfValue^ input, std::basic_stringstream<
 	case AmfValueType::Date: SequenceifyDate( input, stream ); break;
 	case AmfValueType::Xml: SequenceifyXml( input, stream ); break;
 	case AmfValueType::Object: SequenceifyObject( input, stream ); break;
+	case AmfValueType::EcmaArray: SequenceifyEcmaArray( input, stream ); break;
+	case AmfValueType::TypedObject: SequenceifyTypedObject( input, stream ); break;
 	case AmfValueType::Array: SequenceifyArray( input, stream ); break;
 	default: throw ref new Platform::FailureException( "Invalid type." );
 	}
@@ -91,7 +93,7 @@ void Amf0Sequencer::SequenceifyReference( IAmfValue^ input, std::basic_stringstr
 {
 	stream.put( amf0_type::amf0_reference );
 
-	auto data = input->GetReference();
+	const auto& data = input->GetReference();
 	uint8 buf[2];
 	ConvertBigEndian( &data, buf, 2 );
 	stream.write( buf, 2 );
@@ -120,14 +122,46 @@ void Amf0Sequencer::SequenceifyXml( IAmfValue^ input, std::basic_stringstream<ui
 
 void Amf0Sequencer::SequenceifyObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
 {
-	auto obj = input->GetObject();
-	if( obj->ClassName != "" )
+	const auto& obj = input->GetObject();
+	stream.put( amf0_type::amf0_object );
+
+	for( const auto& item : obj->GetView() )
 	{
-		stream.put( amf0_type::amf0_typed_object );
-		SequenceifyUtf8( obj->ClassName, stream );
+		SequenceifyUtf8( item->Key, stream );
+		SequenceifyValue( item->Value, stream );
 	}
-	else
-		stream.put( amf0_type::amf0_object );
+
+	stream.put( 0 );
+	stream.put( 0 );
+	stream.put( 9 );
+}
+
+void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+{
+	auto obj = input->GetObject( );
+	stream.put( amf0_type::amf0_ecma_array );
+
+	const auto& associativeCount = obj->GetAssociativeCount( );
+	uint8 buf[4];
+	ConvertBigEndian( &associativeCount, buf, 4 );
+	stream.write( buf, 4 );
+
+	for( const auto& item : obj->GetView( ) )
+	{
+		SequenceifyUtf8( item->Key, stream );
+		SequenceifyValue( item->Value, stream );
+	}
+
+	stream.put( 0 );
+	stream.put( 0 );
+	stream.put( 9 );
+}
+
+void Amf0Sequencer::SequenceifyTypedObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+{
+	auto obj = input->GetObject();
+	stream.put( amf0_type::amf0_typed_object );
+	SequenceifyUtf8( obj->GetClassName(), stream );
 
 	for( const auto& item : obj->GetView() )
 	{
@@ -165,7 +199,7 @@ void Amf0Sequencer::SequenceifyUtf8( const std::string& input, std::basic_string
 	stream.write( buf, 2 );
 
 	if( length != 0 )
-		stream.write( reinterpret_cast<const uint8 *>( input.c_str() ), input.length() );
+		stream.write( reinterpret_cast<const uint8*>( input.c_str() ), input.length() );
 }
 
 void Amf0Sequencer::SequenceifyUtf8( Platform::String^ input, std::basic_stringstream<uint8>& stream )

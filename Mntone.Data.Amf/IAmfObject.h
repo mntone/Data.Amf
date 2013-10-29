@@ -17,6 +17,9 @@ namespace Mntone { namespace Data { namespace Amf {
 		Windows::Foundation::DateTime GetNamedDate( Platform::String^ name );
 		AmfObject^ GetNamedObject( Platform::String^ name );
 		AmfArray^ GetNamedArray( Platform::String^ name );
+
+		uint32 GetAssociativeCount( void );
+		Platform::String^ GetClassName( void );
 	};
 
 } } }

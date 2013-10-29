@@ -15,6 +15,8 @@ namespace Mntone { namespace Data { namespace Amf {
 		Date,
 		Xml,
 		Object,
+		EcmaArray,
+		TypedObject,
 		Array,
 	};
 

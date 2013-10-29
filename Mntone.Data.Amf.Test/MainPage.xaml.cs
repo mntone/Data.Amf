@@ -76,8 +76,8 @@ namespace Mntone.Data.Amf.Test
 
 			// EcmaArray test
 			Output( "## EcmaArray test\n" );
-			TestAmf0( "[1] {null}: ", new byte[] { 8, 0, 0, 0, 0, 0, 0, 9 }, f => f.ValueType == AmfValueType.Object );
-			TestAmf0( "[2] {B: String null}: ", new byte[] { 8, 0, 0, 0, 1, 0, 1, 0x42, 2, 0, 0, 0, 0, 9 }, f => f.GetObject().GetNamedString( "B" ).Equals( "" ) );
+			TestAmf0( "[1] {null}: ", new byte[] { 8, 0, 0, 0, 0, 0, 0, 9 }, f => f.ValueType == AmfValueType.EcmaArray && f.GetObject().GetAssociativeCount() == 0 );
+			TestAmf0( "[2] {B: String null}: ", new byte[] { 8, 0, 0, 0, 1, 0, 1, 0x42, 2, 0, 0, 0, 0, 9 }, f => f.GetObject().GetNamedString( "B" ).Equals( "" ) && f.GetObject().GetAssociativeCount() == 1 );
 			Output( "\n" );
 			// ------------
 
@@ -116,7 +116,7 @@ namespace Mntone.Data.Amf.Test
 
 			// TypedObject test
 			Output( "## TypedObject test\n" );
-			TestAmf0( "[1] Test: {null}: ", new byte[] { 0x10, 0, 4, 0x54, 0x65, 0x73, 0x74, 0, 0, 9 }, f => f.ValueType == AmfValueType.Object && f.GetObject().ClassName == "Test" );
+			TestAmf0( "[1] Test: {null}: ", new byte[] { 0x10, 0, 4, 0x54, 0x65, 0x73, 0x74, 0, 0, 9 }, f => f.ValueType == AmfValueType.TypedObject && f.GetObject().GetClassName() == "Test" );
 			Output( "\n" );
 			// ------------
 
