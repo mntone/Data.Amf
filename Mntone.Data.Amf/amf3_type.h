@@ -19,7 +19,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		amf3_byte_array = 0x0c,
 		amf3_vector_int = 0x0d,
 		amf3_vector_uint = 0x0e,
-		amf3_vector_dobule = 0x0f,
+		amf3_vector_double = 0x0f,
 		amf3_vector_object = 0x10,
 		amf3_dictionary = 0x11,
 	};

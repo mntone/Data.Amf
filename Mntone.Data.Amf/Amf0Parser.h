@@ -40,6 +40,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static IAmfValue^ ParseObject( uint8*& input, uint32& length );
 		static IAmfValue^ ParseEcmaArray( uint8*& input, uint32& length );
 		static IAmfValue^ ParseTypedObject( uint8*& input, uint32& length );
+		static std::map<Platform::String^, IAmfValue^> ParseObjectBase( uint8*& input, uint32& length );
 		static std::pair<Platform::String^, IAmfValue^> ParseProperty( uint8*& input, uint32& length );
 	};
 
