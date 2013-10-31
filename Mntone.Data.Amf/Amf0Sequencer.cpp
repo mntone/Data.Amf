@@ -124,37 +124,20 @@ void Amf0Sequencer::SequenceifyObject( IAmfValue^ input, std::basic_stringstream
 {
 	const auto& obj = input->GetObject();
 	stream.put( amf0_type::amf0_object );
-
-	for( const auto& item : obj->GetView() )
-	{
-		SequenceifyUtf8( item->Key, stream );
-		SequenceifyValue( item->Value, stream );
-	}
-
-	stream.put( 0 );
-	stream.put( 0 );
-	stream.put( 9 );
+	SequenceifyObjectBase( std::move( obj ), stream );
 }
 
 void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
 {
-	const auto& obj = input->GetObject( );
+	const auto& obj = input->GetObject();
 	stream.put( amf0_type::amf0_ecma_array );
 
-	const auto& associativeCount = obj->GetAssociativeCount( );
+	const auto& associativeCount = obj->GetAssociativeCount();
 	uint8 buf[4];
 	ConvertBigEndian( &associativeCount, buf, 4 );
 	stream.write( buf, 4 );
 
-	for( const auto& item : obj->GetView( ) )
-	{
-		SequenceifyUtf8( item->Key, stream );
-		SequenceifyValue( item->Value, stream );
-	}
-
-	stream.put( 0 );
-	stream.put( 0 );
-	stream.put( 9 );
+	SequenceifyObjectBase( std::move( obj ), stream );
 }
 
 void Amf0Sequencer::SequenceifyTypedObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
@@ -162,8 +145,12 @@ void Amf0Sequencer::SequenceifyTypedObject( IAmfValue^ input, std::basic_strings
 	const auto& obj = input->GetObject();
 	stream.put( amf0_type::amf0_typed_object );
 	SequenceifyUtf8( obj->GetClassName(), stream );
+	SequenceifyObjectBase( std::move( obj ), stream );
+}
 
-	for( const auto& item : obj->GetView() )
+void Amf0Sequencer::SequenceifyObjectBase( AmfObject^ input, std::basic_stringstream<uint8>& stream )
+{
+	for( const auto& item : input->GetView() )
 	{
 		SequenceifyUtf8( item->Key, stream );
 		SequenceifyValue( item->Value, stream );
