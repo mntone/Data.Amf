@@ -66,9 +66,9 @@ Platform::String^ AmfArray::ToString( void )
 {
 	std::wstringstream buf;
 	buf << '[';
-	for each( auto item in _vector )
+	for( const auto& item : _vector )
 	{
-		auto out = item->ToString();
+		const auto& out = item->ToString();
 		buf.write( out->Data(), out->Length() );
 		buf.write( L", ", 2 );
 	}

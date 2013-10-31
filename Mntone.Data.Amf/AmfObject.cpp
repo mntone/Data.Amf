@@ -65,10 +65,10 @@ Platform::String^ AmfObject::ToString( void )
 {
 	std::wstringstream buf;
 	buf << '{';
-	for each( auto item in _map )
+	for( const auto& item : _map )
 	{
-		auto key = item->Key->ToString();
-		auto value = item->Value->ToString();
+		const auto& key = item->Key->ToString();
+		const auto& value = item->Value->ToString();
 		buf.put( L'"' );
 		buf.write( key->Data(), key->Length() );
 		buf.write( L"\": ", 3 );
