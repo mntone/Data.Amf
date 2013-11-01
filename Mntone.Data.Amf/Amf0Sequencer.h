@@ -29,11 +29,9 @@ namespace Mntone { namespace Data { namespace Amf {
 		static void SequenceifyXml( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 
 		static void SequenceifyObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyTypedObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyObjectBase( AmfObject^ input, std::basic_stringstream<uint8>& stream );
 
-		static void SequenceifyArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		static void SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		static void SequenceifyStrictArray( AmfArray^ input, std::basic_stringstream<uint8>& stream );
 
 		static void SequenceifyUtf8( const std::string& input, std::basic_stringstream<uint8>& stream );
 		static void SequenceifyUtf8( Platform::String^ input, std::basic_stringstream<uint8>& stream );
