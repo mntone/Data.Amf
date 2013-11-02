@@ -341,7 +341,7 @@ public:
 			Assert::AreEqual(L"status", obj2->GetNamedString("level")->Data());
 
 			Assert::AreEqual(L"NetConnection.Connect.Success", obj2->GetNamedString("code")->Data());
-			Assert::AreEqual(L"Connection succeeded", obj2->GetNamedString("description")->Data());
+			Assert::AreEqual(L"Connection succeeded", obj2->GetNamedString("description")->Data());
 			Assert::AreEqual(0.0, obj2->GetNamedDouble("objectEncoding"));
 		} );
 	}
