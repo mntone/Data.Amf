@@ -10,11 +10,6 @@ AmfArray::AmfArray( void ) :
 	_vector( ref new Platform::Collections::Vector<IAmfValue^>() )
 { }
 
-AmfArray::AmfArray( std::vector<IAmfValue^> data ) :
-	_ValueType( AmfValueType::Array ),
-	_vector( ref new Platform::Collections::Vector<IAmfValue^>( std::move( data ) ) )
-{ }
-
 Platform::Array<uint8>^ AmfArray::Sequenceify( void )
 {
 	throw ref new Platform::NotImplementedException();
@@ -32,7 +27,6 @@ bool AmfArray::GetBoolean( void ) { throw ref new Platform::FailureException( "I
 float64 AmfArray::GetDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 int32 AmfArray::GetInteger( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Platform::String^ AmfArray::GetString( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-uint16 AmfArray::GetReference( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::DateTime AmfArray::GetDate( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfObject^ AmfArray::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfArray^ AmfArray::GetArray( void ) { return safe_cast<AmfArray^>( this ); }
@@ -41,7 +35,6 @@ bool AmfArray::GetBooleanAt( uint32 index ) { return _vector->GetAt( index )->Ge
 float64 AmfArray::GetDoubleAt( uint32 index ) { return _vector->GetAt( index )->GetDouble(); }
 int32 AmfArray::GetIntegerAt( uint32 index ) { return _vector->GetAt( index )->GetInteger(); }
 Platform::String^ AmfArray::GetStringAt( uint32 index ) { return _vector->GetAt( index )->GetString(); }
-uint16 AmfArray::GetReferenceAt( uint32 index ) { return _vector->GetAt( index )->GetReference(); }
 Windows::Foundation::DateTime AmfArray::GetDateAt( uint32 index ) { return _vector->GetAt( index )->GetDate(); }
 AmfObject^ AmfArray::GetObjectAt( uint32 index ) { return _vector->GetAt( index )->GetObject(); }
 AmfArray^ AmfArray::GetArrayAt( uint32 index ) { return _vector->GetAt( index )->GetArray(); }
@@ -83,13 +76,6 @@ AmfArray^ AmfArray::CreateStrictArray( void )
 	return out;
 }
 
-AmfArray^ AmfArray::CreateStrictArray( std::vector<IAmfValue^> data )
-{
-	auto out = ref new AmfArray( std::move( data ) );
-	out->_Strict = true;
-	return out;
-}
-
 AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input )
 {
 	//return safe_cast<AmfArray^>( Amf3Parser::Parse( input ) );
@@ -120,4 +106,9 @@ bool AmfArray::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType ty
 
 	//return Amf3Parser::TryParse( input, &buf );
 	throw ref new Platform::NotImplementedException();
+}
+
+void AmfArray::SetData( std::vector<IAmfValue^> data )
+{
+	_vector = ref new Platform::Collections::Vector<IAmfValue^>( std::move( data ) );
 }

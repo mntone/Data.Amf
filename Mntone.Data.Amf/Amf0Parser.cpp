@@ -11,7 +11,7 @@ IAmfValue^ Amf0Parser::Parse( const Platform::Array<uint8>^ input )
 {
 	uint8 *ptr( input->Data );
 	uint32 length( input->Length );
-	return ParseValue( ptr, length );
+	return safe_cast<IAmfValue^>( ( ref new Amf0Parser() )->ParseValue( ptr, length ) );
 }
 
 bool Amf0Parser::TryParse( const Platform::Array<uint8>^ input, IAmfValue^* result )
@@ -21,6 +21,9 @@ bool Amf0Parser::TryParse( const Platform::Array<uint8>^ input, IAmfValue^* resu
 	catch( Platform::InvalidCastException^ ) { return false; }
 	return true;
 }
+
+Amf0Parser::Amf0Parser( void )
+{ }
 
 IAmfValue^ Amf0Parser::ParseValue( uint8*& input, uint32& length )
 {
@@ -96,7 +99,10 @@ IAmfValue^ Amf0Parser::ParseReference( uint8*& input, uint32& length )
 	input += 2;
 	length -= 2;
 
-	return AmfValue::CreateReferenceValue( data );
+	if( data >= _referenceBuffer.size() )
+		throw ref new Platform::FailureException( "Invalid reference." );
+
+	return _referenceBuffer[data];
 }
 
 IAmfValue^ Amf0Parser::ParseDate( uint8*& input, uint32& length )
@@ -133,6 +139,9 @@ IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, uint32& length )
 	if( length < 7 )
 		throw ref new Platform::FailureException( "Invalid ecmaArray." );
 
+	const auto& out = ref new AmfArray();
+	_referenceBuffer.push_back( out );
+
 	uint32 associativeCount( 0 );
 	ConvertBigEndian( input, &associativeCount, 4 );
 	input += 4;
@@ -154,13 +163,17 @@ IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, uint32& length )
 	input += 3;
 	length -= 3;
 
-	return ref new AmfArray( std::move( data ) );
+	out->SetData( std::move( data ) );
+	return out;
 }
 
 IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
 {
 	if( length < 4 )
 		throw ref new Platform::FailureException( "Invalid strictArray." );
+
+	const auto& out = AmfArray::CreateStrictArray( );
+	_referenceBuffer.push_back( out );
 
 	uint32 arrayCount( 0 );
 	ConvertBigEndian( input, &arrayCount, 4 );
@@ -171,7 +184,8 @@ IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
 	for( auto i = 0u; i < arrayCount; ++i )
 		data[i] = ParseValue( input, length );
 
-	return AmfArray::CreateStrictArray( std::move( data ) );
+	out->SetData( std::move( data ) );
+	return out;
 }
 
 IAmfValue^ Amf0Parser::ParseFlexibleArray( uint8*& input, uint32& length )
@@ -190,7 +204,62 @@ IAmfValue^ Amf0Parser::ParseFlexibleArray( uint8*& input, uint32& length )
 	input += 3;
 	length -= 3;
 
-	return ref new AmfArray( std::move( data ) );
+	const auto& out = ref new AmfArray();
+	out->SetData( std::move( data ) );
+	return out;
+}
+
+IAmfValue^ Amf0Parser::ParseObject( uint8*& input, uint32& length )
+{
+	// Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 3 bytes
+	if( length < 3 )
+		throw ref new Platform::FailureException( "Invalid object." );
+
+	const auto& out = ref new AmfObject();
+	_referenceBuffer.push_back( out );
+
+	const auto& data = ParseObjectBase( input, length );
+	out->SetData( std::move( data ) );
+	return out;
+}
+
+IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, uint32& length )
+{
+	// ClassName (min U16+U8) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 6 bytes
+	if( length < 6 )
+		throw ref new Platform::FailureException( "Invalid typedObject." );
+
+	const auto& className = ParseUtf8( input, length );
+	const auto& out = AmfObject::CreateTypedObject( className );
+	_referenceBuffer.push_back( out );
+
+	const auto& data = ParseObjectBase( input, length );
+	out->SetData( std::move( data ) );
+	return out;
+}
+
+std::map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( uint8*& input, uint32& length )
+{
+	std::map<Platform::String^, IAmfValue^> data;
+	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
+	{
+		const auto& prop = ParseProperty( input, length );
+		data.emplace( std::move( prop ) );
+	}
+
+	if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
+		throw ref new Platform::FailureException( "Invalid object." );
+
+	input += 3;
+	length -= 3;
+	return std::move( data );
+}
+
+std::pair<Platform::String^, IAmfValue^> Amf0Parser::ParseProperty( uint8*& input, uint32& length )
+{
+	const auto& key = ParseUtf8( input, length );
+	const auto& value = ParseValue( input, length );
+	return std::make_pair( std::move( key ), std::move( value ) );
 }
 
 Platform::String^ Amf0Parser::ParseUtf8( uint8*& input, uint32& length )
@@ -232,49 +301,4 @@ Platform::String^ Amf0Parser::ParseUtf8Base( uint8*& input, uint32& length, cons
 	input += textLength;
 	length -= textLength;
 	return CharUtf8ToPlatformString( buf.str() );
-}
-
-IAmfValue^ Amf0Parser::ParseObject( uint8*& input, uint32& length )
-{
-	// Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 3 bytes
-	if( length < 3 )
-		throw ref new Platform::FailureException( "Invalid object." );
-
-	const auto& data = ParseObjectBase( input, length );
-	return ref new AmfObject( std::move( data ) );
-}
-
-IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, uint32& length )
-{
-	// ClassName (min U16+U8) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 6 bytes
-	if( length < 6 )
-		throw ref new Platform::FailureException( "Invalid typedObject." );
-
-	const auto& className = ParseUtf8( input, length );
-	const auto& data = ParseObjectBase( input, length );
-	return AmfObject::CreateTypedObject( className, std::move( data ) );
-}
-
-std::map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( uint8*& input, uint32& length )
-{
-	std::map<Platform::String^, IAmfValue^> data;
-	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
-	{
-		const auto& prop = ParseProperty( input, length );
-		data.emplace( std::move( prop ) );
-	}
-
-	if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
-		throw ref new Platform::FailureException( "Invalid object." );
-
-	input += 3;
-	length -= 3;
-	return std::move( data );
-}
-
-std::pair<Platform::String^, IAmfValue^> Amf0Parser::ParseProperty( uint8*& input, uint32& length )
-{
-	const auto& key = ParseUtf8( input, length );
-	const auto& value = ParseValue( input, length );
-	return std::make_pair( std::move( key ), std::move( value ) );
 }

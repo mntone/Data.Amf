@@ -20,7 +20,6 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual float64 GetDouble( void );
 		virtual int32 GetInteger( void );
 		virtual Platform::String^ GetString( void );
-		virtual uint16 GetReference( void );
 		virtual Windows::Foundation::DateTime GetDate( void );
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
@@ -33,7 +32,6 @@ namespace Mntone { namespace Data { namespace Amf {
 		static AmfValue^ CreateDoubleValue( float64 input );
 		static AmfValue^ CreateIntegerValue( int32 input );
 		static AmfValue^ CreateStringValue( Platform::String^ input );
-		static AmfValue^ CreateReferenceValue( uint16 input );
 		static AmfValue^ CreateDateValue( Windows::Foundation::DateTime input );
 		static AmfValue^ CreateXmlValue( Platform::String^ input );
 
