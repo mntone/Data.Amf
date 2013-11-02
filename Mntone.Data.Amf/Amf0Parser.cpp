@@ -172,7 +172,7 @@ IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
 	if( length < 4 )
 		throw ref new Platform::FailureException( "Invalid strictArray." );
 
-	const auto& out = AmfArray::CreateStrictArray( );
+	const auto& out = AmfArray::CreateStrictArray();
 	_referenceBuffer.push_back( out );
 
 	uint32 arrayCount( 0 );
@@ -238,9 +238,9 @@ IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, uint32& length )
 	return out;
 }
 
-std::map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( uint8*& input, uint32& length )
+std::unordered_map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( uint8*& input, uint32& length )
 {
-	std::map<Platform::String^, IAmfValue^> data;
+	std::unordered_map<Platform::String^, IAmfValue^> data;
 	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
 	{
 		const auto& prop = ParseProperty( input, length );

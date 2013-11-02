@@ -7,6 +7,7 @@ using namespace Mntone::Data::Amf;
 
 AmfArray::AmfArray( void ) :
 	_ValueType( AmfValueType::Array ),
+	_Strict( false ),
 	_vector( ref new Platform::Collections::Vector<IAmfValue^>() )
 { }
 
