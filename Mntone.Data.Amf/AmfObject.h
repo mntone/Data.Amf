@@ -60,7 +60,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static bool TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfObject^* result );
 
 	internal:
-		void SetData( std::map<Platform::String^, IAmfValue^> data );
+		void SetData( std::unordered_map<Platform::String^, IAmfValue^> data );
 
 	public:
 		// IAmfValue
@@ -82,10 +82,9 @@ namespace Mntone { namespace Data { namespace Amf {
 			virtual uint32 get( void ) { return _map->Size; }
 		}
 
-
 	private:
 		AmfValueType _ValueType;
-		Platform::Collections::Map<Platform::String^, IAmfValue^>^ _map;
+		Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>^ _map;
 
 		Platform::String^ _ClassName;
 	};

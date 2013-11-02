@@ -7,7 +7,7 @@ using namespace Mntone::Data::Amf;
 
 AmfObject::AmfObject( void ) :
 	_ValueType( AmfValueType::Object ),
-	_map( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() )
+	_map( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>() )
 { }
 
 Platform::Array<uint8>^ AmfObject::Sequenceify( void )
@@ -108,7 +108,7 @@ bool AmfObject::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType t
 	throw ref new Platform::NotImplementedException();
 }
 
-void AmfObject::SetData( std::map<Platform::String^, IAmfValue^> data )
+void AmfObject::SetData( std::unordered_map<Platform::String^, IAmfValue^> data )
 {
-	_map = ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( std::move( data ) );
+	_map = ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>( data.begin(), data.end(), data.size() );
 }
