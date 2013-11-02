@@ -205,7 +205,7 @@ public:
 				WG::DateTimeFormatting::SecondFormat::Default,
 				ref new Platform::Collections::Vector<Platform::String^>( { "ja" } ) );
 
-			Assert::AreEqual( L"‎2013年11月2日 20:28:52", dateFormat->Format( amfValue->GetDate( ) )->Data( ) );
+			Assert::AreEqual(L"‎2013‎年‎11‎月‎2‎日‎ ‎20‎:‎28‎:‎52", dateFormat->Format(amfValue->GetDate())->Data());
 		} );
 	}
 
