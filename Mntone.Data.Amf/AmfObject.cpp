@@ -7,12 +7,7 @@ using namespace Mntone::Data::Amf;
 
 AmfObject::AmfObject( void ) :
 	_ValueType( AmfValueType::Object ),
-	_map( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( ) )
-{ }
-
-AmfObject::AmfObject( std::map<Platform::String^, IAmfValue^> data ) :
-	_ValueType( AmfValueType::Object ),
-	_map( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( std::move( data ) ) )
+	_map( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() )
 { }
 
 Platform::Array<uint8>^ AmfObject::Sequenceify( void )
@@ -32,7 +27,6 @@ bool AmfObject::GetBoolean( void ) { throw ref new Platform::FailureException( "
 float64 AmfObject::GetDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 int32 AmfObject::GetInteger( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Platform::String^ AmfObject::GetString( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-uint16 AmfObject::GetReference( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::DateTime AmfObject::GetDate( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfObject^ AmfObject::GetObject( void ) { return safe_cast<AmfObject^>( this ); }
 AmfArray^ AmfObject::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
@@ -43,7 +37,6 @@ bool AmfObject::GetNamedBoolean( Platform::String^ name ) { return _map->Lookup(
 float64 AmfObject::GetNamedDouble( Platform::String^ name ) { return _map->Lookup( name )->GetDouble(); }
 int32 AmfObject::GetNamedInteger( Platform::String^ name ) { return _map->Lookup( name )->GetInteger(); }
 Platform::String^ AmfObject::GetNamedString( Platform::String^ name ) { return _map->Lookup( name )->GetString(); }
-uint16 AmfObject::GetNamedReference( Platform::String^ name ) { return _map->Lookup( name )->GetReference(); }
 Windows::Foundation::DateTime AmfObject::GetNamedDate( Platform::String^ name ) { return _map->Lookup( name )->GetDate(); }
 AmfObject^ AmfObject::GetNamedObject( Platform::String^ name ) { return _map->Lookup( name )->GetObject(); }
 AmfArray^ AmfObject::GetNamedArray( Platform::String^ name ) { return _map->Lookup( name )->GetArray(); }
@@ -83,13 +76,6 @@ AmfObject^ AmfObject::CreateTypedObject( Platform::String^ className )
 	return out;
 }
 
-AmfObject^ AmfObject::CreateTypedObject( Platform::String^ className, std::map<Platform::String^, IAmfValue^> data )
-{
-	auto out = ref new AmfObject( std::move( data ) );
-	out->_ClassName = className;
-	return out;
-}
-
 AmfObject^ AmfObject::Parse( const Platform::Array<uint8>^ input )
 {
 	//return safe_cast<AmfArray^>( Amf3Parser::Parse( input ) );
@@ -120,4 +106,9 @@ bool AmfObject::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType t
 
 	//return Amf3Parser::TryParse( input, &buf );
 	throw ref new Platform::NotImplementedException();
+}
+
+void AmfObject::SetData( std::map<Platform::String^, IAmfValue^> data )
+{
+	_map = ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( std::move( data ) );
 }

@@ -15,30 +15,37 @@ namespace Mntone { namespace Data { namespace Amf {
 #endif
 		static Platform::Array<uint8>^ Sequenceify( IAmfValue^ input );
 
-	internal:
-		static void SequenceifyValue( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+	private:
+		Amf0Sequencer( void );
 
-		static void SequenceifyUndefined( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyNull( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyBoolean( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyInteger( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyString( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyReference( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyDate( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyXml( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyValue( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 
-		static void SequenceifyObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyUndefined( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyNull( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyBoolean( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyInteger( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyString( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyDate( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyXml( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 
-		static void SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyStrictArray( AmfArray^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 
-		static void SequenceifyUtf8( const std::string& input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyUtf8( Platform::String^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyUtf8( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyUtf8Long( const std::string& input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyUtf8Long( Platform::String^ input, std::basic_stringstream<uint8>& stream );
-		static void SequenceifyUtf8Long( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyStrictArray( AmfArray^ input, std::basic_stringstream<uint8>& stream );
+
+		void SequenceifyUtf8( const std::string& input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyUtf8( Platform::String^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyUtf8( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyUtf8Long( const std::string& input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyUtf8Long( Platform::String^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyUtf8Long( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+
+		int32 IsReference( IAmfValue^ input );
+		void SequenceifyReference( int32 input, std::basic_stringstream<uint8>& stream );
+
+	private:
+		std::vector<IAmfValue^> _referenceBuffer;
 	};
 
 } } }

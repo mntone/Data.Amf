@@ -27,7 +27,6 @@ bool AmfValue::GetBoolean( void ) { return safe_cast<bool>( _value ); }
 float64 AmfValue::GetDouble( void ) { return safe_cast<float64>( _value ); }
 int32 AmfValue::GetInteger( void ) { return safe_cast<int32>( _value ); }
 Platform::String^ AmfValue::GetString( void ) { return safe_cast<Platform::String^>( _value ); }
-uint16 AmfValue::GetReference( void ) { return safe_cast<uint16>( _value ); }
 Windows::Foundation::DateTime AmfValue::GetDate( void ) { return safe_cast<Windows::Foundation::DateTime>( _value ); }
 AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
@@ -70,14 +69,6 @@ AmfValue^ AmfValue::CreateStringValue( Platform::String^ input )
 {
 	auto out = ref new AmfValue();
 	out->_ValueType = AmfValueType::String;
-	out->_value = input;
-	return out;
-}
-
-AmfValue^ AmfValue::CreateReferenceValue( uint16 input )
-{
-	auto out = ref new AmfValue();
-	out->_ValueType = AmfValueType::Reference;
 	out->_value = input;
 	return out;
 }

@@ -117,24 +117,6 @@ public:
 		} );
 	}
 
-	TEST_METHOD( ReferenceTest_0 )
-	{
-		TestAmf0( ref new TestByteArray{ 7, 0, 0 }, []( IAmfValue^ amfValue )
-		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Reference );
-			Assert::AreEqual<uint32>( amfValue->GetReference(), 0 );
-		} );
-	}
-
-	TEST_METHOD( ReferenceTest_4369 )
-	{
-		TestAmf0( ref new TestByteArray{ 7, 0x11, 0x11 }, []( IAmfValue^ amfValue )
-		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Reference );
-			Assert::AreEqual<uint32>( amfValue->GetReference(), 4369 );
-		} );
-	}
-
 	TEST_METHOD( EcmaArrayTest_Null )
 	{
 		TestAmf0( ref new TestByteArray{ 8, 0, 0, 0, 0, 0, 0, 9 }, []( IAmfValue^ amfValue )

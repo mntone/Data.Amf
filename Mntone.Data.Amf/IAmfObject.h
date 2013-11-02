@@ -19,7 +19,6 @@ namespace Mntone { namespace Data { namespace Amf {
 		float64 GetNamedDouble( Platform::String^ name );
 		int32 GetNamedInteger( Platform::String^ name );
 		Platform::String^ GetNamedString( Platform::String^ name );
-		uint16 GetNamedReference( Platform::String^ name );
 		Windows::Foundation::DateTime GetNamedDate( Platform::String^ name );
 		AmfObject^ GetNamedObject( Platform::String^ name );
 		AmfArray^ GetNamedArray( Platform::String^ name );

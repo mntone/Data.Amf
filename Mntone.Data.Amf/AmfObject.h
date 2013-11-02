@@ -21,7 +21,6 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual float64 GetDouble( void );
 		virtual int32 GetInteger( void );
 		virtual Platform::String^ GetString( void );
-		virtual uint16 GetReference( void );
 		virtual Windows::Foundation::DateTime GetDate( void );
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
@@ -33,7 +32,6 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual float64 GetNamedDouble( Platform::String^ name );
 		virtual int32 GetNamedInteger( Platform::String^ name );
 		virtual Platform::String^ GetNamedString( Platform::String^ name );
-		virtual uint16 GetNamedReference( Platform::String^ name );
 		virtual Windows::Foundation::DateTime GetNamedDate( Platform::String^ name );
 		virtual AmfObject^ GetNamedObject( Platform::String^ name );
 		virtual AmfArray^ GetNamedArray( Platform::String^ name );
@@ -62,9 +60,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static bool TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfObject^* result );
 
 	internal:
-		AmfObject( std::map<Platform::String^, IAmfValue^> data );
-
-		static AmfObject^ CreateTypedObject( Platform::String^ className, std::map<Platform::String^, IAmfValue^> data );
+		void SetData( std::map<Platform::String^, IAmfValue^> data );
 
 	public:
 		// IAmfValue
