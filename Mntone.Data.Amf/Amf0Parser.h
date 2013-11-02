@@ -24,13 +24,14 @@ namespace Mntone { namespace Data { namespace Amf {
 		static IAmfValue^ ParseNull( uint8*& input, uint32& length );
 		static IAmfValue^ ParseUndefined( uint8*& input, uint32& length );
 		static IAmfValue^ ParseReference( uint8*& input, uint32& length );
-		static IAmfValue^ ParseStrictArray( uint8*& input, uint32& length );
 		static IAmfValue^ ParseDate( uint8*& input, uint32& length );
 
 		static IAmfValue^ ParseString( uint8*& input, uint32& length );
 		static IAmfValue^ ParseLongString( uint8*& input, uint32& length );
 		static IAmfValue^ ParseXmlDocument( uint8*& input, uint32& length );
 
+		static IAmfValue^ ParseEcmaArray( uint8*& input, uint32& length );
+		static IAmfValue^ ParseStrictArray( uint8*& input, uint32& length );
 		static IAmfValue^ ParseFlexibleArray( uint8*& input, uint32& length );
 
 		static Platform::String^ ParseUtf8( uint8*& input, uint32& length );
@@ -38,8 +39,8 @@ namespace Mntone { namespace Data { namespace Amf {
 		static Platform::String^ ParseUtf8Base( uint8*& input, uint32& length, const uint32 textLength );
 
 		static IAmfValue^ ParseObject( uint8*& input, uint32& length );
-		static IAmfValue^ ParseEcmaArray( uint8*& input, uint32& length );
 		static IAmfValue^ ParseTypedObject( uint8*& input, uint32& length );
+		static std::map<Platform::String^, IAmfValue^> ParseObjectBase( uint8*& input, uint32& length );
 		static std::pair<Platform::String^, IAmfValue^> ParseProperty( uint8*& input, uint32& length );
 	};
 

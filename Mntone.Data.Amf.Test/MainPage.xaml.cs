@@ -76,15 +76,15 @@ namespace Mntone.Data.Amf.Test
 
 			// EcmaArray test
 			Output( "## EcmaArray test\n" );
-			TestAmf0( "[1] {null}: ", new byte[] { 8, 0, 0, 0, 0, 0, 0, 9 }, f => f.ValueType == AmfValueType.EcmaArray && f.GetObject().GetAssociativeCount() == 0 );
-			TestAmf0( "[2] {B: String null}: ", new byte[] { 8, 0, 0, 0, 1, 0, 1, 0x42, 2, 0, 0, 0, 0, 9 }, f => f.GetObject().GetNamedString( "B" ).Equals( "" ) && f.GetObject().GetAssociativeCount() == 1 );
+			TestAmf0( "[1] [null]: ", new byte[] { 8, 0, 0, 0, 0, 0, 0, 9 }, f => f.ValueType == AmfValueType.Array );
+			TestAmf0( "[2] [String null]: ", new byte[] { 8, 0, 0, 0, 1, 0, 1, 0x30, 2, 0, 0, 0, 0, 9 }, f => f.GetArray().GetStringAt( 0 ).Equals( "" ) );
 			Output( "\n" );
 			// ------------
 
 			// StrictArray test
 			Output( "## StrictArray test\n" );
 			TestAmf0( "[1] [null]: ", new byte[] { 10, 0, 0, 0, 0 }, f => f.ValueType == AmfValueType.Array );
-			TestAmf0( "[2] [0, true]: ", new byte[] { 10, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 }, f => f.GetArray()[0].GetDouble() == 0.0 && f.GetArray()[1].GetBoolean() );
+			TestAmf0( "[2] [0, true]: ", new byte[] { 10, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 }, f => f.GetArray().GetDoubleAt( 0 ) == 0.0 && f.GetArray().GetBooleanAt( 1 ) );
 			Output( "\n" );
 			// ------------
 
@@ -116,7 +116,7 @@ namespace Mntone.Data.Amf.Test
 
 			// TypedObject test
 			Output( "## TypedObject test\n" );
-			TestAmf0( "[1] Test: {null}: ", new byte[] { 0x10, 0, 4, 0x54, 0x65, 0x73, 0x74, 0, 0, 9 }, f => f.ValueType == AmfValueType.TypedObject && f.GetObject().GetClassName() == "Test" );
+			TestAmf0( "[1] Test: {null}: ", new byte[] { 0x10, 0, 4, 0x54, 0x65, 0x73, 0x74, 0, 0, 9 }, f => f.ValueType == AmfValueType.Object && f.GetObject().ClassName == "Test" );
 			Output( "\n" );
 			// ------------
 

@@ -16,10 +16,7 @@ IAmfValue^ Amf0Parser::Parse( const Platform::Array<uint8>^ input )
 
 bool Amf0Parser::TryParse( const Platform::Array<uint8>^ input, IAmfValue^* result )
 {
-	try
-	{
-		*result = Amf0Parser::Parse( input );
-	}
+	try { *result = Parse( input ); }
 	catch( Platform::FailureException^ ) { return false; }
 	catch( Platform::InvalidCastException^ ) { return false; }
 	return true;
@@ -30,7 +27,7 @@ IAmfValue^ Amf0Parser::ParseValue( uint8*& input, uint32& length )
 	if( length < 1 )
 		throw ref new Platform::FailureException( "Invalid data." );
 
-	auto type = input[0];
+	const auto type = input[0];
 	++input;
 	--length;
 
@@ -79,12 +76,12 @@ IAmfValue^ Amf0Parser::ParseBoolean( uint8*& input, uint32& length )
 	return AmfValue::CreateBooleanValue( data );
 }
 
-IAmfValue^ Amf0Parser::ParseNull( uint8*& /*input*/, uint32 & /*length*/ )
+IAmfValue^ Amf0Parser::ParseNull( uint8*& /*input*/, uint32& /*length*/ )
 {
 	return ref new AmfValue();
 }
 
-IAmfValue^ Amf0Parser::ParseUndefined( uint8*& /*input*/, uint32 & /*length*/ )
+IAmfValue^ Amf0Parser::ParseUndefined( uint8*& /*input*/, uint32& /*length*/ )
 {
 	return AmfValue::CreateUndefinedValue();
 }
@@ -94,7 +91,7 @@ IAmfValue^ Amf0Parser::ParseReference( uint8*& input, uint32& length )
 	if( length < 2 )
 		throw ref new Platform::FailureException( "Invalid reference." );
 
-	uint16 data;
+	uint16 data( 0 );
 	ConvertBigEndian( input, &data, 2 );
 	input += 2;
 	length -= 2;
@@ -102,29 +99,12 @@ IAmfValue^ Amf0Parser::ParseReference( uint8*& input, uint32& length )
 	return AmfValue::CreateReferenceValue( data );
 }
 
-IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
-{
-	if( length < 4 )
-		throw ref new Platform::FailureException( "Invalid strictArray." );
-
-	uint32 count;
-	ConvertBigEndian( input, &count, 4 );
-	input += 4;
-	length -= 4;
-
-	std::vector<IAmfValue^> data;
-	for( auto i = 0u; i < count; ++i )
-		data.emplace_back( ParseValue( input, length ) );
-
-	return ref new AmfArray( std::move( data ) );
-}
-
 IAmfValue^ Amf0Parser::ParseDate( uint8*& input, uint32& length )
 {
 	if( length < 10 )
 		throw ref new Platform::FailureException( "Invalid date." );
 
-	float64 data;
+	float64 data( 0.0 );
 	ConvertBigEndian( input, &data, 8 );
 	input += 10;
 	length -= 10;
@@ -145,6 +125,53 @@ IAmfValue^ Amf0Parser::ParseLongString( uint8*& input, uint32& length )
 IAmfValue^ Amf0Parser::ParseXmlDocument( uint8*& input, uint32& length )
 {
 	return AmfValue::CreateXmlValue( ParseUtf8Long( input, length ) );
+}
+
+IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, uint32& length )
+{
+	// associativeCount (U32) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 7 bytes
+	if( length < 7 )
+		throw ref new Platform::FailureException( "Invalid ecmaArray." );
+
+	uint32 associativeCount( 0 );
+	ConvertBigEndian( input, &associativeCount, 4 );
+	input += 4;
+	length -= 4;
+
+	std::vector<IAmfValue^> data( associativeCount );
+	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
+	{
+		const auto& key = ParseUtf8( input, length );
+		std::wistringstream stream( key->Data() );
+		size_t i; stream >> i;
+
+		data[i] = ParseValue( input, length );
+	}
+
+	if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
+		throw ref new Platform::FailureException( "Invalid ecmaArray." );
+
+	input += 3;
+	length -= 3;
+
+	return ref new AmfArray( std::move( data ) );
+}
+
+IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
+{
+	if( length < 4 )
+		throw ref new Platform::FailureException( "Invalid strictArray." );
+
+	uint32 arrayCount( 0 );
+	ConvertBigEndian( input, &arrayCount, 4 );
+	input += 4;
+	length -= 4;
+
+	std::vector<IAmfValue^> data( arrayCount );
+	for( auto i = 0u; i < arrayCount; ++i )
+		data[i] = ParseValue( input, length );
+
+	return AmfArray::CreateStrictArray( std::move( data ) );
 }
 
 IAmfValue^ Amf0Parser::ParseFlexibleArray( uint8*& input, uint32& length )
@@ -209,71 +236,45 @@ Platform::String^ Amf0Parser::ParseUtf8Base( uint8*& input, uint32& length, cons
 
 IAmfValue^ Amf0Parser::ParseObject( uint8*& input, uint32& length )
 {
-	// *Prop (min 0) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 3 bytes
+	// Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 3 bytes
 	if( length < 3 )
 		throw ref new Platform::FailureException( "Invalid object." );
 
-	std::map<Platform::String^, IAmfValue^> data;
-	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
-		data.emplace( ParseProperty( input, length ) );
-
-	if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
-		throw ref new Platform::FailureException( "Invalid object." );
-
-	input += 3;
-	length -= 3;
-
+	const auto& data = ParseObjectBase( input, length );
 	return ref new AmfObject( std::move( data ) );
-}
-
-IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, uint32& length )
-{
-	// U32 (count) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 7 bytes
-	if( length < 7 )
-		throw ref new Platform::FailureException( "Invalid ecmaArray." );
-
-	uint32 associativeCount( 0 );
-	ConvertBigEndian( input, &associativeCount, 4 );
-	input += 4;
-	length -= 4;
-
-	std::map<Platform::String^, IAmfValue^> data;
-	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
-		data.emplace( ParseProperty( input, length ) );
-
-	if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
-		throw ref new Platform::FailureException( "Invalid ecmaArray." );
-
-	input += 3;
-	length -= 3;
-
-	return AmfObject::CreateEcmaArray( associativeCount, std::move( data ) );
 }
 
 IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, uint32& length )
 {
-	// ClassName (min U16+U8) | *Prop (min 0) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 6 bytes
+	// ClassName (min U16+U8) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 6 bytes
 	if( length < 6 )
 		throw ref new Platform::FailureException( "Invalid typedObject." );
 
-	auto className = ParseUtf8( input, length );
+	const auto& className = ParseUtf8( input, length );
+	const auto& data = ParseObjectBase( input, length );
+	return AmfObject::CreateTypedObject( className, std::move( data ) );
+}
 
+std::map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( uint8*& input, uint32& length )
+{
 	std::map<Platform::String^, IAmfValue^> data;
 	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
-		data.emplace( ParseProperty( input, length ) );
+	{
+		const auto& prop = ParseProperty( input, length );
+		data.emplace( std::move( prop ) );
+	}
 
 	if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
-		throw ref new Platform::FailureException( "Invalid typedObject." );
+		throw ref new Platform::FailureException( "Invalid object." );
 
 	input += 3;
 	length -= 3;
-
-	return AmfObject::CreateTypedObject( className, std::move( data ) );
+	return std::move( data );
 }
 
 std::pair<Platform::String^, IAmfValue^> Amf0Parser::ParseProperty( uint8*& input, uint32& length )
 {
-	auto key = ParseUtf8( input, length );
-	auto value = ParseValue( input, length );
-	return std::make_pair( key, value );
+	const auto& key = ParseUtf8( input, length );
+	const auto& value = ParseValue( input, length );
+	return std::make_pair( std::move( key ), std::move( value ) );
 }

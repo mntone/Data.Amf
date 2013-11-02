@@ -7,7 +7,7 @@ using namespace Mntone::Data::Amf;
 
 AmfArray::AmfArray( void ) :
 	_ValueType( AmfValueType::Array ),
-	_vector( ref new Platform::Collections::Vector<IAmfValue^>( ) )
+	_vector( ref new Platform::Collections::Vector<IAmfValue^>() )
 { }
 
 AmfArray::AmfArray( std::vector<IAmfValue^> data ) :
@@ -66,14 +66,28 @@ Platform::String^ AmfArray::ToString( void )
 {
 	std::wstringstream buf;
 	buf << '[';
-	for each( auto item in _vector )
+	for( const auto& item : _vector )
 	{
-		auto out = item->ToString();
+		const auto& out = item->ToString();
 		buf.write( out->Data(), out->Length() );
 		buf.write( L", ", 2 );
 	}
 	buf << ']';
 	return ref new Platform::String( buf.str().c_str() );
+}
+
+AmfArray^ AmfArray::CreateStrictArray( void )
+{
+	auto out = ref new AmfArray();
+	out->_Strict = true;
+	return out;
+}
+
+AmfArray^ AmfArray::CreateStrictArray( std::vector<IAmfValue^> data )
+{
+	auto out = ref new AmfArray( std::move( data ) );
+	out->_Strict = true;
+	return out;
 }
 
 AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input )
