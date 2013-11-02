@@ -15,7 +15,7 @@ public:
 		TestAmf0( ref new TestByteArray{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Double );
-			Assert::AreEqual(0.0, amfValue->GetDouble());
+			Assert::AreEqual( 0.0, amfValue->GetDouble() );
 		} );
 	}
 
@@ -24,7 +24,7 @@ public:
 		TestAmf0( ref new TestByteArray{ 0, 0x3f, 0xe0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Double );
-			Assert::AreEqual(0.5, amfValue->GetDouble());
+			Assert::AreEqual( 0.5, amfValue->GetDouble() );
 		} );
 	}
 
@@ -69,7 +69,7 @@ public:
 		TestAmf0( ref new TestByteArray{ 2, 0, 6, 0xc2, 0xbd, 0x3a, 0x20, 0x32, 0x42 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::String );
-			Assert::AreEqual(L"½: 2B", amfValue->GetString()->Data());
+			Assert::AreEqual( L"½: 2B", amfValue->GetString()->Data() );
 		} );
 	}
 
@@ -78,7 +78,7 @@ public:
 		TestAmf0( ref new TestByteArray{ 2, 0, 7, 0xe2, 0x91, 0xb4, 0x3a, 0x20, 0x33, 0x42 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::String );
-			Assert::AreEqual(L"⑴: 3B", amfValue->GetString()->Data());
+			Assert::AreEqual( L"⑴: 3B", amfValue->GetString()->Data() );
 		} );
 	}
 
@@ -87,7 +87,7 @@ public:
 		TestAmf0( ref new TestByteArray{ 3, 0, 0, 9 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
-			Assert::AreEqual<uint32>(0, amfValue->GetObject()->Size);
+			Assert::AreEqual<uint32>( 0, amfValue->GetObject()->Size );
 		} );
 	}
 
@@ -96,8 +96,10 @@ public:
 		TestAmf0( ref new TestByteArray{ 3, 0, 1, 0x42, 2, 0, 0, 0, 0, 9 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
-			Assert::AreEqual<uint32>(1, amfValue->GetObject()->Size);
-			Assert::IsNull( amfValue->GetObject()->GetNamedString( "B" ) );
+
+			const auto& obj = amfValue->GetObject();
+			Assert::AreEqual<uint32>( 1, obj->Size );
+			Assert::AreEqual( L"", obj->GetNamedString( "B" )->Data() );
 		} );
 	}
 
@@ -108,7 +110,7 @@ public:
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
 
 			const auto& obj = amfValue->GetObject();
-			Assert::AreEqual<uint32>(2, obj->Size);
+			Assert::AreEqual<uint32>( 2, obj->Size );
 			Assert::IsNull( obj->GetNamedString( "D" ) );
 			Assert::IsNull( obj->GetNamedString( "C" ) );
 		} );
@@ -135,7 +137,7 @@ public:
 		TestAmf0( ref new TestByteArray{ 8, 0, 0, 0, 0, 0, 0, 9 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Array );
-			Assert::AreEqual<uint32>(0, amfValue->GetArray()->Size);
+			Assert::AreEqual<uint32>( 0, amfValue->GetArray()->Size );
 		} );
 	}
 
@@ -145,7 +147,7 @@ public:
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Array );
 			Assert::AreEqual<uint32>( amfValue->GetArray()->Size, 1 );
-			Assert::AreEqual(L"", amfValue->GetArray()->GetStringAt(0)->Data());
+			Assert::AreEqual( L"", amfValue->GetArray()->GetStringAt( 0 )->Data() );
 		} );
 	}
 
@@ -154,7 +156,7 @@ public:
 		TestAmf0( ref new TestByteArray{ 10, 0, 0, 0, 0 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Array );
-			Assert::AreEqual<uint32>(0, amfValue->GetArray()->Size);
+			Assert::AreEqual<uint32>( 0, amfValue->GetArray()->Size );
 		} );
 	}
 
@@ -163,9 +165,11 @@ public:
 		TestAmf0( ref new TestByteArray{ 10, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Array );
-			Assert::AreEqual<uint32>(2, amfValue->GetArray()->Size);
-			Assert::AreEqual(0.0, amfValue->GetArray()->GetAt(0)->GetDouble());
-			Assert::IsTrue( amfValue->GetArray()->GetAt( 1 )->GetBoolean() );
+
+			const auto& ary = amfValue->GetArray();
+			Assert::AreEqual<uint32>( 2, ary->Size );
+			Assert::AreEqual( 0.0, ary->GetDoubleAt( 0 ) );
+			Assert::IsTrue( ary->GetBooleanAt( 1 ) );
 		} );
 	}
 
@@ -175,15 +179,33 @@ public:
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Date );
 
-			const auto& targetDate = amfValue->GetDate();
 			const auto& dateFormat = ref new WG::DateTimeFormatting::DateTimeFormatter(
 				WG::DateTimeFormatting::YearFormat::Full,
 				WG::DateTimeFormatting::MonthFormat::Numeric,
 				WG::DateTimeFormatting::DayFormat::Default,
 				WG::DateTimeFormatting::DayOfWeekFormat::None );
-			const auto& dateStr = dateFormat->Format( targetDate );
 
-			Assert::AreEqual(safe_cast<Platform::String^>(L"‎2013‎年‎10‎月‎13‎日"), dateStr);
+			Assert::AreEqual( L"‎2013‎年‎10‎月‎13‎日", dateFormat->Format( amfValue->GetDate( ) )->Data( ) );
+		} );
+	}
+
+	TEST_METHOD( DateTest_2013_11_02_20_28_52_0100 )
+	{
+		TestAmf0( ref new TestByteArray{ 0x0b, 0x42, 0x74, 0x21, 0x89, 0x2a, 0x18, 0x40, 0, 0xfd, 0xe4 }, []( IAmfValue^ amfValue )
+		{
+			Assert::IsTrue( amfValue->ValueType == AmfValueType::Date );
+
+			const auto& dateFormat = ref new WG::DateTimeFormatting::DateTimeFormatter(
+				WG::DateTimeFormatting::YearFormat::Full,
+				WG::DateTimeFormatting::MonthFormat::Numeric,
+				WG::DateTimeFormatting::DayFormat::Default,
+				WG::DateTimeFormatting::DayOfWeekFormat::None,
+				WG::DateTimeFormatting::HourFormat::Default,
+				WG::DateTimeFormatting::MinuteFormat::Default,
+				WG::DateTimeFormatting::SecondFormat::Default,
+				ref new Platform::Collections::Vector<Platform::String^>( { "ja" } ) );
+
+			Assert::AreEqual( L"‎2013年11月2日 20:28:52", dateFormat->Format( amfValue->GetDate( ) )->Data( ) );
 		} );
 	}
 
@@ -201,7 +223,7 @@ public:
 		TestAmf0( ls, [testLs]( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::String );
-			Assert::AreEqual(testLs.c_str(), amfValue->GetString()->Data());
+			Assert::AreEqual( testLs.c_str(), amfValue->GetString()->Data() );
 		} );
 	}
 
@@ -210,7 +232,7 @@ public:
 		TestAmf0( ref new TestByteArray{ 0x0f, 0, 0, 0, 6, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Xml );
-			Assert::AreEqual(L"<root>", amfValue->GetString()->Data());
+			Assert::AreEqual( L"<root>", amfValue->GetString()->Data() );
 		} );
 	}
 
@@ -219,100 +241,100 @@ public:
 		TestAmf0( ref new TestByteArray{ 0x10, 0, 4, 0x54, 0x65, 0x73, 0x74, 0, 0, 9 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
-			Assert::AreEqual<uint32>(0, amfValue->GetObject()->Size);
-			Assert::AreEqual(L"Test", amfValue->GetObject()->ClassName->Data());
+			Assert::AreEqual<uint32>( 0, amfValue->GetObject()->Size );
+			Assert::AreEqual( L"Test", amfValue->GetObject()->ClassName->Data() );
 		} );
 	}
 
 
 	TEST_METHOD( FromValueParseTest_Double0 )
 	{
-		parseTest_Double0( valueParse );
+		ParseTestDouble0( ValueParse );
 	}
 
 	TEST_METHOD( FromValueParseTest_ObjectNull )
 	{
-		parseTest_ObjectNull( valueParse );
+		ParseTestObjectNull( ValueParse );
 	}
 
 	TEST_METHOD( FromValueParseTest_ArrayNull )
 	{
-		parseTest_ArrayNull( valueParse );
+		ParseTestArrayNull( ValueParse );
 	}
 
 	TEST_METHOD( FromObjectParseTest_Double0 )
 	{
-		parseTest_Double0( objectParse );
+		ParseTestDouble0( ObjectParse );
 	}
 
 	TEST_METHOD( FromObjectParseTest_ObjectNull )
 	{
-		parseTest_ObjectNull( objectParse );
+		ParseTestObjectNull( ObjectParse );
 	}
 
 	TEST_METHOD( FromObjectParseTest_ArrayNull )
 	{
-		parseTest_ArrayNull( objectParse );
+		ParseTestArrayNull( ObjectParse );
 	}
 
 	TEST_METHOD( FromArrayParseTest_Double0 )
 	{
-		parseTest_Double0( arrayParse );
+		ParseTestDouble0( ArrayParse );
 	}
 
 	TEST_METHOD( FromArrayParseTest_ObjectNull )
 	{
-		parseTest_ObjectNull( arrayParse );
+		ParseTestObjectNull( ArrayParse );
 	}
 
 	TEST_METHOD( FromArrayParseTest_ArrayNull )
 	{
-		parseTest_ArrayNull( arrayParse );
+		ParseTestArrayNull( ArrayParse );
 	}
 
 	TEST_METHOD( FromValueTryParseTest_Double0 )
 	{
-		parseTest_Double0( valueTryParse );
+		ParseTestDouble0( ValueTryParse );
 	}
 
 	TEST_METHOD( FromValueTryParseTest_ObjectNull )
 	{
-		parseTest_ObjectNull( valueTryParse );
+		ParseTestObjectNull( ValueTryParse );
 	}
 
 	TEST_METHOD( FromValueTryParseTest_ArrayNull )
 	{
-		parseTest_ArrayNull( valueTryParse );
+		ParseTestArrayNull( ValueTryParse );
 	}
 
 	TEST_METHOD( FromObjectTryParseTest_Double0 )
 	{
-		parseTest_Double0( objectTryParse );
+		ParseTestDouble0( ObjectTryParse );
 	}
 
 	TEST_METHOD( FromObjectTryParseTest_ObjectNull )
 	{
-		parseTest_ObjectNull( objectTryParse );
+		ParseTestObjectNull( ObjectTryParse );
 	}
 
 	TEST_METHOD( FromObjectTryParseTest_ArrayNull )
 	{
-		parseTest_ArrayNull( objectTryParse );
+		ParseTestArrayNull( ObjectTryParse );
 	}
 
 	TEST_METHOD( FromArrayTryParseTest_Double0 )
 	{
-		parseTest_Double0( arrayTryParse );
+		ParseTestDouble0( ArrayTryParse );
 	}
 
 	TEST_METHOD( FromArrayTryParseTest_ObjectNull )
 	{
-		parseTest_ObjectNull( arrayTryParse );
+		ParseTestObjectNull( ArrayTryParse );
 	}
 
 	TEST_METHOD( FromArrayTryParseTest_ArrayNull )
 	{
-		parseTest_ArrayNull( arrayTryParse );
+		ParseTestArrayNull( ArrayTryParse );
 	}
 
 
@@ -323,75 +345,75 @@ public:
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Array );
 
 			const auto& ary = amfValue->GetArray();
-			Assert::AreEqual<uint32>(4, ary->Size);
-			Assert::AreEqual(L"_result", ary->GetStringAt(0)->Data());
-			Assert::AreEqual(1.0, ary->GetDoubleAt(1));
+			Assert::AreEqual<uint32>( 4, ary->Size );
+			Assert::AreEqual( L"_result", ary->GetStringAt( 0 )->Data() );
+			Assert::AreEqual( 1.0, ary->GetDoubleAt( 1 ) );
 
 			const auto& objLapped = ary->GetAt( 2 );
 			Assert::IsTrue( objLapped->ValueType == AmfValueType::Object );
 
 			const auto& obj = objLapped->GetObject();
-			Assert::AreEqual(L"FMS/3,0,1,123", obj->GetNamedString("fmsVer")->Data());
-			Assert::AreEqual(31.0, obj->GetNamedDouble("capabilities"));
+			Assert::AreEqual( L"FMS/3,0,1,123", obj->GetNamedString( "fmsVer" )->Data() );
+			Assert::AreEqual( 31.0, obj->GetNamedDouble( "capabilities" ) );
 
 			const auto& objLapped2 = ary->GetAt( 3 );
 			Assert::IsTrue( objLapped2->ValueType == AmfValueType::Object );
 
-			const auto& obj2 = objLapped2->GetObject();
-			Assert::AreEqual(L"status", obj2->GetNamedString("level")->Data());
+			const auto& obj2 = objLapped2->GetObject( );
+			Assert::AreEqual( L"status", obj2->GetNamedString( "level" )->Data() );
 
-			Assert::AreEqual(L"NetConnection.Connect.Success", obj2->GetNamedString("code")->Data());
-			Assert::AreEqual(L"Connection succeeded", obj2->GetNamedString("description")->Data());
-			Assert::AreEqual(0.0, obj2->GetNamedDouble("objectEncoding"));
+			Assert::AreEqual( L"NetConnection.Connect.Success", obj2->GetNamedString( "code" )->Data() );
+			Assert::AreEqual( L"Connection succeeded", obj2->GetNamedString( "description" )->Data() );
+			Assert::AreEqual( 0.0, obj2->GetNamedDouble( "objectEncoding" ) );
 		} );
 	}
 
 private:
-	static void parseTest_Double0( std::function<IAmfValue ^ ( TestByteArray^ )> parseFunc )
+	static void ParseTestDouble0( std::function<IAmfValue^ ( TestByteArray^ )> parseFunc )
 	{
-		Assert::AreEqual(0.0,parseFunc(ref new TestByteArray{ 0, 0, 0, 0, 0, 0, 0, 0, 0 })->GetDouble());
+		Assert::AreEqual( 0.0, parseFunc( ref new TestByteArray{ 0, 0, 0, 0, 0, 0, 0, 0, 0 } )->GetDouble() );
 	}
 
-	static void parseTest_ObjectNull( std::function<IAmfValue ^ ( TestByteArray^ )> parseFunc )
+	static void ParseTestObjectNull( std::function<IAmfValue^ ( TestByteArray^ )> parseFunc )
 	{
-		Assert::AreEqual<uint32>(0, parseFunc( ref new TestByteArray{ 3, 0, 0, 9 } )->GetObject()->Size);
+		Assert::AreEqual<uint32>( 0, parseFunc( ref new TestByteArray{ 3, 0, 0, 9 } )->GetObject()->Size );
 	}
 
-	static void parseTest_ArrayNull( std::function<IAmfValue ^ ( TestByteArray^ )> parseFunc )
+	static void ParseTestArrayNull( std::function<IAmfValue^ ( TestByteArray^ )> parseFunc )
 	{
-		Assert::AreEqual<uint32>(0, parseFunc( ref new TestByteArray{ 10, 0, 0, 0, 0 } )->GetArray()->Size);
+		Assert::AreEqual<uint32>( 0, parseFunc( ref new TestByteArray{ 10, 0, 0, 0, 0 } )->GetArray()->Size );
 	}
 
-	static AmfValue^ valueParse( TestByteArray^ byteArray )
+	static AmfValue^ ValueParse( TestByteArray^ byteArray )
 	{
 		return AmfValue::Parse( byteArray, AmfEncodingType::Amf0 );
 	}
 
-	static AmfValue^ valueTryParse( TestByteArray^ byteArray )
+	static AmfValue^ ValueTryParse( TestByteArray^ byteArray )
 	{
 		AmfValue^ outValue;
 		AmfValue::TryParse( byteArray, AmfEncodingType::Amf0, &outValue );
 		return outValue;
 	}
 
-	static AmfObject^ objectParse( TestByteArray^ byteArray )
+	static AmfObject^ ObjectParse( TestByteArray^ byteArray )
 	{
 		return AmfObject::Parse( byteArray, AmfEncodingType::Amf0 );
 	}
 
-	static AmfObject^ objectTryParse( TestByteArray^ byteArray )
+	static AmfObject^ ObjectTryParse( TestByteArray^ byteArray )
 	{
 		AmfObject^ outObject;
 		AmfObject::TryParse( byteArray, AmfEncodingType::Amf0, &outObject );
 		return outObject;
 	}
 
-	static AmfArray^ arrayParse( TestByteArray^ byteArray )
+	static AmfArray^ ArrayParse( TestByteArray^ byteArray )
 	{
 		return AmfArray::Parse( byteArray, AmfEncodingType::Amf0 );
 	}
 
-	static AmfArray^ arrayTryParse( TestByteArray^ byteArray )
+	static AmfArray^ ArrayTryParse( TestByteArray^ byteArray )
 	{
 		AmfArray^ outArray;
 		AmfArray::TryParse( byteArray, AmfEncodingType::Amf0, &outArray );
@@ -404,9 +426,9 @@ private:
 		auto r = Amf0Parser::Parse( rawData );
 		auto st = r->ToString();
 		checkHandler( r );
-		auto createData = Amf0Sequencer::Sequenceify( r );
+		const auto& create_data = Amf0Sequencer::Sequenceify( r );
 
-		//Assert::IsTrue( ArrayEquals( rawData, createData ) );
+		Assert::IsTrue( ArrayEquals( rawData, create_data ) );
 	}
 
 	static bool ArrayEquals( const Platform::Array<uint8>^ firstArray, const Platform::Array<uint8>^ secondArray )
@@ -415,7 +437,7 @@ private:
 			return false;
 		for( auto i = 0u; i < firstArray->Length; ++i )
 		{
-			if( !firstArray[i].Equals( secondArray[i] ) )
+			if( !secondArray[i].Equals( secondArray[i] ) )
 			{
 				return false;
 			}

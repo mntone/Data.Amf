@@ -66,27 +66,27 @@ namespace Mntone { namespace Data { namespace Amf {
 		// IAmfValue
 		property AmfValueType ValueType
 		{
-			virtual AmfValueType get( void ) { return _ValueType; }
+			virtual AmfValueType get( void ) { return ValueType_; }
 		}
 
 		// IAmfObject
 		property Platform::String^ ClassName
 		{
-			virtual Platform::String^ get( void ) { return _ClassName; }
-			virtual void set( Platform::String^ value ) { _ClassName = value; }
+			virtual Platform::String^ get( void ) { return ClassName_; }
+			virtual void set( Platform::String^ value ) { ClassName_ = value; }
 		}
 
 		// IMap
 		property uint32 Size
 		{
-			virtual uint32 get( void ) { return _map->Size; }
+			virtual uint32 get( void ) { return map_->Size; }
 		}
 
 	private:
-		AmfValueType _ValueType;
-		Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>^ _map;
+		AmfValueType ValueType_;
+		Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>^ map_;
 
-		Platform::String^ _ClassName;
+		Platform::String^ ClassName_;
 	};
 
 } } }

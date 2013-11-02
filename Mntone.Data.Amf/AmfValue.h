@@ -44,12 +44,12 @@ namespace Mntone { namespace Data { namespace Amf {
 		// IAmfValue
 		property AmfValueType ValueType
 		{
-			virtual AmfValueType get( void ) { return _ValueType; }
+			virtual AmfValueType get( void ) { return ValueType_; }
 		}
 
 	private:
-		AmfValueType _ValueType;
-		Platform::Object^ _value;
+		AmfValueType ValueType_;
+		Platform::Object^ value_;
 	};
 
 } } }

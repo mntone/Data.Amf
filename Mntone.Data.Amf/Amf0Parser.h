@@ -46,7 +46,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		Platform::String^ ParseUtf8Base( uint8*& input, uint32& length, const uint32 textLength );
 
 	private:
-		std::vector<IAmfValue^> _referenceBuffer;
+		std::vector<IAmfValue^> referenceBuffer_;
 	};
 
 } } }

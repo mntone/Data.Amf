@@ -45,7 +45,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		void SequenceifyReference( int32 input, std::basic_stringstream<uint8>& stream );
 
 	private:
-		std::vector<IAmfValue^> _referenceBuffer;
+		std::vector<IAmfValue^> referenceBuffer_;
 	};
 
 } } }

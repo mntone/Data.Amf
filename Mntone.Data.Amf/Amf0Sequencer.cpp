@@ -119,7 +119,7 @@ void Amf0Sequencer::SequenceifyObject( IAmfValue^ input, std::basic_stringstream
 		SequenceifyReference( ref, stream );
 		return;
 	}
-	_referenceBuffer.push_back( input );
+	referenceBuffer_.push_back( input );
 
 	const auto& className = obj->ClassName;
 	if( className == "" )
@@ -153,7 +153,7 @@ void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstr
 		SequenceifyReference( ref, stream );
 		return;
 	}
-	_referenceBuffer.push_back( input );
+	referenceBuffer_.push_back( input );
 
 	if( ary->Strict )
 	{
@@ -241,10 +241,10 @@ void Amf0Sequencer::SequenceifyUtf8Long( IAmfValue^ input, std::basic_stringstre
 
 int32 Amf0Sequencer::IsReference( IAmfValue^ input )
 {
-	const size_t& length = _referenceBuffer.size();
+	const size_t& length = referenceBuffer_.size();
 	for( size_t i = 0u; i < length; ++i )
 	{
-		const auto& value = _referenceBuffer[i];
+		const auto& value = referenceBuffer_[i];
 		if( value == input )
 			return -1;
 		if( i > UINT16_MAX )

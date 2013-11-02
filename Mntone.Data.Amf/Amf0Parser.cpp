@@ -99,10 +99,10 @@ IAmfValue^ Amf0Parser::ParseReference( uint8*& input, uint32& length )
 	input += 2;
 	length -= 2;
 
-	if( data >= _referenceBuffer.size() )
+	if( data >= referenceBuffer_.size() )
 		throw ref new Platform::FailureException( "Invalid reference." );
 
-	return _referenceBuffer[data];
+	return referenceBuffer_[data];
 }
 
 IAmfValue^ Amf0Parser::ParseDate( uint8*& input, uint32& length )
@@ -140,7 +140,7 @@ IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, uint32& length )
 		throw ref new Platform::FailureException( "Invalid ecmaArray." );
 
 	const auto& out = ref new AmfArray();
-	_referenceBuffer.push_back( out );
+	referenceBuffer_.push_back( out );
 
 	uint32 associativeCount( 0 );
 	ConvertBigEndian( input, &associativeCount, 4 );
@@ -173,7 +173,7 @@ IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
 		throw ref new Platform::FailureException( "Invalid strictArray." );
 
 	const auto& out = AmfArray::CreateStrictArray();
-	_referenceBuffer.push_back( out );
+	referenceBuffer_.push_back( out );
 
 	uint32 arrayCount( 0 );
 	ConvertBigEndian( input, &arrayCount, 4 );
@@ -216,7 +216,7 @@ IAmfValue^ Amf0Parser::ParseObject( uint8*& input, uint32& length )
 		throw ref new Platform::FailureException( "Invalid object." );
 
 	const auto& out = ref new AmfObject();
-	_referenceBuffer.push_back( out );
+	referenceBuffer_.push_back( out );
 
 	const auto& data = ParseObjectBase( input, length );
 	out->SetData( std::move( data ) );
@@ -231,7 +231,7 @@ IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, uint32& length )
 
 	const auto& className = ParseUtf8( input, length );
 	const auto& out = AmfObject::CreateTypedObject( className );
-	_referenceBuffer.push_back( out );
+	referenceBuffer_.push_back( out );
 
 	const auto& data = ParseObjectBase( input, length );
 	out->SetData( std::move( data ) );

@@ -2,4 +2,6 @@
 
 #include "CppUnitTest.h"
 
+#include <collection.h>
+
 #include <functional>

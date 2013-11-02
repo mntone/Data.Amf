@@ -6,8 +6,8 @@
 using namespace Mntone::Data::Amf;
 
 AmfValue::AmfValue( void ) :
-	_ValueType( AmfValueType::Null ),
-	_value( nullptr )
+	ValueType_( AmfValueType::Null ),
+	value_( nullptr )
 { }
 
 Platform::Array<uint8>^ AmfValue::Sequenceify( void )
@@ -23,69 +23,69 @@ Platform::Array<uint8>^ AmfValue::Sequenceify( AmfEncodingType type )
 	throw ref new Platform::NotImplementedException();
 }
 
-bool AmfValue::GetBoolean( void ) { return safe_cast<bool>( _value ); }
-float64 AmfValue::GetDouble( void ) { return safe_cast<float64>( _value ); }
-int32 AmfValue::GetInteger( void ) { return safe_cast<int32>( _value ); }
-Platform::String^ AmfValue::GetString( void ) { return safe_cast<Platform::String^>( _value ); }
-Windows::Foundation::DateTime AmfValue::GetDate( void ) { return safe_cast<Windows::Foundation::DateTime>( _value ); }
+bool AmfValue::GetBoolean( void ) { return safe_cast<bool>( value_ ); }
+float64 AmfValue::GetDouble( void ) { return safe_cast<float64>( value_ ); }
+int32 AmfValue::GetInteger( void ) { return safe_cast<int32>( value_ ); }
+Platform::String^ AmfValue::GetString( void ) { return safe_cast<Platform::String^>( value_ ); }
+Windows::Foundation::DateTime AmfValue::GetDate( void ) { return safe_cast<Windows::Foundation::DateTime>( value_ ); }
 AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 
-Platform::String^ AmfValue::ToString( void ) { return _value->ToString(); }
+Platform::String^ AmfValue::ToString( void ) { return value_->ToString(); }
 
 AmfValue^ AmfValue::CreateUndefinedValue( void )
 {
 	auto out = ref new AmfValue();
-	out->_ValueType = AmfValueType::Undefined;
-	out->_value = nullptr;
+	out->ValueType_ = AmfValueType::Undefined;
+	out->value_ = nullptr;
 	return out;
 }
 
 AmfValue^ AmfValue::CreateBooleanValue( bool input )
 {
 	auto out = ref new AmfValue();
-	out->_ValueType = AmfValueType::Boolean;
-	out->_value = input;
+	out->ValueType_ = AmfValueType::Boolean;
+	out->value_ = input;
 	return out;
 }
 
 AmfValue^ AmfValue::CreateDoubleValue( float64 input )
 {
 	auto out = ref new AmfValue();
-	out->_ValueType = AmfValueType::Double;
-	out->_value = input;
+	out->ValueType_ = AmfValueType::Double;
+	out->value_ = input;
 	return out;
 }
 
 AmfValue^ AmfValue::CreateIntegerValue( int32 input )
 {
 	auto out = ref new AmfValue();
-	out->_ValueType = AmfValueType::Integer;
-	out->_value = input;
+	out->ValueType_ = AmfValueType::Integer;
+	out->value_ = input;
 	return out;
 }
 
 AmfValue^ AmfValue::CreateStringValue( Platform::String^ input )
 {
 	auto out = ref new AmfValue();
-	out->_ValueType = AmfValueType::String;
-	out->_value = input;
+	out->ValueType_ = AmfValueType::String;
+	out->value_ = input;
 	return out;
 }
 
 AmfValue^ AmfValue::CreateDateValue( Windows::Foundation::DateTime input )
 {
 	auto out = ref new AmfValue();
-	out->_ValueType = AmfValueType::Date;
-	out->_value = input;
+	out->ValueType_ = AmfValueType::Date;
+	out->value_ = input;
 	return out;
 }
 
 AmfValue^ AmfValue::CreateXmlValue( Platform::String^ input )
 {
 	auto out = ref new AmfValue();
-	out->_ValueType = AmfValueType::Xml;
-	out->_value = input;
+	out->ValueType_ = AmfValueType::Xml;
+	out->value_ = input;
 	return out;
 }
 
