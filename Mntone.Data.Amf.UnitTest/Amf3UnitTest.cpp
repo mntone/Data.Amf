@@ -194,12 +194,16 @@ public:
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Date );
 
-			const auto& dateFormat = ref new WG::DateTimeFormatting::DateTimeFormatter(
-				WG::DateTimeFormatting::YearFormat::Full,
-				WG::DateTimeFormatting::MonthFormat::Numeric,
-				WG::DateTimeFormatting::DayFormat::Default,
-				WG::DateTimeFormatting::DayOfWeekFormat::None );
-			Assert::AreEqual( L"‎2013‎年‎10‎月‎13‎日", dateFormat->Format( amfValue->GetDate() )->Data() );
+			const auto& calender = ref new Windows::Globalization::Calendar();
+			calender->Year = 2013;
+			calender->Month = 10;
+			calender->Day = 13;
+			calender->Hour = 0;
+			calender->Minute = 0;
+			calender->Second = 0;
+			calender->Nanosecond = 0;
+			const auto& exp = calender->GetDateTime();
+			Assert::IsTrue( exp.UniversalTime == amfValue->GetDate().UniversalTime );
 		} );
 	}
 
@@ -209,16 +213,16 @@ public:
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Date );
 
-			const auto& dateFormat = ref new WG::DateTimeFormatting::DateTimeFormatter(
-				WG::DateTimeFormatting::YearFormat::Full,
-				WG::DateTimeFormatting::MonthFormat::Numeric,
-				WG::DateTimeFormatting::DayFormat::Default,
-				WG::DateTimeFormatting::DayOfWeekFormat::None,
-				WG::DateTimeFormatting::HourFormat::Default,
-				WG::DateTimeFormatting::MinuteFormat::Default,
-				WG::DateTimeFormatting::SecondFormat::Default,
-				ref new Platform::Collections::Vector<Platform::String^>( { "ja" } ) );
-			Assert::AreEqual( L"2013年11月2日 20:28:52", dateFormat->Format( amfValue->GetDate() )->Data() );
+			const auto& calender = ref new Windows::Globalization::Calendar();
+			calender->Year = 2013;
+			calender->Month = 11;
+			calender->Day = 2;
+			calender->Hour = 20;
+			calender->Minute = 28;
+			calender->Second = 52;
+			calender->Nanosecond = 100 * 1000000;
+			const auto& exp = calender->GetDateTime();
+			Assert::IsTrue( exp.UniversalTime == amfValue->GetDate().UniversalTime );
 		} );
 	}
 
