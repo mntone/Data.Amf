@@ -1,9 +1,7 @@
 ﻿#include "pch.h"
-#include "CppUnitTest.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Mntone::Data::Amf;
-namespace WG = Windows::Globalization;
 
 using TestByteArray = Platform::Array<uint8>;
 
@@ -188,45 +186,29 @@ public:
 		} );
 	}
 
-	TEST_METHOD( Amf3_⑧DateTest‐0_2013_10_13 )
+	TEST_METHOD( Amf3_⑧DateTest‐0_2013／10／13 )
 	{
 		TestAmf3( ref new TestByteArray{ 8, 1, 0x42, 0x74, 0x1a, 0xd2, 0xe6, 0x18, 0x00, 0x00 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Date );
 
-			const auto& calender = ref new Windows::Globalization::Calendar();
-			calender->Year = 2013;
-			calender->Month = 10;
-			calender->Day = 13;
-			calender->Hour = 0;
-			calender->Minute = 0;
-			calender->Second = 0;
-			calender->Nanosecond = 0;
-			const auto& exp = calender->GetDateTime();
+			const auto& exp = AssertHelper::GetDate( 2013, 10, 13 );
 			Assert::IsTrue( exp.UniversalTime == amfValue->GetDate().UniversalTime );
 		} );
 	}
 
-	TEST_METHOD( Amf3_⑧DateTest‐1_2013_11_02_20_28_52_0100 )
+	TEST_METHOD( Amf3_⑧DateTest‐1_2013／11／02_20：28：52．0100 )
 	{
 		TestAmf3( ref new TestByteArray{ 8, 1, 0x42, 0x74, 0x21, 0x89, 0x2a, 0x18, 0x40, 0 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Date );
 
-			const auto& calender = ref new Windows::Globalization::Calendar();
-			calender->Year = 2013;
-			calender->Month = 11;
-			calender->Day = 2;
-			calender->Hour = 20;
-			calender->Minute = 28;
-			calender->Second = 52;
-			calender->Nanosecond = 100 * 1000000;
-			const auto& exp = calender->GetDateTime();
+			const auto& exp = AssertHelper::GetDate( 2013, 11, 2, 20, 28, 52, 100 * 1000000 );
 			Assert::IsTrue( exp.UniversalTime == amfValue->GetDate().UniversalTime );
 		} );
 	}
 
-	TEST_METHOD( Amf3_MasterTest_RtmpCommandData )
+	TEST_METHOD( Amf3_ⓍMasterTest_RtmpCommandData )
 	{
 		TestAmf3( ref new TestByteArray{ 0x9, 0x9, 0x1, 0x6, 0xf, 0x5f, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x4, 0x1, 0xa, 0xb, 0x1, 0x19, 0x63, 0x61, 0x70, 0x61, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x69, 0x65, 0x73, 0x4, 0x1f, 0xd, 0x66, 0x6d, 0x73, 0x56, 0x65, 0x72, 0x6, 0x1b, 0x46, 0x4d, 0x53, 0x2f, 0x33, 0x2c, 0x30, 0x2c, 0x31, 0x2c, 0x31, 0x32, 0x33, 0x1, 0xa, 0x1, 0x17, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x6, 0x29, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x73, 0x75, 0x63, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x1d, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x45, 0x6e, 0x63, 0x6f, 0x64, 0x69, 0x6e, 0x67, 0x4, 0x0, 0x9, 0x63, 0x6f, 0x64, 0x65, 0x6, 0x3b, 0x4e, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x2e, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0xb, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x6, 0xd, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x1 }, []( IAmfValue^ amfValue )
 		{
@@ -256,7 +238,7 @@ public:
 	}
 
 private:
-	static void TestAmf3( TestByteArray^ rawData, std::function<void( IAmfValue^ )> checkHandler )
+	void TestAmf3( TestByteArray^ rawData, std::function<void( IAmfValue^ )> checkHandler )
 	{
 		const auto& amf = Amf3Parser::Parse( rawData );
 		const auto& str = amf->ToString();
@@ -265,16 +247,6 @@ private:
 
 		//const auto& createData = Amf0Sequencer::Sequenceify( r );
 		//Assert::AreEqual( rawData->Length, createData->Length );
-		//Assert::IsTrue( ArrayEquals( rawData, createData ) );
-	}
-
-	static bool ArrayEquals( const Platform::Array<uint8>^ firstArray, const Platform::Array<uint8>^ secondArray )
-	{
-		for( auto i = 0u; i < firstArray->Length; ++i )
-		{
-			if( !secondArray[i].Equals( secondArray[i] ) )
-				return false;
-		}
-		return true;
+		//AssertHelper::AreArrayEqual( rawData, createData );
 	}
 };

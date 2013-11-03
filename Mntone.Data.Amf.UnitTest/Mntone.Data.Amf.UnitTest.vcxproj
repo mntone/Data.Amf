@@ -246,6 +246,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="AssertHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Amf3UnitTest.cpp" />
@@ -259,6 +260,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Amf0UnitTest.cpp" />
+    <ClCompile Include="AssertHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="CppUnitTestFramework, Version=11.0" />

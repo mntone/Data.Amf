@@ -1,7 +1,5 @@
 #pragma once
-
-#include "CppUnitTest.h"
-
 #include <collection.h>
-
 #include <functional>
+#include "CppUnitTest.h"
+#include "AssertHelper.h"
