@@ -16,6 +16,7 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Amf0UnitTest.cpp" />
+    <ClCompile Include="Amf3UnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Images\UnitTestLogo.scale-100.png">

@@ -9,8 +9,8 @@ using namespace Mntone::Data::Amf;
 
 IAmfValue^ Amf0Parser::Parse( const Platform::Array<uint8>^ input )
 {
-	uint8 *ptr( input->Data );
-	uint32 length( input->Length );
+	uint8* ptr( input->Data );
+	size_t length( input->Length );
 	return safe_cast<IAmfValue^>( ( ref new Amf0Parser() )->ParseValue( ptr, length ) );
 }
 
