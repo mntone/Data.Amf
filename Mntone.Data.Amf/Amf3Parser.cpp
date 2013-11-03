@@ -9,8 +9,8 @@ using namespace Mntone::Data::Amf;
 
 IAmfValue^ Amf3Parser::Parse( const Platform::Array<uint8>^ input )
 {
-	uint8 *ptr( input->Data );
-	uint32 length( input->Length );
+	uint8* ptr( input->Data );
+	size_t length( input->Length );
 	return safe_cast<IAmfValue^>( ( ref new Amf3Parser() )->ParseValue( ptr, length ) );
 }
 
@@ -356,35 +356,34 @@ Platform::String^ Amf3Parser::ParseUtf8( uint8*& input, size_t& length, const ui
 
 uint32 Amf3Parser::ParseUnsigned29bitInteger( uint8*& input, size_t& length )
 {
-	if( length != 0 )
+	if( length == 0 )
 		throw ref new Platform::FailureException( "Invalid 29-bit integer." );
 
-	uint32 ret = input[0];
-
-	if( input[0] < 0x7f )
+	uint32 ret = input[0] & 0x7f;
+	if( input[0] <= 0x7f )
 	{
 		input += 1;
 		length -= 1;
 		return ret;
 	}
 
-	ret = ( ret & 0x7f ) << 7 | input[1];
-	if( input[1] < 0x7f )
+	ret = ( ret << 7 ) | ( input[1] & 0x7f );
+	if( input[1] <= 0x7f )
 	{
 		input += 2;
 		length -= 2;
 		return ret;
 	}
 
-	ret = ( ret & 0x3fff ) << 7 | input[2];
-	if( input[2] < 0x7f )
+	ret = ( ret << 7 ) | ( input[2] & 0x7f );
+	if( input[2] <= 0x7f )
 	{
 		input += 3;
 		length -= 3;
 		return ret;
 	}
 
-	ret = ( ret & 0x1fffff ) << 8 | input[3];
+	ret = ( ret << 8 ) | input[3];
 	input += 4;
 	length -= 4;
 	return ret;
