@@ -69,6 +69,13 @@ Platform::String^ AmfObject::ToString( void )
 	return ref new Platform::String( buf.str().c_str() );
 }
 
+AmfObject^ AmfObject::CreateEcmaArray( void )
+{
+	auto out = ref new AmfObject();
+	out->ValueType_ = AmfValueType::EcmaArray;
+	return out;
+}
+
 AmfObject^ AmfObject::CreateTypedObject( Platform::String^ className )
 {
 	auto out = ref new AmfObject();

@@ -57,8 +57,6 @@ namespace Mntone { namespace Data { namespace Amf {
 		// IStringable
 		virtual Platform::String^ ToString( void ) override sealed;
 
-		static AmfArray^ CreateStrictArray( void );
-
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input );
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );
 		static bool TryParse( const Platform::Array<uint8>^ input, AmfArray^* result );
@@ -80,17 +78,9 @@ namespace Mntone { namespace Data { namespace Amf {
 			virtual uint32 get( void ) { return vector_->Size; }
 		}
 
-	internal:
-		property bool Strict
-		{
-			bool get( void ) { return Strict_; }
-		}
-
 	private:
 		AmfValueType ValueType_;
 		Platform::Collections::Vector<IAmfValue^>^ vector_;
-
-		bool Strict_;
 	};
 
 } } }

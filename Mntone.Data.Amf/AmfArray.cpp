@@ -7,7 +7,6 @@ using namespace Mntone::Data::Amf;
 
 AmfArray::AmfArray( void ) :
 	ValueType_( AmfValueType::Array ),
-	Strict_( false ),
 	vector_( ref new Platform::Collections::Vector<IAmfValue^>() )
 { }
 
@@ -68,13 +67,6 @@ Platform::String^ AmfArray::ToString( void )
 	}
 	buf << ']';
 	return ref new Platform::String( buf.str().c_str() );
-}
-
-AmfArray^ AmfArray::CreateStrictArray( void )
-{
-	auto out = ref new AmfArray();
-	out->Strict_ = true;
-	return out;
 }
 
 AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input )

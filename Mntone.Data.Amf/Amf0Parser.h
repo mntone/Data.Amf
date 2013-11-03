@@ -32,11 +32,11 @@ namespace Mntone { namespace Data { namespace Amf {
 		IAmfValue^ ParseLongString( uint8*& input, uint32& length );
 		IAmfValue^ ParseXmlDocument( uint8*& input, uint32& length );
 
-		IAmfValue^ ParseEcmaArray( uint8*& input, uint32& length );
 		IAmfValue^ ParseStrictArray( uint8*& input, uint32& length );
 		IAmfValue^ ParseFlexibleArray( uint8*& input, uint32& length );
 
 		IAmfValue^ ParseObject( uint8*& input, uint32& length );
+		IAmfValue^ ParseEcmaArray( uint8*& input, uint32& length );
 		IAmfValue^ ParseTypedObject( uint8*& input, uint32& length );
 		std::unordered_map<Platform::String^, IAmfValue^> ParseObjectBase( uint8*& input, uint32& length );
 		std::pair<Platform::String^, IAmfValue^> ParseProperty( uint8*& input, uint32& length );

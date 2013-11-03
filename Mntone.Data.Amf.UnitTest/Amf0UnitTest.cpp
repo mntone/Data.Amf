@@ -136,8 +136,8 @@ public:
 	{
 		TestAmf0( ref new TestByteArray{ 8, 0, 0, 0, 0, 0, 0, 9 }, []( IAmfValue^ amfValue )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Array );
-			Assert::AreEqual<uint32>( 0, amfValue->GetArray()->Size );
+			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
+			Assert::AreEqual<uint32>( 0, amfValue->GetObject()->Size );
 		} );
 	}
 
@@ -145,9 +145,11 @@ public:
 	{
 		TestAmf0( ref new TestByteArray{ 8, 0, 0, 0, 1, 0, 1, 0x30, 2, 0, 0, 0, 0, 9 }, []( IAmfValue^ amfValue )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Array );
-			Assert::AreEqual<uint32>( amfValue->GetArray()->Size, 1 );
-			Assert::AreEqual( L"", amfValue->GetArray()->GetStringAt( 0 )->Data() );
+			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
+
+			const auto& obj = amfValue->GetObject();
+			Assert::AreEqual<uint32>( 1, obj->Size );
+			Assert::AreEqual( L"", obj->GetNamedString( "0" )->Data() );
 		} );
 	}
 
@@ -185,7 +187,7 @@ public:
 				WG::DateTimeFormatting::DayFormat::Default,
 				WG::DateTimeFormatting::DayOfWeekFormat::None );
 
-			Assert::AreEqual( L"‎2013‎年‎10‎月‎13‎日", dateFormat->Format( amfValue->GetDate( ) )->Data( ) );
+			Assert::AreEqual( L"‎2013‎年‎10‎月‎13‎日", dateFormat->Format( amfValue->GetDate() )->Data() );
 		} );
 	}
 
@@ -205,7 +207,7 @@ public:
 				WG::DateTimeFormatting::SecondFormat::Default,
 				ref new Platform::Collections::Vector<Platform::String^>( { "ja" } ) );
 
-			Assert::AreEqual( L"‎2013年11月2日 20:28:52", dateFormat->Format( amfValue->GetDate( ) )->Data( ) );
+			Assert::AreEqual( L"‎2013年11月2日 20:28:52", dateFormat->Format( amfValue->GetDate() )->Data() );
 		} );
 	}
 
@@ -359,7 +361,7 @@ public:
 			const auto& objLapped2 = ary->GetAt( 3 );
 			Assert::IsTrue( objLapped2->ValueType == AmfValueType::Object );
 
-			const auto& obj2 = objLapped2->GetObject( );
+			const auto& obj2 = objLapped2->GetObject();
 			Assert::AreEqual( L"status", obj2->GetNamedString( "level" )->Data() );
 
 			Assert::AreEqual( L"NetConnection.Connect.Success", obj2->GetNamedString( "code" )->Data() );
@@ -423,24 +425,22 @@ private:
 
 	static void TestAmf0( TestByteArray^ rawData, std::function<void( IAmfValue^ )> checkHandler )
 	{
-		auto r = Amf0Parser::Parse( rawData );
-		auto st = r->ToString();
-		checkHandler( r );
-		const auto& create_data = Amf0Sequencer::Sequenceify( r );
+		const auto& amf = Amf0Parser::Parse( rawData );
+		const auto& str = amf->ToString();
+		Logger::WriteMessage( str->Data() );
+		checkHandler( amf );
 
-		Assert::IsTrue( ArrayEquals( rawData, create_data ) );
+		const auto& createData = Amf0Sequencer::Sequenceify( amf );
+		Assert::AreEqual( rawData->Length, createData->Length );
+		Assert::IsTrue( ArrayEquals( rawData, createData ) );
 	}
 
 	static bool ArrayEquals( const Platform::Array<uint8>^ firstArray, const Platform::Array<uint8>^ secondArray )
 	{
-		if( firstArray->Length != secondArray->Length )
-			return false;
 		for( auto i = 0u; i < firstArray->Length; ++i )
 		{
 			if( !secondArray[i].Equals( secondArray[i] ) )
-			{
 				return false;
-			}
 		}
 		return true;
 	}

@@ -33,7 +33,8 @@ void Amf0Sequencer::SequenceifyValue( IAmfValue^ input, std::basic_stringstream<
 	case AmfValueType::Date: SequenceifyDate( input, stream ); break;
 	case AmfValueType::Xml: SequenceifyXml( input, stream ); break;
 	case AmfValueType::Object: SequenceifyObject( input, stream ); break;
-	case AmfValueType::Array: SequenceifyEcmaArray( input, stream ); break;
+	case AmfValueType::EcmaArray: SequenceifyEcmaArray( input, stream ); break;
+	case AmfValueType::Array: SequenceifyStrictArray( input, stream ); break;
 	default: throw ref new Platform::FailureException( "Invalid type." );
 	}
 }
@@ -132,7 +133,33 @@ void Amf0Sequencer::SequenceifyObject( IAmfValue^ input, std::basic_stringstream
 		SequenceifyUtf8( className, stream );
 	}
 
-	const auto& view = obj->GetView();
+	SequenceifyObjectBase( obj, stream );
+}
+
+void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+{
+	const auto& obj = input->GetObject();
+	const auto& ref = IsReference( obj );
+	if( ref != -1 )
+	{
+		SequenceifyReference( ref, stream );
+		return;
+	}
+	referenceBuffer_.push_back( input );
+
+	stream.put( amf0_type::amf0_ecma_array );
+
+	const auto& associativeCount = obj->Size;
+	uint8 buf[4];
+	ConvertBigEndian( &associativeCount, buf, 4 );
+	stream.write( buf, 4 );
+
+	SequenceifyObjectBase( obj, stream );
+}
+
+void Amf0Sequencer::SequenceifyObjectBase( AmfObject^ input, std::basic_stringstream<uint8>& stream )
+{
+	const auto& view = input->GetView( );
 	for( const auto& item : view )
 	{
 		SequenceifyUtf8( item->Key, stream );
@@ -144,7 +171,7 @@ void Amf0Sequencer::SequenceifyObject( IAmfValue^ input, std::basic_stringstream
 	stream.put( 9 );
 }
 
-void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf0Sequencer::SequenceifyStrictArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
 {
 	const auto& ary = input->GetArray();
 	const auto& ref = IsReference( ary );
@@ -155,37 +182,9 @@ void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstr
 	}
 	referenceBuffer_.push_back( input );
 
-	if( ary->Strict )
-	{
-		SequenceifyStrictArray( std::move( ary ), stream );
-		return;
-	}
-
-	stream.put( amf0_type::amf0_ecma_array );
-
-	const auto& associativeCount = ary->Size;
-	uint8 buf[4];
-	ConvertBigEndian( &associativeCount, buf, 4 );
-	stream.write( buf, 4 );
-
-	const auto& view = ary->GetView( );
-	for( auto i = 0u; i < associativeCount; ++i )
-	{
-		std::stringstream key; key << i;
-		SequenceifyUtf8( key.str(), stream );
-		SequenceifyValue( view->GetAt( i ), stream );
-	}
-
-	stream.put( 0 );
-	stream.put( 0 );
-	stream.put( 9 );
-}
-
-void Amf0Sequencer::SequenceifyStrictArray( AmfArray^ input, std::basic_stringstream<uint8>& stream )
-{
 	stream.put( amf0_type::amf0_strict_array );
 
-	const auto& view = input->GetView();
+	const auto& view = ary->GetView();
 	const auto& size = view->Size;
 
 	uint8 buf[4];
