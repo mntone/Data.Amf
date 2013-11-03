@@ -24,6 +24,10 @@ namespace Mntone { namespace Data { namespace Amf {
 		int32 GetInteger( void );
 		Platform::String^ GetString( void );
 		Windows::Foundation::DateTime GetDate( void );
+		Platform::Array<uint8>^ GetByteArray( void );
+		Windows::Foundation::Collections::IVector<int32>^ GetVectorInt( void );
+		Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint( void );
+		Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble( void );
 		AmfObject^ GetObject( void );
 		AmfArray^ GetArray( void );
 	};

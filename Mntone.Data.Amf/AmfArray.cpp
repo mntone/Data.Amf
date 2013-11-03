@@ -2,6 +2,7 @@
 #include "AmfArray.h"
 #include "Amf0Parser.h"
 #include "Amf0Sequencer.h"
+#include "Amf3Parser.h"
 
 using namespace Mntone::Data::Amf;
 
@@ -29,6 +30,10 @@ float64 AmfArray::GetDouble( void ) { throw ref new Platform::FailureException( 
 int32 AmfArray::GetInteger( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Platform::String^ AmfArray::GetString( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::DateTime AmfArray::GetDate( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Platform::Array<uint8>^ AmfArray::GetByteArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorInt( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUint( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfObject^ AmfArray::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfArray^ AmfArray::GetArray( void ) { return safe_cast<AmfArray^>( this ); }
 
@@ -37,6 +42,10 @@ float64 AmfArray::GetDoubleAt( uint32 index ) { return vector_->GetAt( index )->
 int32 AmfArray::GetIntegerAt( uint32 index ) { return vector_->GetAt( index )->GetInteger(); }
 Platform::String^ AmfArray::GetStringAt( uint32 index ) { return vector_->GetAt( index )->GetString(); }
 Windows::Foundation::DateTime AmfArray::GetDateAt( uint32 index ) { return vector_->GetAt( index )->GetDate(); }
+Platform::Array<uint8>^ AmfArray::GetByteArrayAt( uint32 index ) { return vector_->GetAt( index )->GetByteArray(); }
+Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorIntAt( uint32 index ) { return vector_->GetAt( index )->GetVectorInt(); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUintAt( uint32 index ) { return vector_->GetAt( index )->GetVectorUint(); }
+Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDoubleAt( uint32 index ) { return vector_->GetAt( index )->GetVectorDouble(); }
 AmfObject^ AmfArray::GetObjectAt( uint32 index ) { return vector_->GetAt( index )->GetObject(); }
 AmfArray^ AmfArray::GetArrayAt( uint32 index ) { return vector_->GetAt( index )->GetArray(); }
 
@@ -79,8 +88,7 @@ AmfArray^ AmfArray::CreateStrictArray( void )
 
 AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input )
 {
-	//return safe_cast<AmfArray^>( Amf3Parser::Parse( input ) );
-	throw ref new Platform::NotImplementedException();
+	return reinterpret_cast<AmfArray^>( Amf3Parser::Parse( input ) );
 }
 
 AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input, AmfEncodingType type )
@@ -88,15 +96,13 @@ AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input, AmfEncodingType 
 	if( type == AmfEncodingType::Amf0 )
 		return reinterpret_cast<AmfArray^>( Amf0Parser::Parse( input ) );
 
-	//return safe_cast<AmfArray^>( Amf3Parser::Parse( input ) );
-	throw ref new Platform::NotImplementedException();
+	return reinterpret_cast<AmfArray^>( Amf3Parser::Parse( input ) );
 }
 
-bool AmfArray::TryParse( const Platform::Array<uint8> ^ /*input*/, AmfArray^* /*result*/ )
+bool AmfArray::TryParse( const Platform::Array<uint8>^ input, AmfArray^* result )
 {
-	//IAmfValue^ buf = *result;
-	//return Amf3Parser::TryParse( input, &buf );
-	throw ref new Platform::NotImplementedException();
+	auto buf = reinterpret_cast<IAmfValue^*>( result );
+	return Amf3Parser::TryParse( input, buf );
 }
 
 bool AmfArray::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfArray^* result )
@@ -105,8 +111,7 @@ bool AmfArray::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType ty
 	if( type == AmfEncodingType::Amf0 )
 		return Amf0Parser::TryParse( input, buf );
 
-	//return Amf3Parser::TryParse( input, &buf );
-	throw ref new Platform::NotImplementedException();
+	return Amf3Parser::TryParse( input, buf );
 }
 
 void AmfArray::SetData( std::vector<IAmfValue^> data )

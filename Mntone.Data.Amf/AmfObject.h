@@ -22,6 +22,10 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual int32 GetInteger( void );
 		virtual Platform::String^ GetString( void );
 		virtual Windows::Foundation::DateTime GetDate( void );
+		virtual Platform::Array<uint8>^ GetByteArray( void );
+		virtual Windows::Foundation::Collections::IVector<int32>^ GetVectorInt( void );
+		virtual Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint( void );
+		virtual Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble( void );
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
 
@@ -33,6 +37,10 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual int32 GetNamedInteger( Platform::String^ name );
 		virtual Platform::String^ GetNamedString( Platform::String^ name );
 		virtual Windows::Foundation::DateTime GetNamedDate( Platform::String^ name );
+		virtual Platform::Array<uint8>^ GetNamedByteArray( Platform::String^ name );
+		virtual Windows::Foundation::Collections::IVector<int32>^ GetNamedVectorInt( Platform::String^ name );
+		virtual Windows::Foundation::Collections::IVector<uint32>^ GetNamedVectorUint( Platform::String^ name );
+		virtual Windows::Foundation::Collections::IVector<float64>^ GetNamedVectorDouble( Platform::String^ name );
 		virtual AmfObject^ GetNamedObject( Platform::String^ name );
 		virtual AmfArray^ GetNamedArray( Platform::String^ name );
 
@@ -75,6 +83,11 @@ namespace Mntone { namespace Data { namespace Amf {
 			virtual Platform::String^ get( void ) { return ClassName_; }
 			virtual void set( Platform::String^ value ) { ClassName_ = value; }
 		}
+		property bool Externalizable
+		{
+			virtual bool get( void ) { return Externalizable_; }
+			virtual void set( bool value ) { Externalizable_ = value; }
+		}
 
 		// IMap
 		property uint32 Size
@@ -87,6 +100,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>^ map_;
 
 		Platform::String^ ClassName_;
+		bool Externalizable_;
 	};
 
 } } }

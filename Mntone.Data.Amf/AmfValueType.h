@@ -13,6 +13,10 @@ namespace Mntone { namespace Data { namespace Amf {
 		String,
 		Date,
 		Xml,
+		ByteArray,
+		VectorInt,
+		VectorUint,
+		VectorDouble,
 		Object,
 		Array,
 	};

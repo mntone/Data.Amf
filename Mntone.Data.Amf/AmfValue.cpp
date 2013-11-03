@@ -28,6 +28,10 @@ float64 AmfValue::GetDouble( void ) { return safe_cast<float64>( value_ ); }
 int32 AmfValue::GetInteger( void ) { return safe_cast<int32>( value_ ); }
 Platform::String^ AmfValue::GetString( void ) { return safe_cast<Platform::String^>( value_ ); }
 Windows::Foundation::DateTime AmfValue::GetDate( void ) { return safe_cast<Windows::Foundation::DateTime>( value_ ); }
+Platform::Array<uint8>^ AmfValue::GetByteArray( void ) { return safe_cast<Platform::Array<uint8>^>( value_ ); }
+Windows::Foundation::Collections::IVector<int32>^ AmfValue::GetVectorInt( void ) { return safe_cast<Platform::Collections::Vector<int32>^>( value_ ); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfValue::GetVectorUint( void ) { return safe_cast<Platform::Collections::Vector<uint32>^>( value_ ); }
+Windows::Foundation::Collections::IVector<float64>^ AmfValue::GetVectorDouble( void ) { return safe_cast<Platform::Collections::Vector<float64>^>( value_ ); }
 AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 
@@ -85,6 +89,46 @@ AmfValue^ AmfValue::CreateXmlValue( Platform::String^ input )
 {
 	auto out = ref new AmfValue();
 	out->ValueType_ = AmfValueType::Xml;
+	out->value_ = input;
+	return out;
+}
+
+AmfValue^ AmfValue::CreateByteArrayValue( const Platform::Array<uint8>^ input )
+{
+	auto out = ref new AmfValue();
+	out->ValueType_ = AmfValueType::ByteArray;
+	out->value_ = ref new Platform::Array<uint8>( input );
+	return out;
+}
+
+AmfValue^ AmfValue::CreateByteArrayValue( std::vector<uint8> input )
+{
+	auto out = ref new AmfValue();
+	out->ValueType_ = AmfValueType::ByteArray;
+	out->value_ = Platform::ArrayReference<uint8>( input.data(), static_cast<uint32>( input.size() ) );
+	return out;
+}
+
+AmfValue^ AmfValue::CreateVectorIntValue( Windows::Foundation::Collections::IVector<int32>^ input )
+{
+	auto out = ref new AmfValue();
+	out->ValueType_ = AmfValueType::VectorInt;
+	out->value_ = input;
+	return out;
+}
+
+AmfValue^ AmfValue::CreateVectorUintValue( Windows::Foundation::Collections::IVector<uint32>^ input )
+{
+	auto out = ref new AmfValue();
+	out->ValueType_ = AmfValueType::VectorUint;
+	out->value_ = input;
+	return out;
+}
+
+AmfValue^ AmfValue::CreateVectorDoubleValue( Windows::Foundation::Collections::IVector<float64>^ input )
+{
+	auto out = ref new AmfValue();
+	out->ValueType_ = AmfValueType::VectorDouble;
 	out->value_ = input;
 	return out;
 }

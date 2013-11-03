@@ -25,7 +25,7 @@ bool Amf0Parser::TryParse( const Platform::Array<uint8>^ input, IAmfValue^* resu
 Amf0Parser::Amf0Parser( void )
 { }
 
-IAmfValue^ Amf0Parser::ParseValue( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseValue( uint8*& input, size_t& length )
 {
 	if( length < 1 )
 		throw ref new Platform::FailureException( "Invalid data." );
@@ -54,7 +54,7 @@ IAmfValue^ Amf0Parser::ParseValue( uint8*& input, uint32& length )
 	}
 }
 
-IAmfValue^ Amf0Parser::ParseNumber( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseNumber( uint8*& input, size_t& length )
 {
 	if( length < 8 )
 		throw ref new Platform::FailureException( "Invalid number." );
@@ -67,7 +67,7 @@ IAmfValue^ Amf0Parser::ParseNumber( uint8*& input, uint32& length )
 	return AmfValue::CreateDoubleValue( data );
 }
 
-IAmfValue^ Amf0Parser::ParseBoolean( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseBoolean( uint8*& input, size_t& length )
 {
 	if( length < 1 )
 		throw ref new Platform::FailureException( "Invalid boolean." );
@@ -89,7 +89,7 @@ IAmfValue^ Amf0Parser::ParseUndefined( uint8*& /*input*/, uint32& /*length*/ )
 	return AmfValue::CreateUndefinedValue();
 }
 
-IAmfValue^ Amf0Parser::ParseReference( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseReference( uint8*& input, size_t& length )
 {
 	if( length < 2 )
 		throw ref new Platform::FailureException( "Invalid reference." );
@@ -100,12 +100,12 @@ IAmfValue^ Amf0Parser::ParseReference( uint8*& input, uint32& length )
 	length -= 2;
 
 	if( data >= referenceBuffer_.size() )
-		throw ref new Platform::FailureException( "Invalid reference." );
+		throw ref new Platform::OutOfBoundsException();
 
 	return referenceBuffer_[data];
 }
 
-IAmfValue^ Amf0Parser::ParseDate( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseDate( uint8*& input, size_t& length )
 {
 	if( length < 10 )
 		throw ref new Platform::FailureException( "Invalid date." );
@@ -118,22 +118,22 @@ IAmfValue^ Amf0Parser::ParseDate( uint8*& input, uint32& length )
 	return AmfValue::CreateDateValue( UnixTimeToDateTime( static_cast<uint64>( data ) ) );
 }
 
-IAmfValue^ Amf0Parser::ParseString( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseString( uint8*& input, size_t& length )
 {
 	return AmfValue::CreateStringValue( ParseUtf8( input, length ) );
 }
 
-IAmfValue^ Amf0Parser::ParseLongString( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseLongString( uint8*& input, size_t& length )
 {
 	return AmfValue::CreateStringValue( ParseUtf8Long( input, length ) );
 }
 
-IAmfValue^ Amf0Parser::ParseXmlDocument( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseXmlDocument( uint8*& input, size_t& length )
 {
 	return AmfValue::CreateXmlValue( ParseUtf8Long( input, length ) );
 }
 
-IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, size_t& length )
 {
 	// associativeCount (U32) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 7 bytes
 	if( length < 7 )
@@ -167,7 +167,7 @@ IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, uint32& length )
 	return out;
 }
 
-IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, size_t& length )
 {
 	if( length < 4 )
 		throw ref new Platform::FailureException( "Invalid strictArray." );
@@ -181,14 +181,14 @@ IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
 	length -= 4;
 
 	std::vector<IAmfValue^> data( arrayCount );
-	for( auto i = 0u; i < arrayCount; ++i )
+	for( size_t i = 0u; i < arrayCount; ++i )
 		data[i] = ParseValue( input, length );
 
 	out->SetData( std::move( data ) );
 	return out;
 }
 
-IAmfValue^ Amf0Parser::ParseFlexibleArray( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseFlexibleArray( uint8*& input, size_t& length )
 {
 	// *Prop (min 0) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 3 bytes
 	if( length < 3 )
@@ -209,7 +209,7 @@ IAmfValue^ Amf0Parser::ParseFlexibleArray( uint8*& input, uint32& length )
 	return out;
 }
 
-IAmfValue^ Amf0Parser::ParseObject( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseObject( uint8*& input, size_t& length )
 {
 	// Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 3 bytes
 	if( length < 3 )
@@ -223,7 +223,7 @@ IAmfValue^ Amf0Parser::ParseObject( uint8*& input, uint32& length )
 	return out;
 }
 
-IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, size_t& length )
 {
 	// ClassName (min U16+U8) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 6 bytes
 	if( length < 6 )
@@ -238,7 +238,7 @@ IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, uint32& length )
 	return out;
 }
 
-std::unordered_map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( uint8*& input, uint32& length )
+std::unordered_map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( uint8*& input, size_t& length )
 {
 	std::unordered_map<Platform::String^, IAmfValue^> data;
 	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
@@ -255,14 +255,14 @@ std::unordered_map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( u
 	return std::move( data );
 }
 
-std::pair<Platform::String^, IAmfValue^> Amf0Parser::ParseProperty( uint8*& input, uint32& length )
+std::pair<Platform::String^, IAmfValue^> Amf0Parser::ParseProperty( uint8*& input, size_t& length )
 {
 	const auto& key = ParseUtf8( input, length );
 	const auto& value = ParseValue( input, length );
 	return std::make_pair( std::move( key ), std::move( value ) );
 }
 
-Platform::String^ Amf0Parser::ParseUtf8( uint8*& input, uint32& length )
+Platform::String^ Amf0Parser::ParseUtf8( uint8*& input, size_t& length )
 {
 	if( length < 2 )
 		throw ref new Platform::FailureException( "Invalid string." );
@@ -275,7 +275,7 @@ Platform::String^ Amf0Parser::ParseUtf8( uint8*& input, uint32& length )
 	return ParseUtf8Base( input, length, textLength );
 }
 
-Platform::String^ Amf0Parser::ParseUtf8Long( uint8*& input, uint32& length )
+Platform::String^ Amf0Parser::ParseUtf8Long( uint8*& input, size_t& length )
 {
 	if( length < 4 )
 		throw ref new Platform::FailureException( "Invalid string." );
@@ -288,7 +288,7 @@ Platform::String^ Amf0Parser::ParseUtf8Long( uint8*& input, uint32& length )
 	return ParseUtf8Base( input, length, textLength );
 }
 
-Platform::String^ Amf0Parser::ParseUtf8Base( uint8*& input, uint32& length, const uint32 textLength )
+Platform::String^ Amf0Parser::ParseUtf8Base( uint8*& input, size_t& length, const uint32 textLength )
 {
 	if( textLength == 0 )
 		return "";

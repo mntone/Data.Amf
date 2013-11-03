@@ -2,12 +2,15 @@
 #include "AmfObject.h"
 #include "Amf0Parser.h"
 #include "Amf0Sequencer.h"
+#include "Amf3Parser.h"
 
 using namespace Mntone::Data::Amf;
 
 AmfObject::AmfObject( void ) :
 	ValueType_( AmfValueType::Object ),
-	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>() )
+	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>() ),
+	ClassName_( "" ),
+	Externalizable_( false )
 { }
 
 Platform::Array<uint8>^ AmfObject::Sequenceify( void )
@@ -28,6 +31,10 @@ float64 AmfObject::GetDouble( void ) { throw ref new Platform::FailureException(
 int32 AmfObject::GetInteger( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Platform::String^ AmfObject::GetString( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::DateTime AmfObject::GetDate( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Platform::Array<uint8>^ AmfObject::GetByteArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetVectorInt( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetVectorUint( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetVectorDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfObject^ AmfObject::GetObject( void ) { return safe_cast<AmfObject^>( this ); }
 AmfArray^ AmfObject::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 
@@ -38,6 +45,10 @@ float64 AmfObject::GetNamedDouble( Platform::String^ name ) { return map_->Looku
 int32 AmfObject::GetNamedInteger( Platform::String^ name ) { return map_->Lookup( name )->GetInteger(); }
 Platform::String^ AmfObject::GetNamedString( Platform::String^ name ) { return map_->Lookup( name )->GetString(); }
 Windows::Foundation::DateTime AmfObject::GetNamedDate( Platform::String^ name ) { return map_->Lookup( name )->GetDate(); }
+Platform::Array<uint8>^ AmfObject::GetNamedByteArray( Platform::String^ name ) { return map_->Lookup( name )->GetByteArray(); }
+Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetNamedVectorInt( Platform::String^ name ) { return map_->Lookup( name )->GetVectorInt(); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetNamedVectorUint( Platform::String^ name ) { return map_->Lookup( name )->GetVectorUint(); }
+Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetNamedVectorDouble( Platform::String^ name ) { return map_->Lookup( name )->GetVectorDouble(); }
 AmfObject^ AmfObject::GetNamedObject( Platform::String^ name ) { return map_->Lookup( name )->GetObject(); }
 AmfArray^ AmfObject::GetNamedArray( Platform::String^ name ) { return map_->Lookup( name )->GetArray(); }
 
@@ -78,8 +89,7 @@ AmfObject^ AmfObject::CreateTypedObject( Platform::String^ className )
 
 AmfObject^ AmfObject::Parse( const Platform::Array<uint8>^ input )
 {
-	//return safe_cast<AmfArray^>( Amf3Parser::Parse( input ) );
-	throw ref new Platform::NotImplementedException();
+	return reinterpret_cast<AmfObject^>( Amf3Parser::Parse( input ) );
 }
 
 AmfObject^ AmfObject::Parse( const Platform::Array<uint8>^ input, AmfEncodingType type )
@@ -87,15 +97,13 @@ AmfObject^ AmfObject::Parse( const Platform::Array<uint8>^ input, AmfEncodingTyp
 	if( type == AmfEncodingType::Amf0 )
 		return reinterpret_cast<AmfObject^>( Amf0Parser::Parse( input ) );
 
-	//return safe_cast<AmfArray^>( Amf3Parser::Parse( input ) );
-	throw ref new Platform::NotImplementedException();
+	return reinterpret_cast<AmfObject^>( Amf3Parser::Parse( input ) );
 }
 
-bool AmfObject::TryParse( const Platform::Array<uint8> ^ /*input*/, AmfObject^* /*result*/ )
+bool AmfObject::TryParse( const Platform::Array<uint8>^ input, AmfObject^* result )
 {
-	//IAmfValue^ buf = *result;
-	//return Amf3Parser::TryParse( input, &buf );
-	throw ref new Platform::NotImplementedException();
+	auto buf = reinterpret_cast<IAmfValue^*>( result );
+	return Amf3Parser::TryParse( input, buf );
 }
 
 bool AmfObject::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfObject^* result )
@@ -104,11 +112,10 @@ bool AmfObject::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType t
 	if( type == AmfEncodingType::Amf0 )
 		return Amf0Parser::TryParse( input, buf );
 
-	//return Amf3Parser::TryParse( input, &buf );
-	throw ref new Platform::NotImplementedException();
+	return Amf3Parser::TryParse( input, buf );
 }
 
 void AmfObject::SetData( std::unordered_map<Platform::String^, IAmfValue^> data )
 {
-	map_ = ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>( data.begin(), data.end(), data.size() );
+	map_ = ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>( data );
 }

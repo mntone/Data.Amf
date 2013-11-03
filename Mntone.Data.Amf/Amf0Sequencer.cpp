@@ -168,7 +168,7 @@ void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstr
 	ConvertBigEndian( &associativeCount, buf, 4 );
 	stream.write( buf, 4 );
 
-	const auto& view = ary->GetView( );
+	const auto& view = ary->GetView();
 	for( auto i = 0u; i < associativeCount; ++i )
 	{
 		std::stringstream key; key << i;
