@@ -12,6 +12,7 @@ TEST_CLASS( Amf0UnitTest )
 public:
 	TEST_METHOD( NumberTest_0_0 )
 	{
+		
 		TestAmf0( ref new TestByteArray{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Double );
@@ -205,7 +206,7 @@ public:
 				WG::DateTimeFormatting::SecondFormat::Default,
 				ref new Platform::Collections::Vector<Platform::String^>( { "ja" } ) );
 
-			Assert::AreEqual( L"‎2013年11月2日 20:28:52", dateFormat->Format( amfValue->GetDate( ) )->Data( ) );
+			Assert::AreEqual(L"‎2013‎年‎11‎月‎2‎日‎ ‎20‎:‎28‎:‎52", dateFormat->Format(amfValue->GetDate())->Data());
 		} );
 	}
 
