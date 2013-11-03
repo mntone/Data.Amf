@@ -8,6 +8,7 @@
     <ClCompile Include="AmfValue.cpp" />
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Amf0Sequencer.cpp" />
+    <ClCompile Include="Amf3Parser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -24,5 +25,7 @@
     <ClInclude Include="IAmfObject.h" />
     <ClInclude Include="IAmfValue.h" />
     <ClInclude Include="Amf0Sequencer.h" />
+    <ClInclude Include="Amf3Parser.h" />
+    <ClInclude Include="amf3_traits_info.h" />
   </ItemGroup>
 </Project>
