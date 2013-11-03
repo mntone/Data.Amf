@@ -32,18 +32,18 @@ namespace Mntone { namespace Data { namespace Amf {
 		IAmfValue^ ParseLongString( uint8*& input, size_t& length );
 		IAmfValue^ ParseXmlDocument( uint8*& input, size_t& length );
 
-		IAmfValue^ ParseEcmaArray( uint8*& input, size_t& length );
 		IAmfValue^ ParseStrictArray( uint8*& input, size_t& length );
 		IAmfValue^ ParseFlexibleArray( uint8*& input, size_t& length );
 
 		IAmfValue^ ParseObject( uint8*& input, size_t& length );
+		IAmfValue^ ParseEcmaArray( uint8*& input, size_t& length );
 		IAmfValue^ ParseTypedObject( uint8*& input, size_t& length );
 		std::unordered_map<Platform::String^, IAmfValue^> ParseObjectBase( uint8*& input, size_t& length );
 		std::pair<Platform::String^, IAmfValue^> ParseProperty( uint8*& input, size_t& length );
 
 		Platform::String^ ParseUtf8( uint8*& input, size_t& length );
 		Platform::String^ ParseUtf8Long( uint8*& input, size_t& length );
-		Platform::String^ ParseUtf8Base( uint8*& input, size_t& length, const uint32 textLength );
+		Platform::String^ ParseUtf8Base( uint8*& input, size_t& length, const size_t textLength );
 
 	private:
 		std::vector<IAmfValue^> referenceBuffer_;

@@ -194,7 +194,7 @@ IAmfValue^ Amf3Parser::ParseArray( uint8*& input, size_t& length )
 	}
 
 	// dense array only
-	const auto& ary = AmfArray::CreateStrictArray();
+	const auto& ary = ref new AmfArray();
 	arrayReferenceBuffer_.push_back( ary );
 
 	std::vector<IAmfValue^> vector( count );

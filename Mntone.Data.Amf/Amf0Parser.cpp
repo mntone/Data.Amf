@@ -133,46 +133,12 @@ IAmfValue^ Amf0Parser::ParseXmlDocument( uint8*& input, size_t& length )
 	return AmfValue::CreateXmlValue( ParseUtf8Long( input, length ) );
 }
 
-IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, size_t& length )
-{
-	// associativeCount (U32) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 7 bytes
-	if( length < 7 )
-		throw ref new Platform::FailureException( "Invalid ecmaArray." );
-
-	const auto& out = ref new AmfArray();
-	referenceBuffer_.push_back( out );
-
-	uint32 associativeCount( 0 );
-	ConvertBigEndian( input, &associativeCount, 4 );
-	input += 4;
-	length -= 4;
-
-	std::vector<IAmfValue^> data( associativeCount );
-	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
-	{
-		const auto& key = ParseUtf8( input, length );
-		std::wistringstream stream( key->Data() );
-		size_t i; stream >> i;
-
-		data[i] = ParseValue( input, length );
-	}
-
-	if( length < 3 || input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 )
-		throw ref new Platform::FailureException( "Invalid ecmaArray." );
-
-	input += 3;
-	length -= 3;
-
-	out->SetData( std::move( data ) );
-	return out;
-}
-
-IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, size_t& length )
+IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
 {
 	if( length < 4 )
 		throw ref new Platform::FailureException( "Invalid strictArray." );
 
-	const auto& out = AmfArray::CreateStrictArray();
+	const auto& out = ref new AmfArray();
 	referenceBuffer_.push_back( out );
 
 	uint32 arrayCount( 0 );
@@ -217,6 +183,25 @@ IAmfValue^ Amf0Parser::ParseObject( uint8*& input, size_t& length )
 
 	const auto& out = ref new AmfObject();
 	referenceBuffer_.push_back( out );
+
+	const auto& data = ParseObjectBase( input, length );
+	out->SetData( std::move( data ) );
+	return out;
+}
+
+IAmfValue^ Amf0Parser::ParseEcmaArray( uint8*& input, size_t& length )
+{
+	// associativeCount (U32) | Utf8-empty (U16) | Object-end-maker (U8 = 0x09) -> min 7 bytes
+	if( length < 7 )
+		throw ref new Platform::FailureException( "Invalid ecmaArray." );
+
+	const auto& out = AmfObject::CreateEcmaArray();
+	referenceBuffer_.push_back( out );
+
+	//uint32 associativeCount( 0 );
+	//ConvertBigEndian( input, &associativeCount, 4 );
+	input += 4;
+	length -= 4;
 
 	const auto& data = ParseObjectBase( input, length );
 	out->SetData( std::move( data ) );
@@ -288,7 +273,7 @@ Platform::String^ Amf0Parser::ParseUtf8Long( uint8*& input, size_t& length )
 	return ParseUtf8Base( input, length, textLength );
 }
 
-Platform::String^ Amf0Parser::ParseUtf8Base( uint8*& input, size_t& length, const uint32 textLength )
+Platform::String^ Amf0Parser::ParseUtf8Base( uint8*& input, size_t& length, const size_t textLength )
 {
 	if( textLength == 0 )
 		return "";

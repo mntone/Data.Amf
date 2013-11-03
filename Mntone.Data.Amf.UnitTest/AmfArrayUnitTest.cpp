@@ -18,10 +18,9 @@ TEST_CLASS(AmfArrayUnitTest){
 
 	TEST_METHOD(AmfArray_CreateStrictArrayTest_Member)
 	{
-		auto strictArray = AmfArray::CreateStrictArray();
-		
-		Assert::IsTrue(strictArray->ValueType == AmfValueType::Array);
-		Assert::IsTrue(strictArray->Size == 0);
+		const auto& ary = ref new AmfArray();
+		Assert::IsTrue( ary->ValueType == AmfValueType::Array );
+		Assert::AreEqual<uint32>( 0, ary->Size );
 	}
 
 

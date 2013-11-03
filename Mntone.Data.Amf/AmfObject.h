@@ -60,6 +60,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		// IStringable
 		virtual Platform::String^ ToString( void ) override sealed;
 
+		static AmfObject^ CreateEcmaArray( void );
 		static AmfObject^ CreateTypedObject( Platform::String^ className );
 
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input );
