@@ -356,7 +356,7 @@ Platform::String^ Amf3Parser::ParseUtf8( uint8*& input, size_t& length, const ui
 
 uint32 Amf3Parser::ParseUnsigned29bitInteger( uint8*& input, size_t& length )
 {
-	if( length != 0 )
+	if( length == 0 )
 		throw ref new Platform::FailureException( "Invalid 29-bit integer." );
 
 	uint32 ret = input[0];

@@ -12,6 +12,7 @@ TEST_CLASS( Amf0UnitTest )
 public:
 	TEST_METHOD( NumberTest_0_0 )
 	{
+		
 		TestAmf0( ref new TestByteArray{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ amfValue )
 		{
 			Assert::IsTrue( amfValue->ValueType == AmfValueType::Double );
