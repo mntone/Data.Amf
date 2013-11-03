@@ -48,7 +48,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		//IAmfValue^ ParseDictionary( uint8*& input, size_t& length );
 
 		Platform::String^ ParseUtf8( uint8*& input, size_t& length, const uint32 textLength );
-		size_t ParseUnsigned29bitInteger( uint8*& input, size_t& length );
+		uint32 ParseUnsigned29bitInteger( uint8*& input, size_t& length );
 		IAmfValue^ GetObject( const size_t& input );
 
 	private:

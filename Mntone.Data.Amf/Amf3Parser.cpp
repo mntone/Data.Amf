@@ -56,22 +56,22 @@ IAmfValue^ Amf3Parser::ParseValue( uint8*& input, size_t& length )
 	}
 }
 
-IAmfValue^ Amf3Parser::ParseUndefined( uint8*& /*input*/, uint32& /*length*/ )
+IAmfValue^ Amf3Parser::ParseUndefined( uint8*& /*input*/, size_t& /*length*/ )
 {
 	return AmfValue::CreateUndefinedValue();
 }
 
-IAmfValue^ Amf3Parser::ParseNull( uint8*& /*input*/, uint32& /*length*/ )
+IAmfValue^ Amf3Parser::ParseNull( uint8*& /*input*/, size_t& /*length*/ )
 {
 	return ref new AmfValue();
 }
 
-IAmfValue^ Amf3Parser::ParseFalse( uint8*& /*input*/, uint32& /*length*/ )
+IAmfValue^ Amf3Parser::ParseFalse( uint8*& /*input*/, size_t& /*length*/ )
 {
 	return AmfValue::CreateBooleanValue( false );
 }
 
-IAmfValue^ Amf3Parser::ParseTrue( uint8*& /*input*/, uint32& /*length*/ )
+IAmfValue^ Amf3Parser::ParseTrue( uint8*& /*input*/, size_t& /*length*/ )
 {
 	return AmfValue::CreateBooleanValue( true );
 }

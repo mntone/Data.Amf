@@ -79,12 +79,12 @@ IAmfValue^ Amf0Parser::ParseBoolean( uint8*& input, size_t& length )
 	return AmfValue::CreateBooleanValue( data );
 }
 
-IAmfValue^ Amf0Parser::ParseNull( uint8*& /*input*/, uint32& /*length*/ )
+IAmfValue^ Amf0Parser::ParseNull( uint8*& /*input*/, size_t& /*length*/ )
 {
 	return ref new AmfValue();
 }
 
-IAmfValue^ Amf0Parser::ParseUndefined( uint8*& /*input*/, uint32& /*length*/ )
+IAmfValue^ Amf0Parser::ParseUndefined( uint8*& /*input*/, size_t& /*length*/ )
 {
 	return AmfValue::CreateUndefinedValue();
 }
@@ -133,7 +133,7 @@ IAmfValue^ Amf0Parser::ParseXmlDocument( uint8*& input, size_t& length )
 	return AmfValue::CreateXmlValue( ParseUtf8Long( input, length ) );
 }
 
-IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, uint32& length )
+IAmfValue^ Amf0Parser::ParseStrictArray( uint8*& input, size_t& length )
 {
 	if( length < 4 )
 		throw ref new Platform::FailureException( "Invalid strictArray." );
