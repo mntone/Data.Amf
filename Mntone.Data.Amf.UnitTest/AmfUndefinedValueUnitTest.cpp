@@ -10,6 +10,12 @@ namespace MntoneDataAmfUnitTest
 	TEST_CLASS(AmfUndefinedValueUnitTest)
 	{
 
+		TEST_METHOD(AmfUndefinedValueUnitTest_CreateTest){
+
+			auto amfValue = GeneralCareteAmfValue();
+
+			Assert::IsTrue(AmfValueType::Undefined == amfValue->ValueType);
+		}
 
 
 		TEST_METHOD(AmfUndefinedValueUnitTest_GetBooleanTest){

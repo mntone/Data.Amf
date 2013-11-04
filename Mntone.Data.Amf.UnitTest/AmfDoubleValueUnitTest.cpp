@@ -9,7 +9,13 @@ using namespace Mntone::Data::Amf;
 TEST_CLASS(AmfDoubleValueUnitTest)
 {
 
+	TEST_METHOD(AmfDoubleValueUnitTest_CreateTest){
 
+		auto amfValue = GeneralCareteAmfValue();
+
+		Assert::IsTrue(AmfValueType::Double ==  amfValue->ValueType);
+
+	}
 
 	TEST_METHOD(AmfDoubleValueUnitTest_GetBooleanTest){
 
@@ -22,7 +28,7 @@ TEST_CLASS(AmfDoubleValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(testValue, amfValue->GetDouble());
+		Assert::AreEqual(generalTestValue, amfValue->GetDouble());
 	}
 
 	TEST_METHOD(AmfDoubleValueUnitTest_GetIntegerTest){
@@ -100,17 +106,17 @@ TEST_CLASS(AmfDoubleValueUnitTest)
 
 		auto toStringValue = amfValue->ToString();
 
-		Assert::AreEqual(testValue.ToString(), toStringValue);
+		Assert::AreEqual(generalTestValue.ToString(), toStringValue);
 	}
 
 private:
 	static AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateDoubleValue(testValue);
+		return AmfValue::CreateDoubleValue(generalTestValue);
 	}
 
-	const static float64 testValue;
+	const static float64 generalTestValue;
 
 };
 
-const float64 AmfDoubleValueUnitTest::testValue = 4.5;
+const float64 AmfDoubleValueUnitTest::generalTestValue = 4.5;

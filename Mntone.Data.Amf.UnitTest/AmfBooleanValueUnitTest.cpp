@@ -9,6 +9,13 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 {
 
 
+	TEST_METHOD(AmfBooleanValueUnitTest_CreateTest){
+		
+		auto amfValue = GeneralCareteAmfValue();
+
+		Assert::IsTrue(AmfValueType::Boolean ==  amfValue->ValueType);
+	}
+
 
 	TEST_METHOD(AmfBooleanValueUnitTest_GetBooleanTest){
 
@@ -17,7 +24,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 		
 		auto booleanValue = amfValue->GetBoolean();
 
-		Assert::AreEqual(false, booleanValue);
+		Assert::AreEqual(generalTestValue, booleanValue);
 
 	}
 
@@ -28,8 +35,6 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		Assert::Fail(L"must write test");
 
-
-		
 	}
 
 	TEST_METHOD(AmfBooleanValueUnitTest_GetIntegerTest){
@@ -115,13 +120,18 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto toStringValue = amfValue->ToString();
 
-		Assert::AreEqual(L"false", toStringValue);
+		Assert::AreEqual(generalTestValue.ToString(), toStringValue);
 	}
 
 private:
 	static AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateBooleanValue(false);
+		return AmfValue::CreateBooleanValue(generalTestValue);
 	}
 
+
+	const static bool generalTestValue;
+
 };
+
+const bool AmfBooleanValueUnitTest::generalTestValue = false;
