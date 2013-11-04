@@ -1,35 +1,35 @@
-#include "pch.h"
 
+
+#include "pch.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Mntone::Data::Amf;
 
 
-
-TEST_CLASS(AmfStringValueUnitTest)
+TEST_CLASS(AmfDateValueUnitTest)
 {
 
-	TEST_METHOD(AmfStringValueUnitTest_CreateTest){
+	TEST_METHOD(AmfDateValueUnitTest_CreateTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::IsTrue(AmfValueType::String == amfValue->ValueType);
+		Assert::IsTrue(AmfValueType::Date == amfValue->ValueType);
 	}
 
-	TEST_METHOD(AmfStringValueUnitTest_GetBooleanTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::Fail(L"must write test");
-	}
-
-	TEST_METHOD(AmfStringValueUnitTest_GetDoubleTest){
+	TEST_METHOD(AmfDateValueUnitTest_GetBooleanTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
 		Assert::Fail(L"must write test");
 	}
 
-	TEST_METHOD(AmfStringValueUnitTest_GetIntegerTest){
+	TEST_METHOD(AmfDateValueUnitTest_GetDoubleTest){
+
+		auto amfValue = GeneralCareteAmfValue();
+
+		Assert::Fail(L"must write test");
+	}
+
+	TEST_METHOD(AmfDateValueUnitTest_GetIntegerTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -37,15 +37,7 @@ TEST_CLASS(AmfStringValueUnitTest)
 
 	}
 
-	TEST_METHOD(AmfStringValueUnitTest_GetStringTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::AreEqual(generalTestValue, amfValue->GetString());
-	}
-
-
-	TEST_METHOD(AmfStringValueUnitTest_GetDateTest){
+	TEST_METHOD(AmfDateValueUnitTest_GetStringTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -53,7 +45,15 @@ TEST_CLASS(AmfStringValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfStringValueUnitTest_GetByteArrayTest){
+	TEST_METHOD(AmfDateValueUnitTest_GetDateTest){
+
+		auto amfValue = GeneralCareteAmfValue();
+
+		Assert::IsTrue(generalTestValue.UniversalTime ==  amfValue->GetDate().UniversalTime);
+	}
+
+
+	TEST_METHOD(AmfDateValueUnitTest_GetByteArrayTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -61,7 +61,7 @@ TEST_CLASS(AmfStringValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfStringValueUnitTest_GetVectorIntTest){
+	TEST_METHOD(AmfDateValueUnitTest_GetVectorIntTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -69,21 +69,21 @@ TEST_CLASS(AmfStringValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfStringValueUnitTest_GetVectorUintTest){
+	TEST_METHOD(AmfDateValueUnitTest_GetVectorUintTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
 		Assert::Fail(L"must write test");
 	}
 
-	TEST_METHOD(AmfStringValueUnitTest_GetVectorDoubleTest){
+	TEST_METHOD(AmfDateValueUnitTest_GetVectorDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
 		Assert::Fail(L"must write test");
 	}
 
-	TEST_METHOD(AmfStringValueUnitTest_GetObjectTest){
+	TEST_METHOD(AmfDateValueUnitTest_GetObjectTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -91,26 +91,26 @@ TEST_CLASS(AmfStringValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfStringValueUnitTest_GetArrayTest){
+	TEST_METHOD(AmfDateValueUnitTest_GetArrayTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
 		Assert::Fail(L"must write test");
 	}
 
-	TEST_METHOD(AmfStringValueUnitTest_ToStringTest){
+	TEST_METHOD(AmfDateValueUnitTest_ToStringTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(generalTestValue, amfValue->ToString());
+		Assert::AreEqual(generalTestValue.ToString(), amfValue->ToString());
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateStringValue(generalTestValue);
+		return AmfValue::CreateDateValue(generalTestValue);
 	}
 
+	Windows::Foundation::DateTime generalTestValue = AssertHelper::GetDate(2013, 10, 30);
 
-	 Platform::String^ generalTestValue = ref new Platform::String( L"testValue");
 };
