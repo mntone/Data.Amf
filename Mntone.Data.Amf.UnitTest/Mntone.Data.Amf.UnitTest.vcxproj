@@ -252,6 +252,7 @@
     <ClCompile Include="Amf3UnitTest.cpp" />
     <ClCompile Include="AmfArrayUnitTest.cpp" />
     <ClCompile Include="AmfBooleanValueUnitTest.cpp" />
+    <ClCompile Include="AmfByteArrayValueUnitTest.cpp" />
     <ClCompile Include="AmfDateValueUnitTest.cpp" />
     <ClCompile Include="AmfDoubleValueUnitTest.cpp" />
     <ClCompile Include="AmfIntegerValueUnitTest.cpp" />
