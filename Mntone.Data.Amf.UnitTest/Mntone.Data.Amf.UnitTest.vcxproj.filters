@@ -29,6 +29,7 @@
     <ClCompile Include="AmfXmlValueUnitTest.cpp" />
     <ClCompile Include="AmfByteArrayValueUnitTest.cpp" />
     <ClCompile Include="AmfVectorIntValueUnitTest.cpp" />
+    <ClCompile Include="AmfVectorUintValueUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Images\UnitTestLogo.scale-100.png">

@@ -259,6 +259,7 @@
     <ClCompile Include="AmfStringValueUnitTest.cpp" />
     <ClCompile Include="AmfUndefinedValueUnitTest.cpp" />
     <ClCompile Include="AmfVectorIntValueUnitTest.cpp" />
+    <ClCompile Include="AmfVectorUintValueUnitTest.cpp" />
     <ClCompile Include="AmfXmlValueUnitTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
