@@ -5,57 +5,47 @@ using namespace Mntone::Data::Amf;
 
 
 
-
-TEST_CLASS(AmfDoubleValueUnitTest)
+TEST_CLASS(AmfStringValueUnitTest)
 {
 
-	TEST_METHOD(AmfDoubleValueUnitTest_CreateTest){
+	TEST_METHOD(AmfStringValueUnitTest_CreateTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::IsTrue(AmfValueType::Double ==  amfValue->ValueType);
-
+		Assert::IsTrue(AmfValueType::String == amfValue->ValueType);
 	}
 
-	TEST_METHOD(AmfDoubleValueUnitTest_GetBooleanTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::Fail(L"must write test");
-	}
-
-	TEST_METHOD(AmfDoubleValueUnitTest_GetDoubleTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::AreEqual(generalTestValue, amfValue->GetDouble());
-	}
-
-	TEST_METHOD(AmfDoubleValueUnitTest_GetIntegerTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::Fail(L"must write test");
-
-	}
-
-	TEST_METHOD(AmfDoubleValueUnitTest_GetStringTest){
+	TEST_METHOD(AmfStringValueUnitTest_GetBooleanTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
 		Assert::Fail(L"must write test");
 	}
 
-
-	TEST_METHOD(AmfDoubleValueUnitTest_GetDateTest){
+	TEST_METHOD(AmfStringValueUnitTest_GetDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
 		Assert::Fail(L"must write test");
 	}
 
+	TEST_METHOD(AmfStringValueUnitTest_GetIntegerTest){
 
-	TEST_METHOD(AmfDoubleValueUnitTest_GetByteArrayTest){
+		auto amfValue = GeneralCareteAmfValue();
+
+		Assert::Fail(L"must write test");
+
+	}
+
+	TEST_METHOD(AmfStringValueUnitTest_GetStringTest){
+
+		auto amfValue = GeneralCareteAmfValue();
+
+		Assert::AreEqual(ref new Platform::String(generalTestValue), amfValue->GetString());
+	}
+
+
+	TEST_METHOD(AmfStringValueUnitTest_GetDateTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -63,7 +53,7 @@ TEST_CLASS(AmfDoubleValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfDoubleValueUnitTest_GetVectorIntTest){
+	TEST_METHOD(AmfStringValueUnitTest_GetByteArrayTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -71,21 +61,7 @@ TEST_CLASS(AmfDoubleValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfDoubleValueUnitTest_GetVectorUintTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::Fail(L"must write test");
-	}
-
-	TEST_METHOD(AmfDoubleValueUnitTest_GetVectorDoubleTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::Fail(L"must write test");
-	}
-
-	TEST_METHOD(AmfDoubleValueUnitTest_GetObjectTest){
+	TEST_METHOD(AmfStringValueUnitTest_GetVectorIntTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -93,29 +69,48 @@ TEST_CLASS(AmfDoubleValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfDoubleValueUnitTest_GetArrayTest){
+	TEST_METHOD(AmfStringValueUnitTest_GetVectorUintTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
 		Assert::Fail(L"must write test");
 	}
 
-	TEST_METHOD(AmfDoubleValueUnitTest_ToStringTest){
+	TEST_METHOD(AmfStringValueUnitTest_GetVectorDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		auto toStringValue = amfValue->ToString();
+		Assert::Fail(L"must write test");
+	}
 
-		Assert::AreEqual(generalTestValue.ToString(), toStringValue);
+	TEST_METHOD(AmfStringValueUnitTest_GetObjectTest){
+
+		auto amfValue = GeneralCareteAmfValue();
+
+		Assert::Fail(L"must write test");
+	}
+
+
+	TEST_METHOD(AmfStringValueUnitTest_GetArrayTest){
+
+		auto amfValue = GeneralCareteAmfValue();
+
+		Assert::Fail(L"must write test");
+	}
+
+	TEST_METHOD(AmfStringValueUnitTest_ToStringTest){
+
+		auto amfValue = GeneralCareteAmfValue();
+
+		Assert::AreEqual(ref new Platform::String(generalTestValue), amfValue->ToString());
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateDoubleValue(generalTestValue);
+		return AmfValue::CreateStringValue(ref new Platform::String(generalTestValue));
 	}
 
-	const float64 generalTestValue = 4.5;
 
+	const wchar_t* generalTestValue = L"testValue";
 };
-

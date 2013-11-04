@@ -169,7 +169,7 @@ public:
 	}
 
 private:
-	static void FailureExceptionTest( std::function<void( AmfArray^ )> testHandler )
+	void FailureExceptionTest( std::function<void( AmfArray^ )> testHandler )
 	{
 		const auto& ary = ref new AmfArray();
 		Assert::ExpectException<Platform::FailureException^>( [ary, testHandler]

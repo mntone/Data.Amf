@@ -113,7 +113,6 @@ private:
 		return AmfValue::CreateIntegerValue(generalTestValue);
 	}
 
-	const static int generalTestValue;
+	const static int generalTestValue = 8250;
 };
 
-const int AmfIntegerValueUnitTest::generalTestValue = 8250;

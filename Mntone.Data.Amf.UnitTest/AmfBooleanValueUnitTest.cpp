@@ -124,14 +124,13 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 	}
 
 private:
-	static AmfValue^ GeneralCareteAmfValue(){
+	AmfValue^ GeneralCareteAmfValue(){
 
 		return AmfValue::CreateBooleanValue(generalTestValue);
 	}
 
 
-	const static bool generalTestValue;
+	const bool generalTestValue = false;
 
 };
 
-const bool AmfBooleanValueUnitTest::generalTestValue = false;
