@@ -25,9 +25,9 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::ExpectException<Platform::InvalidCastException^>([amfValue]{
-			auto doubleValue = amfValue->GetDouble();
-		});
+
+		Assert::Fail(L"must write test");
+
 
 		
 	}
@@ -35,10 +35,9 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 	TEST_METHOD(AmfBooleanValueUnitTest_GetIntegerTest){
 
 		auto amfValue = GeneralCareteAmfValue();
+		
+		Assert::Fail(L"must write test");
 
-		Assert::ExpectException<Platform::InvalidCastException^>([amfValue]{
-			auto integerValue = amfValue->GetInteger();
-		});
 
 	}
 
@@ -46,11 +45,9 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-	
-		Assert::ExpectException<Platform::InvalidCastException^>([amfValue]{
-			auto stringValue = amfValue->GetString();
+		Assert::Fail(L"must write test");
 
-		});
+
 	}
 
 
@@ -58,9 +55,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::ExpectException<Platform::InvalidCastException^>([amfValue]{
-			auto dateValue = amfValue->GetDate();
-		});
+		Assert::Fail(L"must write test");
 	}
 
 
@@ -68,9 +63,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::ExpectException<Platform::InvalidCastException^>([amfValue]{
-			auto byteArrayValue = amfValue->GetByteArray();
-		});
+		Assert::Fail(L"must write test");
 	}
 
 
@@ -78,11 +71,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::ExpectException<Platform::InvalidCastException^>([amfValue]{
-
-			auto vectorIntValue = amfValue->GetVectorInt();
-
-		});
+		Assert::Fail(L"must write test");
 	}
 
 
@@ -90,19 +79,14 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::ExpectException<Platform::InvalidCastException^>([amfValue]{
-
-			auto vectorUintValue = amfValue->GetVectorUint();
-		});
+		Assert::Fail(L"must write test");
 	}
 
 	TEST_METHOD(AmfBooleanValueUnitTest_GetVectorDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::ExpectException<Platform::InvalidCastException^>([amfValue]{
-			auto vectorDoubleValue = amfValue->GetVectorDouble();
-		});
+		Assert::Fail(L"must write test");
 	}
 
 	TEST_METHOD(AmfBooleanValueUnitTest_GetObjectTest){
@@ -110,9 +94,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 		auto amfValue = GeneralCareteAmfValue();
 
 		
-		Assert::ExpectException<Platform::FailureException^>([amfValue]{
-			auto objectValue = amfValue->GetObject();
-		});
+		Assert::Fail(L"must write test");
 	}
 
 
@@ -120,9 +102,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::ExpectException<Platform::FailureException^>([amfValue]{
-			auto arrayValue = amfValue->GetArray();
-		});
+		Assert::Fail(L"must write test");
 	}
 
 	TEST_METHOD(AmfBooleanValueUnitTest_ToStringTest){
