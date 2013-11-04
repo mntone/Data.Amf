@@ -20,6 +20,7 @@
     <ClCompile Include="Amf3UnitTest.cpp" />
     <ClCompile Include="AmfArrayUnitTest.cpp" />
     <ClCompile Include="AssertHelper.cpp" />
+    <ClCompile Include="AmfBooleanValueUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Images\UnitTestLogo.scale-100.png">
