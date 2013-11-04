@@ -26,6 +26,7 @@
     <ClCompile Include="AmfIntegerValueUnitTest.cpp" />
     <ClCompile Include="AmfStringValueUnitTest.cpp" />
     <ClCompile Include="AmfDateValueUnitTest.cpp" />
+    <ClCompile Include="AmfXmlValueUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Images\UnitTestLogo.scale-100.png">
