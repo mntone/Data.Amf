@@ -8,7 +8,11 @@ using namespace Mntone::Data::Amf;
 
 AmfObject::AmfObject( void ) :
 	ValueType_( AmfValueType::Object ),
+#if _WINDOWS_PHONE
+	map_( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() ),
+#else
 	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>() ),
+#endif
 	ClassName_( "" ),
 	Externalizable_( false )
 { }
@@ -62,6 +66,7 @@ bool AmfObject::Insert( Platform::String^ key, IAmfValue^ value ) { return map_-
 void AmfObject::Remove( Platform::String^ key ) { map_->Remove( key ); }
 void AmfObject::Clear( void ) { map_->Clear(); }
 
+#if !_WINDOWS_PHONE
 Platform::String^ AmfObject::ToString( void )
 {
 	std::wstringstream buf;
@@ -79,6 +84,7 @@ Platform::String^ AmfObject::ToString( void )
 	buf << '}';
 	return ref new Platform::String( buf.str().c_str() );
 }
+#endif
 
 AmfObject^ AmfObject::CreateEcmaArray( void )
 {
@@ -122,7 +128,14 @@ bool AmfObject::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType t
 	return Amf3Parser::TryParse( input, buf );
 }
 
+#if _WINDOWS_PHONE
+void AmfObject::SetData( std::map<Platform::String^, IAmfValue^> data )
+{
+	map_ = ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( data );
+}
+#else
 void AmfObject::SetData( std::unordered_map<Platform::String^, IAmfValue^> data )
 {
 	map_ = ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>( data );
 }
+#endif

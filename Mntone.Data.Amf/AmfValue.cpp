@@ -35,7 +35,9 @@ Windows::Foundation::Collections::IVector<float64>^ AmfValue::GetVectorDouble( v
 AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 
+#if !_WINDOWS_PHONE
 Platform::String^ AmfValue::ToString( void ) { return value_->ToString(); }
+#endif
 
 AmfValue^ AmfValue::CreateUndefinedValue( void )
 {

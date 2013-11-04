@@ -64,6 +64,7 @@ void AmfArray::Clear( void ) { vector_->Clear(); }
 uint32 AmfArray::GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfValue^>^ items ) { return vector_->GetMany( startIndex, items ); }
 void AmfArray::ReplaceAll( const Platform::Array<IAmfValue^>^ items ) { vector_->ReplaceAll( items ); }
 
+#if !_WINDOWS_PHONE
 Platform::String^ AmfArray::ToString( void )
 {
 	std::wstringstream buf;
@@ -77,6 +78,7 @@ Platform::String^ AmfArray::ToString( void )
 	buf << ']';
 	return ref new Platform::String( buf.str().c_str() );
 }
+#endif
 
 AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input )
 {

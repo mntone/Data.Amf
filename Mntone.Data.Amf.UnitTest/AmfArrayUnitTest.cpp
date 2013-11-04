@@ -67,7 +67,6 @@ public:
 
 	TEST_METHOD( AmfArray_GetStringTest_FailureException )
 	{
-
 		FailureExceptionTest( []( AmfArray^ ary )
 		{
 			ary->GetString();

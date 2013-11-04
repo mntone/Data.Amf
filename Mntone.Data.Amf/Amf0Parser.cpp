@@ -223,9 +223,15 @@ IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, size_t& length )
 	return out;
 }
 
+#if _WINDOWS_PHONE
+std::map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( uint8*& input, size_t& length )
+{
+	std::map<Platform::String^, IAmfValue^> data;
+#else
 std::unordered_map<Platform::String^, IAmfValue^> Amf0Parser::ParseObjectBase( uint8*& input, size_t& length )
 {
 	std::unordered_map<Platform::String^, IAmfValue^> data;
+#endif
 	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
 	{
 		const auto& prop = ParseProperty( input, length );

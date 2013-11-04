@@ -10,7 +10,11 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#if _WINDOWS_PHONE
+#include <map>
+#else
 #include <unordered_map>
+#endif
 #include <utility>
 
 // Windows Header Files:

@@ -63,7 +63,9 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual void ReplaceAll( const Platform::Array<IAmfValue^>^ items );
 
 		// IStringable
+#if !_WINDOWS_PHONE
 		virtual Platform::String^ ToString( void ) override sealed;
+#endif
 
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input );
 		static AmfArray^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );

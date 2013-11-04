@@ -29,7 +29,9 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfArray^ GetArray( void );
 
 		// IStringable
+#if !_WINDOWS_PHONE
 		virtual Platform::String^ ToString( void ) override sealed;
+#endif
 
 		static AmfValue^ CreateUndefinedValue( void );
 		static AmfValue^ CreateBooleanValue( bool input );

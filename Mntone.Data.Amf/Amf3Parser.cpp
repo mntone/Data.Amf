@@ -166,7 +166,11 @@ IAmfValue^ Amf3Parser::ParseArray( uint8*& input, size_t& length )
 		return GetObject( value );
 
 	AmfObject^ obj;
+#if _WINDOWS_PHONE
+	std::map<Platform::String^, IAmfValue^> map;
+#else
 	std::unordered_map<Platform::String^, IAmfValue^> map;
+#endif
 
 	const auto& count = value >> 1;
 	while( length >= 2 )
