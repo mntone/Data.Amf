@@ -58,8 +58,8 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 	TEST_METHOD(AmfByteArrayValueUnitTest_GetByteArrayTest){
 
 		auto amfValue = GeneralCareteAmfValue();
-		auto testArray = CreateTestArray();
-		AssertHelper::AreArrayEqual(testArray, amfValue->GetByteArray());
+
+		AssertHelper::AreArrayEqual(testByteArray, amfValue->GetByteArray());
 	}
 
 
@@ -102,24 +102,25 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 
 	TEST_METHOD(AmfByteArrayValueUnitTest_ToStringTest){
 
+
 		auto amfValue = GeneralCareteAmfValue();
-		auto testArray = CreateTestArray();
-		Assert::AreEqual(testArray->ToString(), amfValue->ToString());
+
+		Assert::AreEqual(testByteArray->ToString(), amfValue->ToString());
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateByteArrayValue(CreateTestArray());
+		return AmfValue::CreateByteArrayValue(testByteArray);
 	}
 
 	
-	private :Platform::Array<uint8>^ CreateTestArray(){
+	Platform::Array<uint8>^ CreateTestArray(){
 
 		return ref new Platform::Array<uint8>{5,4,32,22};
 	}
 
 
-
+	Platform::Array<uint8>^ testByteArray = CreateTestArray();
 
 };
