@@ -29,6 +29,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		Windows::Foundation::Collections::IVector<int32>^ GetNamedVectorInt( Platform::String^ name );
 		Windows::Foundation::Collections::IVector<uint32>^ GetNamedVectorUint( Platform::String^ name );
 		Windows::Foundation::Collections::IVector<float64>^ GetNamedVectorDouble( Platform::String^ name );
+		Windows::Foundation::Collections::IVector<Platform::Object^>^ GetNamedVectorObject( Platform::String^ name );
 		AmfObject^ GetNamedObject( Platform::String^ name );
 		AmfArray^ GetNamedArray( Platform::String^ name );
 	};

@@ -50,7 +50,7 @@ IAmfValue^ Amf3Parser::ParseValue( uint8*& input, size_t& length )
 	case amf3_type::amf3_vector_int: return ParseVectorInt( input, length );
 	case amf3_type::amf3_vector_uint: return ParseVectorUint( input, length );
 	case amf3_type::amf3_vector_double: return ParseVectorDouble( input, length );
-	//case amf3_type::amf3_vector_object: return ParseVectorObject( input, length );
+	case amf3_type::amf3_vector_object: return ParseVectorObject( input, length );
 	//case amf3_type::amf3_dictionary: return ParseDictionary( input, length );
 	default: throw ref new Platform::FailureException( "Invalid type." );
 	}
@@ -291,7 +291,7 @@ IAmfValue^ Amf3Parser::ParseVectorInt( uint8*& input, size_t& length )
 
 	const size_t& arrayLength = value >> 1;
 	const auto& vector = ParseVectorBase<int32>( input, length, arrayLength );
-	const auto& vi = AmfValue::CreateVectorIntValue( ref new Platform::Collections::Vector<int32>( std::move( vector ) ) );
+	const auto& vi = AmfValue::CreateVectorIntValue( ref new Platform::Collections::Vector<int32>( vector ) );
 	objectReferenceBuffer_.push_back( vi );
 	return vi;
 }
@@ -304,7 +304,7 @@ IAmfValue^ Amf3Parser::ParseVectorUint( uint8*& input, size_t& length )
 
 	const size_t& arrayLength = value >> 1;
 	const auto& vector = ParseVectorBase<uint32>( input, length, arrayLength );
-	const auto& vu = AmfValue::CreateVectorUintValue( ref new Platform::Collections::Vector<uint32>( std::move( vector ) ) );
+	const auto& vu = AmfValue::CreateVectorUintValue( ref new Platform::Collections::Vector<uint32>( vector ) );
 	objectReferenceBuffer_.push_back( vu );
 	return vu;
 }
@@ -317,7 +317,7 @@ IAmfValue^ Amf3Parser::ParseVectorDouble( uint8*& input, size_t& length )
 
 	const size_t& arrayLength = value >> 1;
 	const auto& vector = ParseVectorBase<float64>( input, length, arrayLength );
-	const auto& vd = AmfValue::CreateVectorDoubleValue( ref new Platform::Collections::Vector<float64>( std::move( vector ) ) );
+	const auto& vd = AmfValue::CreateVectorDoubleValue( ref new Platform::Collections::Vector<float64>( vector ) );
 	objectReferenceBuffer_.push_back( vd );
 	return vd;
 }
@@ -325,13 +325,12 @@ IAmfValue^ Amf3Parser::ParseVectorDouble( uint8*& input, size_t& length )
 template<typename T>
 std::vector<T> Amf3Parser::ParseVectorBase( uint8*& input, size_t& length, const size_t arrayLength )
 {
-	std::vector<T> vector( arrayLength );
-
 	//const auto& fixed = *value;
 	input += 1;
 	length -= 1;
 
 	const auto& size = sizeof( T );
+	std::vector<T> vector( arrayLength );
 	for( size_t i = 0; i < arrayLength; ++i, input += size, length -= size )
 	{
 		T data;
@@ -340,6 +339,27 @@ std::vector<T> Amf3Parser::ParseVectorBase( uint8*& input, size_t& length, const
 	} 
 
 	return std::move( vector );
+}
+
+IAmfValue^ Amf3Parser::ParseVectorObject( uint8*& input, size_t& length )
+{
+	const auto& value = ParseUnsigned29bitInteger( input, length );
+	if( ( value & 1 ) == 0 )
+		return GetObject( value );
+
+	input += 1;
+	length -= 1;
+
+	const auto& typeName = ParseStringBase( input, length );
+
+	const size_t& arrayLength = value >> 1;
+	std::vector<Platform::Object^> vector( arrayLength );
+	for( size_t i = 0; i < arrayLength; ++i )
+		vector[i] = ParseValue( input, length );
+
+	const auto& vo = AmfValue::CreateVectorObjectValue( ref new Platform::Collections::Vector<Platform::Object^>( std::move( vector ) ) );
+	objectReferenceBuffer_.push_back( vo );
+	return vo;
 }
 
 Platform::String^ Amf3Parser::ParseUtf8( uint8*& input, size_t& length, const uint32 textLength )

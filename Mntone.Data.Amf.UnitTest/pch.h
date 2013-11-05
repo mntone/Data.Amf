@@ -3,3 +3,5 @@
 #include <functional>
 #include "CppUnitTest.h"
 #include "AssertHelper.h"
+
+using U8Array = Platform::Array<uint8>;

@@ -42,8 +42,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		IAmfValue^ ParseVectorDouble( uint8*& input, size_t& length );
 		template<typename T>
 		std::vector<T> ParseVectorBase( uint8*& input, size_t& length, const size_t arrayLength );
-
-		//IAmfValue^ ParseVectorObject( uint8*& input, size_t& length );
+		IAmfValue^ ParseVectorObject( uint8*& input, size_t& length );
 
 		//IAmfValue^ ParseDictionary( uint8*& input, size_t& length );
 
