@@ -17,6 +17,16 @@ AmfObject::AmfObject( void ) :
 	Externalizable_( false )
 { }
 
+AmfObject::AmfObject( Platform::String^ className ):
+	ValueType_( AmfValueType::Object ),
+	#if _WINDOWS_PHONE
+	map_( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( ) ),
+	#else
+	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>( ) ),
+	#endif
+	ClassName_( className )
+{ }
+
 Platform::Array<uint8>^ AmfObject::Sequenceify( void )
 {
 	throw ref new Platform::NotImplementedException();
@@ -92,13 +102,6 @@ AmfObject^ AmfObject::CreateEcmaArray( void )
 {
 	auto out = ref new AmfObject();
 	out->ValueType_ = AmfValueType::EcmaArray;
-	return out;
-}
-
-AmfObject^ AmfObject::CreateTypedObject( Platform::String^ className )
-{
-	auto out = ref new AmfObject();
-	out->ClassName_ = className;
 	return out;
 }
 

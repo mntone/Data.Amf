@@ -210,7 +210,7 @@ public:
 	{
 		TestAmf3( ref new U8Array{ 9, 0x3, 0x7, 0x61, 0x62, 0x63, 0x4, 0x3, 0x1, 0x4, 0x2 }, []( IAmfValue^ amfValue )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
+			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
 
 			const auto& obj = amfValue->GetObject();
 			const auto& num = obj->GetNamedInteger( "0" );
@@ -240,7 +240,7 @@ public:
 	{
 		TestAmf3( ref new U8Array{ 9, 0x1, 0x7, 0x78, 0x79, 0x7a, 0x4, 0x3, 0x7, 0x61, 0x62, 0x63, 0x4, 0x2, 0x1 }, []( IAmfValue^ amfValue )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
+			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
 
 			const auto& obj = amfValue->GetObject();
 			const auto& strAbc = obj->GetNamedInteger( "abc" );
@@ -255,7 +255,7 @@ public:
 	{
 		TestAmf3( ref new U8Array{ 9, 0x1, 0x7, 0x61, 0x62, 0x63, 0x6, 0x0, 0x7, 0x78, 0x79, 0x7a, 0x4, 0x3, 0x1 }, []( IAmfValue^ amfValue )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
+			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
 
 			const auto& obj = amfValue->GetObject();
 			const auto& strAbc = obj->GetNamedString( "abc" );
@@ -270,7 +270,7 @@ public:
 	{
 		TestAmf3( ref new U8Array{ 9, 0x7, 0x7, 0x78, 0x79, 0x7a, 0x6, 0x9, 0x70, 0x71, 0x72, 0x73, 0x1, 0x6, 0x7, 0x61, 0x62, 0x63, 0x6, 0x0, 0x6, 0x2 }, []( IAmfValue^ amfValue )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
+			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
 
 			const auto& obj = amfValue->GetObject();
 			const auto& str0 = obj->GetNamedString( "0" );
@@ -284,6 +284,21 @@ public:
 
 			const auto& strXyz = obj->GetNamedString( "xyz" );
 			Assert::AreEqual( L"pqrs", strXyz );
+		} );
+	}
+
+	TEST_METHOD( Amf3_⑩ObjectTest‐0_Default )
+	{
+		TestAmf3( ref new U8Array{ 10, 0xb, 0x1, 0x3, 0x62, 0x4, 0x3, 0x3, 0x61, 0x4, 0x2, 0x1 }, []( IAmfValue^ amfValue )
+		{
+			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
+
+			const auto& obj = amfValue->GetObject();
+			const auto& a = obj->GetNamedInteger( "a" );
+			Assert::AreEqual<uint32>( 2, a );
+
+			const auto& b = obj->GetNamedInteger( "b" );
+			Assert::AreEqual<uint32>( 3, b );
 		} );
 	}
 

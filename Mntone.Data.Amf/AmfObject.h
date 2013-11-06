@@ -13,6 +13,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 	public:
 		AmfObject( void );
+		AmfObject( Platform::String^ className );
 
 		// IAmfValue
 		virtual Platform::Array<uint8>^ Sequenceify( void );
@@ -65,7 +66,6 @@ namespace Mntone { namespace Data { namespace Amf {
 #endif
 
 		static AmfObject^ CreateEcmaArray( void );
-		static AmfObject^ CreateTypedObject( Platform::String^ className );
 
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input );
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );
