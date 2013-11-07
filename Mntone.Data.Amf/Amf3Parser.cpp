@@ -353,6 +353,7 @@ IAmfValue^ Amf3Parser::ParseVectorObject( uint8*& input, size_t& length )
 	if( ( value & 1 ) == 0 )
 		return GetObject( value );
 
+	//const auto& fixed = *value;
 	input += 1;
 	length -= 1;
 
@@ -387,7 +388,7 @@ Platform::String^ Amf3Parser::ParseUtf8( uint8*& input, size_t& length, const ui
 uint32 Amf3Parser::ParseUnsigned29bitInteger( uint8*& input, size_t& length )
 {
 	if( length == 0 )
-		throw ref new Platform::FailureException( "Invalid 29-bit integer." );
+		throw ref new Platform::FailureException( "Invalid unsigned 29-bit integer." );
 
 	uint32 ret = input[0] & 0x7f;
 	if( input[0] <= 0x7f )
@@ -397,6 +398,9 @@ uint32 Amf3Parser::ParseUnsigned29bitInteger( uint8*& input, size_t& length )
 		return ret;
 	}
 
+	if( length == 1 )
+		throw ref new Platform::FailureException( "Invalid unsigned 29-bit integer." );
+
 	ret = ( ret << 7 ) | ( input[1] & 0x7f );
 	if( input[1] <= 0x7f )
 	{
@@ -404,6 +408,9 @@ uint32 Amf3Parser::ParseUnsigned29bitInteger( uint8*& input, size_t& length )
 		length -= 2;
 		return ret;
 	}
+
+	if( length == 2 )
+		throw ref new Platform::FailureException( "Invalid unsigned 29-bit integer." );
 
 	ret = ( ret << 7 ) | ( input[2] & 0x7f );
 	if( input[2] <= 0x7f )
@@ -413,13 +420,16 @@ uint32 Amf3Parser::ParseUnsigned29bitInteger( uint8*& input, size_t& length )
 		return ret;
 	}
 
+	if( length == 3 )
+		throw ref new Platform::FailureException( "Invalid unsigned 29-bit integer." );
+
 	ret = ( ret << 8 ) | input[3];
 	input += 4;
 	length -= 4;
 	return ret;
 }
 
-IAmfValue^ Amf3Parser::GetObject( const size_t& input )
+IAmfValue^ Amf3Parser::GetObject( const size_t input )
 {
 	const auto& ref = input >> 1;
 	if( ref >= objectReferenceBuffer_.size() )

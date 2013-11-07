@@ -23,8 +23,8 @@ namespace Mntone { namespace Data { namespace Amf {
 		void SequenceifyUndefined( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 		void SequenceifyNull( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 		void SequenceifyBoolean( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		void SequenceifyDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 		void SequenceifyInteger( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequenceifyDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 		void SequenceifyString( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 		void SequenceifyDate( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 		void SequenceifyXml( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
