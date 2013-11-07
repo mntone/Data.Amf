@@ -48,7 +48,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		Platform::String^ ParseUtf8( uint8*& input, size_t& length, const uint32 textLength );
 		uint32 ParseUnsigned29bitInteger( uint8*& input, size_t& length );
-		IAmfValue^ GetObject( const size_t& input );
+		IAmfValue^ GetObject( const size_t input );
 
 	private:
 		std::vector<Platform::String^> stringReferenceBuffer_;

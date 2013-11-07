@@ -8,8 +8,8 @@ namespace Mntone { namespace Data { namespace Amf {
 		Undefined,
 		Null,
 		Boolean,
-		Double,
 		Integer,
+		Double,
 		String,
 		Date,
 		Xml,
@@ -21,6 +21,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		Object,
 		EcmaArray,
 		Array,
+		Dictionary,
 	};
 
 } } }
