@@ -17,6 +17,16 @@ AmfObject::AmfObject( void ) :
 	Externalizable_( false )
 { }
 
+AmfObject::AmfObject( Platform::String^ className ):
+	ValueType_( AmfValueType::Object ),
+	#if _WINDOWS_PHONE
+	map_( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( ) ),
+	#else
+	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>( ) ),
+	#endif
+	ClassName_( className )
+{ }
+
 Platform::Array<uint8>^ AmfObject::Sequenceify( void )
 {
 	throw ref new Platform::NotImplementedException();
@@ -39,6 +49,7 @@ Platform::Array<uint8>^ AmfObject::GetByteArray( void ) { throw ref new Platform
 Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetVectorInt( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetVectorUint( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetVectorDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfObject::GetVectorObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfObject^ AmfObject::GetObject( void ) { return safe_cast<AmfObject^>( this ); }
 AmfArray^ AmfObject::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 
@@ -53,6 +64,7 @@ Platform::Array<uint8>^ AmfObject::GetNamedByteArray( Platform::String^ name ) {
 Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetNamedVectorInt( Platform::String^ name ) { return map_->Lookup( name )->GetVectorInt(); }
 Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetNamedVectorUint( Platform::String^ name ) { return map_->Lookup( name )->GetVectorUint(); }
 Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetNamedVectorDouble( Platform::String^ name ) { return map_->Lookup( name )->GetVectorDouble(); }
+Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfObject::GetNamedVectorObject( Platform::String^ name ) { return map_->Lookup( name )->GetVectorObject(); }
 AmfObject^ AmfObject::GetNamedObject( Platform::String^ name ) { return map_->Lookup( name )->GetObject(); }
 AmfArray^ AmfObject::GetNamedArray( Platform::String^ name ) { return map_->Lookup( name )->GetArray(); }
 
@@ -90,13 +102,6 @@ AmfObject^ AmfObject::CreateEcmaArray( void )
 {
 	auto out = ref new AmfObject();
 	out->ValueType_ = AmfValueType::EcmaArray;
-	return out;
-}
-
-AmfObject^ AmfObject::CreateTypedObject( Platform::String^ className )
-{
-	auto out = ref new AmfObject();
-	out->ClassName_ = className;
 	return out;
 }
 

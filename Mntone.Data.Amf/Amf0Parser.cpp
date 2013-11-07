@@ -215,7 +215,7 @@ IAmfValue^ Amf0Parser::ParseTypedObject( uint8*& input, size_t& length )
 		throw ref new Platform::FailureException( "Invalid typedObject." );
 
 	const auto& className = ParseUtf8( input, length );
-	const auto& out = AmfObject::CreateTypedObject( className );
+	const auto& out = ref new AmfObject( className );
 	referenceBuffer_.push_back( out );
 
 	const auto& data = ParseObjectBase( input, length );

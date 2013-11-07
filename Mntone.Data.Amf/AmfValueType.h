@@ -17,6 +17,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		VectorInt,
 		VectorUint,
 		VectorDouble,
+		VectorObject,
 		Object,
 		EcmaArray,
 		Array,
