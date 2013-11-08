@@ -8,211 +8,236 @@ TEST_CLASS( Amf3UnitTest )
 public:
 	TEST_METHOD( Amf3_⓪UndefinedTest )
 	{
-		TestAmf3( ref new U8Array{ 0 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 0 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Undefined );
+			Assert::IsTrue( val->ValueType == AmfValueType::Undefined );
 		} );
 	}
 
 	TEST_METHOD( Amf3_①NullTest )
 	{
-		TestAmf3( ref new U8Array{ 1 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 1 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Null );
+			Assert::IsTrue( val->ValueType == AmfValueType::Null );
 		} );
 	}
 
 	TEST_METHOD( Amf3_②BooleanFalseTest )
 	{
-		TestAmf3( ref new U8Array{ 2 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 2 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Boolean );
-			Assert::IsFalse( amfValue->GetBoolean() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Boolean );
+			Assert::IsFalse( val->GetBoolean() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_③BooleanTrueTest )
 	{
-		TestAmf3( ref new U8Array{ 3 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 3 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Boolean );
-			Assert::IsTrue( amfValue->GetBoolean() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Boolean );
+			Assert::IsTrue( val->GetBoolean() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_④IntegerTest‐0_0 )
 	{
-		TestAmf3( ref new U8Array{ 4, 0 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 4, 0 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Integer );
-			Assert::AreEqual<uint32>( 0, amfValue->GetInteger() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual<uint32>( 0, val->GetInteger() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_④IntegerTest‐1_1 )
 	{
-		TestAmf3( ref new U8Array{ 4, 1 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 4, 1 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Integer );
-			Assert::AreEqual<uint32>( 1, amfValue->GetInteger() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual<uint32>( 1, val->GetInteger() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_④IntegerTest‐2_127 )
 	{
-		TestAmf3( ref new U8Array{ 4, 0x7f }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 4, 0x7f }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Integer );
-			Assert::AreEqual<uint32>( 127, amfValue->GetInteger() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual<uint32>( 127, val->GetInteger() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_④IntegerTest‐3_128 )
 	{
-		TestAmf3( ref new U8Array{ 4, 0x81, 0x00 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 4, 0x81, 0x00 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Integer );
-			Assert::AreEqual<uint32>( 128, amfValue->GetInteger() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual<uint32>( 128, val->GetInteger() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_④IntegerTest‐4_16383 )
 	{
-		TestAmf3( ref new U8Array{ 4, 0xff, 0x7f }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 4, 0xff, 0x7f }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Integer );
-			Assert::AreEqual<uint32>( 16383, amfValue->GetInteger() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual<uint32>( 16383, val->GetInteger() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_④IntegerTest‐5_16384 )
 	{
-		TestAmf3( ref new U8Array{ 4, 0x81, 0x80, 0x00 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 4, 0x81, 0x80, 0x00 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Integer );
-			Assert::AreEqual<uint32>( 16384, amfValue->GetInteger() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual<uint32>( 16384, val->GetInteger() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_④IntegerTest‐6_2097151 )
 	{
-		TestAmf3( ref new U8Array{ 4, 0xff, 0xff, 0x7f }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 4, 0xff, 0xff, 0x7f }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Integer );
-			Assert::AreEqual<uint32>( 2097151, amfValue->GetInteger() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual<uint32>( 2097151, val->GetInteger() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_④IntegerTest‐7_2097152 )
 	{
-		TestAmf3( ref new U8Array{ 4, 0x80, 0xc0, 0x80, 0x00 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 4, 0x80, 0xc0, 0x80, 0x00 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Integer );
-			Assert::AreEqual<uint32>( 2097152, amfValue->GetInteger() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual<uint32>( 2097152, val->GetInteger() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_④IntegerTest‐8_536870911 )
 	{
-		TestAmf3( ref new U8Array{ 4, 0xff, 0xff, 0xff, 0xff }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 4, 0xff, 0xff, 0xff, 0xff }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Integer );
-			Assert::AreEqual<uint32>( 536870911, amfValue->GetInteger() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual<uint32>( 536870911, val->GetInteger() );
 		} );
+	}
+
+	TEST_METHOD( Amf3_④IntegerTest‐9_Ex～536870912 )
+	{
+		const auto& val = AmfValue::CreateIntegerValue( 536870912 );
+		FailureExceptionTest( val );
+	}
+
+	TEST_METHOD( Amf3_④IntegerTest‐a_Ex～4294967295 )
+	{
+		const auto& val = AmfValue::CreateIntegerValue( 4294967295 );
+		FailureExceptionTest( val );
 	}
 
 	TEST_METHOD( Amf3_⑤DoubleTest‐0_0．0 )
 	{
-		TestAmf3( ref new U8Array{ 5, 0, 0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 5, 0, 0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Double );
-			Assert::AreEqual( 0.0, amfValue->GetDouble() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Double );
+			Assert::AreEqual( 0.0, val->GetDouble() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑤DoubleTest‐1_0．5 )
 	{
-		TestAmf3( ref new U8Array{ 5, 0x3f, 0xe0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 5, 0x3f, 0xe0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Double );
-			Assert::AreEqual( 0.5, amfValue->GetDouble() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Double );
+			Assert::AreEqual( 0.5, val->GetDouble() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑥StringTest‐0_Null )
 	{
-		TestAmf3( ref new U8Array{ 6, 1 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 6, 1 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::String );
-			Assert::AreEqual( amfValue->GetString()->Data(), L"" );
+			Assert::IsTrue( val->ValueType == AmfValueType::String );
+			Assert::AreEqual( val->GetString()->Data(), L"" );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑥StringTest‐1_Ascii )
 	{
-		TestAmf3( ref new U8Array{ 6, 11, 0x41, 0x53, 0x43, 0x49, 0x49 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 6, 11, 0x41, 0x53, 0x43, 0x49, 0x49 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::String );
-			Assert::AreEqual( amfValue->GetString()->Data(), L"ASCII" );
+			Assert::IsTrue( val->ValueType == AmfValueType::String );
+			Assert::AreEqual( val->GetString()->Data(), L"ASCII" );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑥StringTest‐2_RandomCharactors1 )
 	{
-		TestAmf3( ref new U8Array{ 6, 13, 0xc2, 0xbd, 0x3a, 0x20, 0x32, 0x42 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 6, 13, 0xc2, 0xbd, 0x3a, 0x20, 0x32, 0x42 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::String );
-			Assert::AreEqual( L"½: 2B", amfValue->GetString()->Data() );
+			Assert::IsTrue( val->ValueType == AmfValueType::String );
+			Assert::AreEqual( L"½: 2B", val->GetString()->Data() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑥StringTest‐3_RandomCharactors2 )
 	{
-		TestAmf3( ref new U8Array{ 6, 15, 0xe2, 0x91, 0xb4, 0x3a, 0x20, 0x33, 0x42 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 6, 15, 0xe2, 0x91, 0xb4, 0x3a, 0x20, 0x33, 0x42 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::String );
-			Assert::AreEqual( L"⑴: 3B", amfValue->GetString()->Data() );
+			Assert::IsTrue( val->ValueType == AmfValueType::String );
+			Assert::AreEqual( L"⑴: 3B", val->GetString()->Data() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑦XmlDocumentTest‐0_RootNode )
 	{
-		TestAmf3( ref new U8Array{ 7, 13, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e }, []( IAmfValue^ amfValue )
+		ParserTest( ref new U8Array{ 7, 13, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Xml );
-			Assert::AreEqual( L"<root>", amfValue->GetString()->Data() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Xml );
+			Assert::AreEqual( L"<root>", val->GetString()->Data() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑧DateTest‐0_2013／10／13 )
 	{
-		TestAmf3( ref new U8Array{ 8, 1, 0x42, 0x74, 0x1a, 0xd2, 0xe6, 0x18, 0x00, 0x00 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 8, 1, 0x42, 0x74, 0x1a, 0xd2, 0xe6, 0x18, 0x00, 0x00 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Date );
+			Assert::IsTrue( val->ValueType == AmfValueType::Date );
 
 			const auto& exp = AssertHelper::GetDate( 2013, 10, 13 );
-			Assert::IsTrue( exp.UniversalTime == amfValue->GetDate().UniversalTime );
+			Assert::IsTrue( exp.UniversalTime == val->GetDate().UniversalTime );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑧DateTest‐1_2013／11／02_20：28：52．0100 )
 	{
-		TestAmf3( ref new U8Array{ 8, 1, 0x42, 0x74, 0x21, 0x89, 0x2a, 0x18, 0x40, 0 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 8, 1, 0x42, 0x74, 0x21, 0x89, 0x2a, 0x18, 0x40, 0 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Date );
+			Assert::IsTrue( val->ValueType == AmfValueType::Date );
 
 			const auto& exp = AssertHelper::GetDate( 2013, 11, 2, 20, 28, 52, 100 * 1000000 );
-			Assert::IsTrue( exp.UniversalTime == amfValue->GetDate().UniversalTime );
+			Assert::IsTrue( exp.UniversalTime == val->GetDate().UniversalTime );
+		} );
+	}
+
+	TEST_METHOD( Amf3_⑧DateTest‐2_2013／11／02_20：28：52．0100AndRef )
+	{
+		Test( ref new U8Array{ 9, 0x5, 0x1, 0x8, 0x1, 0x42, 0x74, 0x21, 0x89, 0x2a, 0x18, 0x40, 0x0, 0x8, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			const auto& exp = AssertHelper::GetDate( 2013, 11, 2, 20, 28, 52, 100 * 1000000 );
+			Assert::IsTrue( exp.UniversalTime == ary->GetDateAt( 0 ).UniversalTime );
+			Assert::IsTrue( exp.UniversalTime == ary->GetDateAt( 1 ).UniversalTime );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑨ArrayTest‐0_NumKeyAndStrKey )
 	{
-		TestAmf3( ref new U8Array{ 9, 0x3, 0x7, 0x61, 0x62, 0x63, 0x4, 0x3, 0x1, 0x4, 0x2 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 9, 0x3, 0x7, 0x61, 0x62, 0x63, 0x4, 0x3, 0x1, 0x4, 0x2 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
+			Assert::IsTrue( val->ValueType == AmfValueType::EcmaArray );
 
-			const auto& obj = amfValue->GetObject();
+			const auto& obj = val->GetObject();
 			const auto& num = obj->GetNamedInteger( "0" );
 			Assert::AreEqual<uint32>( 2, num );
 
@@ -223,11 +248,11 @@ public:
 
 	TEST_METHOD( Amf3_⑨ArrayTest‐1_NumKeyOnly )
 	{
-		TestAmf3( ref new U8Array{ 9, 0x5, 0x1, 0x4, 0x2, 0x4, 0x3 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 9, 0x5, 0x1, 0x4, 0x2, 0x4, 0x3 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Array );
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
 
-			const auto& ary = amfValue->GetArray();
+			const auto& ary = val->GetArray();
 			const auto& num0 = ary->GetIntegerAt( 0 );
 			Assert::AreEqual<uint32>( 2, num0 );
 
@@ -238,11 +263,11 @@ public:
 
 	TEST_METHOD( Amf3_⑨ArrayTest‐2_StrKeyOnly )
 	{
-		TestAmf3( ref new U8Array{ 9, 0x1, 0x7, 0x78, 0x79, 0x7a, 0x4, 0x3, 0x7, 0x61, 0x62, 0x63, 0x4, 0x2, 0x1 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 9, 0x1, 0x7, 0x78, 0x79, 0x7a, 0x4, 0x3, 0x7, 0x61, 0x62, 0x63, 0x4, 0x2, 0x1 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
+			Assert::IsTrue( val->ValueType == AmfValueType::EcmaArray );
 
-			const auto& obj = amfValue->GetObject();
+			const auto& obj = val->GetObject();
 			const auto& strAbc = obj->GetNamedInteger( "abc" );
 			Assert::AreEqual<uint32>( 2, strAbc );
 
@@ -253,11 +278,11 @@ public:
 
 	TEST_METHOD( Amf3_⑨ArrayTest‐3_HasOneRefStrValue )
 	{
-		TestAmf3( ref new U8Array{ 9, 0x1, 0x7, 0x61, 0x62, 0x63, 0x6, 0x0, 0x7, 0x78, 0x79, 0x7a, 0x4, 0x3, 0x1 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 9, 0x1, 0x7, 0x61, 0x62, 0x63, 0x6, 0x0, 0x7, 0x78, 0x79, 0x7a, 0x4, 0x3, 0x1 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
+			Assert::IsTrue( val->ValueType == AmfValueType::EcmaArray );
 
-			const auto& obj = amfValue->GetObject();
+			const auto& obj = val->GetObject();
 			const auto& strAbc = obj->GetNamedString( "abc" );
 			Assert::AreEqual( L"abc", strAbc );
 
@@ -268,11 +293,11 @@ public:
 
 	TEST_METHOD( Amf3_⑨ArrayTest‐4_HasSomeRefStrValue )
 	{
-		TestAmf3( ref new U8Array{ 9, 0x7, 0x7, 0x78, 0x79, 0x7a, 0x6, 0x9, 0x70, 0x71, 0x72, 0x73, 0x1, 0x6, 0x7, 0x61, 0x62, 0x63, 0x6, 0x0, 0x6, 0x2 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 9, 0x7, 0x7, 0x78, 0x79, 0x7a, 0x6, 0x9, 0x70, 0x71, 0x72, 0x73, 0x1, 0x6, 0x7, 0x61, 0x62, 0x63, 0x6, 0x0, 0x6, 0x2 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::EcmaArray );
+			Assert::IsTrue( val->ValueType == AmfValueType::EcmaArray );
 
-			const auto& obj = amfValue->GetObject();
+			const auto& obj = val->GetObject();
 			const auto& str0 = obj->GetNamedString( "0" );
 			Assert::AreEqual( L"abc", str0 );
 
@@ -289,11 +314,11 @@ public:
 
 	TEST_METHOD( Amf3_⑩ObjectTest‐0_Default )
 	{
-		TestAmf3( ref new U8Array{ 10, 0xb, 0x1, 0x3, 0x62, 0x4, 0x3, 0x3, 0x61, 0x4, 0x2, 0x1 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 10, 0xb, 0x1, 0x3, 0x62, 0x4, 0x3, 0x3, 0x61, 0x4, 0x2, 0x1 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Object );
+			Assert::IsTrue( val->ValueType == AmfValueType::Object );
 
-			const auto& obj = amfValue->GetObject();
+			const auto& obj = val->GetObject();
 			const auto& a = obj->GetNamedInteger( "a" );
 			Assert::AreEqual<uint32>( 2, a );
 
@@ -304,31 +329,31 @@ public:
 
 	TEST_METHOD( Amf3_⑪XmlTest‐0_RootNode )
 	{
-		TestAmf3( ref new U8Array{ 11, 13, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 11, 13, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Xml );
-			Assert::AreEqual( L"<root>", amfValue->GetString()->Data() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Xml );
+			Assert::AreEqual( L"<root>", val->GetString()->Data() );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑫ByteArrayTest‐0_234 )
 	{
-		TestAmf3( ref new U8Array{ 12, 0x7, 0x2, 0x3, 0x4 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 12, 0x7, 0x2, 0x3, 0x4 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::ByteArray );
+			Assert::IsTrue( val->ValueType == AmfValueType::ByteArray );
 
-			const auto& ba = amfValue->GetByteArray();
+			const auto& ba = val->GetByteArray();
 			AssertHelper::AreArrayEqual( ref new U8Array{ 2, 3, 4 }, ba );
 		} );
 	}
 
 	TEST_METHOD( Amf3_⑬VectorIntTest‐0_2／3 )
 	{
-		TestAmf3( ref new U8Array{ 13, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 13, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::VectorInt );
+			Assert::IsTrue( val->ValueType == AmfValueType::VectorInt );
 
-			const auto& vi = amfValue->GetVectorInt();
+			const auto& vi = val->GetVectorInt();
 			Assert::AreEqual( 2, vi->GetAt( 0 ) );
 			Assert::AreEqual( 3, vi->GetAt( 1 ) );
 		} );
@@ -336,11 +361,11 @@ public:
 
 	TEST_METHOD( Amf3_⑭VectorUintTest‐0_2／3 )
 	{
-		TestAmf3( ref new U8Array{ 14, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 14, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::VectorUint );
+			Assert::IsTrue( val->ValueType == AmfValueType::VectorUint );
 
-			const auto& vu = amfValue->GetVectorUint();
+			const auto& vu = val->GetVectorUint();
 			Assert::AreEqual( 2u, vu->GetAt( 0 ) );
 			Assert::AreEqual( 3u, vu->GetAt( 1 ) );
 		} );
@@ -348,11 +373,11 @@ public:
 
 	TEST_METHOD( Amf3_⑮VectorDoubleTest‐0_2．0／3．0 )
 	{
-		TestAmf3( ref new U8Array{ 15, 0x5, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 15, 0x5, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::VectorDouble );
+			Assert::IsTrue( val->ValueType == AmfValueType::VectorDouble );
 
-			const auto& vd = amfValue->GetVectorDouble();
+			const auto& vd = val->GetVectorDouble();
 			Assert::AreEqual( 2.0, vd->GetAt( 0 ) );
 			Assert::AreEqual( 3.0, vd->GetAt( 1 ) );
 		} );
@@ -360,11 +385,11 @@ public:
 
 	TEST_METHOD( Amf3_ⓍMasterTest_RtmpCommandData )
 	{
-		TestAmf3( ref new U8Array{ 0x9, 0x9, 0x1, 0x6, 0xf, 0x5f, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x4, 0x1, 0xa, 0xb, 0x1, 0x19, 0x63, 0x61, 0x70, 0x61, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x69, 0x65, 0x73, 0x4, 0x1f, 0xd, 0x66, 0x6d, 0x73, 0x56, 0x65, 0x72, 0x6, 0x1b, 0x46, 0x4d, 0x53, 0x2f, 0x33, 0x2c, 0x30, 0x2c, 0x31, 0x2c, 0x31, 0x32, 0x33, 0x1, 0xa, 0x1, 0x17, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x6, 0x29, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x73, 0x75, 0x63, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x1d, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x45, 0x6e, 0x63, 0x6f, 0x64, 0x69, 0x6e, 0x67, 0x4, 0x0, 0x9, 0x63, 0x6f, 0x64, 0x65, 0x6, 0x3b, 0x4e, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x2e, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0xb, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x6, 0xd, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x1 }, []( IAmfValue^ amfValue )
+		Test( ref new U8Array{ 0x9, 0x9, 0x1, 0x6, 0xf, 0x5f, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x4, 0x1, 0xa, 0xb, 0x1, 0x19, 0x63, 0x61, 0x70, 0x61, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x69, 0x65, 0x73, 0x4, 0x1f, 0xd, 0x66, 0x6d, 0x73, 0x56, 0x65, 0x72, 0x6, 0x1b, 0x46, 0x4d, 0x53, 0x2f, 0x33, 0x2c, 0x30, 0x2c, 0x31, 0x2c, 0x31, 0x32, 0x33, 0x1, 0xa, 0x1, 0x17, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x6, 0x29, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x73, 0x75, 0x63, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x1d, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x45, 0x6e, 0x63, 0x6f, 0x64, 0x69, 0x6e, 0x67, 0x4, 0x0, 0x9, 0x63, 0x6f, 0x64, 0x65, 0x6, 0x3b, 0x4e, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x2e, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0xb, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x6, 0xd, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x1 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( amfValue->ValueType == AmfValueType::Array );
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
 
-			const auto& ary = amfValue->GetArray();
+			const auto& ary = val->GetArray();
 			Assert::AreEqual<uint32>( 4, ary->Size );
 			Assert::AreEqual( L"_result", ary->GetStringAt( 0 )->Data() );
 			Assert::AreEqual( 1.0, ary->GetDoubleAt( 1 ) );
@@ -388,15 +413,32 @@ public:
 	}
 
 private:
-	void TestAmf3( U8Array^ rawData, std::function<void( IAmfValue^ )> checkHandler )
+	void Test( U8Array^ expected, std::function<void( IAmfValue^ )> checkHandler )
 	{
-		const auto& amf = Amf3Parser::Parse( rawData );
+		const auto& amf = ParserTest( expected, checkHandler );
+		const auto& createData = SequencerTest( amf );
+		AssertHelper::AreArrayEqual( expected, createData );
+	}
+
+	IAmfValue^ ParserTest( U8Array^ expected, std::function<void( IAmfValue^ )> checkHandler )
+	{
+		const auto& amf = Amf3Parser::Parse( expected );
 		const auto& str = amf->ToString();
 		Logger::WriteMessage( str->Data() );
 		checkHandler( amf );
+		return amf;
+	}
 
-		//const auto& createData = Amf0Sequencer::Sequenceify( r );
-		//Assert::AreEqual( rawData->Length, createData->Length );
-		//AssertHelper::AreArrayEqual( rawData, createData );
+	U8Array^ SequencerTest( IAmfValue^ val )
+	{
+		return Amf3Sequencer::Sequencify( val );
+	}
+
+	void FailureExceptionTest( IAmfValue^ val )
+	{
+		Assert::ExpectException<Platform::FailureException^>( [=]
+		{
+			SequencerTest( val );
+		} );
 	}
 };

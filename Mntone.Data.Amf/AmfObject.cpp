@@ -27,15 +27,15 @@ AmfObject::AmfObject( Platform::String^ className ):
 	ClassName_( className )
 { }
 
-Platform::Array<uint8>^ AmfObject::Sequenceify( void )
+Platform::Array<uint8>^ AmfObject::Sequencify( void )
 {
 	throw ref new Platform::NotImplementedException();
 }
 
-Platform::Array<uint8>^ AmfObject::Sequenceify( AmfEncodingType type )
+Platform::Array<uint8>^ AmfObject::Sequencify( AmfEncodingType type )
 {
 	if( type == AmfEncodingType::Amf0 )
-		return Amf0Sequencer::Sequenceify( this );
+		return Amf0Sequencer::Sequencify( this );
 
 	throw ref new Platform::NotImplementedException();
 }
@@ -49,7 +49,7 @@ Platform::Array<uint8>^ AmfObject::GetByteArray( void ) { throw ref new Platform
 Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetVectorInt( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetVectorUint( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetVectorDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfObject::GetVectorObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfObject::GetVectorObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfObject^ AmfObject::GetObject( void ) { return safe_cast<AmfObject^>( this ); }
 AmfArray^ AmfObject::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 
@@ -64,7 +64,7 @@ Platform::Array<uint8>^ AmfObject::GetNamedByteArray( Platform::String^ name ) {
 Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetNamedVectorInt( Platform::String^ name ) { return map_->Lookup( name )->GetVectorInt(); }
 Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetNamedVectorUint( Platform::String^ name ) { return map_->Lookup( name )->GetVectorUint(); }
 Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetNamedVectorDouble( Platform::String^ name ) { return map_->Lookup( name )->GetVectorDouble(); }
-Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfObject::GetNamedVectorObject( Platform::String^ name ) { return map_->Lookup( name )->GetVectorObject(); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfObject::GetNamedVectorObject( Platform::String^ name ) { return map_->Lookup( name )->GetVectorObject(); }
 AmfObject^ AmfObject::GetNamedObject( Platform::String^ name ) { return map_->Lookup( name )->GetObject(); }
 AmfArray^ AmfObject::GetNamedArray( Platform::String^ name ) { return map_->Lookup( name )->GetArray(); }
 

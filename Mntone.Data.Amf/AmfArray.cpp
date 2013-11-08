@@ -12,15 +12,15 @@ AmfArray::AmfArray( void ) :
 	vector_( ref new Platform::Collections::Vector<IAmfValue^>() )
 { }
 
-Platform::Array<uint8>^ AmfArray::Sequenceify( void )
+Platform::Array<uint8>^ AmfArray::Sequencify( void )
 {
 	throw ref new Platform::NotImplementedException();
 }
 
-Platform::Array<uint8>^ AmfArray::Sequenceify( AmfEncodingType type )
+Platform::Array<uint8>^ AmfArray::Sequencify( AmfEncodingType type )
 {
 	if( type == AmfEncodingType::Amf0 )
-		return Amf0Sequencer::Sequenceify( this );
+		return Amf0Sequencer::Sequencify( this );
 
 	throw ref new Platform::NotImplementedException();
 }
@@ -47,7 +47,7 @@ Platform::Array<uint8>^ AmfArray::GetByteArrayAt( uint32 index ) { return vector
 Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorIntAt( uint32 index ) { return vector_->GetAt( index )->GetVectorInt(); }
 Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUintAt( uint32 index ) { return vector_->GetAt( index )->GetVectorUint(); }
 Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDoubleAt( uint32 index ) { return vector_->GetAt( index )->GetVectorDouble(); }
-Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfArray::GetVectorObjectAt( uint32 index ) { return vector_->GetAt( index )->GetVectorObject(); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObjectAt( uint32 index ) { return vector_->GetAt( index )->GetVectorObject( ); }
 AmfObject^ AmfArray::GetObjectAt( uint32 index ) { return vector_->GetAt( index )->GetObject(); }
 AmfArray^ AmfArray::GetArrayAt( uint32 index ) { return vector_->GetAt( index )->GetArray(); }
 

@@ -16,8 +16,8 @@ namespace Mntone { namespace Data { namespace Amf {
 			AmfValueType get( void );
 		}
 		
-		Platform::Array<uint8>^ Sequenceify( void );
-		Platform::Array<uint8>^ Sequenceify( AmfEncodingType type );
+		Platform::Array<uint8>^ Sequencify( void );
+		Platform::Array<uint8>^ Sequencify( AmfEncodingType type );
 
 		bool GetBoolean( void );
 		float64 GetDouble( void );
@@ -28,7 +28,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		Windows::Foundation::Collections::IVector<int32>^ GetVectorInt( void );
 		Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint( void );
 		Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble( void );
-		Windows::Foundation::Collections::IVector<Platform::Object^>^ GetVectorObject( void );
+		Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject( void );
 		AmfObject^ GetObject( void );
 		AmfArray^ GetArray( void );
 	};

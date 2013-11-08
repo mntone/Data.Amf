@@ -11,15 +11,15 @@ AmfValue::AmfValue( void ) :
 	value_( nullptr )
 { }
 
-Platform::Array<uint8>^ AmfValue::Sequenceify( void )
+Platform::Array<uint8>^ AmfValue::Sequencify( void )
 {
 	throw ref new Platform::NotImplementedException();
 }
 
-Platform::Array<uint8>^ AmfValue::Sequenceify( AmfEncodingType type )
+Platform::Array<uint8>^ AmfValue::Sequencify( AmfEncodingType type )
 {
 	if( type == AmfEncodingType::Amf0 )
-		return Amf0Sequencer::Sequenceify( this );
+		return Amf0Sequencer::Sequencify( this );
 
 	throw ref new Platform::NotImplementedException();
 }
@@ -207,12 +207,24 @@ AmfValue^ AmfValue::CreateVectorDoubleValue( Windows::Foundation::Collections::I
 	return out;
 }
 
-AmfValue^ AmfValue::CreateVectorObjectValue( Windows::Foundation::Collections::IVector<Platform::Object^>^ input )
+AmfValue^ AmfValue::CreateVectorObjectValue( Windows::Foundation::Collections::IVector<IAmfValue^>^ input )
 {
 	auto out = ref new AmfValue();
 	out->ValueType_ = AmfValueType::VectorObject;
 	out->value_ = input;
 	return out;
+}
+
+AmfValue^ AmfValue::CreateVectorObjectValue( void )
+{
+	auto out = ref new AmfValue( );
+	out->ValueType_ = AmfValueType::VectorObject;
+	return out;
+}
+
+void AmfValue::SetData( Platform::Object^ input )
+{
+	value_ = input;
 }
 
 AmfValue^ AmfValue::Parse( const Platform::Array<uint8>^ input )

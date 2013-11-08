@@ -16,8 +16,8 @@ namespace Mntone { namespace Data { namespace Amf {
 		AmfObject( Platform::String^ className );
 
 		// IAmfValue
-		virtual Platform::Array<uint8>^ Sequenceify( void );
-		virtual Platform::Array<uint8>^ Sequenceify( AmfEncodingType type );
+		virtual Platform::Array<uint8>^ Sequencify( void );
+		virtual Platform::Array<uint8>^ Sequencify( AmfEncodingType type );
 		virtual bool GetBoolean( void );
 		virtual float64 GetDouble( void );
 		virtual int32 GetInteger( void );
@@ -27,7 +27,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Windows::Foundation::Collections::IVector<int32>^ GetVectorInt( void );
 		virtual Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint( void );
 		virtual Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble( void );
-		virtual Windows::Foundation::Collections::IVector<Platform::Object^>^ GetVectorObject( void );
+		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject( void );
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
 
@@ -43,7 +43,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Windows::Foundation::Collections::IVector<int32>^ GetNamedVectorInt( Platform::String^ name );
 		virtual Windows::Foundation::Collections::IVector<uint32>^ GetNamedVectorUint( Platform::String^ name );
 		virtual Windows::Foundation::Collections::IVector<float64>^ GetNamedVectorDouble( Platform::String^ name );
-		virtual Windows::Foundation::Collections::IVector<Platform::Object^>^ GetNamedVectorObject( Platform::String^ name );
+		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetNamedVectorObject( Platform::String^ name );
 		virtual AmfObject^ GetNamedObject( Platform::String^ name );
 		virtual AmfArray^ GetNamedArray( Platform::String^ name );
 
