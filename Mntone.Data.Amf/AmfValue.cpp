@@ -10,15 +10,15 @@ AmfValue::AmfValue( void ) :
 	value_( nullptr )
 { }
 
-Platform::Array<uint8>^ AmfValue::Sequenceify( void )
+Platform::Array<uint8>^ AmfValue::Sequencify( void )
 {
 	throw ref new Platform::NotImplementedException();
 }
 
-Platform::Array<uint8>^ AmfValue::Sequenceify( AmfEncodingType type )
+Platform::Array<uint8>^ AmfValue::Sequencify( AmfEncodingType type )
 {
 	if( type == AmfEncodingType::Amf0 )
-		return Amf0Sequencer::Sequenceify( this );
+		return Amf0Sequencer::Sequencify( this );
 
 	throw ref new Platform::NotImplementedException();
 }

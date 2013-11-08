@@ -370,7 +370,7 @@ private:
 		Logger::WriteMessage( str->Data() );
 		checkHandler( amf );
 
-		const auto& createData = Amf0Sequencer::Sequenceify( amf );
+		const auto& createData = Amf0Sequencer::Sequencify( amf );
 		Assert::AreEqual( rawData->Length, createData->Length );
 		AssertHelper::AreArrayEqual( rawData, createData );
 	}

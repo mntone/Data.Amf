@@ -27,15 +27,15 @@ AmfObject::AmfObject( Platform::String^ className ):
 	ClassName_( className )
 { }
 
-Platform::Array<uint8>^ AmfObject::Sequenceify( void )
+Platform::Array<uint8>^ AmfObject::Sequencify( void )
 {
 	throw ref new Platform::NotImplementedException();
 }
 
-Platform::Array<uint8>^ AmfObject::Sequenceify( AmfEncodingType type )
+Platform::Array<uint8>^ AmfObject::Sequencify( AmfEncodingType type )
 {
 	if( type == AmfEncodingType::Amf0 )
-		return Amf0Sequencer::Sequenceify( this );
+		return Amf0Sequencer::Sequencify( this );
 
 	throw ref new Platform::NotImplementedException();
 }

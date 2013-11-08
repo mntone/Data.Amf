@@ -16,8 +16,8 @@ namespace Mntone { namespace Data { namespace Amf {
 			AmfValueType get( void );
 		}
 		
-		Platform::Array<uint8>^ Sequenceify( void );
-		Platform::Array<uint8>^ Sequenceify( AmfEncodingType type );
+		Platform::Array<uint8>^ Sequencify( void );
+		Platform::Array<uint8>^ Sequencify( AmfEncodingType type );
 
 		bool GetBoolean( void );
 		float64 GetDouble( void );

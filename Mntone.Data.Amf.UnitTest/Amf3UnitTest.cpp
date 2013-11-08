@@ -431,7 +431,7 @@ private:
 
 	U8Array^ SequencerTest( IAmfValue^ val )
 	{
-		return Amf3Sequencer::Sequenceify( val );
+		return Amf3Sequencer::Sequencify( val );
 	}
 
 	void FailureExceptionTest( IAmfValue^ val )

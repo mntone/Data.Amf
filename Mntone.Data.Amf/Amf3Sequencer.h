@@ -13,34 +13,34 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 	internal:
 #endif
-		static Platform::Array<uint8>^ Sequenceify( IAmfValue^ input );
+		static Platform::Array<uint8>^ Sequencify( IAmfValue^ input );
 
 	private:
 		Amf3Sequencer( void );
 
-		void SequenceifyValue( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyValue( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 
-		void SequenceifyUndefined( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		void SequenceifyNull( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		void SequenceifyBoolean( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyUndefined( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyNull( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyBoolean( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 
-		void SequenceifyInteger( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		void SequenceifyDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyInteger( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 
-		void SequenceifyString( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		void SequenceifyStringBase( Platform::String^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyString( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyStringBase( Platform::String^ input, std::basic_stringstream<uint8>& stream );
 
-		void SequenceifyDate( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		void SequenceifyXml( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyDate( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyXml( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 
-		void SequenceifyByteArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		void SequenceifyVectorInt( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		void SequenceifyVectorUint( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
-		void SequenceifyVectorDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyByteArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyVectorInt( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyVectorUint( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyVectorDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 		template<typename T, size_t S>
-		void SequenceifyVectorBase( Windows::Foundation::Collections::IVector<T>^ input, std::basic_stringstream<uint8>& stream )
+		void SequencifyVectorBase( Windows::Foundation::Collections::IVector<T>^ input, std::basic_stringstream<uint8>& stream )
 		{
-			SequenceifyUnsigned28bitIntegerAndReference( input->Size, false, stream );
+			SequencifyUnsigned28bitIntegerAndReference( input->Size, false, stream );
 
 			stream.put( 0 );
 			for( const auto& item : input )
@@ -51,8 +51,8 @@ namespace Mntone { namespace Data { namespace Amf {
 			}
 		}
 
-		void SequenceifyUnsigned28bitIntegerAndReference( const uint32 input, const bool reference, std::basic_stringstream<uint8>& stream );
-		void SequenceifyUnsigned29bitInteger( const uint32 input, std::basic_stringstream<uint8>& stream );
+		void SequencifyUnsigned28bitIntegerAndReference( const uint32 input, const bool reference, std::basic_stringstream<uint8>& stream );
+		void SequencifyUnsigned29bitInteger( const uint32 input, std::basic_stringstream<uint8>& stream );
 
 		int32 IsObjectReference( IAmfValue^ input );
 

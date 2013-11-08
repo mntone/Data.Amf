@@ -11,15 +11,15 @@ AmfArray::AmfArray( void ) :
 	vector_( ref new Platform::Collections::Vector<IAmfValue^>() )
 { }
 
-Platform::Array<uint8>^ AmfArray::Sequenceify( void )
+Platform::Array<uint8>^ AmfArray::Sequencify( void )
 {
 	throw ref new Platform::NotImplementedException();
 }
 
-Platform::Array<uint8>^ AmfArray::Sequenceify( AmfEncodingType type )
+Platform::Array<uint8>^ AmfArray::Sequencify( AmfEncodingType type )
 {
 	if( type == AmfEncodingType::Amf0 )
-		return Amf0Sequencer::Sequenceify( this );
+		return Amf0Sequencer::Sequencify( this );
 
 	throw ref new Platform::NotImplementedException();
 }
