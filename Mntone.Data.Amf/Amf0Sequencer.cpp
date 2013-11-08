@@ -247,14 +247,15 @@ void Amf0Sequencer::SequencifyUtf8Long( IAmfValue^ input, std::basic_stringstrea
 
 int32 Amf0Sequencer::IsReference( IAmfValue^ input )
 {
-	const size_t& length = referenceBuffer_.size();
-	for( size_t i = 0u; i < length; ++i )
+	const int32& length = static_cast<int32>( referenceBuffer_.size() );
+	for( int32 i = 0u; i < length; ++i )
 	{
-		const auto& value = referenceBuffer_[i];
-		if( value == input )
-			return i;
 		if( i > UINT16_MAX )
 			break;
+
+		const auto& value = referenceBuffer_[i];
+		if( value == input )
+			return static_cast<int32>( i );
 	}
 	return -1;
 }
