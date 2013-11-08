@@ -252,7 +252,7 @@ int32 Amf0Sequencer::IsReference( IAmfValue^ input )
 	{
 		const auto& value = referenceBuffer_[i];
 		if( value == input )
-			return -1;
+			return i;
 		if( i > UINT16_MAX )
 			break;
 	}

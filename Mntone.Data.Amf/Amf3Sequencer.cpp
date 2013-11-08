@@ -256,7 +256,7 @@ int32 Amf3Sequencer::IsObjectReference( IAmfValue^ input )
 	{
 		const auto& value = objectReferenceBuffer_[i];
 		if( value == input )
-			return -1;
+			return i;
 		if( i > 0x10000000 )
 			break;
 	}
