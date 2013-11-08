@@ -9,7 +9,8 @@ public:
 	static Windows::Foundation::DateTime GetDate( int32 year, int32 month, int32 day, int32 hour, int32 minute, int32 second );
 	static Windows::Foundation::DateTime GetDate( int32 year, int32 month, int32 day, int32 hour, int32 minute, int32 second, int32 nanosecond );
 
-
+	static void ExpectInvalidOperatonException(const std::function<void()>& func);
+	
 	template<typename T>
 	static void AreVectorEqual( Windows::Foundation::Collections::IVector<T>^ expected,  Windows::Foundation::Collections::IVector<T>^ actual){
 		
