@@ -47,7 +47,7 @@ int32 AmfValue::GetInteger( void ) {
 
 Platform::String^ AmfValue::GetString( void ) { 
 	
-	if (this->ValueType_ != AmfValueType::String){ throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+	if (this->ValueType_ != AmfValueType::String && this->ValueType_ != AmfValueType::Xml){ throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
 
 	return safe_cast<Platform::String^>( value_ );
 }
@@ -82,7 +82,7 @@ Windows::Foundation::Collections::IVector<uint32>^ AmfValue::GetVectorUint( void
 
 Windows::Foundation::Collections::IVector<float64>^ AmfValue::GetVectorDouble( void ) { 
 	
-	if (this->ValueType_ != AmfValueType::Double){ throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+	if (this->ValueType_ != AmfValueType::VectorDouble){ throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
 
 	return safe_cast<Platform::Collections::Vector<float64>^>( value_ ); 
 }
@@ -98,7 +98,17 @@ AmfObject^ AmfValue::GetObject(void) { throw COMExceptionHelper::CreateInvalidOp
 AmfArray^ AmfValue::GetArray(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
 
 #if !_WINDOWS_PHONE
-Platform::String^ AmfValue::ToString( void ) { return value_->ToString(); }
+Platform::String^ AmfValue::ToString( void ) { 
+	switch (this->ValueType)
+	{
+	case AmfValueType::Undefined:
+		return L"undefined";
+
+	default:
+		return value_->ToString();
+	}
+	
+}
 #endif
 
 AmfValue^ AmfValue::CreateUndefinedValue( void )
