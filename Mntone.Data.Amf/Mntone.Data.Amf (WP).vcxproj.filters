@@ -17,6 +17,7 @@
     <ClInclude Include="..\Mntone.Data.Amf\IAmfValue.h" />
     <ClInclude Include="..\Mntone.Data.Amf\Utilities.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="COMExceptionHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Mntone.Data.Amf\Amf0Parser.cpp" />
@@ -27,5 +28,6 @@
     <ClCompile Include="..\Mntone.Data.Amf\AmfValue.cpp" />
     <ClCompile Include="..\Mntone.Data.Amf\Utilities.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="COMExceptionHelper.cpp" />
   </ItemGroup>
 </Project>
