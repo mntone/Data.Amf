@@ -22,6 +22,9 @@ bool Amf3Parser::TryParse( const Platform::Array<uint8>^ input, IAmfValue^* resu
 	return true;
 }
 
+Amf3Parser::Amf3Parser( void )
+{ }
+
 IAmfValue^ Amf3Parser::ParseValue( uint8*& input, size_t& length )
 {
 	if( length < 1 )
@@ -353,6 +356,9 @@ IAmfValue^ Amf3Parser::ParseVectorObject( uint8*& input, size_t& length )
 	if( ( value & 1 ) == 0 )
 		return GetObject( value );
 
+	const auto& vo = AmfValue::CreateVectorObjectValue();
+	objectReferenceBuffer_.push_back( vo );
+
 	//const auto& fixed = *value;
 	input += 1;
 	length -= 1;
@@ -360,12 +366,11 @@ IAmfValue^ Amf3Parser::ParseVectorObject( uint8*& input, size_t& length )
 	/*const auto& typeName =*/ ParseStringBase( input, length );
 
 	const size_t& arrayLength = value >> 1;
-	std::vector<Platform::Object^> vector( arrayLength );
+	std::vector<IAmfValue^> vector( arrayLength );
 	for( size_t i = 0; i < arrayLength; ++i )
 		vector[i] = ParseValue( input, length );
 
-	const auto& vo = AmfValue::CreateVectorObjectValue( ref new Platform::Collections::Vector<Platform::Object^>( std::move( vector ) ) );
-	objectReferenceBuffer_.push_back( vo );
+	vo->SetData( ref new Platform::Collections::Vector<IAmfValue^>( std::move( vector ) ) );
 	return vo;
 }
 

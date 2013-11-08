@@ -32,7 +32,7 @@ Platform::Array<uint8>^ AmfValue::GetByteArray( void ) { return safe_cast<Platfo
 Windows::Foundation::Collections::IVector<int32>^ AmfValue::GetVectorInt( void ) { return safe_cast<Platform::Collections::Vector<int32>^>( value_ ); }
 Windows::Foundation::Collections::IVector<uint32>^ AmfValue::GetVectorUint( void ) { return safe_cast<Platform::Collections::Vector<uint32>^>( value_ ); }
 Windows::Foundation::Collections::IVector<float64>^ AmfValue::GetVectorDouble( void ) { return safe_cast<Platform::Collections::Vector<float64>^>( value_ ); }
-Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfValue::GetVectorObject( void ) { return safe_cast<Platform::Collections::Vector<Platform::Object^>^>( value_ ); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfValue::GetVectorObject( void ) { return safe_cast<Platform::Collections::Vector<IAmfValue^>^>( value_ ); }
 AmfObject^ AmfValue::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfArray^ AmfValue::GetArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 
@@ -136,12 +136,24 @@ AmfValue^ AmfValue::CreateVectorDoubleValue( Windows::Foundation::Collections::I
 	return out;
 }
 
-AmfValue^ AmfValue::CreateVectorObjectValue( Windows::Foundation::Collections::IVector<Platform::Object^>^ input )
+AmfValue^ AmfValue::CreateVectorObjectValue( Windows::Foundation::Collections::IVector<IAmfValue^>^ input )
 {
 	auto out = ref new AmfValue();
 	out->ValueType_ = AmfValueType::VectorObject;
 	out->value_ = input;
 	return out;
+}
+
+AmfValue^ AmfValue::CreateVectorObjectValue( void )
+{
+	auto out = ref new AmfValue( );
+	out->ValueType_ = AmfValueType::VectorObject;
+	return out;
+}
+
+void AmfValue::SetData( Platform::Object^ input )
+{
+	value_ = input;
 }
 
 AmfValue^ AmfValue::Parse( const Platform::Array<uint8>^ input )

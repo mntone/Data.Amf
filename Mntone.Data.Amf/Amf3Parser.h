@@ -18,6 +18,8 @@ namespace Mntone { namespace Data { namespace Amf {
 		static bool TryParse( const Platform::Array<uint8>^ input, IAmfValue^* result );
 
 	private:
+		Amf3Parser( void );
+
 		IAmfValue^ ParseValue( uint8*& input, size_t& length );
 
 		IAmfValue^ ParseUndefined( uint8*& input, size_t& length );
@@ -30,6 +32,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		IAmfValue^ ParseString( uint8*& input, size_t& length );
 		Platform::String^ ParseStringBase( uint8*& input, size_t& length );
+
 		IAmfValue^ ParseXml( uint8*& input, size_t& length );
 		IAmfValue^ ParseDate( uint8*& input, size_t& length );
 		

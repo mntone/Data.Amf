@@ -158,8 +158,8 @@ void Amf0Sequencer::SequenceifyEcmaArray( IAmfValue^ input, std::basic_stringstr
 }
 
 void Amf0Sequencer::SequenceifyObjectBase( AmfObject^ input, std::basic_stringstream<uint8>& stream )
-	{
-	const auto& view = input->GetView( );
+{
+	const auto& view = input->GetView();
 	for( const auto& item : view )
 	{
 		SequenceifyUtf8( item->Key, stream );
@@ -176,7 +176,7 @@ void Amf0Sequencer::SequenceifyStrictArray( IAmfValue^ input, std::basic_strings
 	const auto& ary = input->GetArray();
 	const auto& ref = IsReference( ary );
 	if( ref != -1 )
-{
+	{
 		SequenceifyReference( ref, stream );
 		return;
 	}
@@ -197,14 +197,17 @@ void Amf0Sequencer::SequenceifyStrictArray( IAmfValue^ input, std::basic_strings
 
 void Amf0Sequencer::SequenceifyUtf8( const std::string& input, std::basic_stringstream<uint8>& stream )
 {
-	const auto& length = static_cast<uint16>( input.length() );
+	const auto& fullLength = input.length();
+	if( fullLength > UINT16_MAX )
+		throw ref new Platform::FailureException( "Invalid Utf8 length." );
+	const auto& length = static_cast<uint16>( fullLength );
 
 	uint8 buf[2];
 	ConvertBigEndian( &length, buf, 2 );
 	stream.write( buf, 2 );
 
 	if( length != 0 )
-		stream.write( reinterpret_cast<const uint8*>( input.c_str() ), input.length() );
+		stream.write( reinterpret_cast<const uint8*>( input.c_str() ), fullLength );
 }
 
 void Amf0Sequencer::SequenceifyUtf8( Platform::String^ input, std::basic_stringstream<uint8>& stream )
@@ -219,13 +222,17 @@ void Amf0Sequencer::SequenceifyUtf8( IAmfValue^ input, std::basic_stringstream<u
 
 void Amf0Sequencer::SequenceifyUtf8Long( const std::string& input, std::basic_stringstream<uint8>& stream )
 {
-	const auto& length = static_cast<uint32>( input.length() );
+	const auto& fullLength = input.length();
+	if( fullLength > UINT32_MAX )
+		throw ref new Platform::FailureException( "Invalid Utf8 length." );
+	const auto& length = static_cast<uint32>( fullLength );
 
 	uint8 buf[4];
 	ConvertBigEndian( &length, buf, 4 );
 	stream.write( buf, 4 );
 
-	stream.write( reinterpret_cast<const uint8*>( input.c_str() ), input.length() );
+	if( length != 0 )
+		stream.write( reinterpret_cast<const uint8*>( input.c_str() ), fullLength );
 }
 
 void Amf0Sequencer::SequenceifyUtf8Long( Platform::String^ input, std::basic_stringstream<uint8>& stream )

@@ -33,7 +33,7 @@ Platform::Array<uint8>^ AmfArray::GetByteArray( void ) { throw ref new Platform:
 Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorInt( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUint( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfArray::GetVectorObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfObject^ AmfArray::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
 AmfArray^ AmfArray::GetArray( void ) { return safe_cast<AmfArray^>( this ); }
 
@@ -46,7 +46,7 @@ Platform::Array<uint8>^ AmfArray::GetByteArrayAt( uint32 index ) { return vector
 Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorIntAt( uint32 index ) { return vector_->GetAt( index )->GetVectorInt(); }
 Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUintAt( uint32 index ) { return vector_->GetAt( index )->GetVectorUint(); }
 Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDoubleAt( uint32 index ) { return vector_->GetAt( index )->GetVectorDouble(); }
-Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfArray::GetVectorObjectAt( uint32 index ) { return vector_->GetAt( index )->GetVectorObject(); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObjectAt( uint32 index ) { return vector_->GetAt( index )->GetVectorObject( ); }
 AmfObject^ AmfArray::GetObjectAt( uint32 index ) { return vector_->GetAt( index )->GetObject(); }
 AmfArray^ AmfArray::GetArrayAt( uint32 index ) { return vector_->GetAt( index )->GetArray(); }
 

@@ -1,7 +1,6 @@
 /ipch
 /obj
-/Mntone.Data.Amf.opensdf
-/Mntone.Data.Amf.sdf
 /bin
-/Mntone.Data.Amf.Test/obj
-/Mntone.Data.Amf.v12.suo
+/*.opensdf
+/*.sdf
+/*.v12.suo

@@ -12,3 +12,4 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 # Data::Amf for Windows Runtime Contributors
 - [e.g. Yourname (Twitter or E-mail address)]
+- qwerty (@qwerty_oikawa)

@@ -7,10 +7,13 @@ void AssertHelper::AreArrayEqual( const Platform::Array<uint8>^ expected, const 
 	const auto& length = expected->Length;
 	Assert::AreEqual( length, actual->Length );
 
+	std::wstringstream buf;
 	for( auto i = 0u; i < length; ++i )
 	{
-		if( !actual[i].Equals( actual[i] ) )
+		buf << std::hex << actual[i] << ' ';
+		if( !expected[i].Equals( actual[i] ) )
 		{
+			Logger::WriteMessage( buf.str().c_str() );
 			Assert::Fail();
 			break;
 		}

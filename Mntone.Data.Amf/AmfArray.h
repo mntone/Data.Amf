@@ -26,7 +26,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Windows::Foundation::Collections::IVector<int32>^ GetVectorInt( void );
 		virtual Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint( void );
 		virtual Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble( void );
-		virtual Windows::Foundation::Collections::IVector<Platform::Object^>^ GetVectorObject( void );
+		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject( void );
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
 
@@ -40,7 +40,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Windows::Foundation::Collections::IVector<int32>^ GetVectorIntAt( uint32 index );
 		virtual Windows::Foundation::Collections::IVector<uint32>^ GetVectorUintAt( uint32 index );
 		virtual Windows::Foundation::Collections::IVector<float64>^ GetVectorDoubleAt( uint32 index );
-		virtual Windows::Foundation::Collections::IVector<Platform::Object^>^ GetVectorObjectAt( uint32 index );
+		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObjectAt( uint32 index );
 		virtual AmfObject^ GetObjectAt( uint32 index );
 		virtual AmfArray^ GetArrayAt( uint32 index );
 

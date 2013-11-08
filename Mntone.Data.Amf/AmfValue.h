@@ -25,7 +25,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Windows::Foundation::Collections::IVector<int32>^ GetVectorInt( void );
 		virtual Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint( void );
 		virtual Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble( void );
-		virtual Windows::Foundation::Collections::IVector<Platform::Object^>^ GetVectorObject( void );
+		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject( void );
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
 
@@ -45,7 +45,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static AmfValue^ CreateVectorIntValue( Windows::Foundation::Collections::IVector<int32>^ input );
 		static AmfValue^ CreateVectorUintValue( Windows::Foundation::Collections::IVector<uint32>^ input );
 		static AmfValue^ CreateVectorDoubleValue( Windows::Foundation::Collections::IVector<float64>^ input );
-		static AmfValue^ CreateVectorObjectValue( Windows::Foundation::Collections::IVector<Platform::Object^>^ input );
+		static AmfValue^ CreateVectorObjectValue( Windows::Foundation::Collections::IVector<IAmfValue^>^ input );
 
 		static AmfValue^ Parse( const Platform::Array<uint8>^ input );
 		static AmfValue^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );
@@ -53,7 +53,10 @@ namespace Mntone { namespace Data { namespace Amf {
 		static bool TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfValue^* result );
 
 	internal:
+		void SetData( Platform::Object^ input );
+
 		static AmfValue^ CreateByteArrayValue( std::vector<uint8> input );
+		static AmfValue^ CreateVectorObjectValue( void );
 
 	public:
 		// IAmfValue
