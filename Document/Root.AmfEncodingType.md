@@ -22,7 +22,7 @@ The **AmfEncodingType** enumeration has these members.
 
 Member|Value|Description
 ------|-----|-----------
-Amf0  |0    |Sequences **IAmfValue** in Amf0 format.
-Amf3  |3    |Sequences **IAmfValue** in Amf3 format.
+Amf0  |0    |Sequences **[IAmfValue](Root.IAmfValue.md)** in Amf0 format.
+Amf3  |3    |Sequences **[IAmfValue](Root.IAmfValue.md)** in Amf3 format.
 
-##### Update date: Sep 13, 2013
+##### Update date: Nov 9, 2013

@@ -44,17 +44,21 @@ The **AmfValue** class has these methods. It also inherits methods from the **Ob
 
 #### [IAmfValue](Root.IAmfValue.md)
 
-Method      |Description
-------------|-----------
-Sequenceify |Retrives the Amf representation of the encapsulated value.
-GetBoolean  |Gets the Boolean if the ValueType of the encapsulated value is Boolean.
-GetDouble   |Gets the Double if the ValueType of the encapsulated value is Double.
-GetInteger  |Gets the Integer if the ValueType of the encapsulated value is Integer.
-GetString   |Gets the String if the ValueType of the encapsulated value is String.
-GetReference|Gets the Reference if the ValueType of the encapsulated value is Reference.
-GetDate     |Gets the Date if the ValueType of the encapsulated value is Date.
-GetObject   |Gets the Object if the ValueType of the encapsulated value is Object.
-GetArray    |Gets the Array if the ValueType of the encapsulated value is Array.
+Method         |Description
+---------------|-----------
+Sequencify　    |Retrives the Amf representation of the encapsulated value.
+GetBoolean     |Gets the Boolean if the ValueType of the encapsulated value is Boolean.
+GetInteger     |Gets the Integer if the ValueType of the encapsulated value is Integer.
+GetDouble      |Gets the Double if the ValueType of the encapsulated value is Double.
+GetString      |Gets the String if the ValueType of the encapsulated value is String.
+GetDate        |Gets the Date if the ValueType of the encapsulated value is Date.
+GetByteArray   |Gets the ByteArray if the ValueType of the encapsulated value is ByteArray.
+GetVectorInt   |Gets the VectorInt if the ValueType of the encapsulated value is DVectorIntate.
+GetVectorUint  |Gets the VectorUint if the ValueType of the encapsulated value is VectorUint.
+GetVectorDouble|Gets the VectorDouble if the ValueType of the encapsulated value is VectorDouble.
+GetVectorObject|Gets the VectorObject if the ValueType of the encapsulated value is VectorObject.
+GetObject      |Gets the Object if the ValueType of the encapsulated value is Object.
+GetArray       |Gets the Array if the ValueType of the encapsulated value is Array.
 
 #### IStringable
 
@@ -64,18 +68,22 @@ ToString|Provides a way to represent the current object as a string.
 
 #### __IAmfValueStatics
 
-Method              |Description
---------------------|-----------
-CreateUndefinedValue|Creates a AmfValue.
-CreateBooleanValue  |Creates a AmfValue from a Boolean.
-CreateDoubleValue   |Creates a AmfValue from a Double.
-CreateIntegerValue  |Creates a AmfValue from a Integer.
-CreateStringValue   |Creates a AmfValue from a String.
-CreateReferenceValue|Creates a AmfValue from a Reference.
-CreateDateValue     |Creates a AmfValue from a Date.
-CreateXmlValue      |Creates a AmfValue from a Xml.
-Parse               |Parses the specified Amf array into a AmfValue.
-TryParse            |Parses the specified Amf array into a AmfValue.
+Method                 |Description
+-----------------------|-----------
+CreateUndefinedValue   |Creates a AmfValue.
+CreateBooleanValue     |Creates a AmfValue from a Boolean.
+CreateIntegerValue     |Creates a AmfValue from a Integer.
+CreateDoubleValue      |Creates a AmfValue from a Double.
+CreateStringValue      |Creates a AmfValue from a String.
+CreateDateValue        |Creates a AmfValue from a Date.
+CreateXmlValue         |Creates a AmfValue from a Xml.
+CreateByteArrayValue   |Creates a AmfValue from a ByteArray.
+CreateVectorIntValue   |Creates a AmfValue from a VectorInt.
+CreateVectorUintValue  |Creates a AmfValue from a VectorUint.
+CreateVectorDoubleValue|Creates a AmfValue from a VectorDouble.
+CreateVectorObjectValue|Creates a AmfValue from a VectorObject.
+Parse                  |Parses the specified Amf array into a AmfValue.
+TryParse               |Parses the specified Amf array into a AmfValue.
 
 ### Properties
 The **AmfValue** class has these properties.
@@ -86,4 +94,4 @@ Property |Access type|Description
 ---------|-----------|-----------
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
 
-##### Update date: Sep 20, 2013
+##### Update date: Nov 9, 2013

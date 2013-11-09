@@ -87,11 +87,11 @@ Windows::Foundation::Collections::IVector<float64>^ AmfValue::GetVectorDouble( v
 	return safe_cast<Platform::Collections::Vector<float64>^>( value_ ); 
 }
 
-Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfValue::GetVectorObject( void ) {
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfValue::GetVectorObject(void) {
 	
 	if (this->ValueType_ != AmfValueType::VectorObject){ throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
 
-	return safe_cast<Platform::Collections::Vector<Platform::Object^>^>( value_ ); 
+	return safe_cast<Platform::Collections::Vector<IAmfValue^>^>(value_);
 }
 
 AmfObject^ AmfValue::GetObject(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }

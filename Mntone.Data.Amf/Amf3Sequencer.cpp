@@ -215,7 +215,7 @@ void Amf3Sequencer::SequencifyVectorDouble( IAmfValue^ input, std::basic_strings
 	SequencifyVectorBase<float64, 8>( vector, stream );
 }
 
-void Amf3Sequencer::SequencifyUnsigned28bitIntegerAndReference( const uint32 input, const bool reference, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyUnsigned28bitIntegerAndReference( const size_t input, const bool reference, std::basic_stringstream<uint8>& stream )
 {
 	if( input > 0x10000000 )
 		throw ref new Platform::FailureException( "Invalid unsigned 28-bit integer and reference." );
@@ -223,7 +223,7 @@ void Amf3Sequencer::SequencifyUnsigned28bitIntegerAndReference( const uint32 inp
 	SequencifyUnsigned29bitInteger( reference ? input << 1 : ( input << 1 ) | 1, stream );
 }
 
-void Amf3Sequencer::SequencifyUnsigned29bitInteger( const uint32 input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyUnsigned29bitInteger( const size_t input, std::basic_stringstream<uint8>& stream )
 {
 	if( input < 0x80 )
 		stream.put( static_cast<uint8>( input ) );
@@ -251,14 +251,15 @@ void Amf3Sequencer::SequencifyUnsigned29bitInteger( const uint32 input, std::bas
 
 int32 Amf3Sequencer::IsObjectReference( IAmfValue^ input )
 {
-	const size_t& length = objectReferenceBuffer_.size();
-	for( size_t i = 0u; i < length; ++i )
+	const int32& length = static_cast<int32>( objectReferenceBuffer_.size() );
+	for( int32 i = 0u; i < length; ++i )
 	{
-		const auto& value = objectReferenceBuffer_[i];
-		if( value == input )
-			return -1;
 		if( i > 0x10000000 )
 			break;
+
+		const auto& value = objectReferenceBuffer_[i];
+		if( value == input )
+			return i;
 	}
 	return -1;
 }

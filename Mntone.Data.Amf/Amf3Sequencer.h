@@ -51,8 +51,8 @@ namespace Mntone { namespace Data { namespace Amf {
 			}
 		}
 
-		void SequencifyUnsigned28bitIntegerAndReference( const uint32 input, const bool reference, std::basic_stringstream<uint8>& stream );
-		void SequencifyUnsigned29bitInteger( const uint32 input, std::basic_stringstream<uint8>& stream );
+		void SequencifyUnsigned28bitIntegerAndReference( const size_t input, const bool reference, std::basic_stringstream<uint8>& stream );
+		void SequencifyUnsigned29bitInteger( const size_t input, std::basic_stringstream<uint8>& stream );
 
 		int32 IsObjectReference( IAmfValue^ input );
 

@@ -250,8 +250,6 @@
     <ClInclude Include="AmfValue.h" />
     <ClInclude Include="AmfValueType.h" />
     <ClInclude Include="COMExceptionHelper.h" />
-    <ClInclude Include="IAmfArray.h" />
-    <ClInclude Include="IAmfObject.h" />
     <ClInclude Include="IAmfValue.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Utilities.h" />

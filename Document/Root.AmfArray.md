@@ -1,18 +1,18 @@
 # AmfArray class
 Represents a AmfArray containing a array of **[IAmfValue](Root.IAmfValue.md)**.
 
-A **AmfArray** inherits the **[IAmfArray](Root.IAmfArray.md)**, **[IAmfValue](Root.IAmfValue.md)**, **IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, **IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents.
+A **AmfArray** inherits the **[IAmfValue](Root.IAmfValue.md)**, **IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, **IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents.
 
 ## Syntax
 
 ### C＃
-public sealed class AmfArray : [IAmfArray](Root.IAmfArray.md), [IAmfValue](Root.IAmfValue.md), IList&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IEnumerable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IStringable
+public sealed class AmfArray : [IAmfValue](Root.IAmfValue.md), IList&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IEnumerable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IStringable
 
 ### C++
-public ref calss AmfArray sealed : public [IAmfArray](Root.IAmfArray.md), public [IAmfValue](Root.IAmfValue.md), public IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IStringable
+public ref calss AmfArray sealed : public public [IAmfValue](Root.IAmfValue.md), public IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IStringable
 
 ### VB
-Public NotInheritable Class AmfArray Implements [IAmfArray](Root.IAmfArray.md), [IAmfValue](Root.IAmfValue.md), IList(Of [IAmfValue](Root.IAmfValue.md)), IEnumerable(Of [IAmfValue](Root.IAmfValue.md)), IStringable
+Public NotInheritable Class AmfArray Implements [IAmfValue](Root.IAmfValue.md), IList(Of [IAmfValue](Root.IAmfValue.md)), IEnumerable(Of [IAmfValue](Root.IAmfValue.md)), IStringable
 
 ## Attributes
 
@@ -42,30 +42,38 @@ The **AmfArray** class has these methods. It also inherits methods from the **Ob
 
 #### [IAmfValue](Root.IAmfValue.md)
 
-Method      |Description
-------------|-----------
-Sequenceify |Retrives the Amf representation of the encapsulated value.
-GetBoolean  |Gets the Boolean if the ValueType of the encapsulated value is Boolean.
-GetDouble   |Gets the Double if the ValueType of the encapsulated value is Double.
-GetInteger  |Gets the Integer if the ValueType of the encapsulated value is Integer.
-GetString   |Gets the String if the ValueType of the encapsulated value is String.
-GetReference|Gets the Reference if the ValueType of the encapsulated value is Reference.
-GetDate     |Gets the Date if the ValueType of the encapsulated value is Date.
-GetObject   |Gets the Object if the ValueType of the encapsulated value is Object.
-GetArray    |Gets the Array if the ValueType of the encapsulated value is Array.
+Method         |Description
+---------------|-----------
+Sequencify　    |Retrives the Amf representation of the encapsulated value.
+GetBoolean     |Gets the Boolean if the ValueType of the encapsulated value is Boolean.
+GetInteger     |Gets the Integer if the ValueType of the encapsulated value is Integer.
+GetDouble      |Gets the Double if the ValueType of the encapsulated value is Double.
+GetString      |Gets the String if the ValueType of the encapsulated value is String.
+GetDate        |Gets the Date if the ValueType of the encapsulated value is Date.
+GetByteArray   |Gets the ByteArray if the ValueType of the encapsulated value is ByteArray.
+GetVectorInt   |Gets the VectorInt if the ValueType of the encapsulated value is DVectorIntate.
+GetVectorUint  |Gets the VectorUint if the ValueType of the encapsulated value is VectorUint.
+GetVectorDouble|Gets the VectorDouble if the ValueType of the encapsulated value is VectorDouble.
+GetVectorObject|Gets the VectorObject if the ValueType of the encapsulated value is VectorObject.
+GetObject      |Gets the Object if the ValueType of the encapsulated value is Object.
+GetArray       |Gets the Array if the ValueType of the encapsulated value is Array.
 
-#### [IAmfArray](Root.IAmfArray.md)
+#### __IAmfArrayPublicNonVirtuals
 
-Method        |Description
---------------|-----------
-GetBooleanAt  |Gets the Boolean value at the specified index if the ValueType of the value at that index is Boolean.
-GetDoubleAt   |Gets the Double value at the specified index if the ValueType of the value at that index is Double.
-GetIntegerAt  |Gets the Integer value at the specified index if the ValueType of the value at that index is Integer.
-GetStringAt   |Gets the String value at the specified index if the ValueType of the value at that index is String.
-GetReferenceAt|Gets the Reference value at the specified index if the ValueType of the value at that index is Reference.
-GetDateAt     |Gets the Date value at the specified index if the ValueType of the value at that index is Date.
-GetObjectAt   |Gets the Object value at the specified index if the ValueType of the value at that index is Object.
-GetArrayAt    |Gets the Array value at the specified index if the ValueType of the value at that index is Array.
+Method           |Description
+-----------------|-----------
+GetBooleanAt     |Gets the Boolean value at the specified index if the ValueType of the value at that index is Boolean.
+GetIntegerAt     |Gets the Integer value at the specified index if the ValueType of the value at that index is Integer.
+GetDoubleAt      |Gets the Double value at the specified index if the ValueType of the value at that index is Double.
+GetStringAt      |Gets the String value at the specified index if the ValueType of the value at that index is String.
+GetDateAt        |Gets the Date value at the specified index if the ValueType of the value at that index is Date.
+GetByteArrayAt   |Gets the ByteArray value at the specified index if the ValueType of the value at that index is ByteArray.
+GetVectorIntAt   |Gets the VectorInt value at the specified index if the ValueType of the value at that index is VectorInt.
+GetVectorUintAt  |Gets the VectorUint value at the specified index if the ValueType of the value at that index is VectorUint.
+GetVectorDoubleAt|Gets the VectorDouble value at the specified index if the ValueType of the value at that index is VectorDouble.
+GetVectorObjectAt|Gets the VectorObject value at the specified index if the ValueType of the value at that index is VectorObject.
+GetObjectAt      |Gets the Object value at the specified index if the ValueType of the value at that index is Object.
+GetArrayAt       |Gets the Array value at the specified index if the ValueType of the value at that index is Array.
 
 #### IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt; [C++] / IEnumerable&lt;[IAmfValue](Root.IAmfValue.md)&gt; [C#, VB]
 
@@ -126,4 +134,4 @@ Count [C#, VB]     |Read-only  |Gets the number of elements contained in the col
 IsReadOnly [C#, VB]|Read-only  |Gets a value indicating whether the collection is read-only.
 Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 
-##### Update date: Sep 20, 2013
+##### Update date: Nov 9, 2013

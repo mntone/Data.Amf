@@ -34,7 +34,7 @@ Platform::Array<uint8>^ AmfArray::GetByteArray(void) { throw COMExceptionHelper:
 Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorInt(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
 Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUint(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
 Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDouble(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
-Windows::Foundation::Collections::IVector<Platform::Object^>^ AmfArray::GetVectorObject(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObject(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
 AmfObject^ AmfArray::GetObject(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
 AmfArray^ AmfArray::GetArray( void ) { return safe_cast<AmfArray^>( this ); }
 

@@ -27,17 +27,21 @@ The **IAmfValue** interface has these types of members:
 ### Methods
 The **IAmfValue** interface has these methods. It also inherits methods from the **Object** class.
 
-Method      |Description
-------------|-----------
-Sequenceify |Retrives the Amf representation of the encapsulated value.
-GetBoolean  |Gets the Boolean if the ValueType of the encapsulated value is Boolean.
-GetDouble   |Gets the Double if the ValueType of the encapsulated value is Double.
-GetInteger  |Gets the Integer if the ValueType of the encapsulated value is Integer.
-GetString   |Gets the String if the ValueType of the encapsulated value is String.
-GetReference|Gets the Reference if the ValueType of the encapsulated value is Reference.
-GetDate     |Gets the Date if the ValueType of the encapsulated value is Date.
-GetObject   |Gets the Object if the ValueType of the encapsulated value is Object.
-GetArray    |Gets the Array if the ValueType of the encapsulated value is Array.
+Method         |Description
+---------------|-----------
+Sequencify　    |Retrives the Amf representation of the encapsulated value.
+GetBoolean     |Gets the Boolean if the ValueType of the encapsulated value is Boolean.
+GetInteger     |Gets the Integer if the ValueType of the encapsulated value is Integer.
+GetDouble      |Gets the Double if the ValueType of the encapsulated value is Double.
+GetString      |Gets the String if the ValueType of the encapsulated value is String.
+GetDate        |Gets the Date if the ValueType of the encapsulated value is Date.
+GetByteArray   |Gets the ByteArray if the ValueType of the encapsulated value is ByteArray.
+GetVectorInt   |Gets the VectorInt if the ValueType of the encapsulated value is DVectorIntate.
+GetVectorUint  |Gets the VectorUint if the ValueType of the encapsulated value is VectorUint.
+GetVectorDouble|Gets the VectorDouble if the ValueType of the encapsulated value is VectorDouble.
+GetVectorObject|Gets the VectorObject if the ValueType of the encapsulated value is VectorObject.
+GetObject      |Gets the Object if the ValueType of the encapsulated value is Object.
+GetArray       |Gets the Array if the ValueType of the encapsulated value is Array.
 
 ### Properties
 The **IAmfValue** class has these properties.
@@ -46,4 +50,4 @@ Property |Access type|Description
 ---------|-----------|-----------
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
 
-##### Update date: Sep 15, 2013
+##### Update date: Nov 9, 2013

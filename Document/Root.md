@@ -30,8 +30,6 @@ The **Mntone.Data.Amf** namespace defines these interfaces.
 
 Interfaces                      |Description
 --------------------------------|-----------
-[IAmfArray](Root.IAmfArray.md)  |Encapsulates a Amf array.
-[IAmfObject](Root.IAmfObject.md)|Encapsulates a Amf object.
 [IAmfValue](Root.IAmfValue.md)  |Encapsulates a Amf value.
 
-##### Update date: Sep 20, 2013
+##### Update date: Nov 9, 2013
