@@ -10,14 +10,18 @@ void AssertHelper::AreArrayEqual( const Platform::Array<uint8>^ expected, const 
 	std::wstringstream buf;
 	for( auto i = 0u; i < length; ++i )
 	{
-		buf << std::hex << actual[i] << ' ';
+		buf << '0' << 'x' << std::hex << actual[i] << ',' << ' ';
 		if( !expected[i].Equals( actual[i] ) )
 		{
+			buf << '\n';
 			Logger::WriteMessage( buf.str().c_str() );
 			Assert::Fail();
-			break;
+			return;
 		}
 	}
+
+	buf << '\n';
+	Logger::WriteMessage( buf.str().c_str() );
 }
 
 Windows::Foundation::DateTime AssertHelper::GetDate( int32 year, int32 month, int32 day )

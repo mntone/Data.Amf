@@ -36,10 +36,10 @@ void Amf3Sequencer::SequencifyValue( IAmfValue^ input, std::basic_stringstream<u
 	case AmfValueType::VectorInt: SequencifyVectorInt( input, stream ); break;
 	case AmfValueType::VectorUint: SequencifyVectorUint( input, stream ); break;
 	case AmfValueType::VectorDouble: SequencifyVectorDouble( input, stream ); break;
-	//case AmfValueType::VectorObject: SequencifyVectorObject( input, stream ); break;
-	//case AmfValueType::Object: SequencifyObject( input, stream ); break;
-	//case AmfValueType::EcmaArray: SequencifyEcmaArray( input, stream ); break;
-	//case AmfValueType::Array: SequencifyStrictArray( input, stream ); break;
+	case AmfValueType::VectorObject: SequencifyVectorObject( input, stream ); break;
+	case AmfValueType::Object: SequencifyObject( input, stream ); break;
+	case AmfValueType::EcmaArray: SequencifyEcmaArray( input, stream ); break;
+	case AmfValueType::Array: SequencifyArray( input, stream ); break;
 	default: throw ref new Platform::FailureException( "Invalid type." );
 	}
 }
@@ -82,13 +82,12 @@ void Amf3Sequencer::SequencifyDouble( IAmfValue^ input, std::basic_stringstream<
 
 void Amf3Sequencer::SequencifyString( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
 {
+	stream.put( amf3_type::amf3_string );
 	SequencifyStringBase( input->GetString(), stream );
 }
 
 void Amf3Sequencer::SequencifyStringBase( Platform::String^ input, std::basic_stringstream<uint8>& stream )
 {
-	stream.put( amf3_type::amf3_string );
-
 	{
 		const auto& length = stringReferenceBuffer_.size();
 		for( size_t i = 0; i < length; ++i )
@@ -213,6 +212,191 @@ void Amf3Sequencer::SequencifyVectorDouble( IAmfValue^ input, std::basic_strings
 
 	const auto& vector = input->GetVectorDouble();
 	SequencifyVectorBase<float64, 8>( vector, stream );
+}
+
+void Amf3Sequencer::SequencifyVectorObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+{
+	stream.put( amf3_type::amf3_vector_object );
+
+	const auto& ref = IsObjectReference( input );
+	if( ref != -1 )
+	{
+		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
+		return;
+	}
+	objectReferenceBuffer_.push_back( input );
+
+	const auto& vector = input->GetVectorObject();
+	const auto& length = vector->Size;
+	SequencifyUnsigned28bitIntegerAndReference( length, false, stream );
+
+	stream.put( 0 );
+	stream.put( 1 ); // no-ref, String ""
+
+	for( uint32 i = 0u; i < length; ++i )
+	{
+		const auto& data = vector->GetAt( i );
+		SequencifyValue( data, stream );
+	}
+}
+
+void Amf3Sequencer::SequencifyObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+{
+	stream.put( amf3_type::amf3_object );
+
+	const auto& ref = IsObjectReference( input );
+	if( ref != -1 )
+	{
+		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
+		return;
+	}
+	objectReferenceBuffer_.push_back( input );
+
+	const auto& obj = input->GetObject();
+	const auto& className = obj->ClassName;
+
+	std::shared_ptr<amf3_traits_info> info;
+	if( obj->ClassName->Length() != 0 )
+	{
+		size_t i = 0u;
+		const auto& length = traitsInfoBuffer_.size();
+		while( i != length )
+		{
+			const auto& item = traitsInfoBuffer_[i];
+			if( item->class_name == className )
+			{
+				info = item;
+				break;
+			}
+			++i;
+		}
+		if( info != nullptr )
+		{
+			SequencifyUnsigned29bitInteger( i << 2 | 3, stream );
+			goto skip;
+		}
+
+		info = std::make_shared<amf3_traits_info>();
+		info->externalizable = true;
+		info->dynamic = false;
+		info->class_name = className;
+		for( const auto& item : obj )
+			info->properites.push_back( item->Key );
+		traitsInfoBuffer_.push_back( info );
+	}
+	else
+	{
+		info = std::make_shared<amf3_traits_info>();
+		info->externalizable = false;
+		info->dynamic = true;
+		info->class_name = className;
+	}
+	size_t data = 3;
+	if( info->externalizable )
+		data |= info->properites.size() << 4 | 4;
+	if( info->dynamic )
+		data |= 8;
+	SequencifyUnsigned29bitInteger( data, stream );
+	SequencifyStringBase( info->class_name, stream );
+	for( const auto& key : info->properites )
+		SequencifyStringBase( key, stream );
+
+skip:
+	for( const auto& key : info->properites )
+		SequencifyValue( obj->GetNamedValue( key ), stream );
+
+	if( info->dynamic )
+	{
+		for( const auto& item : obj )
+		{
+			SequencifyStringBase( item->Key, stream );
+			SequencifyValue( item->Value, stream );
+		}
+	}
+	stream.put( 1 ); // no-ref, String ""
+}
+
+void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+{
+	stream.put( amf3_type::amf3_array );
+
+	const auto& ref = IsObjectReference( input );
+	if( ref != -1 )
+	{
+		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
+		return;
+	}
+	objectReferenceBuffer_.push_back( input );
+
+	const auto& obj = input->GetObject();
+
+	std::map<size_t, IAmfValue^> numericKeysItem;
+	std::unordered_map<Platform::String^, IAmfValue^> stringKeysItem;
+	{
+		std::locale locale;
+		for( const auto& item : obj )
+		{
+			const auto& key = item->Key;
+			if( std::all_of( key->Begin(), key->End(), [locale]( char16 c ) { return std::isdigit( c, locale ); } ) )
+			{
+				numericKeysItem.emplace( std::wcstol( key->Data(), nullptr, 10 ), item->Value );
+				continue;
+			}
+
+			stringKeysItem.emplace( key, item->Value );
+		}
+	}
+
+	{
+		std::vector<std::pair<size_t, IAmfValue^>> list;
+		size_t i = numericKeysItem.size() - 1;
+		auto itr = std::rbegin( numericKeysItem );
+		while( itr != std::rend( numericKeysItem ) )
+		{
+			if( itr->first == i )
+				break;
+
+			list.push_back( *itr );
+			--i; ++itr;
+		}
+		for( const auto& item : list )
+		{
+			numericKeysItem.erase( item.first );
+			stringKeysItem.emplace( item.first.ToString(), item.second );
+		}
+	}
+
+	SequencifyUnsigned28bitIntegerAndReference( numericKeysItem.size(), false, stream );
+	for( const auto& item : stringKeysItem )
+	{
+		SequencifyStringBase( item.first, stream );
+		SequencifyValue( item.second, stream );
+	}
+	stream.put( 1 );
+	for( const auto& item : numericKeysItem )
+		SequencifyValue( item.second, stream );
+}
+
+void Amf3Sequencer::SequencifyArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+{
+	stream.put( amf3_type::amf3_array );
+
+	const auto& ref = IsObjectReference( input );
+	if( ref != -1 )
+	{
+		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
+		return;
+	}
+	objectReferenceBuffer_.push_back( input );
+
+	const auto& ary = input->GetArray();
+	const auto& length = ary->Size;
+	SequencifyUnsigned28bitIntegerAndReference( length, false, stream );
+
+	stream.put( 1 ); // no-ref, String ""
+
+	for( const auto& item : ary )
+		SequencifyValue( item, stream );
 }
 
 void Amf3Sequencer::SequencifyUnsigned28bitIntegerAndReference( const size_t input, const bool reference, std::basic_stringstream<uint8>& stream )

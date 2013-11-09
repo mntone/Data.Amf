@@ -98,9 +98,18 @@ void Amf0Sequencer::SequencifyDate( IAmfValue^ input, std::basic_stringstream<ui
 	uint8 buf[10];
 	ConvertBigEndian( &data, buf, 8 );
 
-	// Set to timezone 0x0000
+#if _WINDOWS_PHONE
 	buf[8] = 0;
 	buf[9] = 0;
+#else
+	const auto& calendar = ref new Windows::Globalization::Calendar();
+	calendar->SetToNow();
+	const int16& ltHour = static_cast<int16>( calendar->Hour );
+	const int16& ltMinute = static_cast<int16>( calendar->Minute );
+	calendar->ChangeTimeZone( "UTC" );
+	const int16& offset = 60 * ( static_cast<int16>( calendar->Hour ) - ltHour ) + static_cast<int16>( calendar->Minute ) - ltMinute;
+	ConvertBigEndian( &offset, buf + 8, 2 );
+#endif
 
 	stream.write( buf, 10 );
 }
@@ -184,14 +193,12 @@ void Amf0Sequencer::SequencifyStrictArray( IAmfValue^ input, std::basic_stringst
 
 	stream.put( amf0_type::amf0_strict_array );
 
-	const auto& view = ary->GetView();
-	const auto& size = view->Size;
-
+	const auto& length = ary->Size;
 	uint8 buf[4];
-	ConvertBigEndian( &size, buf, 4 );
+	ConvertBigEndian( &length, buf, 4 );
 	stream.write( buf, 4 );
 
-	for( const auto& item : view )
+	for( const auto& item : ary )
 		SequencifyValue( item, stream );
 }
 

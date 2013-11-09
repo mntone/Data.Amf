@@ -1,5 +1,6 @@
 #pragma once
 #include "IAmfValue.h"
+#include "amf3_traits_info.h"
 
 namespace Mntone { namespace Data { namespace Amf {
 
@@ -40,16 +41,23 @@ namespace Mntone { namespace Data { namespace Amf {
 		template<typename T, size_t S>
 		void SequencifyVectorBase( Windows::Foundation::Collections::IVector<T>^ input, std::basic_stringstream<uint8>& stream )
 		{
-			SequencifyUnsigned28bitIntegerAndReference( input->Size, false, stream );
+			const auto& length = input->Size;
+			SequencifyUnsigned28bitIntegerAndReference( length, false, stream );
 
 			stream.put( 0 );
-			for( const auto& item : input )
+			for( uint32 i = 0u; i < length; ++i )
 			{
+				const auto& data = input->GetAt( i );
 				uint8 buf[S];
-				ConvertBigEndian( &item, buf, S );
+				ConvertBigEndian( &data, buf, S );
 				stream.write( buf, S );
 			}
 		}
+		void SequencifyVectorObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+
+		void SequencifyObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
+		void SequencifyArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream );
 
 		void SequencifyUnsigned28bitIntegerAndReference( const size_t input, const bool reference, std::basic_stringstream<uint8>& stream );
 		void SequencifyUnsigned29bitInteger( const size_t input, std::basic_stringstream<uint8>& stream );
@@ -59,6 +67,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	private:
 		std::vector<Platform::String^> stringReferenceBuffer_;
 		std::vector<IAmfValue^> objectReferenceBuffer_;
+		std::vector<std::shared_ptr<amf3_traits_info>> traitsInfoBuffer_;
 	};
 
 } } }

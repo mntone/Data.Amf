@@ -56,8 +56,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	private:
 		std::vector<Platform::String^> stringReferenceBuffer_;
 		std::vector<IAmfValue^> objectReferenceBuffer_;
-		std::vector<IAmfValue^> arrayReferenceBuffer_;
-		std::vector<std::shared_ptr<amf3_traits_info>> traitsReferenceBuffer_;
+		std::vector<std::shared_ptr<amf3_traits_info>> traitsInfoBuffer_;
 	};
 
 } } }

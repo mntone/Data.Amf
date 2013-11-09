@@ -176,7 +176,7 @@ IAmfValue^ Amf3Parser::ParseArray( uint8*& input, size_t& length )
 #endif
 
 	const auto& count = value >> 1;
-	while( length >= 2 )
+	while( length > 0 )
 	{
 		const auto& key = ParseStringBase( input, length );
 		if( key->Length() == 0 )
@@ -185,7 +185,7 @@ IAmfValue^ Amf3Parser::ParseArray( uint8*& input, size_t& length )
 		if( obj == nullptr )
 		{
 			obj = AmfObject::CreateEcmaArray();
-			arrayReferenceBuffer_.push_back( obj );
+			objectReferenceBuffer_.push_back( obj );
 		}
 		const auto& value = ParseValue( input, length );
 		map.emplace( key, value );
@@ -202,7 +202,7 @@ IAmfValue^ Amf3Parser::ParseArray( uint8*& input, size_t& length )
 
 	// dense array only
 	const auto& ary = ref new AmfArray();
-	arrayReferenceBuffer_.push_back( ary );
+	objectReferenceBuffer_.push_back( ary );
 
 	std::vector<IAmfValue^> vector( count );
 	for( size_t i = 0; i < count; ++i )
@@ -222,9 +222,9 @@ IAmfValue^ Amf3Parser::ParseObject( uint8*& input, size_t& length )
 	if( ( value & 3 ) == 1 )
 	{
 		const auto& traitsRef = value >> 2;
-		if( traitsRef >= traitsReferenceBuffer_.size() )
+		if( traitsRef >= traitsInfoBuffer_.size() )
 			throw ref new Platform::OutOfBoundsException();
-		info = traitsReferenceBuffer_[traitsRef];
+		info = traitsInfoBuffer_[traitsRef];
 	}
 	else
 	{
@@ -232,11 +232,12 @@ IAmfValue^ Amf3Parser::ParseObject( uint8*& input, size_t& length )
 		info->externalizable = ( value & 4 ) == 4;
 		info->dynamic = ( value & 8 ) == 8;
 		info->class_name = ParseStringBase( input, length );
-		traitsReferenceBuffer_.push_back( info );
 
 		const auto& count = value >> 4;
 		for( size_t i = 0; i < count; ++i )
 			info->properites.push_back( ParseStringBase( input, length ) );
+
+		traitsInfoBuffer_.push_back( info );
 	}
 
 	AmfObject^ obj;
