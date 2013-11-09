@@ -9,7 +9,8 @@
     <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="Amf0Sequencer.cpp" />
     <ClCompile Include="Amf3Parser.cpp" />
-    <ClCompile Include="Amf3Sequencer.cpp" />
+	<ClCompile Include="Amf3Sequencer.cpp" />
+	<ClCompile Include="COMExceptionHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -26,6 +27,7 @@
     <ClInclude Include="Amf0Sequencer.h" />
     <ClInclude Include="Amf3Parser.h" />
     <ClInclude Include="amf3_traits_info.h" />
-    <ClInclude Include="Amf3Sequencer.h" />
+	<ClInclude Include="Amf3Sequencer.h" />
+	<ClInclude Include="COMExceptionHelper.h" />
   </ItemGroup>
 </Project>

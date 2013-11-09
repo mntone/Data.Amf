@@ -3,6 +3,7 @@
 #include "Amf0Parser.h"
 #include "Amf0Sequencer.h"
 #include "Amf3Parser.h"
+#include "COMExceptionHelper.h"
 
 using namespace Mntone::Data::Amf;
 
@@ -24,17 +25,17 @@ Platform::Array<uint8>^ AmfArray::Sequencify( AmfEncodingType type )
 	throw ref new Platform::NotImplementedException();
 }
 
-bool AmfArray::GetBoolean( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-float64 AmfArray::GetDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-int32 AmfArray::GetInteger( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-Platform::String^ AmfArray::GetString( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-Windows::Foundation::DateTime AmfArray::GetDate( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-Platform::Array<uint8>^ AmfArray::GetByteArray( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorInt( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUint( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDouble( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
-AmfObject^ AmfArray::GetObject( void ) { throw ref new Platform::FailureException( "Invalid operation." ); }
+bool AmfArray::GetBoolean( void ) {	throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type.");}
+float64 AmfArray::GetDouble(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+int32 AmfArray::GetInteger(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+Platform::String^ AmfArray::GetString(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+Windows::Foundation::DateTime AmfArray::GetDate(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+Platform::Array<uint8>^ AmfArray::GetByteArray(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorInt(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUint(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDouble(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObject(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
+AmfObject^ AmfArray::GetObject(void) { throw COMExceptionHelper::CreateInvalidOperationException(L"Invalid value type."); }
 AmfArray^ AmfArray::GetArray( void ) { return safe_cast<AmfArray^>( this ); }
 
 bool AmfArray::GetBooleanAt( uint32 index ) { return vector_->GetAt( index )->GetBoolean(); }

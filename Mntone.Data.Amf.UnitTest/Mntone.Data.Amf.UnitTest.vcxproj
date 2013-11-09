@@ -251,6 +251,18 @@
   <ItemGroup>
     <ClCompile Include="Amf3UnitTest.cpp" />
     <ClCompile Include="AmfArrayUnitTest.cpp" />
+    <ClCompile Include="AmfBooleanValueUnitTest.cpp" />
+    <ClCompile Include="AmfByteArrayValueUnitTest.cpp" />
+    <ClCompile Include="AmfDateValueUnitTest.cpp" />
+    <ClCompile Include="AmfDoubleValueUnitTest.cpp" />
+    <ClCompile Include="AmfIntegerValueUnitTest.cpp" />
+    <ClCompile Include="AmfStringValueUnitTest.cpp" />
+    <ClCompile Include="AmfUndefinedValueUnitTest.cpp" />
+    <ClCompile Include="AmfVectorDoubleValueUnitTest.cpp" />
+    <ClCompile Include="AmfVectorIntValueUnitTest.cpp" />
+    <ClCompile Include="AmfVectorObjectValueUnitTest.cpp" />
+    <ClCompile Include="AmfVectorUintValueUnitTest.cpp" />
+    <ClCompile Include="AmfXmlValueUnitTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

@@ -41,76 +41,98 @@ public:
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetBooleanTest_FailureException )
+	TEST_METHOD( AmfArray_GetBooleanTest )
 	{
-		FailureExceptionTest( []( AmfArray^ ary )
+		InvalidOperationTest( []( AmfArray^ ary )
 		{
 			ary->GetBoolean();
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetDoubleTest_FailureException )
+	TEST_METHOD( AmfArray_GetDoubleTest )
 	{
-		FailureExceptionTest( []( AmfArray^ ary )
+		InvalidOperationTest( []( AmfArray^ ary )
 		{
 			ary->GetDouble();
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetIntegerTest_FailureException )
+	TEST_METHOD( AmfArray_GetIntegerTest )
 	{
-		FailureExceptionTest( []( AmfArray^ ary )
+		InvalidOperationTest( []( AmfArray^ ary )
 		{
 			ary->GetInteger();
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetStringTest_FailureException )
+	TEST_METHOD( AmfArray_GetStringTest )
 	{
-		FailureExceptionTest( []( AmfArray^ ary )
+		InvalidOperationTest( []( AmfArray^ ary )
 		{
 			ary->GetString();
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetDateTest_FailureException )
+	TEST_METHOD( AmfArray_GetDateTest)
 	{
-		FailureExceptionTest( []( AmfArray^ ary )
+		InvalidOperationTest( []( AmfArray^ ary )
 		{
 			ary->GetDate();
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetByteArrayTest_FailureException )
+	TEST_METHOD( AmfArray_GetByteArrayTest)
 	{
-		FailureExceptionTest( []( AmfArray^ ary )
+		InvalidOperationTest( []( AmfArray^ ary )
 		{
 			ary->GetByteArray();
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetVectorIntTest_FailureException )
+	TEST_METHOD( AmfArray_GetVectorIntTest )
 	{
-		FailureExceptionTest( []( AmfArray^ ary )
+		InvalidOperationTest( []( AmfArray^ ary )
 		{
 			ary->GetVectorInt();
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetVectorUintTest_FailureException )
+	TEST_METHOD( AmfArray_GetVectorUintTest )
 	{
-		FailureExceptionTest( []( AmfArray^ ary )
+		InvalidOperationTest( []( AmfArray^ ary )
 		{
 			ary->GetVectorUint();
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetVectorDouble_FailureException )
+	TEST_METHOD( AmfArray_GetVectorDouble )
 	{
-		FailureExceptionTest( []( AmfArray^ ary )
+		InvalidOperationTest( []( AmfArray^ ary )
 		{
-			ary->GetDouble();
+			ary->GetVectorDouble();
 		} );
+	}
+
+	TEST_METHOD(AmfArray_GetVectorObjectTest)
+	{
+		InvalidOperationTest([](AmfArray^ ary){
+			ary->GetObject();
+		});
+	}
+
+	TEST_METHOD(AmfArray_GetObjectTest)
+	{
+		InvalidOperationTest([](AmfArray^ ary){
+			ary->GetVectorObject();
+		});
+	}
+
+	TEST_METHOD(AmfArray_GetArrayTest)
+	{
+		auto ary = ref new AmfArray();
+
+		Assert::AreEqual(ary, ary->GetArray());
+
 	}
 
 	TEST_METHOD( AmfArray_ToStringTest_NoneItem )
@@ -169,12 +191,13 @@ public:
 	}
 
 private:
-	void FailureExceptionTest( std::function<void( AmfArray^ )> testHandler )
+	void InvalidOperationTest( std::function<void( AmfArray^ )> testHandler )
 	{
 		const auto& ary = ref new AmfArray();
-		Assert::ExpectException<Platform::FailureException^>( [ary, testHandler]
-		{
-			testHandler( ary );
-		} );
+
+		AssertHelper::ExpectInvalidOperatonException([=]{
+			testHandler(ary);
+		});
+
 	}
 };

@@ -1,5 +1,5 @@
 #include <pch.h>
-
+#include "corerror.h"
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 void AssertHelper::AreArrayEqual( const Platform::Array<uint8>^ expected, const Platform::Array<uint8>^ actual )
@@ -22,6 +22,23 @@ void AssertHelper::AreArrayEqual( const Platform::Array<uint8>^ expected, const 
 
 	buf << '\n';
 	Logger::WriteMessage( buf.str().c_str() );
+}
+
+void AssertHelper::ExpectInvalidOperatonException(const std::function<void()>& func){
+
+	try{
+		func();
+	}
+	catch (Platform::COMException^ e){
+
+		Assert::AreEqual(COR_E_INVALIDOPERATION,static_cast<HRESULT>( e->HResult));
+
+		
+		return;
+	}
+
+	Assert::Fail(L"exception is not actual");
+
 }
 
 Windows::Foundation::DateTime AssertHelper::GetDate( int32 year, int32 month, int32 day )
