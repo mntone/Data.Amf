@@ -59,7 +59,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		AssertHelper::AreArrayEqual(testByteArray, amfValue->GetByteArray());
+		AssertHelper::AreArrayEqual(testByteArray_, amfValue->GetByteArray());
 	}
 
 
@@ -105,13 +105,13 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(testByteArray->ToString(), amfValue->ToString());
+		Assert::AreEqual(testByteArray_->ToString(), amfValue->ToString());
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateByteArrayValue(testByteArray);
+		return AmfValue::CreateByteArrayValue(testByteArray_);
 	}
 
 	
@@ -121,6 +121,6 @@ private:
 	}
 
 
-	Platform::Array<uint8>^ testByteArray = CreateTestArray();
+	Platform::Array<uint8>^ testByteArray_ = CreateTestArray();
 
 };

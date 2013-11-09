@@ -49,7 +49,7 @@ TEST_CLASS(AmfDateValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::IsTrue(generalTestValue.UniversalTime ==  amfValue->GetDate().UniversalTime);
+		Assert::IsTrue(generalTestValue_.UniversalTime ==  amfValue->GetDate().UniversalTime);
 	}
 
 
@@ -102,15 +102,15 @@ TEST_CLASS(AmfDateValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(generalTestValue.ToString(), amfValue->ToString());
+		Assert::AreEqual(generalTestValue_.ToString(), amfValue->ToString());
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateDateValue(generalTestValue);
+		return AmfValue::CreateDateValue(generalTestValue_);
 	}
 
-	Windows::Foundation::DateTime generalTestValue = AssertHelper::GetDate(2013, 10, 30);
+	Windows::Foundation::DateTime generalTestValue_ = AssertHelper::GetDate(2013, 10, 30);
 
 };

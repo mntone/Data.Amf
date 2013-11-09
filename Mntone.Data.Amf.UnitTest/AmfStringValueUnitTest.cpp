@@ -53,7 +53,7 @@ TEST_CLASS(AmfStringValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(generalTestValue, amfValue->GetString());
+		Assert::AreEqual(generalTestValue_, amfValue->GetString());
 	}
 
 
@@ -142,15 +142,15 @@ TEST_CLASS(AmfStringValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(generalTestValue, amfValue->ToString());
+		Assert::AreEqual(generalTestValue_, amfValue->ToString());
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateStringValue(generalTestValue);
+		return AmfValue::CreateStringValue(generalTestValue_);
 	}
 
 
-	 Platform::String^ generalTestValue = ref new Platform::String( L"testValue");
+	 Platform::String^ generalTestValue_ = ref new Platform::String( L"testValue");
 };

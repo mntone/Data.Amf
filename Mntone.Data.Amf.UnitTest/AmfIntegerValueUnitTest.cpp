@@ -42,7 +42,7 @@ TEST_CLASS(AmfIntegerValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(generalTestValue, amfValue->GetInteger());
+		Assert::AreEqual(generalTestValue_, amfValue->GetInteger());
 
 	}
 
@@ -143,15 +143,15 @@ TEST_CLASS(AmfIntegerValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(generalTestValue.ToString(), amfValue->ToString());
+		Assert::AreEqual(generalTestValue_.ToString(), amfValue->ToString());
 	}
 
 private:
 	static AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateIntegerValue(generalTestValue);
+		return AmfValue::CreateIntegerValue(generalTestValue_);
 	}
 
-	const static int generalTestValue = 8250;
+	const static int generalTestValue_ = 8250;
 };
 

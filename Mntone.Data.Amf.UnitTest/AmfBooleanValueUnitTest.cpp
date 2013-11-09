@@ -24,7 +24,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 		
 		auto booleanValue = amfValue->GetBoolean();
 
-		Assert::AreEqual(generalTestValue, booleanValue);
+		Assert::AreEqual(generalTestValue_, booleanValue);
 
 	}
 
@@ -120,17 +120,17 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto toStringValue = amfValue->ToString();
 
-		Assert::AreEqual(generalTestValue.ToString(), toStringValue);
+		Assert::AreEqual(generalTestValue_.ToString(), toStringValue);
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateBooleanValue(generalTestValue);
+		return AmfValue::CreateBooleanValue(generalTestValue_);
 	}
 
 
-	const bool generalTestValue = false;
+	const bool generalTestValue_ = false;
 
 };
 

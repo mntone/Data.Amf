@@ -73,7 +73,7 @@ TEST_CLASS(AmfVectorUintValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		AssertHelper::AreVectorEqual(generalTestVector, amfValue->GetVectorUint());
+		AssertHelper::AreVectorEqual(generalTestVector_, amfValue->GetVectorUint());
 	}
 
 	TEST_METHOD(AmfVectorUintValueUnitTest_GetVectorDoubleTest){
@@ -102,20 +102,20 @@ TEST_CLASS(AmfVectorUintValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(generalTestVector->ToString(), amfValue->ToString());
+		Assert::AreEqual(generalTestVector_->ToString(), amfValue->ToString());
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateVectorUintValue(generalTestVector);
+		return AmfValue::CreateVectorUintValue(generalTestVector_);
 	}
 
-	Windows::Foundation::Collections::IVector<uint32>^ CreateGeneralTestVector(){
+	Windows::Foundation::Collections::IVector<uint32>^ CreategeneralTestVector(){
 
 		return ref new Platform::Collections::Vector<uint32>{ 47, 44, 22 };
 	}
 
-	Windows::Foundation::Collections::IVector<uint32>^ generalTestVector = CreateGeneralTestVector();
+	Windows::Foundation::Collections::IVector<uint32>^ generalTestVector_ = CreategeneralTestVector();
 
 };

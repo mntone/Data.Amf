@@ -28,7 +28,7 @@ TEST_CLASS(AmfDoubleValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::AreEqual(generalTestValue, amfValue->GetDouble());
+		Assert::AreEqual(generalTestValue_, amfValue->GetDouble());
 	}
 
 	TEST_METHOD(AmfDoubleValueUnitTest_GetIntegerTest){
@@ -106,16 +106,16 @@ TEST_CLASS(AmfDoubleValueUnitTest)
 
 		auto toStringValue = amfValue->ToString();
 
-		Assert::AreEqual(generalTestValue.ToString(), toStringValue);
+		Assert::AreEqual(generalTestValue_.ToString(), toStringValue);
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		return AmfValue::CreateDoubleValue(generalTestValue);
+		return AmfValue::CreateDoubleValue(generalTestValue_);
 	}
 
-	const float64 generalTestValue = 4.5;
+	const float64 generalTestValue_ = 4.5;
 
 };
 
