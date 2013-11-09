@@ -135,9 +135,18 @@ TEST_CLASS(AmfIntegerValueUnitTest)
 		AssertHelper::ExpectInvalidOperatonException([=](){
 			amfValue->GetArray();
 		});
+	}
 
+	TEST_METHOD(AmfIntegerValueUnitTest_GetVecotrObjectTest)
+	{
+		auto amfValue = GeneralCareteAmfValue();
+
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorObject();
+		});
 
 	}
+
 
 	TEST_METHOD(AmfIntegerValueUnitTest_ToStringTest){
 
@@ -145,6 +154,8 @@ TEST_CLASS(AmfIntegerValueUnitTest)
 
 		Assert::AreEqual(generalTestValue_.ToString(), amfValue->ToString());
 	}
+
+	
 
 private:
 	static AmfValue^ GeneralCareteAmfValue(){

@@ -138,12 +138,23 @@ TEST_CLASS(AmfStringValueUnitTest)
 
 	}
 
+	TEST_METHOD(AmfStringValueUnitTest_GetVectorObjectTest)
+	{
+		auto amfValue = GeneralCareteAmfValue();
+
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorObject();
+		});
+	}
+
 	TEST_METHOD(AmfStringValueUnitTest_ToStringTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
 		Assert::AreEqual(generalTestValue_, amfValue->ToString());
 	}
+
+	
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){

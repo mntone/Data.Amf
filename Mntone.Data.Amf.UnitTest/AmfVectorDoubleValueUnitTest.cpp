@@ -26,6 +26,15 @@ TEST_CLASS(AmfVectorDoubleValueUnitTest)
 
 	}
 
+	TEST_METHOD(AmfVectorDoubleValueUnitTest_GetVectorObjectTest)
+	{
+		auto amfValue = GeneralCareteAmfValue();
+
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorObject();
+		});
+	}
+
 	TEST_METHOD(AmfVectorDoubleValueUnitTest_GetDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();

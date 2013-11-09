@@ -24,6 +24,15 @@ TEST_CLASS(AmfUndefinedValueUnitTest)
 		});
 	}
 
+	TEST_METHOD(AmfUndefinedValueUnitTest_GetVectorObjectTest)
+	{
+		auto amfValue = GeneralCareteAmfValue();
+
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorObject();
+		});
+	}
+
 
 	
 	TEST_METHOD(AmfUndefinedValueUnitTest_GetDoubleTest){

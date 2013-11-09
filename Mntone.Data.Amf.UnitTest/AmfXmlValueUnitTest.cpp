@@ -129,6 +129,17 @@ TEST_CLASS(AmfXmlValueUnitTest)
 	}
 
 
+	TEST_METHOD(AmfXmlValueUnitTest_GetVectorObjectTest)
+	{
+		auto amfValue = GeneralCareteAmfValue();
+
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorObject();
+		});
+
+
+	}
+
 	TEST_METHOD(AmfXmlValueUnitTest_GetArrayTest){
 
 		auto amfValue = GeneralCareteAmfValue();
