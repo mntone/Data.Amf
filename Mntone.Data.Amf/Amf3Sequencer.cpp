@@ -9,7 +9,7 @@ using namespace Mntone::Data::Amf;
 
 Platform::Array<uint8>^ Amf3Sequencer::Sequencify( IAmfValue^ input )
 {
-	std::basic_stringstream<uint8> stream;
+	std::basic_ostringstream<uint8> stream;
 	( ref new Amf3Sequencer() )->SequencifyValue( input, stream );
 	const auto& sequence = stream.str();
 	auto out = ref new Platform::Array<uint8>( static_cast<uint32>( sequence.length() ) );
@@ -20,7 +20,7 @@ Platform::Array<uint8>^ Amf3Sequencer::Sequencify( IAmfValue^ input )
 Amf3Sequencer::Amf3Sequencer( void )
 { }
 
-void Amf3Sequencer::SequencifyValue( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyValue( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	switch( input->ValueType )
 	{
@@ -44,17 +44,17 @@ void Amf3Sequencer::SequencifyValue( IAmfValue^ input, std::basic_stringstream<u
 	}
 }
 
-void Amf3Sequencer::SequencifyUndefined( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyUndefined( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_undefined );
 }
 
-void Amf3Sequencer::SequencifyNull( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyNull( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_null );
 }
 
-void Amf3Sequencer::SequencifyBoolean( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyBoolean( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	if( input->GetBoolean() )
 		stream.put( amf3_type::amf3_true );
@@ -62,7 +62,7 @@ void Amf3Sequencer::SequencifyBoolean( IAmfValue^ input, std::basic_stringstream
 		stream.put( amf3_type::amf3_false );
 }
 
-void Amf3Sequencer::SequencifyInteger( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyInteger( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_interger );
 
@@ -70,7 +70,7 @@ void Amf3Sequencer::SequencifyInteger( IAmfValue^ input, std::basic_stringstream
 	SequencifyUnsigned29bitInteger( data, stream );
 }
 
-void Amf3Sequencer::SequencifyDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyDouble( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_double );
 
@@ -80,13 +80,13 @@ void Amf3Sequencer::SequencifyDouble( IAmfValue^ input, std::basic_stringstream<
 	stream.write( buf, 8 );
 }
 
-void Amf3Sequencer::SequencifyString( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyString( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_string );
 	SequencifyStringBase( input->GetString(), stream );
 }
 
-void Amf3Sequencer::SequencifyStringBase( Platform::String^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyStringBase( Platform::String^ input, std::basic_ostringstream<uint8>& stream )
 {
 	{
 		const auto& length = stringReferenceBuffer_.size();
@@ -111,7 +111,7 @@ void Amf3Sequencer::SequencifyStringBase( Platform::String^ input, std::basic_st
 	stringReferenceBuffer_.push_back( input );
 }
 
-void Amf3Sequencer::SequencifyDate( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyDate( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_date );
 
@@ -130,7 +130,7 @@ void Amf3Sequencer::SequencifyDate( IAmfValue^ input, std::basic_stringstream<ui
 	stream.write( buf, 8 );
 }
 
-void Amf3Sequencer::SequencifyXml( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyXml( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_xml );
 
@@ -148,7 +148,7 @@ void Amf3Sequencer::SequencifyXml( IAmfValue^ input, std::basic_stringstream<uin
 	stream.write( reinterpret_cast<const uint8*>( data.c_str() ), length );
 }
 
-void Amf3Sequencer::SequencifyByteArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyByteArray( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_byte_array );
 
@@ -166,7 +166,7 @@ void Amf3Sequencer::SequencifyByteArray( IAmfValue^ input, std::basic_stringstre
 	stream.write( data->Data, length );
 }
 
-void Amf3Sequencer::SequencifyVectorInt( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyVectorInt( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_vector_int );
 
@@ -182,7 +182,7 @@ void Amf3Sequencer::SequencifyVectorInt( IAmfValue^ input, std::basic_stringstre
 	SequencifyVectorBase<int32, 4>( vector, stream );
 }
 
-void Amf3Sequencer::SequencifyVectorUint( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyVectorUint( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_vector_uint );
 
@@ -198,7 +198,7 @@ void Amf3Sequencer::SequencifyVectorUint( IAmfValue^ input, std::basic_stringstr
 	SequencifyVectorBase<uint32, 4>( vector, stream );
 }
 
-void Amf3Sequencer::SequencifyVectorDouble( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyVectorDouble( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_vector_double );
 
@@ -214,7 +214,7 @@ void Amf3Sequencer::SequencifyVectorDouble( IAmfValue^ input, std::basic_strings
 	SequencifyVectorBase<float64, 8>( vector, stream );
 }
 
-void Amf3Sequencer::SequencifyVectorObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyVectorObject( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_vector_object );
 
@@ -240,7 +240,7 @@ void Amf3Sequencer::SequencifyVectorObject( IAmfValue^ input, std::basic_strings
 	}
 }
 
-void Amf3Sequencer::SequencifyObject( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyObject( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_object );
 
@@ -316,7 +316,7 @@ skip:
 	stream.put( 1 ); // no-ref, String ""
 }
 
-void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_array );
 
@@ -382,7 +382,7 @@ void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_stringstre
 		SequencifyValue( item.second, stream );
 }
 
-void Amf3Sequencer::SequencifyArray( IAmfValue^ input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyArray( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_array );
 
@@ -404,7 +404,7 @@ void Amf3Sequencer::SequencifyArray( IAmfValue^ input, std::basic_stringstream<u
 		SequencifyValue( item, stream );
 }
 
-void Amf3Sequencer::SequencifyUnsigned28bitIntegerAndReference( const size_t input, const bool reference, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyUnsigned28bitIntegerAndReference( const size_t input, const bool reference, std::basic_ostringstream<uint8>& stream )
 {
 	if( input > 0x10000000 )
 		throw ref new Platform::FailureException( "Invalid unsigned 28-bit integer and reference." );
@@ -412,7 +412,7 @@ void Amf3Sequencer::SequencifyUnsigned28bitIntegerAndReference( const size_t inp
 	SequencifyUnsigned29bitInteger( reference ? input << 1 : ( input << 1 ) | 1, stream );
 }
 
-void Amf3Sequencer::SequencifyUnsigned29bitInteger( const size_t input, std::basic_stringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyUnsigned29bitInteger( const size_t input, std::basic_ostringstream<uint8>& stream )
 {
 	if( input < 0x80 )
 		stream.put( static_cast<uint8>( input ) );

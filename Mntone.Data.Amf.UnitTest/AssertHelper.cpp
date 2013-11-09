@@ -7,7 +7,7 @@ void AssertHelper::AreArrayEqual( const Platform::Array<uint8>^ expected, const 
 	const auto& length = expected->Length;
 	Assert::AreEqual( length, actual->Length );
 
-	std::wstringstream buf;
+	std::wostringstream buf;
 	for( auto i = 0u; i < length; ++i )
 	{
 		buf << '0' << 'x' << std::hex << actual[i] << ',' << ' ';

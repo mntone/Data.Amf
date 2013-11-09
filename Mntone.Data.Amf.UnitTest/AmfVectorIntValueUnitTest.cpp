@@ -118,7 +118,7 @@ public:
 	TEST_METHOD( AmfVectorIntValue_ToStringTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
-		Assert::AreEqual( generalTestVector_->ToString(), val->ToString() );
+		Assert::AreEqual( L"[3, -2, 5, 63, 2]", val->ToString() );
 	}
 
 private:
@@ -129,7 +129,7 @@ private:
 
 	Windows::Foundation::Collections::IVector<int32>^ CreateTestVector( void )
 	{
-		return ref new Platform::Collections::Vector<int32>{ 3, 2, 5, 63, 2 };
+		return ref new Platform::Collections::Vector<int32>{ 3, -2, 5, 63, 2 };
 	}
 
 	Windows::Foundation::Collections::IVector<int32>^ generalTestVector_ = CreateTestVector();

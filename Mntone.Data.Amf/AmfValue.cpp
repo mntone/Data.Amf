@@ -106,21 +106,90 @@ Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfValue::GetVectorObject
 	return safe_cast<Platform::Collections::Vector<IAmfValue^>^>( value_ );
 }
 
-AmfObject^ AmfValue::GetObject( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
-AmfArray^ AmfValue::GetArray( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
+AmfObject^ AmfValue::GetObject( void )
+{
+	throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+}
+
+AmfArray^ AmfValue::GetArray( void )
+{
+	throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+}
 
 #if !_WINDOWS_PHONE
 Platform::String^ AmfValue::ToString( void )
 {
 	switch( this->ValueType )
 	{
-	case AmfValueType::Undefined:
-		return L"undefined";
-
-	default:
-		return value_->ToString();
+	case AmfValueType::Undefined: return L"undefined";
+	case AmfValueType::String: return L"\"" + value_->ToString() + L"\"";
+	case AmfValueType::ByteArray:
+		{
+			auto ba = GetByteArray();
+			std::wostringstream buf;
+			buf.put( '[' );
+			for( const auto& b : ba )
+				buf << L"0x" << std::hex << b << L", ";
+			auto str = buf.str();
+			str.erase( str.length() - 2 );
+			str += L']';
+			return ref new Platform::String( str.c_str() );
+		}
+	case AmfValueType::VectorInt:
+		{
+			auto vi = GetVectorInt();
+			std::wostringstream buf;
+			buf.put( '[' );
+			for( const auto& i : vi )
+				buf << i << L", ";
+			auto str = buf.str();
+			str.erase( str.length() - 2 );
+			str += L']';
+			return ref new Platform::String( str.c_str() );
 	}
-
+	case AmfValueType::VectorUint:
+		{
+			auto vu = GetVectorUint();
+			std::wostringstream buf;
+			buf.put( '[' );
+			for( const auto& u : vu )
+				buf << u << L", ";
+			auto str = buf.str();
+			str.erase( str.length() - 2 );
+			str += L']';
+			return ref new Platform::String( str.c_str() );
+		}
+	case AmfValueType::VectorDouble:
+		{
+			auto vd = GetVectorDouble();
+			std::wostringstream buf;
+			buf.put( '[' );
+			for( const auto& d : vd )
+				buf << d << L", ";
+			auto str = buf.str();
+			str.erase( str.length() - 2 );
+			str += L']';
+			return ref new Platform::String( str.c_str() );
+		}
+	case AmfValueType::VectorObject:
+		{
+			auto vo = GetVectorObject();
+			std::wostringstream buf;
+			buf.put( '[' );
+			for( const auto& o : vo )
+			{
+				const auto& str = o->ToString();
+				buf.write( str->Data(), str->Length() );
+				buf.put( L',' );
+				buf.put( L' ' );
+			}
+			auto str = buf.str();
+			str.erase( str.length() - 2 );
+			str += L']';
+			return ref new Platform::String( str.c_str() );
+		}
+	default: return value_->ToString();
+	}
 }
 #endif
 

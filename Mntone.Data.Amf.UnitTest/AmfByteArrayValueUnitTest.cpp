@@ -121,7 +121,7 @@ public:
 	TEST_METHOD( AmfByteArrayValue_ToStringTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
-		Assert::AreEqual( testByteArray_->ToString(), val->ToString() );
+		Assert::AreEqual( L"[0x5, 0x4, 0x20, 0x16]", val->ToString() );
 	}
 
 private:
@@ -130,10 +130,10 @@ private:
 		return AmfValue::CreateByteArrayValue( testByteArray_ );
 	}
 
-	Platform::Array<uint8>^ CreateTestArray( void )
+	U8Array^ CreateTestArray( void )
 	{
-		return ref new Platform::Array<uint8>{ 5, 4, 32, 22 };
+		return ref new U8Array{ 5, 4, 32, 22 };
 	}
 
-	Platform::Array<uint8>^ testByteArray_ = CreateTestArray();
+	U8Array^ testByteArray_ = CreateTestArray();
 };

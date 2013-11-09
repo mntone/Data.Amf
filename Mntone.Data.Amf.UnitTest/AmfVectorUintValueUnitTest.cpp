@@ -120,7 +120,7 @@ public:
 	TEST_METHOD( AmfVectorUintValue_ToStringTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
-		Assert::AreEqual( generalTestVector_->ToString(), val->ToString() );
+		Assert::AreEqual( L"[47, 44, 22]", val->ToString() );
 	}
 
 private:

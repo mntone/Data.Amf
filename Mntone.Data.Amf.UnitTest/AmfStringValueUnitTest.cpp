@@ -120,7 +120,7 @@ public:
 	TEST_METHOD( AmfStringValue_ToStringTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
-		Assert::AreEqual( generalTestValue_, val->ToString() );
+		Assert::AreEqual( L"\"" + generalTestValue_ + L"\"", val->ToString() );
 	}
 
 private:
