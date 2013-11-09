@@ -10,10 +10,10 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 
 	TEST_METHOD(AmfBooleanValueUnitTest_CreateTest){
-		
+
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::IsTrue(AmfValueType::Boolean ==  amfValue->ValueType);
+		Assert::IsTrue(AmfValueType::Boolean == amfValue->ValueType);
 	}
 
 
@@ -21,7 +21,6 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		
 		auto booleanValue = amfValue->GetBoolean();
 
 		Assert::AreEqual(generalTestValue_, booleanValue);
@@ -33,26 +32,28 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 		auto amfValue = GeneralCareteAmfValue();
 
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetDouble();
+		});
 
 	}
 
 	TEST_METHOD(AmfBooleanValueUnitTest_GetIntegerTest){
 
 		auto amfValue = GeneralCareteAmfValue();
-		
-		Assert::Fail(L"must write test");
 
-
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetInteger();
+		});
 	}
 
 	TEST_METHOD(AmfBooleanValueUnitTest_GetStringTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
-
-
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetString();
+		});
 	}
 
 
@@ -60,7 +61,11 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetDate();
+		});
+
+
 	}
 
 
@@ -68,7 +73,9 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetByteArray();
+		});
 	}
 
 
@@ -76,7 +83,11 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorInt();
+		});
+
+
 	}
 
 
@@ -84,22 +95,41 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorUint();
+		});
+
+
 	}
 
 	TEST_METHOD(AmfBooleanValueUnitTest_GetVectorDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorDouble();
+		});
+
+
+	}
+
+	TEST_METHOD(AmfBooleanValueUnitTest_GetVectorObjectTest)
+	{
+		auto amfValue = GeneralCareteAmfValue();
+
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorObject();
+		});
 	}
 
 	TEST_METHOD(AmfBooleanValueUnitTest_GetObjectTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		
-		Assert::Fail(L"must write test");
+
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetObject();
+		});
 	}
 
 
@@ -107,16 +137,14 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetArray();
+		});
 	}
 
 	TEST_METHOD(AmfBooleanValueUnitTest_ToStringTest){
 
-
-
-
 		auto amfValue = GeneralCareteAmfValue();
-
 
 		auto toStringValue = amfValue->ToString();
 
