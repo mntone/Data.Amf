@@ -10,14 +10,14 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 	
 
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_CreateTest){
+	TEST_METHOD(AmfByteArrayValue_CreateTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
 		Assert::IsTrue(AmfValueType::ByteArray == amfValue->ValueType);
 	}
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetBooleanTest){
+	TEST_METHOD(AmfByteArrayValue_GetBooleanTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -26,7 +26,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 		});
 	}
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetDoubleTest){
+	TEST_METHOD(AmfByteArrayValue_GetDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -37,7 +37,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 
 	}
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetIntegerTest){
+	TEST_METHOD(AmfByteArrayValue_GetIntegerTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -46,7 +46,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 		});
 	}
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetStringTest){
+	TEST_METHOD(AmfByteArrayValue_GetStringTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -57,7 +57,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetDateTest){
+	TEST_METHOD(AmfByteArrayValue_GetDateTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -68,7 +68,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetByteArrayTest){
+	TEST_METHOD(AmfByteArrayValue_GetByteArrayTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -76,7 +76,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetVectorIntTest){
+	TEST_METHOD(AmfByteArrayValue_GetVectorIntTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -87,7 +87,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetVectorUintTest){
+	TEST_METHOD(AmfByteArrayValue_GetVectorUintTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -97,7 +97,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 
 	}
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetVectorDoubleTest){
+	TEST_METHOD(AmfByteArrayValue_GetVectorDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -107,7 +107,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 
 	}
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetVectorObjectTest)
+	TEST_METHOD(AmfByteArrayValue_GetVectorObjectTest)
 	{
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -116,7 +116,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 		});
 	}
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetObjectTest){
+	TEST_METHOD(AmfByteArrayValue_GetObjectTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -127,7 +127,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_GetArrayTest){
+	TEST_METHOD(AmfByteArrayValue_GetArrayTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -137,7 +137,7 @@ TEST_CLASS(AmfByteArrayValueUnitTest)
 
 	}
 
-	TEST_METHOD(AmfByteArrayValueUnitTest_ToStringTest){
+	TEST_METHOD(AmfByteArrayValue_ToStringTest){
 
 
 		auto amfValue = GeneralCareteAmfValue();

@@ -9,7 +9,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 {
 
 
-	TEST_METHOD(AmfBooleanValueUnitTest_CreateTest){
+	TEST_METHOD(AmfBooleanValue_CreateTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -17,7 +17,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetBooleanTest){
+	TEST_METHOD(AmfBooleanValue_GetBooleanTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -27,7 +27,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 	}
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetDoubleTest){
+	TEST_METHOD(AmfBooleanValue_GetDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -38,7 +38,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 	}
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetIntegerTest){
+	TEST_METHOD(AmfBooleanValue_GetIntegerTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -47,7 +47,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 		});
 	}
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetStringTest){
+	TEST_METHOD(AmfBooleanValue_GetStringTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -57,7 +57,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetDateTest){
+	TEST_METHOD(AmfBooleanValue_GetDateTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -69,7 +69,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetByteArrayTest){
+	TEST_METHOD(AmfBooleanValue_GetByteArrayTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -79,7 +79,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetVectorIntTest){
+	TEST_METHOD(AmfBooleanValue_GetVectorIntTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -91,7 +91,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetVectorUintTest){
+	TEST_METHOD(AmfBooleanValue_GetVectorUintTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -102,7 +102,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 	}
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetVectorDoubleTest){
+	TEST_METHOD(AmfBooleanValue_GetVectorDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -113,7 +113,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 
 	}
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetVectorObjectTest)
+	TEST_METHOD(AmfBooleanValue_GetVectorObjectTest)
 	{
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -122,7 +122,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 		});
 	}
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetObjectTest){
+	TEST_METHOD(AmfBooleanValue_GetObjectTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -133,7 +133,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 	}
 
 
-	TEST_METHOD(AmfBooleanValueUnitTest_GetArrayTest){
+	TEST_METHOD(AmfBooleanValue_GetArrayTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
@@ -142,7 +142,7 @@ TEST_CLASS(AmfBooleanValueUnitTest)
 		});
 	}
 
-	TEST_METHOD(AmfBooleanValueUnitTest_ToStringTest){
+	TEST_METHOD(AmfBooleanValue_ToStringTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
