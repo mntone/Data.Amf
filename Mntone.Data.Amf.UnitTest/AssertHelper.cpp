@@ -24,21 +24,19 @@ void AssertHelper::AreArrayEqual( const Platform::Array<uint8>^ expected, const 
 	Logger::WriteMessage( buf.str().c_str() );
 }
 
-void AssertHelper::ExpectInvalidOperatonException(const std::function<void()>& func){
-
-	try{
+void AssertHelper::ExpectInvalidOperatonException( std::function<void()> func )
+{
+	try
+	{
 		func();
 	}
-	catch (Platform::COMException^ e){
-
-		Assert::AreEqual(COR_E_INVALIDOPERATION,static_cast<HRESULT>( e->HResult));
-
-		
+	catch( Platform::COMException^ e )
+	{
+		Assert::AreEqual( COR_E_INVALIDOPERATION, static_cast<HRESULT>( e->HResult ) );
 		return;
 	}
 
 	Assert::Fail(L"exception is not actual");
-
 }
 
 Windows::Foundation::DateTime AssertHelper::GetDate( int32 year, int32 month, int32 day )

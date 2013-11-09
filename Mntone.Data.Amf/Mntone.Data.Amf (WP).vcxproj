@@ -163,32 +163,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Mntone.Data.Amf\Amf0Parser.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\Amf0Sequencer.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\amf0_type.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\Amf3Parser.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\amf3_traits_info.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\amf3_type.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\AmfArray.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\AmfEncodingType.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\AmfObject.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\AmfValue.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\AmfValueType.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\IAmfArray.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\IAmfObject.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\IAmfValue.h" />
-    <ClInclude Include="..\Mntone.Data.Amf\Utilities.h" />
+    <ClInclude Include="Amf0Parser.h" />
+    <ClInclude Include="Amf0Sequencer.h" />
+    <ClInclude Include="amf0_type.h" />
+    <ClInclude Include="Amf3Parser.h" />
+    <ClInclude Include="Amf3Sequencer.h" />
+    <ClInclude Include="amf3_traits_info.h" />
+    <ClInclude Include="amf3_type.h" />
+    <ClInclude Include="AmfArray.h" />
+    <ClInclude Include="AmfEncodingType.h" />
+    <ClInclude Include="AmfObject.h" />
+    <ClInclude Include="AmfValue.h" />
+    <ClInclude Include="AmfValueType.h" />
+    <ClInclude Include="IAmfArray.h" />
+    <ClInclude Include="IAmfObject.h" />
+    <ClInclude Include="IAmfValue.h" />
+    <ClInclude Include="Utilities.h" />
     <ClInclude Include="COMExceptionHelper.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Mntone.Data.Amf\Amf0Parser.cpp" />
-    <ClCompile Include="..\Mntone.Data.Amf\Amf0Sequencer.cpp" />
-    <ClCompile Include="..\Mntone.Data.Amf\Amf3Parser.cpp" />
-    <ClCompile Include="..\Mntone.Data.Amf\AmfArray.cpp" />
-    <ClCompile Include="..\Mntone.Data.Amf\AmfObject.cpp" />
-    <ClCompile Include="..\Mntone.Data.Amf\AmfValue.cpp" />
-    <ClCompile Include="..\Mntone.Data.Amf\Utilities.cpp" />
+    <ClCompile Include="Amf0Parser.cpp" />
+    <ClCompile Include="Amf0Sequencer.cpp" />
+    <ClCompile Include="Amf3Parser.cpp" />
+    <ClCompile Include="Amf3Sequencer.cpp" />
+    <ClCompile Include="AmfArray.cpp" />
+    <ClCompile Include="AmfObject.cpp" />
+    <ClCompile Include="AmfValue.cpp" />
+    <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="COMExceptionHelper.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>

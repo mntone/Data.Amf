@@ -73,7 +73,7 @@ public:
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetDateTest)
+	TEST_METHOD( AmfArray_GetDateTest )
 	{
 		InvalidOperationTest( []( AmfArray^ ary )
 		{
@@ -81,7 +81,7 @@ public:
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetByteArrayTest)
+	TEST_METHOD( AmfArray_GetByteArrayTest )
 	{
 		InvalidOperationTest( []( AmfArray^ ary )
 		{
@@ -113,26 +113,26 @@ public:
 		} );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorObjectTest)
+	TEST_METHOD( AmfArray_GetVectorObjectTest )
 	{
-		InvalidOperationTest([](AmfArray^ ary){
+		InvalidOperationTest( []( AmfArray^ ary )
+		{
 			ary->GetObject();
-		});
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetObjectTest)
+	TEST_METHOD( AmfArray_GetObjectTest )
 	{
-		InvalidOperationTest([](AmfArray^ ary){
+		InvalidOperationTest( []( AmfArray^ ary )
+		{
 			ary->GetVectorObject();
-		});
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetArrayTest)
+	TEST_METHOD( AmfArray_GetArrayTest )
 	{
-		auto ary = ref new AmfArray();
-
-		Assert::AreEqual(ary, ary->GetArray());
-
+		const auto& ary = ref new AmfArray();
+		Assert::AreEqual( ary, ary->GetArray() );
 	}
 
 	TEST_METHOD( AmfArray_ToStringTest_NoneItem )
@@ -195,9 +195,10 @@ private:
 	{
 		const auto& ary = ref new AmfArray();
 
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			testHandler(ary);
-		});
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			testHandler( ary );
+		} );
 
 	}
 };

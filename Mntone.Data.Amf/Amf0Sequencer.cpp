@@ -104,10 +104,13 @@ void Amf0Sequencer::SequencifyDate( IAmfValue^ input, std::basic_stringstream<ui
 #else
 	const auto& calendar = ref new Windows::Globalization::Calendar();
 	calendar->SetToNow();
+	const auto& ltDay = calendar->Day;
 	const int16& ltHour = static_cast<int16>( calendar->Hour );
 	const int16& ltMinute = static_cast<int16>( calendar->Minute );
 	calendar->ChangeTimeZone( "UTC" );
-	const int16& offset = 60 * ( static_cast<int16>( calendar->Hour ) - ltHour ) + static_cast<int16>( calendar->Minute ) - ltMinute;
+	int16 offset = 60 * ( static_cast<int16>( calendar->Hour ) - ltHour ) + static_cast<int16>( calendar->Minute ) - ltMinute;
+	if( calendar->Day != ltDay )
+		offset -= 60 * 24;
 	ConvertBigEndian( &offset, buf + 8, 2 );
 #endif
 

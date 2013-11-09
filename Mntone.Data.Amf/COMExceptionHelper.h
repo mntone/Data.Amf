@@ -1,15 +1,11 @@
 #pragma once
 
-namespace Mntone {namespace Data {namespace Amf {
+namespace Mntone { namespace Data { namespace Amf {
 
-	class COMExceptionHelper
+	ref class COMExceptionHelper
 	{
-
 	public:
-
-		static Platform::COMException^ CreateInvalidOperationException(Platform::String^ message);
+		static Platform::COMException^ CreateInvalidOperationException( Platform::String^ message );
 	};
 
-
-}}}
-
+} } }

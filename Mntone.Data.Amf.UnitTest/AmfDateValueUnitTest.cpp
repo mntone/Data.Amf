@@ -1,155 +1,133 @@
-
-
 #include "pch.h"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Mntone::Data::Amf;
 
-
-TEST_CLASS(AmfDateValueUnitTest)
+TEST_CLASS( AmfDateValueUnitTest )
 {
-
-	TEST_METHOD(AmfDateValue_CreateTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::IsTrue(AmfValueType::Date == amfValue->ValueType);
-	}
-
-	TEST_METHOD(AmfDateValue_GetBooleanTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetBoolean();
-		});
-
-	}
-
-	TEST_METHOD(AmfDateValue_GetDoubleTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetDouble();
-		});
-
-	}
-
-	TEST_METHOD(AmfDateValue_GetIntegerTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetInteger();
-		});
-
-
-	}
-
-	TEST_METHOD(AmfDateValue_GetStringTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetString();
-		});
-
-	}
-
-
-	TEST_METHOD(AmfDateValue_GetDateTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::IsTrue(generalTestValue_.UniversalTime ==  amfValue->GetDate().UniversalTime);
-	}
-
-
-	TEST_METHOD(AmfDateValue_GetByteArrayTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetByteArray();
-		});
-
-	}
-
-
-	TEST_METHOD(AmfDateValue_GetVectorIntTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetVectorInt();
-		});
-
-	}
-
-
-	TEST_METHOD(AmfDateValue_GetVectorUintTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetVectorUint();
-		});
-
-	}
-
-	TEST_METHOD(AmfDateValue_GetVectorDoubleTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetVectorDouble();
-		});
-
-	}
-
-	TEST_METHOD(AmfDateValue_GetObjectTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetObject();
-		});
-
-	}
-
-
-	TEST_METHOD(AmfDateValue_GetArrayTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetArray();
-		});
-
-	}
-
-	TEST_METHOD(AmfDateValue_GetVectorObjectTest)
+public:
+	TEST_METHOD( AmfDateValue_CreateTest )
 	{
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetVectorObject();
-		});
+		const auto& val = GeneralCareteAmfValue();
+		Assert::IsTrue( AmfValueType::Date == val->ValueType );
 	}
 
-	TEST_METHOD(AmfDateValue_ToStringTest){
+	TEST_METHOD( AmfDateValue_GetBooleanTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetBoolean();
+		} );
+	}
 
-		auto amfValue = GeneralCareteAmfValue();
+	TEST_METHOD( AmfDateValue_GetDoubleTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetDouble();
+		} );
+	}
 
-		Assert::AreEqual(generalTestValue_.ToString(), amfValue->ToString());
+	TEST_METHOD( AmfDateValue_GetIntegerTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetInteger();
+		} );
+	}
+
+	TEST_METHOD( AmfDateValue_GetStringTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetString();
+		} );
+	}
+
+	TEST_METHOD( AmfDateValue_GetDateTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		Assert::IsTrue( generalTestValue_.UniversalTime == val->GetDate().UniversalTime );
+	}
+
+	TEST_METHOD( AmfDateValue_GetByteArrayTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetByteArray();
+		} );
+	}
+
+	TEST_METHOD( AmfDateValue_GetVectorIntTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetVectorInt();
+		} );
+	}
+
+	TEST_METHOD( AmfDateValue_GetVectorUintTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetVectorUint();
+		} );
+	}
+
+	TEST_METHOD( AmfDateValue_GetVectorDoubleTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetVectorDouble();
+		} );
+	}
+
+	TEST_METHOD( AmfDateValue_GetObjectTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetObject();
+		} );
+	}
+
+	TEST_METHOD( AmfDateValue_GetArrayTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetArray();
+		} );
+	}
+
+	TEST_METHOD( AmfDateValue_GetVectorObjectTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetVectorObject();
+		} );
+	}
+
+	TEST_METHOD( AmfDateValue_ToStringTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		Assert::AreEqual( generalTestValue_.ToString(), val->ToString() );
 	}
 
 private:
-	AmfValue^ GeneralCareteAmfValue(){
-
-		return AmfValue::CreateDateValue(generalTestValue_);
+	AmfValue^ GeneralCareteAmfValue( void )
+	{
+		return AmfValue::CreateDateValue( generalTestValue_ );
 	}
 
-	Windows::Foundation::DateTime generalTestValue_ = AssertHelper::GetDate(2013, 10, 30);
-
+	Windows::Foundation::DateTime generalTestValue_ = AssertHelper::GetDate( 2013, 10, 30 );
 };

@@ -1,169 +1,134 @@
-
-
 #include "pch.h"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Mntone::Data::Amf;
 
-
-TEST_CLASS(AmfXmlValueUnitTest)
+TEST_CLASS( AmfXmlValueUnitTest )
 {
-
-	TEST_METHOD(AmfXmlValue_CreateTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		Assert::IsTrue(AmfValueType::Xml ==  amfValue->ValueType);
-	}
-
-	TEST_METHOD(AmfXmlValue_GetBooleanTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetBoolean();
-		});
-
-
-	}
-
-	TEST_METHOD(AmfXmlValue_GetDoubleTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetDouble();
-		});
-
-
-	}
-
-	TEST_METHOD(AmfXmlValue_GetIntegerTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetInteger();
-		});
-
-
-
-	}
-
-	TEST_METHOD(AmfXmlValue_GetStringTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		auto getStringValue = amfValue->GetString();
-
-		Assert::AreEqual(generalTestValue_, getStringValue);
-	}
-
-
-	TEST_METHOD(AmfXmlValue_GetDateTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetDate();
-		});
-
-
-	}
-
-
-	TEST_METHOD(AmfXmlValue_GetByteArrayTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetByteArray();
-		});
-
-
-	}
-
-
-	TEST_METHOD(AmfXmlValue_GetVectorIntTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetVectorInt();
-		});
-
-
-	}
-
-
-	TEST_METHOD(AmfXmlValue_GetVectorUintTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetVectorUint();
-		});
-
-
-	}
-
-	TEST_METHOD(AmfXmlValue_GetVectorDoubleTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetVectorDouble();
-		});
-
-
-	}
-
-	TEST_METHOD(AmfXmlValue_GetObjectTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetObject();
-		});
-
-
-	}
-
-
-	TEST_METHOD(AmfXmlValue_GetVectorObjectTest)
+public:
+	TEST_METHOD( AmfXmlValue_CreateTest )
 	{
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetVectorObject();
-		});
-
-
+		const auto& val = GeneralCareteAmfValue();
+		Assert::IsTrue( AmfValueType::Xml == val->ValueType );
 	}
 
-	TEST_METHOD(AmfXmlValue_GetArrayTest){
-
-		auto amfValue = GeneralCareteAmfValue();
-
-		AssertHelper::ExpectInvalidOperatonException([=](){
-			amfValue->GetArray();
-		});
-
-
+	TEST_METHOD( AmfXmlValue_GetBooleanTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetBoolean();
+		} );
 	}
 
-	TEST_METHOD(AmfXmlValue_ToStringTest){
+	TEST_METHOD( AmfXmlValue_GetDoubleTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetDouble();
+		} );
+	}
 
-		auto amfValue = GeneralCareteAmfValue();
+	TEST_METHOD( AmfXmlValue_GetIntegerTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetInteger();
+		} );
+	}
 
-		Assert::AreEqual(generalTestValue_, amfValue->ToString());
+	TEST_METHOD( AmfXmlValue_GetStringTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		auto getStringValue = val->GetString();
+		Assert::AreEqual( generalTestValue_, getStringValue );
+	}
+
+	TEST_METHOD( AmfXmlValue_GetDateTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetDate();
+		} );
+	}
+
+	TEST_METHOD( AmfXmlValue_GetByteArrayTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetByteArray();
+		} );
+	}
+
+	TEST_METHOD( AmfXmlValue_GetVectorIntTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetVectorInt();
+		} );
+	}
+
+	TEST_METHOD( AmfXmlValue_GetVectorUintTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetVectorUint();
+		} );
+	}
+
+	TEST_METHOD( AmfXmlValue_GetVectorDoubleTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetVectorDouble();
+		} );
+	}
+
+	TEST_METHOD( AmfXmlValue_GetObjectTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetObject();
+		} );
+	}
+
+	TEST_METHOD( AmfXmlValue_GetVectorObjectTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetVectorObject();
+		} );
+	}
+
+	TEST_METHOD( AmfXmlValue_GetArrayTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetArray();
+		} );
+	}
+
+	TEST_METHOD( AmfXmlValue_ToStringTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		Assert::AreEqual( generalTestValue_, val->ToString() );
 	}
 
 private:
-	AmfValue^ GeneralCareteAmfValue(){
-		
-		return AmfValue::CreateXmlValue(generalTestValue_);
+	AmfValue^ GeneralCareteAmfValue()
+	{
+		return AmfValue::CreateXmlValue( generalTestValue_ );
 	}
-
 
 	Platform::String^ generalTestValue_ = L"<test></test>";
 };

@@ -350,8 +350,13 @@ void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_stringstre
 	{
 		std::vector<std::pair<size_t, IAmfValue^>> list;
 		size_t i = numericKeysItem.size() - 1;
+#if _WINDOWS_PHONE
+		auto itr = numericKeysItem.rbegin();
+		while( itr != numericKeysItem.rend() )
+#else
 		auto itr = std::rbegin( numericKeysItem );
 		while( itr != std::rend( numericKeysItem ) )
+#endif
 		{
 			if( itr->first == i )
 				break;
