@@ -61,7 +61,10 @@ TEST_CLASS(AmfVectorObjectValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetDate();
+		});
+
 	}
 
 
@@ -69,7 +72,10 @@ TEST_CLASS(AmfVectorObjectValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetByteArray();
+		});
+
 	}
 
 
@@ -77,7 +83,10 @@ TEST_CLASS(AmfVectorObjectValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorInt();
+		});
+
 	}
 
 
@@ -85,28 +94,40 @@ TEST_CLASS(AmfVectorObjectValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorUint();
+		});
+
 	}
 
 	TEST_METHOD(AmfVectorObjectValue_GetVectorDoubleTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetVectorDouble();
+		});
+
 	}
 
 	TEST_METHOD(AmfVectorObjectValue_GetVectorObjectTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+
+		Assert::AreEqual(generalTestVector_, amfValue->GetVectorObject());
+
+
 	}
 
 	TEST_METHOD(AmfVectorObjectValue_GetObjectTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetObject();
+		});
+
 	}
 
 
@@ -114,22 +135,31 @@ TEST_CLASS(AmfVectorObjectValueUnitTest)
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		AssertHelper::ExpectInvalidOperatonException([=](){
+			amfValue->GetArray();
+		});
+
 	}
 
 	TEST_METHOD(AmfVectorObjectValue_ToStringTest){
 
 		auto amfValue = GeneralCareteAmfValue();
 
-		Assert::Fail(L"must write test");
+		Assert::AreEqual(generalTestVector_->ToString(), amfValue->ToString());
+
 	}
 
 private:
 	AmfValue^ GeneralCareteAmfValue(){
 
-		//
-		//TODO:write create instance
-		//
+		return AmfValue::CreateVectorObjectValue(generalTestVector_);
 	}
+
+	Windows::Foundation::Collections::IVector<IAmfValue^>^ CreateTestVector(){
+
+		return ref new Platform::Collections::Vector<IAmfValue^>{ref new AmfObject(L"testClass1"),ref new AmfObject(L"testClass2")};
+	}
+
+	Windows::Foundation::Collections::IVector<IAmfValue^>^ generalTestVector_ = CreateTestVector();
 
 };

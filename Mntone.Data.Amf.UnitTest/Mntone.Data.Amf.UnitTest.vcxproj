@@ -260,6 +260,7 @@
     <ClCompile Include="AmfUndefinedValueUnitTest.cpp" />
     <ClCompile Include="AmfVectorDoubleValueUnitTest.cpp" />
     <ClCompile Include="AmfVectorIntValueUnitTest.cpp" />
+    <ClCompile Include="AmfVectorObjectValueUnitTest.cpp" />
     <ClCompile Include="AmfVectorUintValueUnitTest.cpp" />
     <ClCompile Include="AmfXmlValueUnitTest.cpp" />
     <ClCompile Include="pch.cpp">
