@@ -91,7 +91,7 @@ Platform::String^ AmfArray::ToString( void )
 	if( length != 1 )
 		str.erase( length - 2 );
 	str += L']';
-	return ref new Platform::String( str.c_str(), str.length() );
+	return ref new Platform::String( str.c_str(), static_cast<uint32>( str.length() ) );
 }
 #endif
 

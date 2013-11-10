@@ -437,14 +437,14 @@ public:
 			const auto& ary = val->GetArray();
 			Assert::AreEqual<uint32>( 4, ary->Size );
 			Assert::AreEqual( L"_result", ary->GetStringAt( 0 )->Data() );
-			Assert::AreEqual( 1.0, ary->GetDoubleAt( 1 ) );
+			Assert::AreEqual( 1, ary->GetIntegerAt( 1 ) );
 
 			const auto& objLapped = ary->GetAt( 2 );
 			Assert::IsTrue( objLapped->ValueType == AmfValueType::Object );
 
 			const auto& obj = objLapped->GetObject();
 			Assert::AreEqual( L"FMS/3,0,1,123", obj->GetNamedString( "fmsVer" )->Data() );
-			Assert::AreEqual( 31.0, obj->GetNamedDouble( "capabilities" ) );
+			Assert::AreEqual( 31, obj->GetNamedInteger( "capabilities" ) );
 
 			const auto& objLapped2 = ary->GetAt( 3 );
 			Assert::IsTrue( objLapped2->ValueType == AmfValueType::Object );
@@ -453,7 +453,7 @@ public:
 			Assert::AreEqual( L"status", obj2->GetNamedString( "level" )->Data() );
 			Assert::AreEqual( L"NetConnection.Connect.Success", obj2->GetNamedString( "code" )->Data() );
 			Assert::AreEqual( L"Connection succeeded", obj2->GetNamedString( "description" )->Data() );
-			Assert::AreEqual( 0.0, obj2->GetNamedDouble( "objectEncoding" ) );
+			Assert::AreEqual( 0, obj2->GetNamedInteger( "objectEncoding" ) );
 		} );
 	}
 

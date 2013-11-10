@@ -59,7 +59,7 @@ void Amf0Sequencer::SequencifyInteger( IAmfValue^ input, std::basic_ostringstrea
 {
 	stream.put( amf0_type::amf0_number );
 
-	const auto& data = static_cast<float64>( input->GetDouble() );
+	const auto& data = static_cast<float64>( input->GetInteger() );
 	uint8 buf[8];
 	ConvertBigEndian( &data, buf, 8 );
 	stream.write( buf, 8 );
