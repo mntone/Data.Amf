@@ -1,18 +1,18 @@
 # AmfArray class
 Represents a AmfArray containing a array of **[IAmfValue](Root.IAmfValue.md)**.
 
-A **AmfArray** inherits the **[IAmfValue](Root.IAmfValue.md)**, **IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, **IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents.
+A **AmfArray** inherits the **[IAmfArray](Root.IAmfArray.md)** and **[IAmfValue](Root.IAmfValue.md)**, **IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, **IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;**, IStringable interfaces, which provide methods to iterate through the elements in the array and update its contents.
 
 ## Syntax
 
 ### C＃
-public sealed class AmfArray : [IAmfValue](Root.IAmfValue.md), IList&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IEnumerable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IStringable
+public sealed class AmfArray : [IAmfArray](Root.IAmfArray.md), [IAmfValue](Root.IAmfValue.md), IList&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IEnumerable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, IStringable
 
 ### C++
-public ref calss AmfArray sealed : public public [IAmfValue](Root.IAmfValue.md), public IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IStringable
+public ref calss AmfArray sealed : public [IAmfArray](Root.IAmfArray.md), public [IAmfValue](Root.IAmfValue.md), public IVector&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IIterable&lt;[IAmfValue](Root.IAmfValue.md)&gt;, public IStringable
 
 ### VB
-Public NotInheritable Class AmfArray Implements [IAmfValue](Root.IAmfValue.md), IList(Of [IAmfValue](Root.IAmfValue.md)), IEnumerable(Of [IAmfValue](Root.IAmfValue.md)), IStringable
+Public NotInheritable Class AmfArray Implements [IAmfArray](Root.IAmfArray.md), [IAmfValue](Root.IAmfValue.md), IList(Of [IAmfValue](Root.IAmfValue.md)), IEnumerable(Of [IAmfValue](Root.IAmfValue.md)), IStringable
 
 ## Attributes
 
@@ -58,7 +58,7 @@ GetVectorObject|Gets the VectorObject if the ValueType of the encapsulated value
 GetObject      |Gets the Object if the ValueType of the encapsulated value is Object.
 GetArray       |Gets the Array if the ValueType of the encapsulated value is Array.
 
-#### __IAmfArrayPublicNonVirtuals
+#### [IAmfArray](Root.IAmfArray.md)
 
 Method           |Description
 -----------------|-----------
@@ -134,4 +134,4 @@ Count [C#, VB]     |Read-only  |Gets the number of elements contained in the col
 IsReadOnly [C#, VB]|Read-only  |Gets a value indicating whether the collection is read-only.
 Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 
-##### Update date: Nov 9, 2013
+##### Update date: Nov 11, 2013
