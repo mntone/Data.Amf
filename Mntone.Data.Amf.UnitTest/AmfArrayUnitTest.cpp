@@ -146,7 +146,7 @@ public:
 		const auto& ary = ref new AmfArray();
 		ary->Append( AmfValue::CreateBooleanValue( true ) );
 		ary->Append( AmfValue::CreateIntegerValue( 50 ) );
-		Assert::AreEqual( L"[true, 50, ]", ary->ToString() );
+		Assert::AreEqual( L"[true, 50]", ary->ToString() );
 	}
 
 	TEST_METHOD( AmfArray_ParseTest_Default )

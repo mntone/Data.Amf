@@ -86,8 +86,12 @@ Platform::String^ AmfArray::ToString( void )
 		buf.write( out->Data(), out->Length() );
 		buf.write( L", ", 2 );
 	}
-	buf << ']';
-	return ref new Platform::String( buf.str().c_str() );
+	auto str = buf.str();
+	const auto& length = str.length();
+	if( length != 1 )
+		str.erase( length - 2 );
+	str += L']';
+	return ref new Platform::String( str.c_str(), str.length() );
 }
 #endif
 

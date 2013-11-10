@@ -270,7 +270,6 @@ public:
 
 			const auto& obj2 = objLapped2->GetObject();
 			Assert::AreEqual( L"status", obj2->GetNamedString( "level" ) );
-
 			Assert::AreEqual( L"NetConnection.Connect.Success", obj2->GetNamedString( "code" ) );
 			Assert::AreEqual( L"Connection succeeded", obj2->GetNamedString( "description" ) );
 			Assert::AreEqual( 0.0, obj2->GetNamedDouble( "objectEncoding" ) );

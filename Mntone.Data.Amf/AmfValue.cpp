@@ -131,9 +131,11 @@ Platform::String^ AmfValue::ToString( void )
 			for( const auto& b : ba )
 				buf << L"0x" << std::hex << b << L", ";
 			auto str = buf.str();
-			str.erase( str.length() - 2 );
+			const auto& length = str.length();
+			if( length != 1 )
+				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str() );
+			return ref new Platform::String( str.c_str(), str.length() );
 		}
 	case AmfValueType::VectorInt:
 		{
@@ -143,9 +145,11 @@ Platform::String^ AmfValue::ToString( void )
 			for( const auto& i : vi )
 				buf << i << L", ";
 			auto str = buf.str();
-			str.erase( str.length() - 2 );
+			const auto& length = str.length();
+			if( length != 1 )
+				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str() );
+			return ref new Platform::String( str.c_str(), str.length() );
 	}
 	case AmfValueType::VectorUint:
 		{
@@ -155,9 +159,11 @@ Platform::String^ AmfValue::ToString( void )
 			for( const auto& u : vu )
 				buf << u << L", ";
 			auto str = buf.str();
-			str.erase( str.length() - 2 );
+			const auto& length = str.length();
+			if( length != 1 )
+				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str() );
+			return ref new Platform::String( str.c_str(), str.length() );
 		}
 	case AmfValueType::VectorDouble:
 		{
@@ -167,9 +173,11 @@ Platform::String^ AmfValue::ToString( void )
 			for( const auto& d : vd )
 				buf << d << L", ";
 			auto str = buf.str();
-			str.erase( str.length() - 2 );
+			const auto& length = str.length();
+			if( length != 1 )
+				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str() );
+			return ref new Platform::String( str.c_str(), str.length() );
 		}
 	case AmfValueType::VectorObject:
 		{
@@ -184,9 +192,11 @@ Platform::String^ AmfValue::ToString( void )
 				buf.put( L' ' );
 			}
 			auto str = buf.str();
-			str.erase( str.length() - 2 );
+			const auto& length = str.length();
+			if( length != 1 )
+				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str() );
+			return ref new Platform::String( str.c_str(), str.length() );
 		}
 	default: return value_->ToString();
 	}

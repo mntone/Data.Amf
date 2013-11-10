@@ -90,7 +90,7 @@ void AmfObject::Clear( void ) { map_->Clear(); }
 #if !_WINDOWS_PHONE
 Platform::String^ AmfObject::ToString( void )
 {
-	std::wstringstream buf;
+	std::wostringstream buf;
 	buf << '{';
 	for( const auto& item : map_ )
 	{
@@ -102,8 +102,12 @@ Platform::String^ AmfObject::ToString( void )
 		buf.write( value->Data(), value->Length() );
 		buf.write( L", ", 2 );
 	}
-	buf << '}';
-	return ref new Platform::String( buf.str().c_str() );
+	auto str = buf.str();
+	const auto& length = str.length();
+	if( length != 1 )
+		str.erase( length - 2 );
+	str += L'}';
+	return ref new Platform::String( str.c_str(), str.length() );
 }
 #endif
 
