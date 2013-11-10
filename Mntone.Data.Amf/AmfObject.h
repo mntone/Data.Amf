@@ -1,5 +1,5 @@
 #pragma once
-#include "IAmfValue.h"
+#include "IAmfObject.h"
 
 namespace Mntone { namespace Data { namespace Amf {
 
@@ -8,7 +8,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	[Windows::Foundation::Metadata::Threading( Windows::Foundation::Metadata::ThreadingModel::Both )]
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class AmfObject sealed:
-		public IAmfValue,
+		public IAmfObject,
 		public Windows::Foundation::Collections::IMap<Platform::String^, IAmfValue^>
 	{
 	public:
@@ -31,21 +31,21 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
 
-		// AmfObject
-		AmfValue^ GetNamedValue( Platform::String^ name );
-		void SetNamedValue( Platform::String^ name, IAmfValue^ value );
-		bool GetNamedBoolean( Platform::String^ name );
-		float64 GetNamedDouble( Platform::String^ name );
-		int32 GetNamedInteger( Platform::String^ name );
-		Platform::String^ GetNamedString( Platform::String^ name );
-		Windows::Foundation::DateTime GetNamedDate( Platform::String^ name );
-		Platform::Array<uint8>^ GetNamedByteArray( Platform::String^ name );
-		Windows::Foundation::Collections::IVector<int32>^ GetNamedVectorInt( Platform::String^ name );
-		Windows::Foundation::Collections::IVector<uint32>^ GetNamedVectorUint( Platform::String^ name );
-		Windows::Foundation::Collections::IVector<float64>^ GetNamedVectorDouble( Platform::String^ name );
-		Windows::Foundation::Collections::IVector<IAmfValue^>^ GetNamedVectorObject( Platform::String^ name );
-		AmfObject^ GetNamedObject( Platform::String^ name );
-		AmfArray^ GetNamedArray( Platform::String^ name );
+		// IAmfObject
+		virtual AmfValue^ GetNamedValue( Platform::String^ name );
+		virtual void SetNamedValue( Platform::String^ name, IAmfValue^ value );
+		virtual bool GetNamedBoolean( Platform::String^ name );
+		virtual float64 GetNamedDouble( Platform::String^ name );
+		virtual int32 GetNamedInteger( Platform::String^ name );
+		virtual Platform::String^ GetNamedString( Platform::String^ name );
+		virtual Windows::Foundation::DateTime GetNamedDate( Platform::String^ name );
+		virtual Platform::Array<uint8>^ GetNamedByteArray( Platform::String^ name );
+		virtual Windows::Foundation::Collections::IVector<int32>^ GetNamedVectorInt( Platform::String^ name );
+		virtual Windows::Foundation::Collections::IVector<uint32>^ GetNamedVectorUint( Platform::String^ name );
+		virtual Windows::Foundation::Collections::IVector<float64>^ GetNamedVectorDouble( Platform::String^ name );
+		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetNamedVectorObject( Platform::String^ name );
+		virtual AmfObject^ GetNamedObject( Platform::String^ name );
+		virtual AmfArray^ GetNamedArray( Platform::String^ name );
 
 		// IIterator
 		virtual Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ First( void );
@@ -86,16 +86,16 @@ namespace Mntone { namespace Data { namespace Amf {
 			virtual AmfValueType get( void ) { return ValueType_; }
 		}
 
-		// AmfObject
+		// IAmfObject
 		property Platform::String^ ClassName
 		{
-			Platform::String^ get( void ) { return ClassName_; }
-			void set( Platform::String^ value ) { ClassName_ = value; }
+			virtual Platform::String^ get( void ) { return ClassName_; }
+			virtual void set( Platform::String^ value ) { ClassName_ = value; }
 		}
 		property bool Externalizable
 		{
-			bool get( void ) { return Externalizable_; }
-			void set( bool value ) { Externalizable_ = value; }
+			virtual bool get( void ) { return Externalizable_; }
+			virtual void set( bool value ) { Externalizable_ = value; }
 		}
 
 		// IMap

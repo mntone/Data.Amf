@@ -29,5 +29,7 @@
     <ClInclude Include="amf3_traits_info.h" />
     <ClInclude Include="Amf3Sequencer.h" />
     <ClInclude Include="COMExceptionHelper.h" />
+    <ClInclude Include="IAmfArray.h" />
+    <ClInclude Include="IAmfObject.h" />
   </ItemGroup>
 </Project>

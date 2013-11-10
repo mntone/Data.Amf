@@ -1,5 +1,5 @@
 #pragma once
-#include "IAmfValue.h"
+#include "IAmfArray.h"
 
 namespace Mntone { namespace Data { namespace Amf {
 
@@ -8,7 +8,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	[Windows::Foundation::Metadata::Threading( Windows::Foundation::Metadata::ThreadingModel::Both )]
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class AmfArray sealed:
-		public IAmfValue,
+		public IAmfArray,
 		public Windows::Foundation::Collections::IVector<IAmfValue^>
 	{
 	public:
@@ -30,19 +30,19 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
 
-		// AmfArray
-		bool GetBooleanAt( uint32 index );
-		float64 GetDoubleAt( uint32 index );
-		int32 GetIntegerAt( uint32 index );
-		Platform::String^ GetStringAt( uint32 index );
-		Windows::Foundation::DateTime GetDateAt( uint32 index );
-		Platform::Array<uint8>^ GetByteArrayAt( uint32 index );
-		Windows::Foundation::Collections::IVector<int32>^ GetVectorIntAt( uint32 index );
-		Windows::Foundation::Collections::IVector<uint32>^ GetVectorUintAt( uint32 index );
-		Windows::Foundation::Collections::IVector<float64>^ GetVectorDoubleAt( uint32 index );
-		Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObjectAt( uint32 index );
-		AmfObject^ GetObjectAt( uint32 index );
-		AmfArray^ GetArrayAt( uint32 index );
+		// IAmfArray
+		virtual bool GetBooleanAt( uint32 index );
+		virtual float64 GetDoubleAt( uint32 index );
+		virtual int32 GetIntegerAt( uint32 index );
+		virtual Platform::String^ GetStringAt( uint32 index );
+		virtual Windows::Foundation::DateTime GetDateAt( uint32 index );
+		virtual Platform::Array<uint8>^ GetByteArrayAt( uint32 index );
+		virtual Windows::Foundation::Collections::IVector<int32>^ GetVectorIntAt( uint32 index );
+		virtual Windows::Foundation::Collections::IVector<uint32>^ GetVectorUintAt( uint32 index );
+		virtual Windows::Foundation::Collections::IVector<float64>^ GetVectorDoubleAt( uint32 index );
+		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObjectAt( uint32 index );
+		virtual AmfObject^ GetObjectAt( uint32 index );
+		virtual AmfArray^ GetArrayAt( uint32 index );
 
 		// IIterable
 		virtual Windows::Foundation::Collections::IIterator<IAmfValue^>^ First( void );
