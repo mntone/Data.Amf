@@ -42,12 +42,12 @@ float64 AmfValue::GetDouble( void )
 	return safe_cast<float64>( value_ );
 }
 
-int32 AmfValue::GetInteger( void )
+uint32 AmfValue::GetInteger( void )
 {
 	if( ValueType_ != AmfValueType::Integer )
 		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
 
-	return safe_cast<int32>( value_ );
+	return safe_cast<uint32>( value_ );
 }
 
 Platform::String^ AmfValue::GetString( void )
@@ -227,7 +227,7 @@ AmfValue^ AmfValue::CreateDoubleValue( float64 input )
 	return out;
 }
 
-AmfValue^ AmfValue::CreateIntegerValue( int32 input )
+AmfValue^ AmfValue::CreateIntegerValue( uint32 input )
 {
 	auto out = ref new AmfValue();
 	out->ValueType_ = AmfValueType::Integer;

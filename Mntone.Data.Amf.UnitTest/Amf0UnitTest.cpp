@@ -83,7 +83,7 @@ public:
 		Test( ref new U8Array{ 3, 0, 0, 9 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Object );
-			Assert::AreEqual<uint32>( 0, val->GetObject()->Size );
+			Assert::AreEqual( 0u, val->GetObject()->Size );
 		} );
 	}
 
@@ -94,7 +94,7 @@ public:
 			Assert::IsTrue( val->ValueType == AmfValueType::Object );
 
 			const auto& obj = val->GetObject();
-			Assert::AreEqual<uint32>( 1, obj->Size );
+			Assert::AreEqual( 1u, obj->Size );
 			Assert::AreEqual( L"", obj->GetNamedString( "B" )->Data() );
 		} );
 	}
@@ -106,9 +106,28 @@ public:
 			Assert::IsTrue( val->ValueType == AmfValueType::Object );
 
 			const auto& obj = val->GetObject();
-			Assert::AreEqual<uint32>( 2, obj->Size );
-			Assert::IsNull( obj->GetNamedString( "D" ) );
-			Assert::IsNull( obj->GetNamedString( "C" ) );
+			Assert::AreEqual( 2u, obj->Size );
+			Assert::AreEqual( L"", obj->GetNamedString( "D" )->Data() );
+			Assert::AreEqual( L"", obj->GetNamedString( "C" )->Data( ) );
+		} );
+	}
+
+	TEST_METHOD( Amf0_③ObjectTest‐2_ObjectReferenceTest )
+	{
+		Test( ref new U8Array{ 10, 0x0, 0x0, 0x0, 0x2, 0x3, 0x0, 0x1, 0x62, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x61, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x9, 0x7, 0x0, 0x1 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+			
+			const auto& objOrigin = ary->GetObjectAt( 0 );
+			Assert::AreEqual( 2u, objOrigin->Size );
+			Assert::AreEqual( 2.0, objOrigin->GetNamedDouble( "a" ) );
+			Assert::AreEqual( 3.0, objOrigin->GetNamedDouble( "b" ) );
+
+			const auto& objReference = ary->GetObjectAt( 1 );
+			Assert::IsTrue( objReference == objOrigin );
 		} );
 	}
 
@@ -133,7 +152,7 @@ public:
 		Test( ref new U8Array{ 8, 0, 0, 0, 0, 0, 0, 9 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::EcmaArray );
-			Assert::AreEqual<uint32>( 0, val->GetObject()->Size );
+			Assert::AreEqual( 0u, val->GetObject()->Size );
 		} );
 	}
 
@@ -144,8 +163,27 @@ public:
 			Assert::IsTrue( val->ValueType == AmfValueType::EcmaArray );
 
 			const auto& obj = val->GetObject();
-			Assert::AreEqual<uint32>( 1, obj->Size );
+			Assert::AreEqual( 1u, obj->Size );
 			Assert::AreEqual( L"", obj->GetNamedString( "0" )->Data() );
+		} );
+	}
+
+	TEST_METHOD( Amf0_⑧EcmaArrayTest‐2_EcmaArrayReferenceTest )
+	{
+		Test( ref new U8Array{ 10, 0x0, 0x0, 0x0, 0x2, 0x8, 0x0, 0x0, 0x0, 0x2, 0x0, 0x1, 0x30, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x31, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x9, 0x7, 0x0, 0x1 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+			
+			const auto& aryOrigin = ary->GetObjectAt( 0 );
+			Assert::AreEqual( 2u, aryOrigin->Size );
+			Assert::AreEqual( 2.0, aryOrigin->GetNamedDouble( "0" ) );
+			Assert::AreEqual( 3.0, aryOrigin->GetNamedDouble( "1" ) );
+
+			const auto& aryReference = ary->GetObjectAt( 1 );
+			Assert::IsTrue( aryReference == aryOrigin );
 		} );
 	}
 
@@ -154,20 +192,39 @@ public:
 		Test( ref new U8Array{ 10, 0, 0, 0, 0 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Array );
-			Assert::AreEqual<uint32>( 0, val->GetArray()->Size );
+			Assert::AreEqual( 0u, val->GetArray()->Size );
 		} );
 	}
 
-	TEST_METHOD( Amf0_⑩StrinctArray‐1_0．0，True )
+	TEST_METHOD( Amf0_⑩StrictArrayTest‐1_0．0，True )
 	{
 		Test( ref new U8Array{ 10, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Array );
 
 			const auto& ary = val->GetArray();
-			Assert::AreEqual<uint32>( 2, ary->Size );
+			Assert::AreEqual( 2u, ary->Size );
 			Assert::AreEqual( 0.0, ary->GetDoubleAt( 0 ) );
 			Assert::IsTrue( ary->GetBooleanAt( 1 ) );
+		} );
+	}
+
+	TEST_METHOD( Amf0_⑩StrictArrayTest‐3_StrictArrayReferenceTest )
+	{
+		Test( ref new U8Array{ 10, 0x0, 0x0, 0x0, 0x2, 10, 0x0, 0x0, 0x0, 0x2, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x7, 0x0, 0x1 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
+			const auto& aryOrigin = ary->GetArrayAt( 0 );
+			Assert::AreEqual( 2u, aryOrigin->Size );
+			Assert::AreEqual( 2.0, aryOrigin->GetDoubleAt( 0 ) );
+			Assert::AreEqual( 3.0, aryOrigin->GetDoubleAt( 1 ) );
+
+			const auto& aryReference = ary->GetArrayAt( 1 );
+			Assert::IsTrue( aryReference == aryOrigin );
 		} );
 	}
 
@@ -237,8 +294,30 @@ public:
 		Test( ref new U8Array{ 16, 0, 4, 0x54, 0x65, 0x73, 0x74, 0, 0, 9 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Object );
-			Assert::AreEqual<uint32>( 0, val->GetObject()->Size );
-			Assert::AreEqual( L"Test", val->GetObject()->ClassName );
+
+			const auto& obj = val->GetObject();
+			Assert::AreEqual( 0u, obj->Size );
+			Assert::AreEqual( L"Test", obj->ClassName );
+		} );
+	}
+
+	TEST_METHOD( Amf0_⑯TypedObjectTest‐1_TypedObjectReferenceTest )
+	{
+		Test( ref new U8Array{ 10, 0x0, 0x0, 0x0, 0x2, 0x10, 0, 4, 0x54, 0x65, 0x73, 0x74, 0x0, 0x1, 0x62, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x61, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x9, 0x7, 0x0, 0x1 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
+			const auto& objOrigin = ary->GetObjectAt( 0 );
+			Assert::AreEqual( 2u, objOrigin->Size );
+			Assert::AreEqual( L"Test", objOrigin->ClassName );
+			Assert::AreEqual( 2.0, objOrigin->GetNamedDouble( "a" ) );
+			Assert::AreEqual( 3.0, objOrigin->GetNamedDouble( "b" ) );
+
+			const auto& objReference = ary->GetObjectAt( 1 );
+			Assert::IsTrue( objReference == objOrigin );
 		} );
 	}
 
@@ -247,14 +326,14 @@ public:
 		ParserFailureExceptionTest( ref new U8Array{ 17 } );
 	}
 
-	TEST_METHOD( Amf0_ⓍMasterTest_RtmpCommandData )
+	TEST_METHOD( Amf0_ⓍMasterTest‐0_RtmpCommandData )
 	{
 		Test( ref new U8Array{ 10, 0, 0, 0, 4, 0x02, 0x00, 0x07, 0x5f, 0x72, 0x65, 0x73, 0x75, 0x6c, 0x74, 0x00, 0x3f, 0xf0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x06, 0x66, 0x6d, 0x73, 0x56, 0x65, 0x72, 0x02, 0x00, 0x0d, 0x46, 0x4d, 0x53, 0x2f, 0x33, 0x2c, 0x30, 0x2c, 0x31, 0x2c, 0x31, 0x32, 0x33, 0x00, 0x0c, 0x63, 0x61, 0x70, 0x61, 0x62, 0x69, 0x6c, 0x69, 0x74, 0x69, 0x65, 0x73, 0x00, 0x40, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x03, 0x00, 0x05, 0x6c, 0x65, 0x76, 0x65, 0x6c, 0x02, 0x00, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x00, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x02, 0x00, 0x1d, 0x4e, 0x65, 0x74, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x2e, 0x53, 0x75, 0x63, 0x63, 0x65, 0x73, 0x73, 0x00, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x02, 0x00, 0x14, 0x43, 0x6f, 0x6e, 0x6e, 0x65, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x73, 0x75, 0x63, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x00, 0x0e, 0x6f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x45, 0x6e, 0x63, 0x6f, 0x64, 0x69, 0x6e, 0x67, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Array );
 
 			const auto& ary = val->GetArray();
-			Assert::AreEqual<uint32>( 4, ary->Size );
+			Assert::AreEqual( 4u, ary->Size );
 			Assert::AreEqual( L"_result", ary->GetStringAt( 0 ) );
 			Assert::AreEqual( 1.0, ary->GetDoubleAt( 1 ) );
 
@@ -273,6 +352,54 @@ public:
 			Assert::AreEqual( L"NetConnection.Connect.Success", obj2->GetNamedString( "code" ) );
 			Assert::AreEqual( L"Connection succeeded", obj2->GetNamedString( "description" ) );
 			Assert::AreEqual( 0.0, obj2->GetNamedDouble( "objectEncoding" ) );
+		} );
+	}
+
+	TEST_METHOD( Amf0_ⓍMasterTest‐1_ReferenceTest )
+	{
+		Test( ref new U8Array{ 0x8, 0x0, 0x0, 0x0, 0x5, 0x0, 0x1, 0x30, 0x8, 0x0, 0x0, 0x0, 0x6, 0x0, 0x1, 0x30, 0x3, 0x0, 0x1, 0x62, 0x1, 0x1, 0x0, 0x0, 0x9, 0x0, 0x1, 0x31, 0x2, 0x0, 0x1, 0x74, 0x0, 0x1, 0x32, 0x3, 0x0, 0x1, 0x62, 0x1, 0x0, 0x0, 0x0, 0x9, 0x0, 0x1, 0x33, 0x7, 0x0, 0x2, 0x0, 0x1, 0x34, 0x7, 0x0, 0x3, 0x0, 0x1, 0x35, 0x10, 0x0, 0x1, 0x78, 0x0, 0x1, 0x78, 0x0, 0x40, 0x37, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x9, 0x0, 0x0, 0x9, 0x0, 0x1, 0x31, 0x7, 0x0, 0x3, 0x0, 0x1, 0x32, 0x7, 0x0, 0x2, 0x0, 0x1, 0x33, 0x7, 0x0, 0x1, 0x0, 0x1, 0x34, 0x7, 0x0, 0x4, 0x0, 0x0, 0x9 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::EcmaArray );
+
+			const auto& obj = val->GetObject();
+			Assert::AreEqual( 5u, obj->Size );
+
+			const auto& first = obj->GetNamedObject( "0" );
+			Assert::AreEqual( 6u, first->Size );
+
+			const auto& objA = first->GetNamedObject( "0" );
+			Assert::AreEqual( 1u, objA->Size );
+			Assert::IsTrue( objA->GetNamedBoolean( "b" ) );
+
+			const auto& str = first->GetNamedString( "1" );
+			Assert::AreEqual( L"t", str );
+
+			const auto& objB = first->GetNamedObject( "2" );
+			Assert::AreEqual( 1u, objB->Size );
+			Assert::IsFalse( objB->GetNamedBoolean( "b" ) );
+
+			const auto& objARef1 = first->GetNamedObject( "3" );
+			Assert::IsTrue( objARef1 == objA );
+
+			const auto& objBRef1 = first->GetNamedObject( "4" );
+			Assert::IsTrue( objBRef1 == objB );
+
+			const auto& objC = first->GetNamedObject( "5" );
+			Assert::AreEqual( 1u, objC->Size );
+			Assert::AreEqual( L"x", objC->ClassName );
+			Assert::AreEqual( 23.0, objC->GetNamedDouble( "x" ) );
+
+			const auto& objBRef2 = obj->GetNamedObject( "1" );
+			Assert::IsTrue( objBRef2 == objB );
+
+			const auto& objARef2 = obj->GetNamedObject( "2" );
+			Assert::IsTrue( objARef2 == objA );
+
+			const auto& firstRef1 = obj->GetNamedObject( "3" );
+			Assert::IsTrue( firstRef1 == first );
+
+			const auto& objCRef1 = obj->GetNamedObject( "4" );
+			Assert::IsTrue( objCRef1 == objC );
 		} );
 	}
 

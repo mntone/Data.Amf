@@ -129,5 +129,5 @@ private:
 		return AmfValue::CreateIntegerValue( generalTestValue_ );
 	}
 
-	const static int generalTestValue_ = 8250;
+	const static uint32 generalTestValue_ = 8250u;
 };

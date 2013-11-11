@@ -18,7 +18,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Platform::Array<uint8>^ Sequencify( AmfEncodingType type );
 		virtual bool GetBoolean( void );
 		virtual float64 GetDouble( void );
-		virtual int32 GetInteger( void );
+		virtual uint32 GetInteger( void );
 		virtual Platform::String^ GetString( void );
 		virtual Windows::Foundation::DateTime GetDate( void );
 		virtual Platform::Array<uint8>^ GetByteArray( void );
@@ -37,7 +37,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static AmfValue^ CreateUndefinedValue( void );
 		static AmfValue^ CreateBooleanValue( bool input );
 		static AmfValue^ CreateDoubleValue( float64 input );
-		static AmfValue^ CreateIntegerValue( int32 input );
+		static AmfValue^ CreateIntegerValue( uint32 input );
 		static AmfValue^ CreateStringValue( Platform::String^ input );
 		static AmfValue^ CreateDateValue( Windows::Foundation::DateTime input );
 		static AmfValue^ CreateXmlValue( Platform::String^ input );

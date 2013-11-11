@@ -1,27 +1,28 @@
 #include <pch.h>
 #include "corerror.h"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 void AssertHelper::AreArrayEqual( const Platform::Array<uint8>^ expected, const Platform::Array<uint8>^ actual )
 {
+	const auto& alength = actual->Length;
+	std::wostringstream buf;
+	for( auto i = 0u; i < alength; ++i )
+		buf << '0' << 'x' << std::hex << actual[i] << ',' << ' ';
+	buf << '\n';
+	Logger::WriteMessage( buf.str().c_str() );
+
 	const auto& length = expected->Length;
 	Assert::AreEqual( length, actual->Length );
 
-	std::wostringstream buf;
 	for( auto i = 0u; i < length; ++i )
 	{
-		buf << '0' << 'x' << std::hex << actual[i] << ',' << ' ';
 		if( !expected[i].Equals( actual[i] ) )
 		{
-			buf << '\n';
-			Logger::WriteMessage( buf.str().c_str() );
 			Assert::Fail();
 			return;
 		}
 	}
-
-	buf << '\n';
-	Logger::WriteMessage( buf.str().c_str() );
 }
 
 void AssertHelper::ExpectInvalidOperatonException( std::function<void()> func )
@@ -36,7 +37,7 @@ void AssertHelper::ExpectInvalidOperatonException( std::function<void()> func )
 		return;
 	}
 
-	Assert::Fail(L"exception is not actual");
+	Assert::Fail( L"exception is not actual" );
 }
 
 Windows::Foundation::DateTime AssertHelper::GetDate( int32 year, int32 month, int32 day )

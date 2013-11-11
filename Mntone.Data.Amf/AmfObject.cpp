@@ -15,7 +15,8 @@ AmfObject::AmfObject( void ) :
 #else
 	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>() ),
 #endif
-	ClassName_( "" )
+	ClassName_( "" ),
+	Externalizable_( false )
 { }
 
 AmfObject::AmfObject( Platform::String^ className ):
@@ -25,7 +26,8 @@ AmfObject::AmfObject( Platform::String^ className ):
 #else
 	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>() ),
 #endif
-	ClassName_( className )
+	ClassName_( className ),
+	Externalizable_( false )
 { }
 
 Platform::Array<uint8>^ AmfObject::Sequencify( void )
@@ -43,7 +45,7 @@ Platform::Array<uint8>^ AmfObject::Sequencify( AmfEncodingType type )
 
 bool AmfObject::GetBoolean( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
 float64 AmfObject::GetDouble( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
-int32 AmfObject::GetInteger( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
+uint32 AmfObject::GetInteger( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
 Platform::String^ AmfObject::GetString( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
 Windows::Foundation::DateTime AmfObject::GetDate( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
 Platform::Array<uint8>^ AmfObject::GetByteArray( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
@@ -66,7 +68,7 @@ AmfValue^ AmfObject::GetNamedValue( Platform::String^ name ) { return safe_cast<
 void AmfObject::SetNamedValue( Platform::String^ name, IAmfValue^ value ) { map_->Insert( name, value ); }
 bool AmfObject::GetNamedBoolean( Platform::String^ name ) { return map_->Lookup( name )->GetBoolean(); }
 float64 AmfObject::GetNamedDouble( Platform::String^ name ) { return map_->Lookup( name )->GetDouble(); }
-int32 AmfObject::GetNamedInteger( Platform::String^ name ) { return map_->Lookup( name )->GetInteger(); }
+uint32 AmfObject::GetNamedInteger( Platform::String^ name ) { return map_->Lookup( name )->GetInteger( ); }
 Platform::String^ AmfObject::GetNamedString( Platform::String^ name ) { return map_->Lookup( name )->GetString(); }
 Windows::Foundation::DateTime AmfObject::GetNamedDate( Platform::String^ name ) { return map_->Lookup( name )->GetDate(); }
 Platform::Array<uint8>^ AmfObject::GetNamedByteArray( Platform::String^ name ) { return map_->Lookup( name )->GetByteArray(); }

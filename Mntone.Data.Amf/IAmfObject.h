@@ -22,7 +22,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		bool GetNamedBoolean( Platform::String^ name );
 		float64 GetNamedDouble( Platform::String^ name );
-		int32 GetNamedInteger( Platform::String^ name );
+		uint32 GetNamedInteger( Platform::String^ name );
 		Platform::String^ GetNamedString( Platform::String^ name );
 		Windows::Foundation::DateTime GetNamedDate( Platform::String^ name );
 		Platform::Array<uint8>^ GetNamedByteArray( Platform::String^ name );

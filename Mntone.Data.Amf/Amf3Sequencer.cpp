@@ -44,12 +44,12 @@ void Amf3Sequencer::SequencifyValue( IAmfValue^ input, std::basic_ostringstream<
 	}
 }
 
-void Amf3Sequencer::SequencifyUndefined( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyUndefined( IAmfValue^ /*input*/, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_undefined );
 }
 
-void Amf3Sequencer::SequencifyNull( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyNull( IAmfValue^ /*input*/, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_null );
 }
@@ -88,6 +88,12 @@ void Amf3Sequencer::SequencifyString( IAmfValue^ input, std::basic_ostringstream
 
 void Amf3Sequencer::SequencifyStringBase( Platform::String^ input, std::basic_ostringstream<uint8>& stream )
 {
+	if( input == "" )
+	{
+		stream.put( 1 );
+		return;
+	}
+
 	{
 		const auto& length = stringReferenceBuffer_.size();
 		for( size_t i = 0; i < length; ++i )
@@ -256,7 +262,6 @@ void Amf3Sequencer::SequencifyObject( IAmfValue^ input, std::basic_ostringstream
 	const auto& className = obj->ClassName;
 
 	std::shared_ptr<amf3_traits_info> info;
-	if( obj->ClassName->Length() != 0 )
 	{
 		size_t i = 0u;
 		const auto& length = traitsInfoBuffer_.size();
@@ -272,28 +277,27 @@ void Amf3Sequencer::SequencifyObject( IAmfValue^ input, std::basic_ostringstream
 		}
 		if( info != nullptr )
 		{
-			SequencifyUnsigned29bitInteger( i << 2 | 3, stream );
+			SequencifyUnsigned29bitInteger( i << 2 | 1, stream );
 			goto skip;
 		}
 
 		info = std::make_shared<amf3_traits_info>();
-		info->externalizable = true;
-		info->dynamic = false;
+		info->externalizable = obj->Externalizable;
+		if( obj->ClassName->Length() != 0 )
+		{
+			info->dynamic = false;
+			for( const auto& item : obj )
+				info->properites.push_back( item->Key );
+		}
+		else
+			info->dynamic = true;
 		info->class_name = className;
-		for( const auto& item : obj )
-			info->properites.push_back( item->Key );
 		traitsInfoBuffer_.push_back( info );
 	}
-	else
-	{
-		info = std::make_shared<amf3_traits_info>();
-		info->externalizable = false;
-		info->dynamic = true;
-		info->class_name = className;
-	}
-	size_t data = 3;
+
+	size_t data = info->properites.size() << 4 | 3;
 	if( info->externalizable )
-		data |= info->properites.size() << 4 | 4;
+		data |= 4;
 	if( info->dynamic )
 		data |= 8;
 	SequencifyUnsigned29bitInteger( data, stream );
@@ -312,8 +316,8 @@ skip:
 			SequencifyStringBase( item->Key, stream );
 			SequencifyValue( item->Value, stream );
 		}
+		stream.put( 1 ); // no-ref, String ""
 	}
-	stream.put( 1 ); // no-ref, String ""
 }
 
 void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )

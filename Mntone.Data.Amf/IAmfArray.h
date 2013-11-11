@@ -8,7 +8,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		bool GetBooleanAt( uint32 index );
 		float64 GetDoubleAt( uint32 index );
-		int32 GetIntegerAt( uint32 index );
+		uint32 GetIntegerAt( uint32 index );
 		Platform::String^ GetStringAt( uint32 index );
 		Windows::Foundation::DateTime GetDateAt( uint32 index );
 		Platform::Array<uint8>^ GetByteArrayAt( uint32 index );

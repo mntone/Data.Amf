@@ -242,12 +242,10 @@ IAmfValue^ Amf3Parser::ParseObject( uint8*& input, size_t& length )
 
 	AmfObject^ obj;
 	if( info->class_name->Length() != 0 )
-	{
 		obj = ref new AmfObject( info->class_name );
-		obj->Externalizable = true;
-	}
 	else
 		obj = ref new AmfObject();
+	obj->Externalizable = info->externalizable;
 	objectReferenceBuffer_.push_back( obj );
 
 #if _WINDOWS_PHONE
