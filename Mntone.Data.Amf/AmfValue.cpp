@@ -122,7 +122,9 @@ Platform::String^ AmfValue::ToString( void )
 	switch( this->ValueType )
 	{
 	case AmfValueType::Undefined: return L"undefined";
-	case AmfValueType::String: return L"\"" + value_->ToString() + L"\"";
+	case AmfValueType::String:
+	case AmfValueType::Xml:
+		return L"\"" + value_->ToString() + L"\"";
 	case AmfValueType::ByteArray:
 		{
 			auto ba = GetByteArray();

@@ -225,6 +225,8 @@ public:
 			Assert::IsTrue( val->ValueType == AmfValueType::Array );
 
 			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
 			const auto& exp = AssertHelper::GetDate( 2013, 11, 2, 20, 28, 52, 100 * 1000000 );
 			Assert::IsTrue( exp.UniversalTime == ary->GetDateAt( 0 ).UniversalTime );
 			Assert::IsTrue( exp.UniversalTime == ary->GetDateAt( 1 ).UniversalTime );
@@ -354,6 +356,22 @@ public:
 		} );
 	}
 
+	TEST_METHOD( Amf3_⑪XmlTest‐1_RootNodeAndRef )
+	{
+		Test( ref new U8Array{ 9, 0x5, 0x1, 11, 13, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e, 0xb, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
+			const auto& xml = ary->GetAt( 0 );
+			Assert::IsTrue( xml->ValueType == AmfValueType::Xml );
+			Assert::AreEqual( L"<root>", xml->GetString() );
+			Assert::IsTrue( ary->GetAt( 1 ) == xml );
+		} );
+	}
+
 	TEST_METHOD( Amf3_⑫ByteArrayTest‐0_234 )
 	{
 		Test( ref new U8Array{ 12, 0x7, 0x2, 0x3, 0x4 }, []( IAmfValue^ val )
@@ -362,6 +380,22 @@ public:
 
 			const auto& ba = val->GetByteArray();
 			AssertHelper::AreArrayEqual( ref new U8Array{ 2, 3, 4 }, ba );
+		} );
+	}
+
+	TEST_METHOD( Amf3_⑫ByteArrayTest‐0_234AndRef )
+	{
+		Test( ref new U8Array{ 9, 0x5, 0x1, 12, 0x7, 0x2, 0x3, 0x4, 0xc, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
+			const auto& ba = ary->GetAt( 0 );
+			Assert::IsTrue( ba->ValueType == AmfValueType::ByteArray );
+			AssertHelper::AreArrayEqual( ref new U8Array{ 2, 3, 4 }, ba->GetByteArray() );
+			Assert::IsTrue( ary->GetAt( 1 ) == ba );
 		} );
 	}
 
@@ -378,6 +412,26 @@ public:
 		} );
 	}
 
+	TEST_METHOD( Amf3_⑬VectorIntTest‐1_2／3AndRef )
+	{
+		Test( ref new U8Array{ 9, 0x5, 0x1, 13, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3, 0xd, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
+			const auto& ivi = ary->GetAt( 0 );
+			Assert::IsTrue( ivi->ValueType == AmfValueType::VectorInt );
+
+			const auto& vi = ivi->GetVectorInt();
+			Assert::AreEqual( 2u, vi->Size );
+			Assert::AreEqual( 2, vi->GetAt( 0 ) );
+			Assert::AreEqual( 3, vi->GetAt( 1 ) );
+			Assert::IsTrue( ary->GetAt( 1 ) == ivi );
+		} );
+	}
+
 	TEST_METHOD( Amf3_⑭VectorUintTest‐0_2／3 )
 	{
 		Test( ref new U8Array{ 14, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3 }, []( IAmfValue^ val )
@@ -391,6 +445,26 @@ public:
 		} );
 	}
 
+	TEST_METHOD( Amf3_⑬VectorUintTest‐1_2／3AndRef )
+	{
+		Test( ref new U8Array{ 9, 0x5, 0x1, 14, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3, 0xe, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
+			const auto& ivu = ary->GetAt( 0 );
+			Assert::IsTrue( ivu->ValueType == AmfValueType::VectorUint );
+
+			const auto& vu = ivu->GetVectorUint();
+			Assert::AreEqual( 2u, vu->Size );
+			Assert::AreEqual( 2u, vu->GetAt( 0 ) );
+			Assert::AreEqual( 3u, vu->GetAt( 1 ) );
+			Assert::IsTrue( ary->GetAt( 1 ) == ivu );
+		} );
+	}
+
 	TEST_METHOD( Amf3_⑮VectorDoubleTest‐0_2．0／3．0 )
 	{
 		Test( ref new U8Array{ 15, 0x5, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }, []( IAmfValue^ val )
@@ -401,6 +475,26 @@ public:
 			Assert::AreEqual( 2u, vd->Size );
 			Assert::AreEqual( 2.0, vd->GetAt( 0 ) );
 			Assert::AreEqual( 3.0, vd->GetAt( 1 ) );
+		} );
+	}
+
+	TEST_METHOD( Amf3_⑬VectorDoubleTest‐1_2．0／3．0AndRef )
+	{
+		Test( ref new U8Array{ 9, 0x5, 0x1, 15, 0x5, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xf, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
+			const auto& ivd = ary->GetAt( 0 );
+			Assert::IsTrue( ivd->ValueType == AmfValueType::VectorDouble );
+
+			const auto& vd = ivd->GetVectorDouble();
+			Assert::AreEqual( 2u, vd->Size );
+			Assert::AreEqual( 2.0, vd->GetAt( 0 ) );
+			Assert::AreEqual( 3.0, vd->GetAt( 1 ) );
+			Assert::IsTrue( ary->GetAt( 1 ) == ivd );
 		} );
 	}
 
@@ -420,6 +514,32 @@ public:
 			const auto& integer = vo->GetAt( 1 );
 			Assert::IsTrue( integer->ValueType == AmfValueType::Integer );
 			Assert::AreEqual( 1u, integer->GetInteger() );
+		} );
+	}
+
+	TEST_METHOD( Amf3_⑯VectorObjectTest‐1_abcAnd1AndRef )
+	{
+		Test( ref new U8Array{ 9, 0x5, 0x1, 16, 0x5, 0x0, 0x1, 0x6, 0x7, 0x61, 0x62, 0x63, 0x4, 0x1, 0x10, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
+			const auto& ivo = ary->GetAt( 0 );
+			Assert::IsTrue( ivo->ValueType == AmfValueType::VectorObject );
+
+			const auto& vo = ivo->GetVectorObject();
+			Assert::AreEqual( 2u, vo->Size );
+
+			const auto& string = vo->GetAt( 0 );
+			Assert::IsTrue( string->ValueType == AmfValueType::String );
+			Assert::AreEqual( L"abc", string->GetString() );
+
+			const auto& integer = vo->GetAt( 1 );
+			Assert::IsTrue( integer->ValueType == AmfValueType::Integer );
+			Assert::AreEqual( 1u, integer->GetInteger() );
+			Assert::IsTrue( ary->GetAt( 1 ) == ivo );
 		} );
 	}
 
