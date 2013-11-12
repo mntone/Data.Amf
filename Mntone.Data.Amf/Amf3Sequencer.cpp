@@ -67,7 +67,9 @@ void Amf3Sequencer::SequencifyInteger( IAmfValue^ input, std::basic_ostringstrea
 	stream.put( amf3_type::amf3_interger );
 
 	const auto& data = input->GetInteger();
-	SequencifyUnsigned29bitInteger( data, stream );
+	if( data >= 268435456 || data < -268435456 )
+		throw ref new Platform::FailureException( "Invalid signed 29-bit integer." );
+	SequencifyUnsigned29bitInteger( static_cast<size_t>( 0x1fffffff & data ), stream );
 }
 
 void Amf3Sequencer::SequencifyDouble( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
@@ -283,7 +285,7 @@ void Amf3Sequencer::SequencifyObject( IAmfValue^ input, std::basic_ostringstream
 
 		info = std::make_shared<amf3_traits_info>();
 		info->externalizable = obj->Externalizable;
-		if( obj->ClassName->Length() != 0 )
+		if( obj->ClassName != "" )
 		{
 			info->dynamic = false;
 			for( const auto& item : obj )

@@ -34,20 +34,20 @@ bool AmfValue::GetBoolean( void )
 	return safe_cast<bool>( value_ );
 }
 
+int32 AmfValue::GetInteger( void )
+{
+	if( ValueType_ != AmfValueType::Integer )
+		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+
+	return safe_cast<int32>( value_ );
+}
+
 float64 AmfValue::GetDouble( void )
 {
 	if( ValueType_ != AmfValueType::Double )
 		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
 
 	return safe_cast<float64>( value_ );
-}
-
-uint32 AmfValue::GetInteger( void )
-{
-	if( ValueType_ != AmfValueType::Integer )
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
-
-	return safe_cast<uint32>( value_ );
 }
 
 Platform::String^ AmfValue::GetString( void )
@@ -221,15 +221,7 @@ AmfValue^ AmfValue::CreateBooleanValue( bool input )
 	return out;
 }
 
-AmfValue^ AmfValue::CreateDoubleValue( float64 input )
-{
-	auto out = ref new AmfValue();
-	out->ValueType_ = AmfValueType::Double;
-	out->value_ = input;
-	return out;
-}
-
-AmfValue^ AmfValue::CreateIntegerValue( uint32 input )
+AmfValue^ AmfValue::CreateIntegerValue( int32 input )
 {
 	auto out = ref new AmfValue();
 	out->ValueType_ = AmfValueType::Integer;
@@ -237,6 +229,14 @@ AmfValue^ AmfValue::CreateIntegerValue( uint32 input )
 	return out;
 }
 
+
+AmfValue^ AmfValue::CreateDoubleValue( float64 input )
+{
+	auto out = ref new AmfValue();
+	out->ValueType_ = AmfValueType::Double;
+	out->value_ = input;
+	return out;
+}
 AmfValue^ AmfValue::CreateStringValue( Platform::String^ input )
 {
 	auto out = ref new AmfValue();

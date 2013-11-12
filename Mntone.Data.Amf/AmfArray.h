@@ -18,8 +18,8 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Platform::Array<uint8>^ Sequencify( void );
 		virtual Platform::Array<uint8>^ Sequencify( AmfEncodingType type );
 		virtual bool GetBoolean( void );
+		virtual int32 GetInteger( void );
 		virtual float64 GetDouble( void );
-		virtual uint32 GetInteger( void );
 		virtual Platform::String^ GetString( void );
 		virtual Windows::Foundation::DateTime GetDate( void );
 		virtual Platform::Array<uint8>^ GetByteArray( void );
@@ -32,8 +32,8 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		// IAmfArray
 		virtual bool GetBooleanAt( uint32 index );
+		virtual int32 GetIntegerAt( uint32 index );
 		virtual float64 GetDoubleAt( uint32 index );
-		virtual uint32 GetIntegerAt( uint32 index );
 		virtual Platform::String^ GetStringAt( uint32 index );
 		virtual Windows::Foundation::DateTime GetDateAt( uint32 index );
 		virtual Platform::Array<uint8>^ GetByteArrayAt( uint32 index );

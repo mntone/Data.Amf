@@ -54,7 +54,7 @@ public:
 		Test( ref new U8Array{ 4, 1 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 1u, val->GetInteger() );
+			Assert::AreEqual( 1, val->GetInteger() );
 		} );
 	}
 
@@ -63,7 +63,7 @@ public:
 		Test( ref new U8Array{ 4, 0x7f }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 127u, val->GetInteger() );
+			Assert::AreEqual( 127, val->GetInteger() );
 		} );
 	}
 
@@ -72,7 +72,7 @@ public:
 		Test( ref new U8Array{ 4, 0x81, 0x00 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 128u, val->GetInteger() );
+			Assert::AreEqual( 128, val->GetInteger() );
 		} );
 	}
 
@@ -81,7 +81,7 @@ public:
 		Test( ref new U8Array{ 4, 0xff, 0x7f }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 16383u, val->GetInteger() );
+			Assert::AreEqual( 16383, val->GetInteger() );
 		} );
 	}
 
@@ -90,7 +90,7 @@ public:
 		Test( ref new U8Array{ 4, 0x81, 0x80, 0x00 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 16384u, val->GetInteger() );
+			Assert::AreEqual( 16384, val->GetInteger() );
 		} );
 	}
 
@@ -99,7 +99,7 @@ public:
 		Test( ref new U8Array{ 4, 0xff, 0xff, 0x7f }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 2097151u, val->GetInteger() );
+			Assert::AreEqual( 2097151, val->GetInteger() );
 		} );
 	}
 
@@ -108,28 +108,58 @@ public:
 		Test( ref new U8Array{ 4, 0x80, 0xc0, 0x80, 0x00 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 2097152u, val->GetInteger() );
+			Assert::AreEqual( 2097152, val->GetInteger() );
 		} );
 	}
 
-	TEST_METHOD( Amf3_④IntegerTest‐8_536870911 )
+	TEST_METHOD( Amf3_④IntegerTest‐8_268435455 )
+	{
+		Test( ref new U8Array{ 4, 0xbf, 0xff, 0xff, 0xff }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual( 268435455, val->GetInteger() );
+		} );
+	}
+
+	TEST_METHOD( Amf3_④IntegerTest‐9_Ex～268435456 )
+	{
+		const auto& val = AmfValue::CreateIntegerValue( 268435456 );
+		SequencerFailureExceptionTest( val );
+	}
+
+	TEST_METHOD( Amf3_④IntegerTest‐a_Ex～2147483647 )
+	{
+		const auto& val = AmfValue::CreateIntegerValue( 2147483647 );
+		SequencerFailureExceptionTest( val );
+	}
+
+	TEST_METHOD( Amf3_④IntegerTest‐b_－1 )
 	{
 		Test( ref new U8Array{ 4, 0xff, 0xff, 0xff, 0xff }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 536870911u, val->GetInteger() );
+			Assert::AreEqual( -1, val->GetInteger() );
 		} );
 	}
 
-	TEST_METHOD( Amf3_④IntegerTest‐9_Ex～536870912 )
+	TEST_METHOD( Amf3_④IntegerTest‐c_－268435456 )
 	{
-		const auto& val = AmfValue::CreateIntegerValue( 536870912 );
+		Test( ref new U8Array{ 4, 0xc0, 0x80, 0x80, 0x00 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Integer );
+			Assert::AreEqual( -268435456, val->GetInteger() );
+		} );
+	}
+
+	TEST_METHOD( Amf3_④IntegerTest‐d_Ex～－268435457 )
+	{
+		const auto& val = AmfValue::CreateIntegerValue( -268435457 );
 		SequencerFailureExceptionTest( val );
 	}
 
-	TEST_METHOD( Amf3_④IntegerTest‐a_Ex～4294967295 )
+	TEST_METHOD( Amf3_④IntegerTest‐e_Ex～－2147483648 )
 	{
-		const auto& val = AmfValue::CreateIntegerValue( 4294967295 );
+		const auto& val = AmfValue::CreateIntegerValue( 0x80000000 );
 		SequencerFailureExceptionTest( val );
 	}
 
@@ -241,10 +271,10 @@ public:
 
 			const auto& obj = val->GetObject();
 			const auto& num = obj->GetNamedInteger( "0" );
-			Assert::AreEqual( 2u, num );
+			Assert::AreEqual( 2, num );
 
 			const auto& str = obj->GetNamedInteger( "abc" );
-			Assert::AreEqual( 3u, str );
+			Assert::AreEqual( 3, str );
 		} );
 	}
 
@@ -256,10 +286,10 @@ public:
 
 			const auto& ary = val->GetArray();
 			const auto& num0 = ary->GetIntegerAt( 0 );
-			Assert::AreEqual( 2u, num0 );
+			Assert::AreEqual( 2, num0 );
 
 			const auto& num1 = ary->GetIntegerAt( 1 );
-			Assert::AreEqual( 3u, num1 );
+			Assert::AreEqual( 3, num1 );
 		} );
 	}
 
@@ -271,10 +301,10 @@ public:
 
 			const auto& obj = val->GetObject();
 			const auto& strAbc = obj->GetNamedInteger( "abc" );
-			Assert::AreEqual( 2u, strAbc );
+			Assert::AreEqual( 2, strAbc );
 
 			const auto& strXyz = obj->GetNamedInteger( "xyz" );
-			Assert::AreEqual( 3u, strXyz );
+			Assert::AreEqual( 3, strXyz );
 		} );
 	}
 
@@ -286,13 +316,13 @@ public:
 
 			const auto& obj = val->GetObject();
 			const auto& str0 = obj->GetNamedInteger( "0" );
-			Assert::AreEqual( 2u, str0 );
+			Assert::AreEqual( 2, str0 );
 
 			const auto& str1 = obj->GetNamedInteger( "1" );
-			Assert::AreEqual( 3u, str1 );
+			Assert::AreEqual( 3, str1 );
 
 			const auto& str3 = obj->GetNamedInteger( "3" );
-			Assert::AreEqual( 4u, str3 );
+			Assert::AreEqual( 4, str3 );
 		} );
 	}
 
@@ -307,7 +337,7 @@ public:
 			Assert::AreEqual( L"abc", strAbc );
 
 			const auto& strXyz = obj->GetNamedInteger( "xyz" );
-			Assert::AreEqual( 3u, strXyz );
+			Assert::AreEqual( 3, strXyz );
 		} );
 	}
 
@@ -340,10 +370,10 @@ public:
 
 			const auto& obj = val->GetObject();
 			const auto& a = obj->GetNamedInteger( "a" );
-			Assert::AreEqual( 2u, a );
+			Assert::AreEqual( 2, a );
 
 			const auto& b = obj->GetNamedInteger( "b" );
-			Assert::AreEqual( 3u, b );
+			Assert::AreEqual( 3, b );
 		} );
 	}
 
@@ -513,7 +543,7 @@ public:
 
 			const auto& integer = vo->GetAt( 1 );
 			Assert::IsTrue( integer->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 1u, integer->GetInteger() );
+			Assert::AreEqual( 1, integer->GetInteger() );
 		} );
 	}
 
@@ -538,7 +568,7 @@ public:
 
 			const auto& integer = vo->GetAt( 1 );
 			Assert::IsTrue( integer->ValueType == AmfValueType::Integer );
-			Assert::AreEqual( 1u, integer->GetInteger() );
+			Assert::AreEqual( 1, integer->GetInteger() );
 			Assert::IsTrue( ary->GetAt( 1 ) == ivo );
 		} );
 	}
@@ -557,14 +587,14 @@ public:
 			const auto& ary = val->GetArray();
 			Assert::AreEqual<uint32>( 4, ary->Size );
 			Assert::AreEqual( L"_result", ary->GetStringAt( 0 )->Data() );
-			Assert::AreEqual( 1u, ary->GetIntegerAt( 1 ) );
+			Assert::AreEqual( 1, ary->GetIntegerAt( 1 ) );
 
 			const auto& objLapped = ary->GetAt( 2 );
 			Assert::IsTrue( objLapped->ValueType == AmfValueType::Object );
 
 			const auto& obj = objLapped->GetObject();
 			Assert::AreEqual( L"FMS/3,0,1,123", obj->GetNamedString( "fmsVer" )->Data() );
-			Assert::AreEqual( 31u, obj->GetNamedInteger( "capabilities" ) );
+			Assert::AreEqual( 31, obj->GetNamedInteger( "capabilities" ) );
 
 			const auto& objLapped2 = ary->GetAt( 3 );
 			Assert::IsTrue( objLapped2->ValueType == AmfValueType::Object );
@@ -573,7 +603,7 @@ public:
 			Assert::AreEqual( L"status", obj2->GetNamedString( "level" )->Data() );
 			Assert::AreEqual( L"NetConnection.Connect.Success", obj2->GetNamedString( "code" )->Data() );
 			Assert::AreEqual( L"Connection succeeded", obj2->GetNamedString( "description" )->Data() );
-			Assert::AreEqual( 0u, obj2->GetNamedInteger( "objectEncoding" ) );
+			Assert::AreEqual( 0, obj2->GetNamedInteger( "objectEncoding" ) );
 		} );
 	}
 
@@ -609,7 +639,7 @@ public:
 			const auto& objC = first->GetObjectAt( 5 );
 			Assert::AreEqual( 1u, objC->Size );
 			Assert::AreEqual( L"x", objC->ClassName );
-			Assert::AreEqual( 23u, objC->GetNamedInteger( "x" ) );
+			Assert::AreEqual( 23, objC->GetNamedInteger( "x" ) );
 
 			const auto& objBRef2 = ary->GetObjectAt( 1 );
 			Assert::IsTrue( objBRef2 == objB );

@@ -21,7 +21,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 		bool GetBoolean( void );
 		float64 GetDouble( void );
-		uint32 GetInteger( void );
+		int32 GetInteger( void );
 		Platform::String^ GetString( void );
 		Windows::Foundation::DateTime GetDate( void );
 		Platform::Array<uint8>^ GetByteArray( void );

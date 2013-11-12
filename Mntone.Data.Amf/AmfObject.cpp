@@ -44,8 +44,8 @@ Platform::Array<uint8>^ AmfObject::Sequencify( AmfEncodingType type )
 }
 
 bool AmfObject::GetBoolean( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
+int32 AmfObject::GetInteger( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
 float64 AmfObject::GetDouble( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
-uint32 AmfObject::GetInteger( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
 Platform::String^ AmfObject::GetString( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
 Windows::Foundation::DateTime AmfObject::GetDate( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
 Platform::Array<uint8>^ AmfObject::GetByteArray( void ) { throw COMExceptionHelper::CreateInvalidOperationException( "Invalid value type." ); }
@@ -67,8 +67,8 @@ AmfArray^ AmfObject::GetArray( void ) { throw COMExceptionHelper::CreateInvalidO
 AmfValue^ AmfObject::GetNamedValue( Platform::String^ name ) { return safe_cast<AmfValue^>( map_->Lookup( name ) ); }
 void AmfObject::SetNamedValue( Platform::String^ name, IAmfValue^ value ) { map_->Insert( name, value ); }
 bool AmfObject::GetNamedBoolean( Platform::String^ name ) { return map_->Lookup( name )->GetBoolean(); }
+int32 AmfObject::GetNamedInteger( Platform::String^ name ) { return map_->Lookup( name )->GetInteger( ); }
 float64 AmfObject::GetNamedDouble( Platform::String^ name ) { return map_->Lookup( name )->GetDouble(); }
-uint32 AmfObject::GetNamedInteger( Platform::String^ name ) { return map_->Lookup( name )->GetInteger( ); }
 Platform::String^ AmfObject::GetNamedString( Platform::String^ name ) { return map_->Lookup( name )->GetString(); }
 Windows::Foundation::DateTime AmfObject::GetNamedDate( Platform::String^ name ) { return map_->Lookup( name )->GetDate(); }
 Platform::Array<uint8>^ AmfObject::GetNamedByteArray( Platform::String^ name ) { return map_->Lookup( name )->GetByteArray(); }

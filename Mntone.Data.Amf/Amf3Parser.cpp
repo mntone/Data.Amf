@@ -81,8 +81,8 @@ IAmfValue^ Amf3Parser::ParseTrue( uint8*& /*input*/, size_t& /*length*/ )
 
 IAmfValue^ Amf3Parser::ParseInteger( uint8*& input, size_t& length )
 {
-	const auto& data = ParseUnsigned29bitInteger( input, length );
-	return AmfValue::CreateIntegerValue( data );
+	const auto& data = static_cast<int32>( ParseUnsigned29bitInteger( input, length ) );
+	return AmfValue::CreateIntegerValue( ( data & 0x10000000 ) == 0x10000000 ? 0xe0000000 | data : data );
 }
 
 IAmfValue^ Amf3Parser::ParseDouble( uint8*& input, size_t& length )
