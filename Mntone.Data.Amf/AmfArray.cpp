@@ -15,15 +15,15 @@ AmfArray::AmfArray( void ) :
 
 Platform::Array<uint8>^ AmfArray::Sequencify( void )
 {
-	return Amf3Sequencer::Sequencify( this );
+	return Amf0Sequencer::Sequencify( this );
 }
 
 Platform::Array<uint8>^ AmfArray::Sequencify( AmfEncodingType type )
 {
-	if( type == AmfEncodingType::Amf0 )
-		return Amf0Sequencer::Sequencify( this );
+	if( type == AmfEncodingType::Amf3 )
+		return Amf3Sequencer::Sequencify( this );
 
-	return Amf3Sequencer::Sequencify( this );
+	return Amf0Sequencer::Sequencify( this );
 }
 
 bool AmfArray::GetBoolean( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
@@ -97,30 +97,30 @@ Platform::String^ AmfArray::ToString( void )
 
 AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input )
 {
-	return reinterpret_cast<AmfArray^>( Amf3Parser::Parse( input ) );
+	return reinterpret_cast<AmfArray^>( Amf0Parser::Parse( input ) );
 }
 
 AmfArray^ AmfArray::Parse( const Platform::Array<uint8>^ input, AmfEncodingType type )
 {
-	if( type == AmfEncodingType::Amf0 )
-		return reinterpret_cast<AmfArray^>( Amf0Parser::Parse( input ) );
+	if( type == AmfEncodingType::Amf3 )
+		return reinterpret_cast<AmfArray^>( Amf3Parser::Parse( input ) );
 
-	return reinterpret_cast<AmfArray^>( Amf3Parser::Parse( input ) );
+	return reinterpret_cast<AmfArray^>( Amf0Parser::Parse( input ) );
 }
 
 bool AmfArray::TryParse( const Platform::Array<uint8>^ input, AmfArray^* result )
 {
 	auto buf = reinterpret_cast<IAmfValue^*>( result );
-	return Amf3Parser::TryParse( input, buf );
+	return Amf0Parser::TryParse( input, buf );
 }
 
 bool AmfArray::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfArray^* result )
 {
 	auto buf = reinterpret_cast<IAmfValue^*>( result );
-	if( type == AmfEncodingType::Amf0 )
-		return Amf0Parser::TryParse( input, buf );
+	if( type == AmfEncodingType::Amf3 )
+		return Amf3Parser::TryParse( input, buf );
 
-	return Amf3Parser::TryParse( input, buf );
+	return Amf0Parser::TryParse( input, buf );
 }
 
 void AmfArray::SetData( std::vector<IAmfValue^> data )

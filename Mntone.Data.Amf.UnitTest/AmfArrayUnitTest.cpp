@@ -151,34 +151,34 @@ public:
 
 	TEST_METHOD( AmfArray_ParseTest_Default )
 	{
-		const auto& ary = AmfArray::Parse( ref new Platform::Array<uint8>{ 0 } );
+		const auto& ary = AmfArray::Parse( ref new U8Array{ 6 } );
 		Assert::IsTrue( ary->ValueType == AmfValueType::Undefined );
 	}
 
 	TEST_METHOD( AmfArray_ParseTest_Amf0 )
 	{
-		const auto& ary = AmfArray::Parse( ref new Platform::Array<uint8>{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, AmfEncodingType::Amf0 );
+		const auto& ary = AmfArray::Parse( ref new U8Array{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, AmfEncodingType::Amf0 );
 		Assert::IsTrue( ary->ValueType == AmfValueType::Double );
 		Assert::AreEqual( 0.0, ary->GetDouble() );
 	}
 
 	TEST_METHOD( AmfArray_ParseTest_Amf3 )
 	{
-		const auto& ary = AmfArray::Parse( ref new Platform::Array<uint8>{ 0 }, AmfEncodingType::Amf3 );
+		const auto& ary = AmfArray::Parse( ref new U8Array{ 0 }, AmfEncodingType::Amf3 );
 		Assert::IsTrue( ary->ValueType == AmfValueType::Undefined );
 	}
 
 	TEST_METHOD( AmfArray_TryParseTest_Default )
 	{
 		AmfArray^ ary;
-		Assert::IsTrue( AmfArray::TryParse( ref new Platform::Array<uint8>{ 0 }, &ary ) );
+		Assert::IsTrue( AmfArray::TryParse( ref new U8Array{ 6 }, &ary ) );
 		Assert::IsTrue( ary->ValueType == AmfValueType::Undefined );
 	}
 
 	TEST_METHOD( AmfArray_TryParseTest_Amf0 )
 	{
 		AmfArray^ ary;
-		Assert::IsTrue( AmfArray::TryParse( ref new Platform::Array<uint8>{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, AmfEncodingType::Amf0, &ary ) );
+		Assert::IsTrue( AmfArray::TryParse( ref new U8Array{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, AmfEncodingType::Amf0, &ary ) );
 		Assert::IsTrue( ary->ValueType == AmfValueType::Double );
 		Assert::AreEqual( 0.0, ary->GetDouble() );
 	}
@@ -186,7 +186,7 @@ public:
 	TEST_METHOD( AmfArray_TryParseTest_Amf3 )
 	{
 		AmfArray^ ary;
-		Assert::IsTrue( AmfArray::TryParse( ref new Platform::Array<uint8>{ 0 }, AmfEncodingType::Amf3, &ary ) );
+		Assert::IsTrue( AmfArray::TryParse( ref new U8Array{ 0 }, AmfEncodingType::Amf3, &ary ) );
 		Assert::IsTrue( ary->ValueType == AmfValueType::Undefined );
 	}
 
@@ -194,11 +194,9 @@ private:
 	void InvalidOperationTest( std::function<void( AmfArray^ )> testHandler )
 	{
 		const auto& ary = ref new AmfArray();
-
 		AssertHelper::ExpectInvalidOperatonException( [=]
 		{
 			testHandler( ary );
 		} );
-
 	}
 };

@@ -13,7 +13,7 @@ Platform::Array<uint8>^ Amf0Sequencer::Sequencify( IAmfValue^ input )
 	( ref new Amf0Sequencer() )->SequencifyValue( input, stream );
 	const auto& sequence = stream.str();
 	auto out = ref new Platform::Array<uint8>( static_cast<uint32>( sequence.length() ) );
-	memcpy( out->Data, sequence.c_str(), sequence.length() );
+	std::copy_n( std::begin( sequence ), sequence.size(), out->begin() );
 	return out;
 }
 
