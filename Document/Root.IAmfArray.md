@@ -24,8 +24,7 @@ The **IAmfArray** interface has these methods. It also inherits methods from the
 Method           |Description
 -----------------|-----------
 GetBooleanAt     |Gets the Boolean value at the specified index if the ValueType of the value at that index is Boolean.
-GetDoubleAt      |Gets the Double value at the specified index if the ValueType of the value at that index is Double.
-GetIntegerAt     |Gets the Integer value at the specified index if the ValueType of the value at that index is Integer.
+GetNumberAt      |Gets the Number value at the specified index if the ValueType of the value at that index is Number.
 GetStringAt      |Gets the String value at the specified index if the ValueType of the value at that index is String.
 GetDateAt        |Gets the Date value at the specified index if the ValueType of the value at that index is Date.
 GetObjectAt      |Gets the ByteArray value at the specified index if the ValueType of the value at that index is Object.
@@ -36,4 +35,4 @@ GetVectorObjectAt|Gets the VectorObject value at the specified index if the Valu
 GetObjectAt      |Gets the Object value at the specified index if the ValueType of the value at that index is Object.
 GetArrayAt       |Gets the Array value at the specified index if the ValueType of the value at that index is Array.
 
-##### Update date: Nov 11, 2013
+##### Update date: Nov 15, 2013

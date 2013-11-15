@@ -48,8 +48,7 @@ Method         |Description
 ---------------|-----------
 Sequencify　    |Retrives the Amf representation of the encapsulated value.
 GetBoolean     |Gets the Boolean if the ValueType of the encapsulated value is Boolean.
-GetInteger     |Gets the Integer if the ValueType of the encapsulated value is Integer.
-GetDouble      |Gets the Double if the ValueType of the encapsulated value is Double.
+GetNumber      |Gets the Double if the ValueType of the encapsulated value is Number.
 GetString      |Gets the String if the ValueType of the encapsulated value is String.
 GetDate        |Gets the Date if the ValueType of the encapsulated value is Date.
 GetByteArray   |Gets the ByteArray if the ValueType of the encapsulated value is ByteArray.
@@ -72,8 +71,7 @@ Method                 |Description
 -----------------------|-----------
 CreateUndefinedValue   |Creates a AmfValue.
 CreateBooleanValue     |Creates a AmfValue from a Boolean.
-CreateIntegerValue     |Creates a AmfValue from a Integer.
-CreateDoubleValue      |Creates a AmfValue from a Double.
+CreateNumberValue      |Creates a AmfValue from a Number.
 CreateStringValue      |Creates a AmfValue from a String.
 CreateDateValue        |Creates a AmfValue from a Date.
 CreateXmlValue         |Creates a AmfValue from a Xml.
@@ -94,4 +92,4 @@ Property |Access type|Description
 ---------|-----------|-----------
 ValueType|Read-only  |Gets the type of the encapsulated Amf value. Possible types are defined by AmfValueType.
 
-##### Update date: Nov 9, 2013
+##### Update date: Nov 15, 2013

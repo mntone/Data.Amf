@@ -46,8 +46,7 @@ Method         |Description
 ---------------|-----------
 Sequencify　    |Retrives the Amf representation of the encapsulated value.
 GetBoolean     |Gets the Boolean if the ValueType of the encapsulated value is Boolean.
-GetInteger     |Gets the Integer if the ValueType of the encapsulated value is Integer.
-GetDouble      |Gets the Double if the ValueType of the encapsulated value is Double.
+GetNumber      |Gets the Double if the ValueType of the encapsulated value is Number.
 GetString      |Gets the String if the ValueType of the encapsulated value is String.
 GetDate        |Gets the Date if the ValueType of the encapsulated value is Date.
 GetByteArray   |Gets the ByteArray if the ValueType of the encapsulated value is ByteArray.
@@ -63,8 +62,7 @@ GetArray       |Gets the Array if the ValueType of the encapsulated value is Arr
 Method           |Description
 -----------------|-----------
 GetBooleanAt     |Gets the Boolean value at the specified index if the ValueType of the value at that index is Boolean.
-GetIntegerAt     |Gets the Integer value at the specified index if the ValueType of the value at that index is Integer.
-GetDoubleAt      |Gets the Double value at the specified index if the ValueType of the value at that index is Double.
+GetNumberAt      |Gets the Integer value at the specified index if the ValueType of the value at that index is Number.
 GetStringAt      |Gets the String value at the specified index if the ValueType of the value at that index is String.
 GetDateAt        |Gets the Date value at the specified index if the ValueType of the value at that index is Date.
 GetByteArrayAt   |Gets the ByteArray value at the specified index if the ValueType of the value at that index is ByteArray.
@@ -134,4 +132,4 @@ Count [C#, VB]     |Read-only  |Gets the number of elements contained in the col
 IsReadOnly [C#, VB]|Read-only  |Gets a value indicating whether the collection is read-only.
 Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 
-##### Update date: Nov 11, 2013
+##### Update date: Nov 15, 2013

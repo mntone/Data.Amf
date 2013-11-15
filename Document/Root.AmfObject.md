@@ -46,8 +46,7 @@ Method         |Description
 ---------------|-----------
 Sequencify　    |Retrives the Amf representation of the encapsulated value.
 GetBoolean     |Gets the Boolean if the ValueType of the encapsulated value is Boolean.
-GetInteger     |Gets the Integer if the ValueType of the encapsulated value is Integer.
-GetDouble      |Gets the Double if the ValueType of the encapsulated value is Double.
+GetNumber      |Gets the Double if the ValueType of the encapsulated value is Number.
 GetString      |Gets the String if the ValueType of the encapsulated value is String.
 GetDate        |Gets the Date if the ValueType of the encapsulated value is Date.
 GetByteArray   |Gets the ByteArray if the ValueType of the encapsulated value is ByteArray.
@@ -144,4 +143,4 @@ Item [C#, VB]      |Read/write |Gets or sets the element at the specified index.
 Keys [C#, VB]      |Read-only  |Gets an ICollection object containing the keys of the AmfObject.
 Values [C#, VB]    |Read-only  |Gets an ICollection object containing the values of the AmfObject.
 
-##### Update date: Nov 11, 2013
+##### Update date: Nov 15, 2013
