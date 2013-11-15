@@ -71,11 +71,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static bool TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfObject^* result );
 
 	internal:
-#if _WINDOWS_PHONE
 		void SetData( std::map<Platform::String^, IAmfValue^> data );
-#else
-		void SetData( std::unordered_map<Platform::String^, IAmfValue^> data );
-#endif
 
 	public:
 		// IAmfValue
@@ -104,11 +100,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	private:
 		AmfValueType ValueType_;
-#if _WINDOWS_PHONE
 		Platform::Collections::Map<Platform::String^, IAmfValue^>^ map_;
-#else
-		Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>^ map_;
-#endif
 
 		Platform::String^ ClassName_;
 		bool Externalizable_;

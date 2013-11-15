@@ -169,12 +169,7 @@ IAmfValue^ Amf3Parser::ParseArray( uint8*& input, size_t& length )
 		return GetObject( value );
 
 	AmfObject^ obj;
-#if _WINDOWS_PHONE
 	std::map<Platform::String^, IAmfValue^> map;
-#else
-	std::unordered_map<Platform::String^, IAmfValue^> map;
-#endif
-
 	const auto& count = value >> 1;
 	while( length > 0 )
 	{
@@ -248,11 +243,7 @@ IAmfValue^ Amf3Parser::ParseObject( uint8*& input, size_t& length )
 	obj->Externalizable = info->externalizable;
 	objectReferenceBuffer_.push_back( obj );
 
-#if _WINDOWS_PHONE
 	std::map<Platform::String^, IAmfValue^> map;
-#else
-	std::unordered_map<Platform::String^, IAmfValue^> map;
-#endif
 	for( const auto& key : info->properites )
 		map.emplace( key, ParseValue( input, length ) );
 

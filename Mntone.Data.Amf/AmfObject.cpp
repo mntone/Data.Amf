@@ -10,22 +10,14 @@ using namespace Mntone::Data::Amf;
 
 AmfObject::AmfObject( void ) :
 	ValueType_( AmfValueType::Object ),
-#if _WINDOWS_PHONE
 	map_( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() ),
-#else
-	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>() ),
-#endif
 	ClassName_( "" ),
 	Externalizable_( false )
 { }
 
 AmfObject::AmfObject( Platform::String^ className ):
 	ValueType_( AmfValueType::Object ),
-#if _WINDOWS_PHONE
 	map_( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() ),
-#else
-	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>() ),
-#endif
 	ClassName_( className ),
 	Externalizable_( false )
 { }
@@ -146,14 +138,7 @@ bool AmfObject::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType t
 	return Amf0Parser::TryParse( input, buf );
 }
 
-#if _WINDOWS_PHONE
 void AmfObject::SetData( std::map<Platform::String^, IAmfValue^> data )
 {
 	map_ = ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( data );
 }
-#else
-void AmfObject::SetData( std::unordered_map<Platform::String^, IAmfValue^> data )
-{
-	map_ = ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>( data );
-}
-#endif

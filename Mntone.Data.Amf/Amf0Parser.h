@@ -38,11 +38,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		IAmfValue^ ParseObject( uint8*& input, size_t& length );
 		IAmfValue^ ParseEcmaArray( uint8*& input, size_t& length );
 		IAmfValue^ ParseTypedObject( uint8*& input, size_t& length );
-#if _WINDOWS_PHONE
 		std::map<Platform::String^, IAmfValue^> ParseObjectBase( uint8*& input, size_t& length );
-#else
-		std::unordered_map<Platform::String^, IAmfValue^> ParseObjectBase( uint8*& input, size_t& length );
-#endif
 		std::pair<Platform::String^, IAmfValue^> ParseProperty( uint8*& input, size_t& length );
 
 		Platform::String^ ParseUtf8( uint8*& input, size_t& length );

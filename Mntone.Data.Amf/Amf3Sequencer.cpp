@@ -338,7 +338,7 @@ void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_ostringstr
 	const auto& obj = input->GetObject();
 
 	std::map<size_t, IAmfValue^> numericKeysItem;
-	std::unordered_map<Platform::String^, IAmfValue^> stringKeysItem;
+	std::map<Platform::String^, IAmfValue^> stringKeysItem;
 	{
 		std::locale locale;
 		for( const auto& item : obj )
