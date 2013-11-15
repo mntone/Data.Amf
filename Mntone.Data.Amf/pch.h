@@ -1,24 +1,20 @@
 ﻿#pragma once
 
-#include <SDKDDKVer.h>
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
-#endif
-
-// STL Headers
+// STL Headers:
 #include <memory>
-#include <sstream>
 #include <string>
+#include <sstream>
+#include <locale>
+#include <tuple>
 #include <vector>
 #include <map>
-#include <unordered_map>
 #include <utility>
-#include <locale>
 
 // Windows Header Files:
+#define NOMINMAX
 #include <windows.h>
+#undef NOMINMAX
 #include <collection.h>
-#include <ppltasks.h>
 
 // This Project Header Files:
 #include "Utilities.h"
