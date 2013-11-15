@@ -41,7 +41,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		void SequencifyUtf8Long( Platform::String^ input, std::basic_ostringstream<uint8>& stream );
 		void SequencifyUtf8Long( IAmfValue^ input, std::basic_ostringstream<uint8>& stream );
 
-		int32 IsReference( IAmfValue^ input );
+		int32 IndexOfObjectIdenticalTo( IAmfValue^ input );
 		void SequencifyReference( int32 input, std::basic_ostringstream<uint8>& stream );
 
 	private:

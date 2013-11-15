@@ -115,7 +115,7 @@ void Amf0Sequencer::SequencifyXml( IAmfValue^ input, std::basic_ostringstream<ui
 void Amf0Sequencer::SequencifyObject( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	const auto& obj = input->GetObject();
-	const auto& ref = IsReference( obj );
+	const auto& ref = IndexOfObjectIdenticalTo( obj );
 	if( ref != -1 )
 	{
 		SequencifyReference( ref, stream );
@@ -140,7 +140,7 @@ void Amf0Sequencer::SequencifyObject( IAmfValue^ input, std::basic_ostringstream
 void Amf0Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	const auto& obj = input->GetObject();
-	const auto& ref = IsReference( obj );
+	const auto& ref = IndexOfObjectIdenticalTo( obj );
 	if( ref != -1 )
 	{
 		SequencifyReference( ref, stream );
@@ -175,7 +175,7 @@ void Amf0Sequencer::SequencifyObjectBase( AmfObject^ input, std::basic_ostringst
 void Amf0Sequencer::SequencifyStrictArray( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	const auto& ary = input->GetArray();
-	const auto& ref = IsReference( ary );
+	const auto& ref = IndexOfObjectIdenticalTo( ary );
 	if( ref != -1 )
 	{
 		SequencifyReference( ref, stream );
@@ -244,7 +244,7 @@ void Amf0Sequencer::SequencifyUtf8Long( IAmfValue^ input, std::basic_ostringstre
 	SequencifyUtf8Long( input->GetString(), stream );
 }
 
-int32 Amf0Sequencer::IsReference( IAmfValue^ input )
+int32 Amf0Sequencer::IndexOfObjectIdenticalTo( IAmfValue^ input )
 {
 	const int32& length = static_cast<int32>( referenceBuffer_.size() );
 	for( int32 i = 0u; i < length; ++i )

@@ -124,7 +124,7 @@ void Amf3Sequencer::SequencifyDate( IAmfValue^ input, std::basic_ostringstream<u
 {
 	stream.put( amf3_type::amf3_date );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -143,7 +143,7 @@ void Amf3Sequencer::SequencifyXml( IAmfValue^ input, std::basic_ostringstream<ui
 {
 	stream.put( amf3_type::amf3_xml );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -161,7 +161,7 @@ void Amf3Sequencer::SequencifyByteArray( IAmfValue^ input, std::basic_ostringstr
 {
 	stream.put( amf3_type::amf3_byte_array );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -179,7 +179,7 @@ void Amf3Sequencer::SequencifyVectorInt( IAmfValue^ input, std::basic_ostringstr
 {
 	stream.put( amf3_type::amf3_vector_int );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -195,7 +195,7 @@ void Amf3Sequencer::SequencifyVectorUint( IAmfValue^ input, std::basic_ostringst
 {
 	stream.put( amf3_type::amf3_vector_uint );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -211,7 +211,7 @@ void Amf3Sequencer::SequencifyVectorDouble( IAmfValue^ input, std::basic_ostring
 {
 	stream.put( amf3_type::amf3_vector_double );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -227,7 +227,7 @@ void Amf3Sequencer::SequencifyVectorObject( IAmfValue^ input, std::basic_ostring
 {
 	stream.put( amf3_type::amf3_vector_object );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -253,7 +253,7 @@ void Amf3Sequencer::SequencifyObject( IAmfValue^ input, std::basic_ostringstream
 {
 	stream.put( amf3_type::amf3_object );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -327,7 +327,7 @@ void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_ostringstr
 {
 	stream.put( amf3_type::amf3_array );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -393,7 +393,7 @@ void Amf3Sequencer::SequencifyArray( IAmfValue^ input, std::basic_ostringstream<
 {
 	stream.put( amf3_type::amf3_array );
 
-	const auto& ref = IsObjectReference( input );
+	const auto& ref = IndexOfObjectIdenticalTo( input );
 	if( ref != -1 )
 	{
 		SequencifyUnsigned28bitIntegerAndReference( ref, true, stream );
@@ -445,7 +445,7 @@ void Amf3Sequencer::SequencifyUnsigned29bitInteger( const size_t input, std::bas
 		throw ref new Platform::FailureException( "Invalid unsigned 29-bit integer." );
 }
 
-int32 Amf3Sequencer::IsObjectReference( IAmfValue^ input )
+int32 Amf3Sequencer::IndexOfObjectIdenticalTo( IAmfValue^ input )
 {
 	const int32& length = static_cast<int32>( objectReferenceBuffer_.size() );
 	for( int32 i = 0u; i < length; ++i )
