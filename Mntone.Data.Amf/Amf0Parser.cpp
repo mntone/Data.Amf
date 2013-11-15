@@ -64,7 +64,7 @@ IAmfValue^ Amf0Parser::ParseNumber( uint8*& input, size_t& length )
 	input += 8;
 	length -= 8;
 
-	return AmfValue::CreateDoubleValue( data );
+	return AmfValue::CreateNumberValue( data );
 }
 
 IAmfValue^ Amf0Parser::ParseBoolean( uint8*& input, size_t& length )

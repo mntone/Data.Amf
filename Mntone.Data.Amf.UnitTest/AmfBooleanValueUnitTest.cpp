@@ -19,21 +19,12 @@ public:
 		Assert::AreEqual( generalTestValue_, booleanValue );
 	}
 
-	TEST_METHOD( AmfBooleanValue_GetDoubleTest )
+	TEST_METHOD( AmfBooleanValue_GetNumberTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
-			val->GetDouble();
-		} );
-	}
-
-	TEST_METHOD( AmfBooleanValue_GetIntegerTest )
-	{
-		const auto& val = GeneralCareteAmfValue();
-		AssertHelper::ExpectInvalidOperatonException( [=]()
-		{
-			val->GetInteger();
+			val->GetNumber();
 		} );
 	}
 

@@ -27,8 +27,7 @@ void Amf3Sequencer::SequencifyValue( IAmfValue^ input, std::basic_ostringstream<
 	case AmfValueType::Undefined: SequencifyUndefined( input, stream ); break;
 	case AmfValueType::Null: SequencifyNull( input, stream ); break;
 	case AmfValueType::Boolean: SequencifyBoolean( input, stream ); break;
-	case AmfValueType::Double: SequencifyDouble( input, stream ); break;
-	case AmfValueType::Integer: SequencifyInteger( input, stream ); break;
+	case AmfValueType::Number: SequencifyDouble( input, stream ); break;
 	case AmfValueType::String: SequencifyString( input, stream ); break;
 	case AmfValueType::Date: SequencifyDate( input, stream ); break;
 	case AmfValueType::Xml: SequencifyXml( input, stream ); break;
@@ -62,21 +61,23 @@ void Amf3Sequencer::SequencifyBoolean( IAmfValue^ input, std::basic_ostringstrea
 		stream.put( amf3_type::amf3_false );
 }
 
-void Amf3Sequencer::SequencifyInteger( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
+void Amf3Sequencer::SequencifyInteger( const float64 input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf3_type::amf3_interger );
-
-	const auto& data = input->GetInteger();
-	if( data >= 268435456 || data < -268435456 )
-		throw ref new Platform::FailureException( "Invalid signed 29-bit integer." );
-	SequencifyUnsigned29bitInteger( static_cast<size_t>( 0x1fffffff & data ), stream );
+	SequencifyUnsigned29bitInteger( 0x1fffffff & static_cast<size_t>( input ), stream );
 }
 
 void Amf3Sequencer::SequencifyDouble( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
+	const auto& data = input->GetNumber();
+	if( data < 268435456 && data >= -268435456 && std::floor( data ) == data )
+	{
+		SequencifyInteger( data, stream );
+		return;
+	}
+
 	stream.put( amf3_type::amf3_double );
 
-	const auto& data = input->GetDouble();
 	uint8 buf[8];
 	ConvertBigEndian( &data, buf, 8 );
 	stream.write( buf, 8 );

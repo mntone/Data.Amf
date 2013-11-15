@@ -49,19 +49,11 @@ public:
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetDoubleTest )
+	TEST_METHOD( AmfArray_GetNumberTest )
 	{
 		InvalidOperationTest( []( AmfArray^ ary )
 		{
-			ary->GetDouble();
-		} );
-	}
-
-	TEST_METHOD( AmfArray_GetIntegerTest )
-	{
-		InvalidOperationTest( []( AmfArray^ ary )
-		{
-			ary->GetInteger();
+			ary->GetNumber();
 		} );
 	}
 
@@ -145,7 +137,7 @@ public:
 	{
 		const auto& ary = ref new AmfArray();
 		ary->Append( AmfValue::CreateBooleanValue( true ) );
-		ary->Append( AmfValue::CreateIntegerValue( 50 ) );
+		ary->Append( AmfValue::CreateNumberValue( 50.0 ) );
 		Assert::AreEqual( L"[true, 50]", ary->ToString() );
 	}
 
@@ -158,8 +150,8 @@ public:
 	TEST_METHOD( AmfArray_ParseTest_Amf0 )
 	{
 		const auto& ary = AmfArray::Parse( ref new U8Array{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, AmfEncodingType::Amf0 );
-		Assert::IsTrue( ary->ValueType == AmfValueType::Double );
-		Assert::AreEqual( 0.0, ary->GetDouble() );
+		Assert::IsTrue( ary->ValueType == AmfValueType::Number );
+		Assert::AreEqual( 0.0, ary->GetNumber() );
 	}
 
 	TEST_METHOD( AmfArray_ParseTest_Amf3 )
@@ -179,8 +171,8 @@ public:
 	{
 		AmfArray^ ary;
 		Assert::IsTrue( AmfArray::TryParse( ref new U8Array{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, AmfEncodingType::Amf0, &ary ) );
-		Assert::IsTrue( ary->ValueType == AmfValueType::Double );
-		Assert::AreEqual( 0.0, ary->GetDouble() );
+		Assert::IsTrue( ary->ValueType == AmfValueType::Number );
+		Assert::AreEqual( 0.0, ary->GetNumber() );
 	}
 
 	TEST_METHOD( AmfArray_TryParseTest_Amf3 )

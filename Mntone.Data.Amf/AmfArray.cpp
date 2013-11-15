@@ -27,8 +27,7 @@ Platform::Array<uint8>^ AmfArray::Sequencify( AmfEncodingType type )
 }
 
 bool AmfArray::GetBoolean( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
-int32 AmfArray::GetInteger( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
-float64 AmfArray::GetDouble( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
+float64 AmfArray::GetNumber( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
 Platform::String^ AmfArray::GetString( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
 Windows::Foundation::DateTime AmfArray::GetDate( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
 Platform::Array<uint8>^ AmfArray::GetByteArray( void ) { throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." ); }
@@ -47,8 +46,7 @@ AmfArray^ AmfArray::GetArray( void )
 }
 
 bool AmfArray::GetBooleanAt( uint32 index ) { return vector_->GetAt( index )->GetBoolean(); }
-int32 AmfArray::GetIntegerAt( uint32 index ) { return vector_->GetAt( index )->GetInteger(); }
-float64 AmfArray::GetDoubleAt( uint32 index ) { return vector_->GetAt( index )->GetDouble(); }
+float64 AmfArray::GetNumberAt( uint32 index ) { return vector_->GetAt( index )->GetNumber(); }
 Platform::String^ AmfArray::GetStringAt( uint32 index ) { return vector_->GetAt( index )->GetString(); }
 Windows::Foundation::DateTime AmfArray::GetDateAt( uint32 index ) { return vector_->GetAt( index )->GetDate(); }
 Platform::Array<uint8>^ AmfArray::GetByteArrayAt( uint32 index ) { return vector_->GetAt( index )->GetByteArray(); }

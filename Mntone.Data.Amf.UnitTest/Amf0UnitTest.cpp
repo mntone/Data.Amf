@@ -10,8 +10,8 @@ public:
 	{
 		Test( ref new U8Array{ 0, 0, 0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( val->ValueType == AmfValueType::Double );
-			Assert::AreEqual( 0.0, val->GetDouble() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Number );
+			Assert::AreEqual( 0.0, val->GetNumber() );
 		} );
 	}
 
@@ -19,8 +19,8 @@ public:
 	{
 		Test( ref new U8Array{ 0, 0x3f, 0xe0, 0, 0, 0, 0, 0, 0 }, []( IAmfValue^ val )
 		{
-			Assert::IsTrue( val->ValueType == AmfValueType::Double );
-			Assert::AreEqual( 0.5, val->GetDouble() );
+			Assert::IsTrue( val->ValueType == AmfValueType::Number );
+			Assert::AreEqual( 0.5, val->GetNumber() );
 		} );
 	}
 
@@ -123,8 +123,8 @@ public:
 			
 			const auto& objOrigin = ary->GetObjectAt( 0 );
 			Assert::AreEqual( 2u, objOrigin->Size );
-			Assert::AreEqual( 2.0, objOrigin->GetNamedDouble( "a" ) );
-			Assert::AreEqual( 3.0, objOrigin->GetNamedDouble( "b" ) );
+			Assert::AreEqual( 2.0, objOrigin->GetNamedNumber( "a" ) );
+			Assert::AreEqual( 3.0, objOrigin->GetNamedNumber( "b" ) );
 
 			const auto& objReference = ary->GetObjectAt( 1 );
 			Assert::IsTrue( objReference == objOrigin );
@@ -179,8 +179,8 @@ public:
 			
 			const auto& aryOrigin = ary->GetObjectAt( 0 );
 			Assert::AreEqual( 2u, aryOrigin->Size );
-			Assert::AreEqual( 2.0, aryOrigin->GetNamedDouble( "0" ) );
-			Assert::AreEqual( 3.0, aryOrigin->GetNamedDouble( "1" ) );
+			Assert::AreEqual( 2.0, aryOrigin->GetNamedNumber( "0" ) );
+			Assert::AreEqual( 3.0, aryOrigin->GetNamedNumber( "1" ) );
 
 			const auto& aryReference = ary->GetObjectAt( 1 );
 			Assert::IsTrue( aryReference == aryOrigin );
@@ -204,7 +204,7 @@ public:
 
 			const auto& ary = val->GetArray();
 			Assert::AreEqual( 2u, ary->Size );
-			Assert::AreEqual( 0.0, ary->GetDoubleAt( 0 ) );
+			Assert::AreEqual( 0.0, ary->GetNumberAt( 0 ) );
 			Assert::IsTrue( ary->GetBooleanAt( 1 ) );
 		} );
 	}
@@ -220,8 +220,8 @@ public:
 
 			const auto& aryOrigin = ary->GetArrayAt( 0 );
 			Assert::AreEqual( 2u, aryOrigin->Size );
-			Assert::AreEqual( 2.0, aryOrigin->GetDoubleAt( 0 ) );
-			Assert::AreEqual( 3.0, aryOrigin->GetDoubleAt( 1 ) );
+			Assert::AreEqual( 2.0, aryOrigin->GetNumberAt( 0 ) );
+			Assert::AreEqual( 3.0, aryOrigin->GetNumberAt( 1 ) );
 
 			const auto& aryReference = ary->GetArrayAt( 1 );
 			Assert::IsTrue( aryReference == aryOrigin );
@@ -313,8 +313,8 @@ public:
 			const auto& objOrigin = ary->GetObjectAt( 0 );
 			Assert::AreEqual( 2u, objOrigin->Size );
 			Assert::AreEqual( L"Test", objOrigin->ClassName );
-			Assert::AreEqual( 2.0, objOrigin->GetNamedDouble( "a" ) );
-			Assert::AreEqual( 3.0, objOrigin->GetNamedDouble( "b" ) );
+			Assert::AreEqual( 2.0, objOrigin->GetNamedNumber( "a" ) );
+			Assert::AreEqual( 3.0, objOrigin->GetNamedNumber( "b" ) );
 
 			const auto& objReference = ary->GetObjectAt( 1 );
 			Assert::IsTrue( objReference == objOrigin );
@@ -335,14 +335,14 @@ public:
 			const auto& ary = val->GetArray();
 			Assert::AreEqual( 4u, ary->Size );
 			Assert::AreEqual( L"_result", ary->GetStringAt( 0 ) );
-			Assert::AreEqual( 1.0, ary->GetDoubleAt( 1 ) );
+			Assert::AreEqual( 1.0, ary->GetNumberAt( 1 ) );
 
 			const auto& objLapped = ary->GetAt( 2 );
 			Assert::IsTrue( objLapped->ValueType == AmfValueType::Object );
 
 			const auto& obj = objLapped->GetObject();
 			Assert::AreEqual( L"FMS/3,0,1,123", obj->GetNamedString( "fmsVer" ) );
-			Assert::AreEqual( 31.0, obj->GetNamedDouble( "capabilities" ) );
+			Assert::AreEqual( 31.0, obj->GetNamedNumber( "capabilities" ) );
 
 			const auto& objLapped2 = ary->GetAt( 3 );
 			Assert::IsTrue( objLapped2->ValueType == AmfValueType::Object );
@@ -351,7 +351,7 @@ public:
 			Assert::AreEqual( L"status", obj2->GetNamedString( "level" ) );
 			Assert::AreEqual( L"NetConnection.Connect.Success", obj2->GetNamedString( "code" ) );
 			Assert::AreEqual( L"Connection succeeded", obj2->GetNamedString( "description" ) );
-			Assert::AreEqual( 0.0, obj2->GetNamedDouble( "objectEncoding" ) );
+			Assert::AreEqual( 0.0, obj2->GetNamedNumber( "objectEncoding" ) );
 		} );
 	}
 
@@ -387,7 +387,7 @@ public:
 			const auto& objC = first->GetNamedObject( "5" );
 			Assert::AreEqual( 1u, objC->Size );
 			Assert::AreEqual( L"x", objC->ClassName );
-			Assert::AreEqual( 23.0, objC->GetNamedDouble( "x" ) );
+			Assert::AreEqual( 23.0, objC->GetNamedNumber( "x" ) );
 
 			const auto& objBRef2 = obj->GetNamedObject( "1" );
 			Assert::IsTrue( objBRef2 == objB );

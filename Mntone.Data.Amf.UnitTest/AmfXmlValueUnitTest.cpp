@@ -21,21 +21,12 @@ public:
 		} );
 	}
 
-	TEST_METHOD( AmfXmlValue_GetDoubleTest )
+	TEST_METHOD( AmfXmlValue_GetNumberTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
-			val->GetDouble();
-		} );
-	}
-
-	TEST_METHOD( AmfXmlValue_GetIntegerTest )
-	{
-		const auto& val = GeneralCareteAmfValue();
-		AssertHelper::ExpectInvalidOperatonException( [=]()
-		{
-			val->GetInteger();
+			val->GetNumber();
 		} );
 	}
 

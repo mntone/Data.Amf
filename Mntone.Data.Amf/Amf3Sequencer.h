@@ -25,7 +25,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		void SequencifyNull( IAmfValue^ input, std::basic_ostringstream<uint8>& stream );
 		void SequencifyBoolean( IAmfValue^ input, std::basic_ostringstream<uint8>& stream );
 
-		void SequencifyInteger( IAmfValue^ input, std::basic_ostringstream<uint8>& stream );
+		void SequencifyInteger( const float64 input, std::basic_ostringstream<uint8>& stream );
 		void SequencifyDouble( IAmfValue^ input, std::basic_ostringstream<uint8>& stream );
 
 		void SequencifyString( IAmfValue^ input, std::basic_ostringstream<uint8>& stream );

@@ -29,21 +29,12 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 		} );
 	}
 
-	TEST_METHOD( AmfUndefinedValue_GetDoubleTest )
-	{
-		const auto& val = GeneralCareteAmfValue();
-		AssertHelper::ExpectInvalidOperatonException( [=]()
-		{
-			val->GetDouble();
-		} );
-	}
-
 	TEST_METHOD( AmfUndefinedValue_GetIntegerTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
-			val->GetInteger();
+			val->GetNumber();
 		} );
 	}
 

@@ -27,8 +27,7 @@ void Amf0Sequencer::SequencifyValue( IAmfValue^ input, std::basic_ostringstream<
 	case AmfValueType::Undefined: SequencifyUndefined( input, stream ); break;
 	case AmfValueType::Null: SequencifyNull( input, stream ); break;
 	case AmfValueType::Boolean: SequencifyBoolean( input, stream ); break;
-	case AmfValueType::Integer: SequencifyInteger( input, stream ); break;
-	case AmfValueType::Double: SequencifyDouble( input, stream ); break;
+	case AmfValueType::Number: SequencifyNumber( input, stream ); break;
 	case AmfValueType::String: SequencifyString( input, stream ); break;
 	case AmfValueType::Date: SequencifyDate( input, stream ); break;
 	case AmfValueType::Xml: SequencifyXml( input, stream ); break;
@@ -55,21 +54,11 @@ void Amf0Sequencer::SequencifyBoolean( IAmfValue^ input, std::basic_ostringstrea
 	stream.put( static_cast<uint8>( input->GetBoolean() ) );
 }
 
-void Amf0Sequencer::SequencifyInteger( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
+void Amf0Sequencer::SequencifyNumber( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
 	stream.put( amf0_type::amf0_number );
 
-	const auto& data = static_cast<float64>( input->GetInteger() );
-	uint8 buf[8];
-	ConvertBigEndian( &data, buf, 8 );
-	stream.write( buf, 8 );
-}
-
-void Amf0Sequencer::SequencifyDouble( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
-{
-	stream.put( amf0_type::amf0_number );
-
-	const auto& data = input->GetDouble();
+	const auto& data = input->GetNumber();
 	uint8 buf[8];
 	ConvertBigEndian( &data, buf, 8 );
 	stream.write( buf, 8 );

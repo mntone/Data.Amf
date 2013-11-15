@@ -22,8 +22,6 @@
     <ClCompile Include="AssertHelper.cpp" />
     <ClCompile Include="AmfBooleanValueUnitTest.cpp" />
     <ClCompile Include="AmfUndefinedValueUnitTest.cpp" />
-    <ClCompile Include="AmfDoubleValueUnitTest.cpp" />
-    <ClCompile Include="AmfIntegerValueUnitTest.cpp" />
     <ClCompile Include="AmfStringValueUnitTest.cpp" />
     <ClCompile Include="AmfDateValueUnitTest.cpp" />
     <ClCompile Include="AmfXmlValueUnitTest.cpp" />
@@ -32,6 +30,7 @@
     <ClCompile Include="AmfVectorUintValueUnitTest.cpp" />
     <ClCompile Include="AmfVectorDoubleValueUnitTest.cpp" />
     <ClCompile Include="AmfVectorObjectValueUnitTest.cpp" />
+    <ClCompile Include="AmfNumberValueUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Images\UnitTestLogo.scale-100.png">

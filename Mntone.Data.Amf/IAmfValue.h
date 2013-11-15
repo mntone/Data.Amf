@@ -20,8 +20,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		Platform::Array<uint8>^ Sequencify( AmfEncodingType type );
 
 		bool GetBoolean( void );
-		float64 GetDouble( void );
-		int32 GetInteger( void );
+		float64 GetNumber( void );
 		Platform::String^ GetString( void );
 		Windows::Foundation::DateTime GetDate( void );
 		Platform::Array<uint8>^ GetByteArray( void );
