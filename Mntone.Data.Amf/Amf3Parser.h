@@ -17,11 +17,12 @@ namespace Mntone { namespace Data { namespace Amf {
 		static IAmfValue^ Parse( const Platform::Array<uint8>^ input );
 		static bool TryParse( const Platform::Array<uint8>^ input, IAmfValue^* result );
 
-	private:
+	internal:
 		Amf3Parser( void );
 
 		IAmfValue^ ParseValue( uint8*& input, size_t& length );
 
+	private:
 		IAmfValue^ ParseUndefined( uint8*& input, size_t& length );
 		IAmfValue^ ParseNull( uint8*& input, size_t& length );
 		IAmfValue^ ParseFalse( uint8*& input, size_t& length );

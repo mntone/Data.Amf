@@ -21,7 +21,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		//amf0_recordset = 0x0e, // reserved
 		amf0_xml_document = 0x0f,
 		amf0_typed_object = 0x10,
-		//amf0_avmplus_object = 0x11, // no support
+		amf0_avmplus_object = 0x11,
 
 		// original type
 		_amf0_flexible_array = 0x80,

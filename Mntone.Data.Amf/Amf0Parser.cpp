@@ -4,6 +4,7 @@
 #include "AmfArray.h"
 #include "AmfObject.h"
 #include "amf0_type.h"
+#include "Amf3Parser.h"
 
 using namespace Mntone::Data::Amf;
 
@@ -49,6 +50,7 @@ IAmfValue^ Amf0Parser::ParseValue( uint8*& input, size_t& length )
 	case amf0_type::amf0_long_string: return ParseLongString( input, length );
 	case amf0_type::amf0_xml_document: return ParseXmlDocument( input, length );
 	case amf0_type::amf0_typed_object: return ParseTypedObject( input, length );
+	case amf0_type::amf0_avmplus_object: return ParseAvmplusObject( input, length );
 	case amf0_type::_amf0_flexible_array: return ParseFlexibleArray( input, length );
 	default: throw ref new Platform::FailureException( "Invalid type." );
 	}
@@ -245,6 +247,11 @@ std::pair<Platform::String^, IAmfValue^> Amf0Parser::ParseProperty( uint8*& inpu
 	const auto& key = ParseUtf8( input, length );
 	const auto& value = ParseValue( input, length );
 	return std::make_pair( std::move( key ), std::move( value ) );
+}
+
+IAmfValue^ Amf0Parser::ParseAvmplusObject( uint8*& input, size_t& length )
+{
+	return ( ref new Amf3Parser() )->ParseValue( input, length );
 }
 
 Platform::String^ Amf0Parser::ParseUtf8( uint8*& input, size_t& length )

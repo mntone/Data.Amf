@@ -41,6 +41,8 @@ namespace Mntone { namespace Data { namespace Amf {
 		std::map<Platform::String^, IAmfValue^> ParseObjectBase( uint8*& input, size_t& length );
 		std::pair<Platform::String^, IAmfValue^> ParseProperty( uint8*& input, size_t& length );
 
+		IAmfValue^ ParseAvmplusObject( uint8*& input, size_t& length );
+
 		Platform::String^ ParseUtf8( uint8*& input, size_t& length );
 		Platform::String^ ParseUtf8Long( uint8*& input, size_t& length );
 		Platform::String^ ParseUtf8Base( uint8*& input, size_t& length, const size_t textLength );

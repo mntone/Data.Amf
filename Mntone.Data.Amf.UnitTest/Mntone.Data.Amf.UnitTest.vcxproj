@@ -249,6 +249,7 @@
     <ClInclude Include="AssertHelper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Amf0AmvplusUnitTest.cpp" />
     <ClCompile Include="Amf3UnitTest.cpp" />
     <ClCompile Include="AmfArrayUnitTest.cpp" />
     <ClCompile Include="AmfBooleanValueUnitTest.cpp" />
