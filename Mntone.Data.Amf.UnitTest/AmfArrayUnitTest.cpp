@@ -182,332 +182,316 @@ public:
 		Assert::IsTrue( ary->ValueType == AmfValueType::Undefined );
 	}
 
-	TEST_METHOD(AmfArray_GetBooleanAtTest)
+	TEST_METHOD( AmfArray_GetBooleanAtTest )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateBooleanValue(false));
-
-		Assert::AreEqual(false, ary->GetBooleanAt(0));	
+		ary->Append( AmfValue::CreateBooleanValue( false ) );
+		Assert::AreEqual( false, ary->GetBooleanAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetBooleanAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetBooleanAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateBooleanValue(false));
-
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetBooleanAt(1);
-		});
-
+		ary->Append( AmfValue::CreateBooleanValue( false ) );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetBooleanAt( 1 );
+		} );
 	}
 
-
-	TEST_METHOD(AmfArray_GetBooeanAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetBooeanAtTest_InvalidType )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"invalid type value"));
+		ary->Append( AmfValue::CreateStringValue( L"invalid type value" ) );
 
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetBooleanAt(0);
-		});
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetBooleanAt( 0 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetStringAtTest)
+	TEST_METHOD( AmfArray_GetStringAtTest )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"get string test"));
-
-		Assert::AreEqual(L"get string test", ary->GetStringAt(0));
+		ary->Append( AmfValue::CreateStringValue( L"get string test" ) );
+		Assert::AreEqual( L"get string test", ary->GetStringAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetStringAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetStringAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"get string test"));
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetStringAt(1);
-		});
+		ary->Append( AmfValue::CreateStringValue( L"get string test" ) );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetStringAt( 1 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetStringAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetStringAtTest_InvalidType )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateBooleanValue(false));
-
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetStringAt(0);
-		});
+		ary->Append( AmfValue::CreateBooleanValue( false ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetStringAt( 0 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetNumberAtTest)
+	TEST_METHOD( AmfArray_GetNumberAtTest )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateNumberValue(2.5));
-
-		Assert::AreEqual(2.5, ary->GetNumberAt(0));
+		ary->Append( AmfValue::CreateNumberValue( 2.5 ) );
+		Assert::AreEqual( 2.5, ary->GetNumberAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetNumberAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetNumberAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateNumberValue(2.5));
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetNumberAt(1);
-		});
-
-		
+		ary->Append( AmfValue::CreateNumberValue( 2.5 ) );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetNumberAt( 1 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetNumberAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetNumberAtTest_InvalidType )
 	{
 		auto ary = ref new AmfArray();
-
-		ary->Append(AmfValue::CreateStringValue(L"invalid type"));
-
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetNumberAt(0);
-		});
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetNumberAt( 0 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetDateAtTest)
+	TEST_METHOD( AmfArray_GetDateAtTest )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateDateValue(AssertHelper::GetDate(2000,12,4)));
-		
-		
-		Assert::IsTrue(AssertHelper::GetDate(2000, 12, 4).UniversalTime ==  ary->GetDateAt(0).UniversalTime);
+		ary->Append( AmfValue::CreateDateValue( AssertHelper::GetDate( 2000, 12, 4 ) ) );
+		Assert::IsTrue( AssertHelper::GetDate( 2000, 12, 4 ).UniversalTime == ary->GetDateAt( 0 ).UniversalTime );
 	}
 
-	TEST_METHOD(AmfArray_GetDateAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetDateAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateDateValue(AssertHelper::GetDate(2000, 12, 4)));
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetDateAt(1);
-		});
+		ary->Append( AmfValue::CreateDateValue( AssertHelper::GetDate( 2000, 12, 4 ) ) );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetDateAt( 1 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetDateAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetDateAtTest_InvalidType )
 	{
 		auto ary = ref new AmfArray();
-
-		ary->Append(AmfValue::CreateStringValue(L"invalid type"));
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetDateAt(0);
-		});
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetDateAt( 0 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetByteArrayAtTest)
-	{
-		auto ary = ref new AmfArray();
-		Platform::Array<uint8>^ byteArray = { 255, 222, 21 } ;
-		ary->Append(AmfValue::CreateByteArrayValue(byteArray));
-		AssertHelper::AreArrayEqual(byteArray, ary->GetByteArrayAt(0));
-	}
-
-	TEST_METHOD(AmfArray_GetByteArrayAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetByteArrayAtTest )
 	{
 		auto ary = ref new AmfArray();
 		Platform::Array<uint8>^ byteArray = { 255, 222, 21 };
-		ary->Append(AmfValue::CreateByteArrayValue(byteArray));
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetByteArrayAt(1);
-		});
+		ary->Append( AmfValue::CreateByteArrayValue( byteArray ) );
+		AssertHelper::AreArrayEqual( byteArray, ary->GetByteArrayAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetByteArrayAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetByteArrayAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"invalid type"));
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetByteArrayAt(0);
-		});
+		Platform::Array<uint8>^ byteArray = { 255, 222, 21 };
+		ary->Append( AmfValue::CreateByteArrayValue( byteArray ) );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetByteArrayAt( 1 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetArrayAtTest)
+	TEST_METHOD( AmfArray_GetByteArrayAtTest_InvalidType )
+	{
+		auto ary = ref new AmfArray();
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetByteArrayAt( 0 );
+		} );
+	}
+
+	TEST_METHOD( AmfArray_GetArrayAtTest )
 	{
 		auto ary = ref new AmfArray();
 		auto valAry = ref new AmfArray();
-		ary->Append(valAry);
-		Assert::AreEqual(valAry, ary->GetArrayAt(0));
+		ary->Append( valAry );
+		Assert::AreEqual( valAry, ary->GetArrayAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetArrayAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetArrayAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
 		auto valAry = ref new AmfArray();
-		ary->Append(valAry);
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetArrayAt(1);
-		});
+		ary->Append( valAry );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetArrayAt( 1 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetArrayAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetArrayAtTest_InvalidType )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"invalid type"));
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetArrayAt(0);
-		});
-	}
-	
-
-	TEST_METHOD(AmfArray_GetVectorDoubleAtTest)
-	{
-		auto ary = ref new AmfArray();
-		auto doubleVector = ref new Platform::Collections::Vector<float64>{ 2.4, 2.1 };
-		ary->Append(AmfValue::CreateVectorDoubleValue(doubleVector));
-
-		AssertHelper::AreVectorEqual(doubleVector, ary->GetVectorDoubleAt(0));
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetArrayAt( 0 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorDoubleAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetVectorDoubleAtTest )
 	{
 		auto ary = ref new AmfArray();
 		auto doubleVector = ref new Platform::Collections::Vector<float64>{ 2.4, 2.1 };
-		ary->Append(AmfValue::CreateVectorDoubleValue(doubleVector));
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetVectorDoubleAt(1);
-		});
+		ary->Append( AmfValue::CreateVectorDoubleValue( doubleVector ) );
+		AssertHelper::AreVectorEqual( doubleVector, ary->GetVectorDoubleAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorDoubleAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetVectorDoubleAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"invalid type"));
-
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetVectorDoubleAt(0);
-		});
+		auto doubleVector = ref new Platform::Collections::Vector<float64>{ 2.4, 2.1 };
+		ary->Append( AmfValue::CreateVectorDoubleValue( doubleVector ) );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetVectorDoubleAt( 1 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorIntAtTest)
+	TEST_METHOD( AmfArray_GetVectorDoubleAtTest_InvalidType )
+	{
+		auto ary = ref new AmfArray();
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetVectorDoubleAt( 0 );
+		} );
+	}
+
+	TEST_METHOD( AmfArray_GetVectorIntAtTest )
 	{
 		auto ary = ref new AmfArray();
 		auto intVector = ref new Platform::Collections::Vector<int>{ 5, 2 };
-		ary->Append(AmfValue::CreateVectorIntValue(intVector));
-
-		AssertHelper::AreVectorEqual(intVector, ary->GetVectorIntAt(0));
+		ary->Append( AmfValue::CreateVectorIntValue( intVector ) );
+		AssertHelper::AreVectorEqual( intVector, ary->GetVectorIntAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorIntAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetVectorIntAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
 		auto intVector = ref new Platform::Collections::Vector<int>{ 5, 2 };
-		ary->Append(AmfValue::CreateVectorIntValue(intVector));
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetVectorIntAt(1);
-		});
+		ary->Append( AmfValue::CreateVectorIntValue( intVector ) );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetVectorIntAt( 1 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorIntAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetVectorIntAtTest_InvalidType )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"invalid type"));
-
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetVectorIntAt(0);
-		});
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetVectorIntAt( 0 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorUintAtTest)
-	{
-		auto ary = ref new AmfArray();
-		auto uintVector = ref new Platform::Collections::Vector<uint32>{ 5, 2 };
-		ary->Append(AmfValue::CreateVectorUintValue(uintVector));
-
-		AssertHelper::AreVectorEqual(uintVector, ary->GetVectorUintAt(0));
-	}
-
-	TEST_METHOD(AmfArray_GetVectorUintAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetVectorUintAtTest )
 	{
 		auto ary = ref new AmfArray();
 		auto uintVector = ref new Platform::Collections::Vector<uint32>{ 5, 2 };
-		ary->Append(AmfValue::CreateVectorUintValue(uintVector));
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetVectorUintAt(1);
-		});
+		ary->Append( AmfValue::CreateVectorUintValue( uintVector ) );
+		AssertHelper::AreVectorEqual( uintVector, ary->GetVectorUintAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorUintAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetVectorUintAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"invalid type"));
-
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetVectorUintAt(0);
-		});
+		auto uintVector = ref new Platform::Collections::Vector<uint32>{ 5, 2 };
+		ary->Append( AmfValue::CreateVectorUintValue( uintVector ) );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetVectorUintAt( 1 );
+		} );
 	}
 
-
-	TEST_METHOD(AmfArray_GetVectorObjectAtTest)
+	TEST_METHOD( AmfArray_GetVectorUintAtTest_InvalidType )
 	{
 		auto ary = ref new AmfArray();
-		Windows::Foundation::Collections::IVector<IAmfValue^>^ objeVector = ref new Platform::Collections::Vector<IAmfValue^>{ ref new AmfObject(), ref new AmfObject() };
-		ary->Append(AmfValue::CreateVectorObjectValue(objeVector));
-
-		Assert::AreEqual(objeVector, ary->GetVectorObjectAt(0));
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetVectorUintAt( 0 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorObjectAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetVectorObjectAtTest )
 	{
 		auto ary = ref new AmfArray();
-		auto objeVector = ref new Platform::Collections::Vector<IAmfValue^>{ ref new AmfObject(), ref new AmfObject() };
-		ary->Append(AmfValue::CreateVectorObjectValue(objeVector));
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetVectorObjectAt(1);
-		});
+		Windows::Foundation::Collections::IVector<IAmfValue^>^ vec = ref new Platform::Collections::Vector<IAmfValue^>{ ref new AmfObject(), ref new AmfObject() };
+		ary->Append( AmfValue::CreateVectorObjectValue( vec ) );
+		Assert::AreEqual( vec, ary->GetVectorObjectAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetVectorObjectAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetVectorObjectAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"invalid type"));
-
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetVectorObjectAt(0);
-		});
+		auto vec = ref new Platform::Collections::Vector<IAmfValue^>{ ref new AmfObject( ), ref new AmfObject( ) };
+		ary->Append( AmfValue::CreateVectorObjectValue( vec ) );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetVectorObjectAt( 1 );
+		} );
 	}
 
-
-	TEST_METHOD(AmfArray_GetObjectAtTest)
+	TEST_METHOD( AmfArray_GetVectorObjectAtTest_InvalidType )
 	{
 		auto ary = ref new AmfArray();
-		auto amfObject = ref new AmfObject();
-		ary->Append(amfObject);
-
-		Assert::AreEqual(amfObject, ary->GetObjectAt(0));
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetVectorObjectAt( 0 );
+		} );
 	}
 
-	TEST_METHOD(AmfArray_GetObjectAtTest_OutOfRange)
+	TEST_METHOD( AmfArray_GetObjectAtTest )
 	{
 		auto ary = ref new AmfArray();
 		auto amfObject = ref new AmfObject();
-		ary->Append(amfObject);
-
-		Assert::ExpectException<Platform::OutOfBoundsException^>([=]{
-			ary->GetObjectAt(1);
-		});
+		ary->Append( amfObject );
+		Assert::AreEqual( amfObject, ary->GetObjectAt( 0 ) );
 	}
 
-	TEST_METHOD(AmfArray_GetObjectAtTest_InvalidType)
+	TEST_METHOD( AmfArray_GetObjectAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		ary->Append(AmfValue::CreateStringValue(L"invalid type"));
+		auto amfObject = ref new AmfObject();
+		ary->Append( amfObject );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetObjectAt( 1 );
+		} );
+	}
 
-		AssertHelper::ExpectInvalidOperatonException([=]{
-			ary->GetObjectAt(0);
-		});
+	TEST_METHOD( AmfArray_GetObjectAtTest_InvalidType )
+	{
+		auto ary = ref new AmfArray();
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetObjectAt( 0 );
+		} );
 	}
 
 private:
