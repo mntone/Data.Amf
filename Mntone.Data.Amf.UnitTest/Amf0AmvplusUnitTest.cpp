@@ -597,16 +597,16 @@ public:
 			Assert::IsTrue( objLapped->ValueType == AmfValueType::Object );
 
 			const auto& obj = objLapped->GetObject();
-			Assert::AreEqual( L"FMS/3,0,1,123", obj->GetNamedString( "fmsVer" )->Data() );
+			Assert::AreEqual( L"FMS/3,0,1,123", obj->GetNamedString( "fmsVer" ) );
 			Assert::AreEqual( 31.0, obj->GetNamedNumber( "capabilities" ) );
 
 			const auto& objLapped2 = ary->GetAt( 3 );
 			Assert::IsTrue( objLapped2->ValueType == AmfValueType::Object );
 
 			const auto& obj2 = objLapped2->GetObject();
-			Assert::AreEqual( L"status", obj2->GetNamedString( "level" )->Data() );
-			Assert::AreEqual( L"NetConnection.Connect.Success", obj2->GetNamedString( "code" )->Data() );
-			Assert::AreEqual( L"Connection succeeded", obj2->GetNamedString( "description" )->Data() );
+			Assert::AreEqual( L"status", obj2->GetNamedString( "level" ) );
+			Assert::AreEqual( L"NetConnection.Connect.Success", obj2->GetNamedString( "code" ) );
+			Assert::AreEqual( L"Connection succeeded", obj2->GetNamedString( "description" ) );
 			Assert::AreEqual( 0.0, obj2->GetNamedNumber( "objectEncoding" ) );
 		} );
 	}

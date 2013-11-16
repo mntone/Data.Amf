@@ -122,5 +122,5 @@ private:
 		return AmfValue::CreateBooleanValue( generalTestValue_ );
 	}
 
-	const bool generalTestValue_ = false;
+	bool generalTestValue_ = false;
 };

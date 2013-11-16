@@ -121,5 +121,5 @@ private:
 		return AmfValue::CreateNumberValue( generalTestValue_ );
 	}
 
-	const float64 generalTestValue_ = 4.5;
+	float64 generalTestValue_ = 4.5;
 };
