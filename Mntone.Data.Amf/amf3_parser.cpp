@@ -23,7 +23,7 @@ IAmfValue^ amf3_parser::parse( const Platform::Array<uint8>^ input )
 	}
 	catch( const amf_exception& ex )
 	{
-		throw amf_exception( ex.get_message() );
+		throw ref new Platform::FailureException( ex.get_message() );
 	}
 }
 

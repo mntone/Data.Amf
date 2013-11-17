@@ -95,7 +95,7 @@ IAmfValue^ amf0_parser::parse_boolean( uint8*& input, size_t& length )
 	if( length < 1 )
 		throw amf_exception( "Invalid boolean." );
 
-	auto data = input[0] != 0 ? true : false;
+	bool data( input[0] != 0 ? true : false );
 	input += 1;
 	length -= 1;
 
