@@ -49,7 +49,7 @@ namespace Mntone { namespace Data { namespace Amf {
 			{
 				const auto& data = input->GetAt( i );
 				uint8 buf[S];
-				ConvertBigEndian( &data, buf, S );
+				utilities::convert_big_endian( &data, buf, S );
 				stream.write( buf, S );
 			}
 		}
@@ -67,7 +67,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	private:
 		std::vector<Platform::String^> stringReferenceBuffer_;
 		std::vector<IAmfValue^> objectReferenceBuffer_;
-		std::vector<std::shared_ptr<amf3_traits_info>> traitsInfoBuffer_;
+		std::vector<std::shared_ptr<mntone::data::amf::amf3_traits_info>> traitsInfoBuffer_;
 	};
 
 } } }

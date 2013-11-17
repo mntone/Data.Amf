@@ -671,7 +671,7 @@ private:
 
 	IAmfValue^ ParserTest( U8Array^ expected, std::function<void( IAmfValue^ )> checkHandler )
 	{
-		const auto& amf = Amf3Parser::Parse( expected );
+		const auto& amf = amf3_parser::parse( expected );
 		const auto& str = amf->ToString();
 		Logger::WriteMessage( str->Data() );
 		Logger::WriteMessage( L"\n" );

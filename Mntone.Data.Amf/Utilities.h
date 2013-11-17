@@ -1,14 +1,18 @@
 #pragma once
 #include "pch.h"
 
-namespace Mntone { namespace Data { namespace Amf {
+namespace mntone { namespace data { namespace amf {
 
-	extern void ConvertBigEndian( const void *const from, void *const to, const size_t size );
+	class utilities
+	{
+	public:
+		static void convert_big_endian( const void *const from, void *const to, const size_t size );
 
-	extern Platform::String^ CharUtf8ToPlatformString( const std::string& charUtf8 );
-	extern std::string PlatformStringToCharUtf8( Platform::String^ platformString );
+		static Platform::String^ char_utf8_to_platform_string( const std::string& char_utf8 );
+		static std::string platform_string_to_char_utf8( Platform::String^ platform_string );
 
-	extern uint64 DateTimeToUnixTime( Windows::Foundation::DateTime dateTime );
-	extern Windows::Foundation::DateTime UnixTimeToDateTime( const uint64 unixTime );
+		static uint64 date_time_to_unix_time( Windows::Foundation::DateTime date_time );
+		static Windows::Foundation::DateTime unix_time_to_date_time( const uint64 date_time );
+	};
 
 } } }

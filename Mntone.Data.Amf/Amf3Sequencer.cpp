@@ -5,6 +5,7 @@
 #include "AmfObject.h"
 #include "amf3_type.h"
 
+using namespace mntone::data::amf;
 using namespace Mntone::Data::Amf;
 
 Platform::Array<uint8>^ Amf3Sequencer::Sequencify( IAmfValue^ input )
@@ -79,7 +80,7 @@ void Amf3Sequencer::SequencifyDouble( IAmfValue^ input, std::basic_ostringstream
 	stream.put( amf3_type::amf3_double );
 
 	uint8 buf[8];
-	ConvertBigEndian( &data, buf, 8 );
+	utilities::convert_big_endian( &data, buf, 8 );
 	stream.write( buf, 8 );
 }
 
@@ -111,7 +112,7 @@ void Amf3Sequencer::SequencifyStringBase( Platform::String^ input, std::basic_os
 	}
 
 	{
-		const auto& data = PlatformStringToCharUtf8( input );
+		const auto& data = utilities::platform_string_to_char_utf8( input );
 		const auto& length = data.size();
 		SequencifyUnsigned28bitIntegerAndReference( length, false, stream );
 		stream.write( reinterpret_cast<const uint8*>( data.c_str() ), length );
@@ -133,9 +134,9 @@ void Amf3Sequencer::SequencifyDate( IAmfValue^ input, std::basic_ostringstream<u
 	objectReferenceBuffer_.push_back( input );
 	SequencifyUnsigned28bitIntegerAndReference( 0, false, stream );
 
-	const auto& data = static_cast<float64>( DateTimeToUnixTime( input->GetDate() ) );
+	const auto& data = static_cast<float64>( utilities::date_time_to_unix_time( input->GetDate() ) );
 	uint8 buf[8];
-	ConvertBigEndian( &data, buf, 8 );
+	utilities::convert_big_endian( &data, buf, 8 );
 	stream.write( buf, 8 );
 }
 
@@ -151,7 +152,7 @@ void Amf3Sequencer::SequencifyXml( IAmfValue^ input, std::basic_ostringstream<ui
 	}
 	objectReferenceBuffer_.push_back( input );
 
-	const auto& data = PlatformStringToCharUtf8( input->GetString() );
+	const auto& data = utilities::platform_string_to_char_utf8( input->GetString( ) );
 	const auto& length = data.size();
 	SequencifyUnsigned28bitIntegerAndReference( length, false, stream );
 	stream.write( reinterpret_cast<const uint8*>( data.c_str() ), length );
@@ -338,7 +339,7 @@ void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_ostringstr
 	const auto& obj = input->GetObject();
 
 	std::map<size_t, IAmfValue^> numericKeysItem;
-	std::map<Platform::String^, IAmfValue^> stringKeysItem;
+	std::vector<std::pair<Platform::String^, IAmfValue^>> stringKeysItem;
 	{
 		std::locale locale;
 		for( const auto& item : obj )
@@ -350,7 +351,7 @@ void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_ostringstr
 				continue;
 			}
 
-			stringKeysItem.emplace( key, item->Value );
+			stringKeysItem.push_back( std::make_pair( key, item->Value ) );
 		}
 	}
 
@@ -374,7 +375,7 @@ void Amf3Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_ostringstr
 		for( const auto& item : list )
 		{
 			numericKeysItem.erase( item.first );
-			stringKeysItem.emplace( item.first.ToString(), item.second );
+			stringKeysItem.push_back( std::make_pair( item.first.ToString(), item.second ) );
 		}
 	}
 

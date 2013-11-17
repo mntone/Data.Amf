@@ -129,7 +129,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <WarningLevel>Level4</WarningLevel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
-      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
     </ClCompile>
@@ -151,7 +151,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
     </ClCompile>
@@ -168,7 +168,7 @@
       <CompileAsWinRT>true</CompileAsWinRT>
       <FloatingPointModel>Fast</FloatingPointModel>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
@@ -189,7 +189,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
     </ClCompile>
@@ -205,7 +205,7 @@
       <CompileAsWinRT>true</CompileAsWinRT>
       <FloatingPointModel>Fast</FloatingPointModel>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
@@ -226,7 +226,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>false</SDLCheck>
       <AssemblerOutput>AssemblyCode</AssemblerOutput>
     </ClCompile>
@@ -237,10 +237,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Amf0Parser.h" />
+    <ClInclude Include="amf0_parser.h" />
     <ClInclude Include="Amf0Sequencer.h" />
     <ClInclude Include="amf0_type.h" />
-    <ClInclude Include="Amf3Parser.h" />
+    <ClInclude Include="amf3_parser.h" />
     <ClInclude Include="Amf3Sequencer.h" />
     <ClInclude Include="amf3_traits_info.h" />
     <ClInclude Include="amf3_type.h" />
@@ -249,22 +249,23 @@
     <ClInclude Include="AmfObject.h" />
     <ClInclude Include="AmfValue.h" />
     <ClInclude Include="AmfValueType.h" />
-    <ClInclude Include="COMExceptionHelper.h" />
+    <ClInclude Include="amf_exception.h" />
+    <ClInclude Include="com_exception_helper.h" />
     <ClInclude Include="IAmfArray.h" />
     <ClInclude Include="IAmfObject.h" />
     <ClInclude Include="IAmfValue.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Utilities.h" />
+    <ClInclude Include="utilities.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Amf0Parser.cpp" />
+    <ClCompile Include="amf0_parser.cpp" />
     <ClCompile Include="Amf0Sequencer.cpp" />
-    <ClCompile Include="Amf3Parser.cpp" />
+    <ClCompile Include="amf3_parser.cpp" />
     <ClCompile Include="Amf3Sequencer.cpp" />
     <ClCompile Include="AmfArray.cpp" />
     <ClCompile Include="AmfObject.cpp" />
     <ClCompile Include="AmfValue.cpp" />
-    <ClCompile Include="COMExceptionHelper.cpp" />
+    <ClCompile Include="com_exception_helper.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -273,7 +274,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Utilities.cpp" />
+    <ClCompile Include="utilities.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

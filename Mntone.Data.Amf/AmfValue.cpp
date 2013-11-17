@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "AmfValue.h"
-#include "Amf0Parser.h"
+#include "amf0_parser.h"
 #include "Amf0Sequencer.h"
-#include "Amf3Parser.h"
+#include "amf3_parser.h"
 #include "Amf3Sequencer.h"
-#include "COMExceptionHelper.h"
+#include "com_exception_helper.h"
 
+using namespace mntone::data::amf;
 using namespace Mntone::Data::Amf;
 
 AmfValue::AmfValue( void ) :
@@ -29,7 +30,7 @@ Platform::Array<uint8>^ AmfValue::Sequencify( AmfEncodingType type )
 bool AmfValue::GetBoolean( void )
 {
 	if( ValueType_ != AmfValueType::Boolean )
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<bool>( value_ );
 }
@@ -37,7 +38,7 @@ bool AmfValue::GetBoolean( void )
 float64 AmfValue::GetNumber( void )
 {
 	if( ValueType_ != AmfValueType::Number )
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<float64>( value_ );
 }
@@ -45,7 +46,7 @@ float64 AmfValue::GetNumber( void )
 Platform::String^ AmfValue::GetString( void )
 {
 	if( ValueType_ != AmfValueType::String && ValueType_ != AmfValueType::Xml )
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<Platform::String^>( value_ );
 }
@@ -53,7 +54,7 @@ Platform::String^ AmfValue::GetString( void )
 Windows::Foundation::DateTime AmfValue::GetDate( void )
 {
 	if( ValueType_ != AmfValueType::Date )
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<Windows::Foundation::DateTime>( value_ );
 }
@@ -61,7 +62,7 @@ Windows::Foundation::DateTime AmfValue::GetDate( void )
 Platform::Array<uint8>^ AmfValue::GetByteArray( void )
 {
 	if( ValueType_ != AmfValueType::ByteArray )
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<Platform::Array<uint8>^>( value_ );
 }
@@ -69,7 +70,7 @@ Platform::Array<uint8>^ AmfValue::GetByteArray( void )
 Windows::Foundation::Collections::IVector<int32>^ AmfValue::GetVectorInt( void )
 {
 	if( ValueType_ != AmfValueType::VectorInt )
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<Platform::Collections::Vector<int32>^>( value_ );
 }
@@ -77,7 +78,7 @@ Windows::Foundation::Collections::IVector<int32>^ AmfValue::GetVectorInt( void )
 Windows::Foundation::Collections::IVector<uint32>^ AmfValue::GetVectorUint( void )
 {
 	if( ValueType_ != AmfValueType::VectorUint ) 
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<Platform::Collections::Vector<uint32>^>( value_ );
 }
@@ -85,7 +86,7 @@ Windows::Foundation::Collections::IVector<uint32>^ AmfValue::GetVectorUint( void
 Windows::Foundation::Collections::IVector<float64>^ AmfValue::GetVectorDouble( void )
 {
 	if( ValueType_ != AmfValueType::VectorDouble ) 
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<Platform::Collections::Vector<float64>^>( value_ );
 }
@@ -93,19 +94,19 @@ Windows::Foundation::Collections::IVector<float64>^ AmfValue::GetVectorDouble( v
 Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfValue::GetVectorObject( void )
 {
 	if( ValueType_ != AmfValueType::VectorObject )
-		throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<Platform::Collections::Vector<IAmfValue^>^>( value_ );
 }
 
 AmfObject^ AmfValue::GetObject( void )
 {
-	throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+	throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 }
 
 AmfArray^ AmfValue::GetArray( void )
 {
-	throw COMExceptionHelper::CreateInvalidOperationException( L"Invalid value type." );
+	throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 }
 
 #if !_WINDOWS_PHONE
@@ -307,28 +308,28 @@ void AmfValue::SetData( Platform::Object^ input )
 
 AmfValue^ AmfValue::Parse( const Platform::Array<uint8>^ input )
 {
-	return reinterpret_cast<AmfValue^>( Amf0Parser::Parse( input ) );
+	return reinterpret_cast<AmfValue^>( amf0_parser::parse( input ) );
 }
 
 AmfValue^ AmfValue::Parse( const Platform::Array<uint8>^ input, AmfEncodingType type )
 {
 	if( type == AmfEncodingType::Amf3 )
-		return reinterpret_cast<AmfValue^>( Amf3Parser::Parse( input ) );
+		return reinterpret_cast<AmfValue^>( amf3_parser::parse( input ) );
 
-	return reinterpret_cast<AmfValue^>( Amf0Parser::Parse( input ) );
+	return reinterpret_cast<AmfValue^>( amf0_parser::parse( input ) );
 }
 
 bool AmfValue::TryParse( const Platform::Array<uint8> ^ input, AmfValue^* result )
 {
 	auto buf = reinterpret_cast<IAmfValue^*>( result );
-	return Amf0Parser::TryParse( input, buf );
+	return amf0_parser::try_parse( input, buf );
 }
 
 bool AmfValue::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfValue^* result )
 {
 	auto buf = reinterpret_cast<IAmfValue^*>( result );
 	if( type == AmfEncodingType::Amf3 )
-		return Amf3Parser::TryParse( input, buf );
+		return amf3_parser::try_parse( input, buf );
 
-	return Amf0Parser::TryParse( input, buf );
+	return amf0_parser::try_parse( input, buf );
 }

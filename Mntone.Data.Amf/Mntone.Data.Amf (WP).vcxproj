@@ -78,7 +78,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>_WINDOWS_PHONE;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINDOWS_PHONE;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
@@ -96,7 +96,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>_WINDOWS_PHONE;_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINDOWS_PHONE;_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
@@ -118,7 +118,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
-      <PreprocessorDefinitions>_WINDOWS_PHONE;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINDOWS_PHONE;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
@@ -136,7 +136,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
     <ClCompile>
-      <PreprocessorDefinitions>_WINDOWS_PHONE;_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AMF_EXPORT;_WINDOWS_PHONE;_WINRT_DLL;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
@@ -163,11 +163,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Amf0Parser.h" />
     <ClInclude Include="Amf0Sequencer.h" />
+    <ClInclude Include="amf0_parser.h" />
     <ClInclude Include="amf0_type.h" />
-    <ClInclude Include="Amf3Parser.h" />
     <ClInclude Include="Amf3Sequencer.h" />
+    <ClInclude Include="amf3_parser.h" />
     <ClInclude Include="amf3_traits_info.h" />
     <ClInclude Include="amf3_type.h" />
     <ClInclude Include="AmfArray.h" />
@@ -175,23 +175,24 @@
     <ClInclude Include="AmfObject.h" />
     <ClInclude Include="AmfValue.h" />
     <ClInclude Include="AmfValueType.h" />
+    <ClInclude Include="amf_exception.h" />
+    <ClInclude Include="com_exception_helper.h" />
     <ClInclude Include="IAmfArray.h" />
     <ClInclude Include="IAmfObject.h" />
     <ClInclude Include="IAmfValue.h" />
-    <ClInclude Include="Utilities.h" />
-    <ClInclude Include="COMExceptionHelper.h" />
+    <ClInclude Include="utilities.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Amf0Parser.cpp" />
     <ClCompile Include="Amf0Sequencer.cpp" />
-    <ClCompile Include="Amf3Parser.cpp" />
+    <ClCompile Include="amf0_parser.cpp" />
     <ClCompile Include="Amf3Sequencer.cpp" />
+    <ClCompile Include="amf3_parser.cpp" />
     <ClCompile Include="AmfArray.cpp" />
     <ClCompile Include="AmfObject.cpp" />
     <ClCompile Include="AmfValue.cpp" />
-    <ClCompile Include="Utilities.cpp" />
-    <ClCompile Include="COMExceptionHelper.cpp" />
+    <ClCompile Include="com_exception_helper.cpp" />
+    <ClCompile Include="utilities.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>

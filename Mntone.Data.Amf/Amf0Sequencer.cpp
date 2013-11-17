@@ -5,6 +5,7 @@
 #include "AmfObject.h"
 #include "amf0_type.h"
 
+using namespace mntone::data::amf;
 using namespace Mntone::Data::Amf;
 
 Platform::Array<uint8>^ Amf0Sequencer::Sequencify( IAmfValue^ input )
@@ -60,13 +61,13 @@ void Amf0Sequencer::SequencifyNumber( IAmfValue^ input, std::basic_ostringstream
 
 	const auto& data = input->GetNumber();
 	uint8 buf[8];
-	ConvertBigEndian( &data, buf, 8 );
+	utilities::convert_big_endian( &data, buf, 8 );
 	stream.write( buf, 8 );
 }
 
 void Amf0Sequencer::SequencifyString( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
-	const auto& data = PlatformStringToCharUtf8( input->GetString() );
+	const auto& data = utilities::platform_string_to_char_utf8( input->GetString() );
 	if( data.length() > 0xffff )
 	{
 		stream.put( amf0_type::amf0_long_string );
@@ -83,9 +84,9 @@ void Amf0Sequencer::SequencifyDate( IAmfValue^ input, std::basic_ostringstream<u
 {
 	stream.put( amf0_type::amf0_date );
 
-	const auto& data = static_cast<float64>( DateTimeToUnixTime( input->GetDate() ) );
+	const auto& data = static_cast<float64>( utilities::date_time_to_unix_time( input->GetDate() ) );
 	uint8 buf[10];
-	ConvertBigEndian( &data, buf, 8 );
+	utilities::convert_big_endian( &data, buf, 8 );
 
 #if _WINDOWS_PHONE
 	buf[8] = 0;
@@ -100,7 +101,7 @@ void Amf0Sequencer::SequencifyDate( IAmfValue^ input, std::basic_ostringstream<u
 	int16 offset = 60 * ( static_cast<int16>( calendar->Hour ) - ltHour ) + static_cast<int16>( calendar->Minute ) - ltMinute;
 	if( calendar->Day != ltDay )
 		offset -= 60 * 24;
-	ConvertBigEndian( &offset, buf + 8, 2 );
+	utilities::convert_big_endian( &offset, buf + 8, 2 );
 #endif
 
 	stream.write( buf, 10 );
@@ -152,7 +153,7 @@ void Amf0Sequencer::SequencifyEcmaArray( IAmfValue^ input, std::basic_ostringstr
 
 	const auto& associativeCount = obj->Size;
 	uint8 buf[4];
-	ConvertBigEndian( &associativeCount, buf, 4 );
+	utilities::convert_big_endian( &associativeCount, buf, 4 );
 	stream.write( buf, 4 );
 
 	SequencifyObjectBase( obj, stream );
@@ -187,7 +188,7 @@ void Amf0Sequencer::SequencifyStrictArray( IAmfValue^ input, std::basic_ostrings
 
 	const auto& length = ary->Size;
 	uint8 buf[4];
-	ConvertBigEndian( &length, buf, 4 );
+	utilities::convert_big_endian( &length, buf, 4 );
 	stream.write( buf, 4 );
 
 	for( const auto& item : ary )
@@ -202,7 +203,7 @@ void Amf0Sequencer::SequencifyUtf8( const std::string& input, std::basic_ostring
 	const auto& length = static_cast<uint16>( fullLength );
 
 	uint8 buf[2];
-	ConvertBigEndian( &length, buf, 2 );
+	utilities::convert_big_endian( &length, buf, 2 );
 	stream.write( buf, 2 );
 
 	if( length != 0 )
@@ -211,7 +212,7 @@ void Amf0Sequencer::SequencifyUtf8( const std::string& input, std::basic_ostring
 
 void Amf0Sequencer::SequencifyUtf8( Platform::String^ input, std::basic_ostringstream<uint8>& stream )
 {
-	SequencifyUtf8( PlatformStringToCharUtf8( input ), stream );
+	SequencifyUtf8( utilities::platform_string_to_char_utf8( input ), stream );
 }
 
 void Amf0Sequencer::SequencifyUtf8( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
@@ -227,7 +228,7 @@ void Amf0Sequencer::SequencifyUtf8Long( const std::string& input, std::basic_ost
 	const auto& length = static_cast<uint32>( fullLength );
 
 	uint8 buf[4];
-	ConvertBigEndian( &length, buf, 4 );
+	utilities::convert_big_endian( &length, buf, 4 );
 	stream.write( buf, 4 );
 
 	if( length != 0 )
@@ -236,7 +237,7 @@ void Amf0Sequencer::SequencifyUtf8Long( const std::string& input, std::basic_ost
 
 void Amf0Sequencer::SequencifyUtf8Long( Platform::String^ input, std::basic_ostringstream<uint8>& stream )
 {
-	SequencifyUtf8Long( PlatformStringToCharUtf8( input ), stream );
+	SequencifyUtf8Long( utilities::platform_string_to_char_utf8( input ), stream );
 }
 
 void Amf0Sequencer::SequencifyUtf8Long( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
@@ -265,6 +266,6 @@ void Amf0Sequencer::SequencifyReference( int32 input, std::basic_ostringstream<u
 
 	const auto& data = static_cast<uint16>( input );
 	uint8 buf[2];
-	ConvertBigEndian( &data, buf, 2 );
+	utilities::convert_big_endian( &data, buf, 2 );
 	stream.write( buf, 2 );
 }

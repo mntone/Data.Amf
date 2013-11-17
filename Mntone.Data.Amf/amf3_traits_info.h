@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Mntone { namespace Data { namespace Amf {
+namespace mntone { namespace data { namespace amf {
 
 	struct amf3_traits_info
 	{
