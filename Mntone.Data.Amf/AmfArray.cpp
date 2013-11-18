@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "AmfArray.h"
 #include "amf0_parser.h"
-#include "Amf0Sequencer.h"
+#include "amf0_sequencer.h"
 #include "amf3_parser.h"
-#include "Amf3Sequencer.h"
+#include "amf3_sequencer.h"
 #include "com_exception_helper.h"
 
 using namespace mntone::data::amf;
@@ -16,15 +16,15 @@ AmfArray::AmfArray( void ) :
 
 Platform::Array<uint8>^ AmfArray::Sequencify( void )
 {
-	return Amf0Sequencer::Sequencify( this );
+	return amf0_sequencer::sequencify( this );
 }
 
 Platform::Array<uint8>^ AmfArray::Sequencify( AmfEncodingType type )
 {
 	if( type == AmfEncodingType::Amf3 )
-		return Amf3Sequencer::Sequencify( this );
+		return amf3_sequencer::sequencify( this );
 
-	return Amf0Sequencer::Sequencify( this );
+	return amf0_sequencer::sequencify( this );
 }
 
 bool AmfArray::GetBoolean( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }

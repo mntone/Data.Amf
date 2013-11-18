@@ -163,11 +163,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Amf0Sequencer.h" />
     <ClInclude Include="amf0_parser.h" />
+    <ClInclude Include="amf0_sequencer.h" />
     <ClInclude Include="amf0_type.h" />
-    <ClInclude Include="Amf3Sequencer.h" />
     <ClInclude Include="amf3_parser.h" />
+    <ClInclude Include="amf3_sequencer.h" />
     <ClInclude Include="amf3_traits_info.h" />
     <ClInclude Include="amf3_type.h" />
     <ClInclude Include="AmfArray.h" />
@@ -184,10 +184,10 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Amf0Sequencer.cpp" />
     <ClCompile Include="amf0_parser.cpp" />
-    <ClCompile Include="Amf3Sequencer.cpp" />
+    <ClCompile Include="amf0_sequencer.cpp" />
     <ClCompile Include="amf3_parser.cpp" />
+    <ClCompile Include="amf3_sequencer.cpp" />
     <ClCompile Include="AmfArray.cpp" />
     <ClCompile Include="AmfObject.cpp" />
     <ClCompile Include="AmfValue.cpp" />

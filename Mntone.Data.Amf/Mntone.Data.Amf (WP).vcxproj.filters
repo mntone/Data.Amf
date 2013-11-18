@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Amf0Sequencer.h" />
     <ClInclude Include="amf0_type.h" />
     <ClInclude Include="amf3_traits_info.h" />
     <ClInclude Include="amf3_type.h" />
@@ -15,22 +14,23 @@
     <ClInclude Include="IAmfObject.h" />
     <ClInclude Include="IAmfValue.h" />
     <ClInclude Include="Utilities.h" />
-    <ClInclude Include="Amf3Sequencer.h" />
     <ClInclude Include="com_exception_helper.h" />
     <ClInclude Include="amf0_parser.h" />
     <ClInclude Include="amf_exception.h" />
     <ClInclude Include="amf3_parser.h" />
+    <ClInclude Include="amf0_sequencer.h" />
+    <ClInclude Include="amf3_sequencer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Amf0Sequencer.cpp" />
     <ClCompile Include="AmfArray.cpp" />
     <ClCompile Include="AmfObject.cpp" />
     <ClCompile Include="AmfValue.cpp" />
     <ClCompile Include="Utilities.cpp" />
-    <ClCompile Include="Amf3Sequencer.cpp" />
     <ClCompile Include="com_exception_helper.cpp" />
     <ClCompile Include="amf0_parser.cpp" />
     <ClCompile Include="amf3_parser.cpp" />
+    <ClCompile Include="amf0_sequencer.cpp" />
+    <ClCompile Include="amf3_sequencer.cpp" />
   </ItemGroup>
 </Project>
