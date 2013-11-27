@@ -17,7 +17,7 @@ namespace Mntone { namespace Data { namespace Amf {
 			void set( bool value );
 		}
 
-		AmfValue^ GetNamedValue( Platform::String^ name );
+		IAmfValue^ GetNamedValue( Platform::String^ name );
 		void SetNamedValue( Platform::String^ name, IAmfValue^ value );
 
 		bool GetNamedBoolean( Platform::String^ name );

@@ -48,7 +48,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		// IVector: read methods
 		virtual IAmfValue^ GetAt( uint32 index );
 		virtual Windows::Foundation::Collections::IVectorView<IAmfValue^>^ GetView( void );
-		virtual bool IndexOf( IAmfValue^ value, uint32 *index );
+		virtual bool IndexOf( IAmfValue^ value, uint32* index );
 
 		// IVector: write methods
 		virtual void SetAt( uint32 index, IAmfValue^ value );

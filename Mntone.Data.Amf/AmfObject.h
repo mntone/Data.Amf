@@ -31,7 +31,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfArray^ GetArray( void );
 
 		// IAmfObject
-		virtual AmfValue^ GetNamedValue( Platform::String^ name );
+		virtual IAmfValue^ GetNamedValue( Platform::String^ name );
 		virtual void SetNamedValue( Platform::String^ name, IAmfValue^ value );
 		virtual bool GetNamedBoolean( Platform::String^ name );
 		virtual float64 GetNamedNumber( Platform::String^ name );

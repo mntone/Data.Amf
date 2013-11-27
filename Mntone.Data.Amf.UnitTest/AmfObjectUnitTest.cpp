@@ -120,7 +120,10 @@ public:
 		const auto& val = AmfValue::CreateBooleanValue( false );
 		const auto& key = ref new Platform::String( L"testKey" );
 		obj->SetNamedValue( key, val );
-		Assert::AreEqual( val, obj->GetNamedValue( key ) );
+
+		const auto& testValue = obj->GetNamedValue( key );
+		Assert::IsTrue( testValue->ValueType == AmfValueType::Boolean );
+		Assert::IsFalse( testValue->GetBoolean() );
 	}
 
 	TEST_METHOD( AmfObject_GetNamedValueTest_OutOfRange )
@@ -532,8 +535,10 @@ public:
 		const auto& val = AmfValue::CreateStringValue( L"testValue" );
 		const auto& key = ref new Platform::String( L"testKey" );
 		obj->Insert( key, val );
-		Assert::AreEqual( val, obj->GetNamedValue( key ) );
 
+		const auto& testValue = obj->GetNamedValue( key );
+		Assert::IsTrue( testValue->ValueType == AmfValueType::String );
+		Assert::AreEqual( L"testValue", testValue->GetString() );
 	}
 
 	TEST_METHOD( AmfObject_Remove )

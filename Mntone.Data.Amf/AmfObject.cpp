@@ -36,27 +36,27 @@ Platform::Array<uint8>^ AmfObject::Sequencify( AmfEncodingType type )
 	return amf0_sequencer::sequencify( this );
 }
 
-bool AmfObject::GetBoolean( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-float64 AmfObject::GetNumber( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Platform::String^ AmfObject::GetString( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::DateTime AmfObject::GetDate( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Platform::Array<uint8>^ AmfObject::GetByteArray( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetVectorInt( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetVectorUint( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetVectorDouble( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfObject::GetVectorObject( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+bool AmfObject::GetBoolean( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+float64 AmfObject::GetNumber( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Platform::String^ AmfObject::GetString( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::DateTime AmfObject::GetDate( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Platform::Array<uint8>^ AmfObject::GetByteArray( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetVectorInt( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetVectorUint( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetVectorDouble( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfObject::GetVectorObject( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
 
 AmfObject^ AmfObject::GetObject( void )
 {
 	if( ValueType_ != AmfValueType::Object && ValueType_ != AmfValueType::EcmaArray )
-		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
+		throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<AmfObject^>( this );
 }
 
-AmfArray^ AmfObject::GetArray( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+AmfArray^ AmfObject::GetArray( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
 
-AmfValue^ AmfObject::GetNamedValue( Platform::String^ name ) { return safe_cast<AmfValue^>( map_->Lookup( name ) ); }
+IAmfValue^ AmfObject::GetNamedValue( Platform::String^ name ) { return safe_cast<IAmfValue^>( map_->Lookup( name ) ); }
 void AmfObject::SetNamedValue( Platform::String^ name, IAmfValue^ value ) { map_->Insert( name, value ); }
 bool AmfObject::GetNamedBoolean( Platform::String^ name ) { return map_->Lookup( name )->GetBoolean(); }
 float64 AmfObject::GetNamedNumber( Platform::String^ name ) { return map_->Lookup( name )->GetNumber(); }

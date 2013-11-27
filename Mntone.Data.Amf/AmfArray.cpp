@@ -27,21 +27,21 @@ Platform::Array<uint8>^ AmfArray::Sequencify( AmfEncodingType type )
 	return amf0_sequencer::sequencify( this );
 }
 
-bool AmfArray::GetBoolean( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-float64 AmfArray::GetNumber( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Platform::String^ AmfArray::GetString( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::DateTime AmfArray::GetDate( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Platform::Array<uint8>^ AmfArray::GetByteArray( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorInt( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUint( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDouble( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObject( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-AmfObject^ AmfArray::GetObject( void ) { throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+bool AmfArray::GetBoolean( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+float64 AmfArray::GetNumber( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Platform::String^ AmfArray::GetString( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::DateTime AmfArray::GetDate( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Platform::Array<uint8>^ AmfArray::GetByteArray( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorInt( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUint( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDouble( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObject( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+AmfObject^ AmfArray::GetObject( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
 
 AmfArray^ AmfArray::GetArray( void )
 {
 	if( ValueType_ != AmfValueType::Array )
-		throw mntone::data::amf::com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
+		throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 
 	return safe_cast<AmfArray^>( this );
 }
