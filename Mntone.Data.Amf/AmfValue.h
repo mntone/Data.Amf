@@ -27,6 +27,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject( void );
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
+		virtual AmfDictionary^ GetDictionary( void );
 
 		// IStringable
 #if !_WINDOWS_PHONE

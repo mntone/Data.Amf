@@ -20,6 +20,10 @@
     <ClInclude Include="amf3_parser.h" />
     <ClInclude Include="amf0_sequencer.h" />
     <ClInclude Include="amf3_sequencer.h" />
+    <ClInclude Include="AmfDictionary.h" />
+    <ClInclude Include="AmfPair.h" />
+    <ClInclude Include="IAmfDictionary.h" />
+    <ClInclude Include="IAmfPair.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -32,5 +36,6 @@
     <ClCompile Include="amf3_parser.cpp" />
     <ClCompile Include="amf0_sequencer.cpp" />
     <ClCompile Include="amf3_sequencer.cpp" />
+    <ClCompile Include="AmfDictionary.cpp" />
   </ItemGroup>
 </Project>

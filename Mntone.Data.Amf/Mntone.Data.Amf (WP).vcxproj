@@ -171,14 +171,18 @@
     <ClInclude Include="amf3_traits_info.h" />
     <ClInclude Include="amf3_type.h" />
     <ClInclude Include="AmfArray.h" />
+    <ClInclude Include="AmfDictionary.h" />
     <ClInclude Include="AmfEncodingType.h" />
     <ClInclude Include="AmfObject.h" />
+    <ClInclude Include="AmfPair.h" />
     <ClInclude Include="AmfValue.h" />
     <ClInclude Include="AmfValueType.h" />
     <ClInclude Include="amf_exception.h" />
     <ClInclude Include="com_exception_helper.h" />
     <ClInclude Include="IAmfArray.h" />
+    <ClInclude Include="IAmfDictionary.h" />
     <ClInclude Include="IAmfObject.h" />
+    <ClInclude Include="IAmfPair.h" />
     <ClInclude Include="IAmfValue.h" />
     <ClInclude Include="utilities.h" />
     <ClInclude Include="pch.h" />
@@ -189,6 +193,7 @@
     <ClCompile Include="amf3_parser.cpp" />
     <ClCompile Include="amf3_sequencer.cpp" />
     <ClCompile Include="AmfArray.cpp" />
+    <ClCompile Include="AmfDictionary.cpp" />
     <ClCompile Include="AmfObject.cpp" />
     <ClCompile Include="AmfValue.cpp" />
     <ClCompile Include="com_exception_helper.cpp" />

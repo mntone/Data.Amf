@@ -55,6 +55,7 @@ AmfObject^ AmfObject::GetObject( void )
 }
 
 AmfArray^ AmfObject::GetArray( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+AmfDictionary^ AmfObject::GetDictionary( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
 
 IAmfValue^ AmfObject::GetNamedValue( Platform::String^ name ) { return safe_cast<IAmfValue^>( map_->Lookup( name ) ); }
 void AmfObject::SetNamedValue( Platform::String^ name, IAmfValue^ value ) { map_->Insert( name, value ); }
@@ -69,6 +70,7 @@ Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetNamedVectorDou
 Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfObject::GetNamedVectorObject( Platform::String^ name ) { return map_->Lookup( name )->GetVectorObject(); }
 AmfObject^ AmfObject::GetNamedObject( Platform::String^ name ) { return map_->Lookup( name )->GetObject(); }
 AmfArray^ AmfObject::GetNamedArray( Platform::String^ name ) { return map_->Lookup( name )->GetArray(); }
+AmfDictionary^ AmfObject::GetNamedDictionary( Platform::String^ name ) { return map_->Lookup( name )->GetDictionary(); }
 
 Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ AmfObject::First( void ) { return map_->First(); }
 

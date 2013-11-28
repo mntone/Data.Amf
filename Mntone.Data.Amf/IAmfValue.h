@@ -7,6 +7,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	ref class AmfValue;
 	ref class AmfObject;
 	ref class AmfArray;
+	ref class AmfDictionary;
 
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public interface class IAmfValue
@@ -30,6 +31,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject( void );
 		AmfObject^ GetObject( void );
 		AmfArray^ GetArray( void );
+		AmfDictionary^ GetDictionary( void );
 	};
 
 } } }

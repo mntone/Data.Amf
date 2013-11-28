@@ -4,7 +4,8 @@
 namespace Mntone { namespace Data { namespace Amf {
 
 	[Windows::Foundation::Metadata::WebHostHidden]
-	public interface class IAmfObject: IAmfValue
+	public interface class IAmfObject:
+		public IAmfValue
 	{
 		property Platform::String^ ClassName
 		{
@@ -31,6 +32,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		Windows::Foundation::Collections::IVector<IAmfValue^>^ GetNamedVectorObject( Platform::String^ name );
 		AmfObject^ GetNamedObject( Platform::String^ name );
 		AmfArray^ GetNamedArray( Platform::String^ name );
+		AmfDictionary^ GetNamedDictionary( Platform::String^ name );
 	};
 
 } } }

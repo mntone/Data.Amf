@@ -109,6 +109,11 @@ AmfArray^ AmfValue::GetArray( void )
 	throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 }
 
+AmfDictionary^ AmfValue::GetDictionary( void )
+{
+	throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
+}
+
 #if !_WINDOWS_PHONE
 Platform::String^ AmfValue::ToString( void )
 {

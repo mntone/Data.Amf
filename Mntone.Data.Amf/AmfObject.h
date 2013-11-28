@@ -29,6 +29,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject( void );
 		virtual AmfObject^ GetObject( void );
 		virtual AmfArray^ GetArray( void );
+		virtual AmfDictionary^ GetDictionary( void );
 
 		// IAmfObject
 		virtual IAmfValue^ GetNamedValue( Platform::String^ name );
@@ -44,6 +45,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetNamedVectorObject( Platform::String^ name );
 		virtual AmfObject^ GetNamedObject( Platform::String^ name );
 		virtual AmfArray^ GetNamedArray( Platform::String^ name );
+		virtual AmfDictionary^ GetNamedDictionary( Platform::String^ name );
 
 		// IIterator
 		virtual Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ First( void );

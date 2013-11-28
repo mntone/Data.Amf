@@ -4,7 +4,8 @@
 namespace Mntone { namespace Data { namespace Amf {
 
 	[Windows::Foundation::Metadata::WebHostHidden]
-	public interface class IAmfArray: IAmfValue
+	public interface class IAmfArray:
+		public IAmfValue
 	{
 		bool GetBooleanAt( uint32 index );
 		float64 GetNumberAt( uint32 index );
@@ -17,6 +18,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObjectAt( uint32 index );
 		AmfObject^ GetObjectAt( uint32 index );
 		AmfArray^ GetArrayAt( uint32 index );
+		AmfDictionary^ GetDictionaryAt( uint32 index );
 	};
 
 } } }

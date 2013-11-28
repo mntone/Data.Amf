@@ -46,6 +46,8 @@ AmfArray^ AmfArray::GetArray( void )
 	return safe_cast<AmfArray^>( this );
 }
 
+AmfDictionary^ AmfArray::GetDictionary( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+
 bool AmfArray::GetBooleanAt( uint32 index ) { return vector_->GetAt( index )->GetBoolean(); }
 float64 AmfArray::GetNumberAt( uint32 index ) { return vector_->GetAt( index )->GetNumber(); }
 Platform::String^ AmfArray::GetStringAt( uint32 index ) { return vector_->GetAt( index )->GetString(); }
@@ -57,6 +59,7 @@ Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDoubleAt(
 Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObjectAt( uint32 index ) { return vector_->GetAt( index )->GetVectorObject(); }
 AmfObject^ AmfArray::GetObjectAt( uint32 index ) { return vector_->GetAt( index )->GetObject(); }
 AmfArray^ AmfArray::GetArrayAt( uint32 index ) { return vector_->GetAt( index )->GetArray(); }
+AmfDictionary^ AmfArray::GetDictionaryAt( uint32 index ) { return vector_->GetAt( index )->GetDictionary(); }
 
 Windows::Foundation::Collections::IIterator<IAmfValue^>^ AmfArray::First( void ) { return vector_->First(); }
 
