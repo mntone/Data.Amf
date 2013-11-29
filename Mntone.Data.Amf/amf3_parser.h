@@ -68,7 +68,7 @@ public:
 		}
 		Mntone::Data::Amf::IAmfValue^ parse_vector_object( uint8*& input, size_t& length );
 
-		//Mntone::Data::Amf::IAmfValue^ ParseDictionary( uint8*& input, size_t& length );
+		Mntone::Data::Amf::IAmfValue^ parse_dictionary( uint8*& input, size_t& length );
 
 		Platform::String^ parse_utf8( uint8*& input, size_t& length, const uint32 text_length );
 		uint32 parse_unsigned_29bit_integer( uint8*& input, size_t& length );

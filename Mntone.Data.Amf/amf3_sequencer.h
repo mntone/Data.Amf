@@ -59,6 +59,8 @@ namespace mntone { namespace data { namespace amf {
 		void sequencify_ecma_array( Mntone::Data::Amf::IAmfValue^ input, std::basic_ostringstream<uint8>& stream );
 		void sequencify_array( Mntone::Data::Amf::IAmfValue^ input, std::basic_ostringstream<uint8>& stream );
 
+		void sequencify_dictionary( Mntone::Data::Amf::IAmfValue^ input, std::basic_ostringstream<uint8>& stream );
+
 		void sequencify_unsigned_28bit_integer_and_reference( const size_t input, const bool reference, std::basic_ostringstream<uint8>& stream );
 		void sequencify_unsigned_29bit_integer( const size_t input, std::basic_ostringstream<uint8>& stream );
 

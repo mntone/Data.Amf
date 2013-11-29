@@ -5,6 +5,7 @@
 #include "AmfValue.h"
 #include "AmfArray.h"
 #include "AmfObject.h"
+#include "AmfDictionary.h"
 
 using namespace mntone::data::amf;
 using namespace Mntone::Data::Amf;
@@ -75,7 +76,7 @@ IAmfValue^ amf3_parser::parse_value( uint8*& input, size_t& length )
 	case amf3_type::amf3_vector_uint: return parse_vector_uint( input, length );
 	case amf3_type::amf3_vector_double: return parse_vector_double( input, length );
 	case amf3_type::amf3_vector_object: return parse_vector_object( input, length );
-	//case amf3_type::amf3_dictionary: return ParseDictionary( input, length );
+	case amf3_type::amf3_dictionary: return parse_dictionary( input, length );
 	default: throw amf_exception( "Invalid type." );
 	}
 }
@@ -361,6 +362,28 @@ IAmfValue^ amf3_parser::parse_vector_object( uint8*& input, size_t& length )
 
 	vo->SetData( ref new Platform::Collections::Vector<IAmfValue^>( std::move( vector ) ) );
 	return vo;
+}
+
+Mntone::Data::Amf::IAmfValue^ amf3_parser::parse_dictionary( uint8*& input, size_t& length )
+{
+	const auto& value = parse_unsigned_29bit_integer( input, length );
+	if( ( value & 1 ) == 0 )
+		return get_object( value );
+
+	const auto& dic = ref new AmfDictionary();
+	object_reference_buffer_.push_back( dic );
+
+	//const auto& weak_key = *value;
+	input += 1;
+	length -= 1;
+
+	const size_t& array_length = value >> 1;
+	std::vector<IAmfPair^> vector( array_length );
+	for( size_t i = 0; i < array_length; ++i )
+		vector[i] = ref new AmfPair( parse_value( input, length ), parse_value( input, length ) );
+
+	dic->SetData( std::move( vector ) );
+	return dic;
 }
 
 Platform::String^ amf3_parser::parse_utf8( uint8*& input, size_t& length, const uint32 text_length )

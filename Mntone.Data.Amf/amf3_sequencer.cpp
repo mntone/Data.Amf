@@ -5,6 +5,7 @@
 #include "AmfValue.h"
 #include "AmfArray.h"
 #include "AmfObject.h"
+#include "AmfDictionary.h"
 
 using namespace mntone::data::amf;
 using namespace Mntone::Data::Amf;
@@ -52,6 +53,7 @@ void amf3_sequencer::sequencify_value( IAmfValue^ input, std::basic_ostringstrea
 	case AmfValueType::Object: sequencify_object( input, stream ); break;
 	case AmfValueType::EcmaArray: sequencify_ecma_array( input, stream ); break;
 	case AmfValueType::Array: sequencify_array( input, stream ); break;
+	case AmfValueType::Dictionary: sequencify_dictionary( input, stream ); break;
 	default: throw amf_exception( "Invalid type." );
 	}
 }
@@ -422,6 +424,31 @@ void amf3_sequencer::sequencify_array( IAmfValue^ input, std::basic_ostringstrea
 
 	for( const auto& item : ary )
 		sequencify_value( item, stream );
+}
+
+void amf3_sequencer::sequencify_dictionary( Mntone::Data::Amf::IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
+{
+	stream.put( amf3_type::amf3_dictionary );
+
+	const auto& ref = index_of_object_identical_to( input );
+	if( ref != -1 )
+	{
+		sequencify_unsigned_28bit_integer_and_reference( ref, true, stream );
+		return;
+	}
+	object_reference_buffer_.push_back( input );
+
+	const auto& dic = input->GetDictionary();
+	const auto& length = dic->Size;
+	sequencify_unsigned_28bit_integer_and_reference( length, false, stream );
+
+	stream.put( 0 ); // not using weakly-referenced key
+
+	for( const auto& item : dic )
+	{
+		sequencify_value( item->Key, stream );
+		sequencify_value( item->Value, stream );
+	}
 }
 
 void amf3_sequencer::sequencify_unsigned_28bit_integer_and_reference( const size_t input, const bool reference, std::basic_ostringstream<uint8>& stream )
