@@ -120,7 +120,7 @@ private:
 		return AmfValue::CreateVectorObjectValue( generalTestVector_ );
 	}
 
-	Windows::Foundation::Collections::IVector<IAmfValue^>^ CreateTestVector( void )
+	Windows::Foundation::Collections::IVector<IAmfValue^>^ CreateTestVector()
 	{
 		return ref new Platform::Collections::Vector<IAmfValue^>{ ref new AmfObject( L"testClass1" ), ref new AmfObject( L"testClass2" ) };
 	}

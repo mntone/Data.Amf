@@ -44,7 +44,7 @@ bool amf0_parser::try_parse( const Platform::Array<uint8>^ input, IAmfValue^* re
 	return true;
 }
 
-amf0_parser::amf0_parser( void )
+amf0_parser::amf0_parser()
 { }
 
 IAmfValue^ amf0_parser::parse_value( uint8*& input, size_t& length )

@@ -120,7 +120,7 @@ private:
 		return AmfValue::CreateVectorDoubleValue( generalTestVector_ );
 	}
 
-	Windows::Foundation::Collections::IVector<float64>^ CreateGeneralTestVector( void )
+	Windows::Foundation::Collections::IVector<float64>^ CreateGeneralTestVector()
 	{
 		return ref new Platform::Collections::Vector<float64>{ 5.6, 44.0, 22.2 };
 	}

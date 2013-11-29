@@ -12,7 +12,7 @@ namespace mntone { namespace data { namespace amf {
 		{ }
 
 	public:
-		Platform::String^ get_message( void ) const { return message_; }
+		Platform::String^ get_message() const { return message_; }
 
 	private:
 		Platform::String^ message_;

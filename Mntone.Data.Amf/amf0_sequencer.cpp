@@ -30,7 +30,7 @@ Platform::Array<uint8>^ amf0_sequencer::sequencify( IAmfValue^ input )
 	return out;
 }
 
-amf0_sequencer::amf0_sequencer( void )
+amf0_sequencer::amf0_sequencer()
 { }
 
 void amf0_sequencer::sequencify_value( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )

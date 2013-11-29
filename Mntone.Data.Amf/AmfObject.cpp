@@ -9,7 +9,7 @@
 using namespace mntone::data::amf;
 using namespace Mntone::Data::Amf;
 
-AmfObject::AmfObject( void ) :
+AmfObject::AmfObject() :
 	ValueType_( AmfValueType::Object ),
 	map_( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() ),
 	ClassName_( "" ),
@@ -23,7 +23,7 @@ AmfObject::AmfObject( Platform::String^ className ):
 	Externalizable_( false )
 { }
 
-Platform::Array<uint8>^ AmfObject::Sequencify( void )
+Platform::Array<uint8>^ AmfObject::Sequencify()
 {
 	return amf0_sequencer::sequencify( this );
 }
@@ -36,17 +36,17 @@ Platform::Array<uint8>^ AmfObject::Sequencify( AmfEncodingType type )
 	return amf0_sequencer::sequencify( this );
 }
 
-bool AmfObject::GetBoolean( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-float64 AmfObject::GetNumber( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Platform::String^ AmfObject::GetString( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::DateTime AmfObject::GetDate( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Platform::Array<uint8>^ AmfObject::GetByteArray( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetVectorInt( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetVectorUint( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetVectorDouble( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfObject::GetVectorObject( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+bool AmfObject::GetBoolean() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+float64 AmfObject::GetNumber() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Platform::String^ AmfObject::GetString() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::DateTime AmfObject::GetDate() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Platform::Array<uint8>^ AmfObject::GetByteArray() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::Collections::IVector<int32>^ AmfObject::GetVectorInt() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfObject::GetVectorUint() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::Collections::IVector<float64>^ AmfObject::GetVectorDouble() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfObject::GetVectorObject() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
 
-AmfObject^ AmfObject::GetObject( void )
+AmfObject^ AmfObject::GetObject()
 {
 	if( ValueType_ != AmfValueType::Object && ValueType_ != AmfValueType::EcmaArray )
 		throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
@@ -54,8 +54,8 @@ AmfObject^ AmfObject::GetObject( void )
 	return safe_cast<AmfObject^>( this );
 }
 
-AmfArray^ AmfObject::GetArray( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
-AmfDictionary^ AmfObject::GetDictionary( void ) { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+AmfArray^ AmfObject::GetArray() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
+AmfDictionary^ AmfObject::GetDictionary() { throw com_exception_helper::create_invalid_operation_exception( "Invalid value type." ); }
 
 IAmfValue^ AmfObject::GetNamedValue( Platform::String^ name ) { return safe_cast<IAmfValue^>( map_->Lookup( name ) ); }
 void AmfObject::SetNamedValue( Platform::String^ name, IAmfValue^ value ) { map_->Insert( name, value ); }
@@ -72,18 +72,18 @@ AmfObject^ AmfObject::GetNamedObject( Platform::String^ name ) { return map_->Lo
 AmfArray^ AmfObject::GetNamedArray( Platform::String^ name ) { return map_->Lookup( name )->GetArray(); }
 AmfDictionary^ AmfObject::GetNamedDictionary( Platform::String^ name ) { return map_->Lookup( name )->GetDictionary(); }
 
-Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ AmfObject::First( void ) { return map_->First(); }
+Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ AmfObject::First() { return map_->First(); }
 
 IAmfValue^ AmfObject::Lookup( Platform::String^ key ) { return map_->Lookup( key ); }
 bool AmfObject::HasKey( Platform::String^ key ) { return map_->HasKey( key ); }
-Windows::Foundation::Collections::IMapView<Platform::String^, IAmfValue^>^ AmfObject::GetView( void ) { return map_->GetView(); }
+Windows::Foundation::Collections::IMapView<Platform::String^, IAmfValue^>^ AmfObject::GetView() { return map_->GetView(); }
 
 bool AmfObject::Insert( Platform::String^ key, IAmfValue^ value ) { return map_->Insert( key, value ); }
 void AmfObject::Remove( Platform::String^ key ) { map_->Remove( key ); }
-void AmfObject::Clear( void ) { map_->Clear(); }
+void AmfObject::Clear() { map_->Clear(); }
 
 #if !_WINDOWS_PHONE
-Platform::String^ AmfObject::ToString( void )
+Platform::String^ AmfObject::ToString()
 {
 	std::wostringstream buf;
 	buf << '{';
@@ -106,7 +106,7 @@ Platform::String^ AmfObject::ToString( void )
 }
 #endif
 
-AmfObject^ AmfObject::CreateEcmaArray( void )
+AmfObject^ AmfObject::CreateEcmaArray()
 {
 	auto out = ref new AmfObject();
 	out->ValueType_ = AmfValueType::EcmaArray;

@@ -9,12 +9,12 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		property Platform::String^ ClassName
 		{
-			Platform::String^ get( void );
+			Platform::String^ get();
 			void set( Platform::String^ value );
 		}
 		property bool Externalizable
 		{
-			bool get( void );
+			bool get();
 			void set( bool value );
 		}
 

@@ -117,7 +117,7 @@ public:
 	}
 
 private:
-	AmfValue^ GeneralCareteAmfValue( void )
+	AmfValue^ GeneralCareteAmfValue()
 	{
 		return AmfValue::CreateBooleanValue( generalTestValue_ );
 	}

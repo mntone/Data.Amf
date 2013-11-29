@@ -118,7 +118,7 @@ private:
 		return AmfValue::CreateVectorIntValue( generalTestVector_ );
 	}
 
-	Windows::Foundation::Collections::IVector<int32>^ CreateTestVector( void )
+	Windows::Foundation::Collections::IVector<int32>^ CreateTestVector()
 	{
 		return ref new Platform::Collections::Vector<int32>{ 3, -2, 5, 63, 2 };
 	}

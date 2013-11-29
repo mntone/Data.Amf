@@ -115,12 +115,12 @@ public:
 	}
 
 private:
-	AmfValue^ GeneralCareteAmfValue( void )
+	AmfValue^ GeneralCareteAmfValue()
 	{
 		return AmfValue::CreateVectorUintValue( generalTestVector_ );
 	}
 
-	Windows::Foundation::Collections::IVector<uint32>^ CreateTestVector( void )
+	Windows::Foundation::Collections::IVector<uint32>^ CreateTestVector()
 	{
 		return ref new Platform::Collections::Vector<uint32>{ 47, 44, 22 };
 	}

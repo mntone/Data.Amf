@@ -11,7 +11,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		public IAmfPair
 	{
 	public:
-		AmfPair( void )
+		AmfPair()
 		{ }
 		AmfPair( Windows::Foundation::Collections::IKeyValuePair<IAmfValue^, IAmfValue^>^ value ) :
 			key_( std::move( value->Key ) ), value_( std::move( value->Value ) )
@@ -23,20 +23,20 @@ namespace Mntone { namespace Data { namespace Amf {
 	public:
 		property AmfValueType KeyType
 		{
-			virtual AmfValueType get( void ) { return key_->ValueType; }
+			virtual AmfValueType get() { return key_->ValueType; }
 		}
 		property IAmfValue^ Key
 		{
-			virtual IAmfValue^ get( void ) { return key_; }
+			virtual IAmfValue^ get() { return key_; }
 			virtual void set( IAmfValue^ value ) { key_ = std::move( value ); }
 		}
 		property AmfValueType ValueType
 		{
-			virtual AmfValueType get( void ) { return value_->ValueType; }
+			virtual AmfValueType get() { return value_->ValueType; }
 		}
 		property IAmfValue^ Value
 		{
-			virtual IAmfValue^ get( void ) { return value_; }
+			virtual IAmfValue^ get() { return value_; }
 			virtual void set( IAmfValue^ value ) { value_ = std::move( value ); }
 		}
 

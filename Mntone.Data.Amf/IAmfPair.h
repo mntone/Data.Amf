@@ -9,7 +9,7 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		property AmfValueType KeyType
 		{
-			AmfValueType get( void );
+			AmfValueType get();
 		}
 		property IAmfValue^ Key
 		{
@@ -17,7 +17,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		}
 		property AmfValueType ValueType
 		{
-			AmfValueType get( void );
+			AmfValueType get();
 		}
 		property IAmfValue^ Value
 		{

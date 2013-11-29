@@ -12,24 +12,24 @@ namespace Mntone { namespace Data { namespace Amf {
 		public Windows::Foundation::Collections::IMap<Platform::String^, IAmfValue^>
 	{
 	public:
-		AmfObject( void );
+		AmfObject();
 		AmfObject( Platform::String^ className );
 
 		// IAmfValue
-		virtual Platform::Array<uint8>^ Sequencify( void );
+		virtual Platform::Array<uint8>^ Sequencify();
 		virtual Platform::Array<uint8>^ Sequencify( AmfEncodingType type );
-		virtual bool GetBoolean( void );
-		virtual float64 GetNumber( void );
-		virtual Platform::String^ GetString( void );
-		virtual Windows::Foundation::DateTime GetDate( void );
-		virtual Platform::Array<uint8>^ GetByteArray( void );
-		virtual Windows::Foundation::Collections::IVector<int32>^ GetVectorInt( void );
-		virtual Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint( void );
-		virtual Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble( void );
-		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject( void );
-		virtual AmfObject^ GetObject( void );
-		virtual AmfArray^ GetArray( void );
-		virtual AmfDictionary^ GetDictionary( void );
+		virtual bool GetBoolean();
+		virtual float64 GetNumber();
+		virtual Platform::String^ GetString();
+		virtual Windows::Foundation::DateTime GetDate();
+		virtual Platform::Array<uint8>^ GetByteArray();
+		virtual Windows::Foundation::Collections::IVector<int32>^ GetVectorInt();
+		virtual Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint();
+		virtual Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble();
+		virtual Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject();
+		virtual AmfObject^ GetObject();
+		virtual AmfArray^ GetArray();
+		virtual AmfDictionary^ GetDictionary();
 
 		// IAmfObject
 		virtual IAmfValue^ GetNamedValue( Platform::String^ name );
@@ -48,24 +48,24 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfDictionary^ GetNamedDictionary( Platform::String^ name );
 
 		// IIterator
-		virtual Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ First( void );
+		virtual Windows::Foundation::Collections::IIterator<Windows::Foundation::Collections::IKeyValuePair<Platform::String^, IAmfValue^>^>^ First();
 
 		// IMap: read methods
 		virtual IAmfValue^ Lookup( Platform::String^ key );
 		virtual bool HasKey( Platform::String^ key );
-		virtual Windows::Foundation::Collections::IMapView<Platform::String^, IAmfValue^>^ GetView( void );
+		virtual Windows::Foundation::Collections::IMapView<Platform::String^, IAmfValue^>^ GetView();
 
 		// IMap: write methods
 		virtual bool Insert( Platform::String^ key, IAmfValue^ value );
 		virtual void Remove( Platform::String^ key );
-		virtual void Clear( void );
+		virtual void Clear();
 
 		// IStringable
 #if !_WINDOWS_PHONE
-		virtual Platform::String^ ToString( void ) override sealed;
+		virtual Platform::String^ ToString() override sealed;
 #endif
 
-		static AmfObject^ CreateEcmaArray( void );
+		static AmfObject^ CreateEcmaArray();
 
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input );
 		static AmfObject^ Parse( const Platform::Array<uint8>^ input, AmfEncodingType type );
@@ -79,25 +79,25 @@ namespace Mntone { namespace Data { namespace Amf {
 		// IAmfValue
 		property AmfValueType ValueType
 		{
-			virtual AmfValueType get( void ) { return ValueType_; }
+			virtual AmfValueType get() { return ValueType_; }
 		}
 
 		// IAmfObject
 		property Platform::String^ ClassName
 		{
-			virtual Platform::String^ get( void ) { return ClassName_; }
+			virtual Platform::String^ get() { return ClassName_; }
 			virtual void set( Platform::String^ value ) { ClassName_ = value; }
 		}
 		property bool Externalizable
 		{
-			virtual bool get( void ) { return Externalizable_; }
+			virtual bool get() { return Externalizable_; }
 			virtual void set( bool value ) { Externalizable_ = value; }
 		}
 
 		// IMap
 		property uint32 Size
 		{
-			virtual uint32 get( void ) { return map_->Size; }
+			virtual uint32 get() { return map_->Size; }
 		}
 
 	private:

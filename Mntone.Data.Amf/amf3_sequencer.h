@@ -17,7 +17,14 @@ namespace mntone { namespace data { namespace amf {
 		static Platform::Array<uint8>^ sequencify( Mntone::Data::Amf::IAmfValue^ input );
 
 	private:
-		amf3_sequencer( void );
+		amf3_sequencer();
+#if !_DEBUG &&!_WINDOWS_PHONE
+		amf3_sequencer( const amf3_sequencer& ) = delete;
+		amf3_sequencer( amf3_sequencer&& ) = delete;
+
+		amf3_sequencer& operator=( const amf3_sequencer& ) = delete;
+		amf3_sequencer& operator=( amf3_sequencer&& ) = delete;
+#endif
 
 		void sequencify_value( Mntone::Data::Amf::IAmfValue^ input, std::basic_ostringstream<uint8>& stream );
 

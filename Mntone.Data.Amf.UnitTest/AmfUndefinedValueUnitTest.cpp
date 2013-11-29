@@ -117,7 +117,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 	}
 
 private:
-	AmfValue^ GeneralCareteAmfValue( void )
+	AmfValue^ GeneralCareteAmfValue()
 	{
 		return AmfValue::CreateUndefinedValue();
 	}

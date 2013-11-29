@@ -116,12 +116,12 @@ public:
 	}
 
 private:
-	AmfValue^ GeneralCareteAmfValue( void )
+	AmfValue^ GeneralCareteAmfValue()
 	{
 		return AmfValue::CreateByteArrayValue( testByteArray_ );
 	}
 
-	U8Array^ CreateTestArray( void )
+	U8Array^ CreateTestArray()
 	{
 		return ref new U8Array{ 5, 4, 32, 22 };
 	}

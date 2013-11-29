@@ -22,7 +22,14 @@ public:
 #else
 	public:
 #endif
-		amf3_parser( void );
+		amf3_parser();
+#if !_DEBUG &&!_WINDOWS_PHONE
+		amf3_parser( const amf3_parser& ) = delete;
+		amf3_parser( amf3_parser&& ) = delete;
+
+		amf3_parser& operator=( const amf3_parser& ) = delete;
+		amf3_parser& operator=( amf3_parser&& ) = delete;
+#endif
 
 		Mntone::Data::Amf::IAmfValue^ parse_value( uint8*& input, size_t& length );
 

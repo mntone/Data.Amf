@@ -44,7 +44,7 @@ bool amf3_parser::try_parse( const Platform::Array<uint8>^ input, IAmfValue^* re
 	return true;
 }
 
-amf3_parser::amf3_parser( void )
+amf3_parser::amf3_parser()
 { }
 
 IAmfValue^ amf3_parser::parse_value( uint8*& input, size_t& length )

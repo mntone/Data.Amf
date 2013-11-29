@@ -9,12 +9,12 @@
 using namespace mntone::data::amf;
 using namespace Mntone::Data::Amf;
 
-AmfArray::AmfArray( void ) :
+AmfArray::AmfArray() :
 	ValueType_( AmfValueType::Array ),
 	vector_( ref new Platform::Collections::Vector<IAmfValue^>() )
 { }
 
-Platform::Array<uint8>^ AmfArray::Sequencify( void )
+Platform::Array<uint8>^ AmfArray::Sequencify()
 {
 	return amf0_sequencer::sequencify( this );
 }
@@ -27,18 +27,18 @@ Platform::Array<uint8>^ AmfArray::Sequencify( AmfEncodingType type )
 	return amf0_sequencer::sequencify( this );
 }
 
-bool AmfArray::GetBoolean( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-float64 AmfArray::GetNumber( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Platform::String^ AmfArray::GetString( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::DateTime AmfArray::GetDate( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Platform::Array<uint8>^ AmfArray::GetByteArray( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorInt( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUint( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDouble( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObject( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
-AmfObject^ AmfArray::GetObject( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+bool AmfArray::GetBoolean() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+float64 AmfArray::GetNumber() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Platform::String^ AmfArray::GetString() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::DateTime AmfArray::GetDate() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Platform::Array<uint8>^ AmfArray::GetByteArray() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::Collections::IVector<int32>^ AmfArray::GetVectorInt() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::Collections::IVector<uint32>^ AmfArray::GetVectorUint() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::Collections::IVector<float64>^ AmfArray::GetVectorDouble() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+Windows::Foundation::Collections::IVector<IAmfValue^>^ AmfArray::GetVectorObject() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+AmfObject^ AmfArray::GetObject() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
 
-AmfArray^ AmfArray::GetArray( void )
+AmfArray^ AmfArray::GetArray()
 {
 	if( ValueType_ != AmfValueType::Array )
 		throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
@@ -46,7 +46,7 @@ AmfArray^ AmfArray::GetArray( void )
 	return safe_cast<AmfArray^>( this );
 }
 
-AmfDictionary^ AmfArray::GetDictionary( void ) { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
+AmfDictionary^ AmfArray::GetDictionary() { throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." ); }
 
 bool AmfArray::GetBooleanAt( uint32 index ) { return vector_->GetAt( index )->GetBoolean(); }
 float64 AmfArray::GetNumberAt( uint32 index ) { return vector_->GetAt( index )->GetNumber(); }
@@ -61,24 +61,24 @@ AmfObject^ AmfArray::GetObjectAt( uint32 index ) { return vector_->GetAt( index 
 AmfArray^ AmfArray::GetArrayAt( uint32 index ) { return vector_->GetAt( index )->GetArray(); }
 AmfDictionary^ AmfArray::GetDictionaryAt( uint32 index ) { return vector_->GetAt( index )->GetDictionary(); }
 
-Windows::Foundation::Collections::IIterator<IAmfValue^>^ AmfArray::First( void ) { return vector_->First(); }
+Windows::Foundation::Collections::IIterator<IAmfValue^>^ AmfArray::First() { return vector_->First(); }
 
 IAmfValue^ AmfArray::GetAt( uint32 index ) { return vector_->GetAt( index ); }
-Windows::Foundation::Collections::IVectorView<IAmfValue^>^ AmfArray::GetView( void ) { return vector_->GetView(); }
+Windows::Foundation::Collections::IVectorView<IAmfValue^>^ AmfArray::GetView() { return vector_->GetView(); }
 bool AmfArray::IndexOf( IAmfValue^ value, uint32 *index ) { return vector_->IndexOf( value, index ); }
 
 void AmfArray::SetAt( uint32 index, IAmfValue^ value ) { vector_->SetAt( index, value ); }
 void AmfArray::InsertAt( uint32 index, IAmfValue^ value ) { vector_->InsertAt( index, value ); }
 void AmfArray::RemoveAt( uint32 index ) { vector_->RemoveAt( index ); }
 void AmfArray::Append( IAmfValue^ value ) { vector_->Append( value ); }
-void AmfArray::RemoveAtEnd( void ) { vector_->RemoveAtEnd(); }
-void AmfArray::Clear( void ) { vector_->Clear(); }
+void AmfArray::RemoveAtEnd() { vector_->RemoveAtEnd(); }
+void AmfArray::Clear() { vector_->Clear(); }
 
 uint32 AmfArray::GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfValue^>^ items ) { return vector_->GetMany( startIndex, items ); }
 void AmfArray::ReplaceAll( const Platform::Array<IAmfValue^>^ items ) { vector_->ReplaceAll( items ); }
 
 #if !_WINDOWS_PHONE
-Platform::String^ AmfArray::ToString( void )
+Platform::String^ AmfArray::ToString()
 {
 	std::wstringstream buf;
 	buf << '[';

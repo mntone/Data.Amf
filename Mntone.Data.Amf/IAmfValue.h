@@ -14,24 +14,24 @@ namespace Mntone { namespace Data { namespace Amf {
 	{
 		property AmfValueType ValueType
 		{
-			AmfValueType get( void );
+			AmfValueType get();
 		}
 		
-		Platform::Array<uint8>^ Sequencify( void );
+		Platform::Array<uint8>^ Sequencify();
 		Platform::Array<uint8>^ Sequencify( AmfEncodingType type );
 
-		bool GetBoolean( void );
-		float64 GetNumber( void );
-		Platform::String^ GetString( void );
-		Windows::Foundation::DateTime GetDate( void );
-		Platform::Array<uint8>^ GetByteArray( void );
-		Windows::Foundation::Collections::IVector<int32>^ GetVectorInt( void );
-		Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint( void );
-		Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble( void );
-		Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject( void );
-		AmfObject^ GetObject( void );
-		AmfArray^ GetArray( void );
-		AmfDictionary^ GetDictionary( void );
+		bool GetBoolean();
+		float64 GetNumber();
+		Platform::String^ GetString();
+		Windows::Foundation::DateTime GetDate();
+		Platform::Array<uint8>^ GetByteArray();
+		Windows::Foundation::Collections::IVector<int32>^ GetVectorInt();
+		Windows::Foundation::Collections::IVector<uint32>^ GetVectorUint();
+		Windows::Foundation::Collections::IVector<float64>^ GetVectorDouble();
+		Windows::Foundation::Collections::IVector<IAmfValue^>^ GetVectorObject();
+		AmfObject^ GetObject();
+		AmfArray^ GetArray();
+		AmfDictionary^ GetDictionary();
 	};
 
 } } }

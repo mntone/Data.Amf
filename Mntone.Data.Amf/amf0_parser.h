@@ -17,7 +17,14 @@ namespace mntone { namespace data { namespace amf {
 		static bool try_parse( const Platform::Array<uint8>^ input, Mntone::Data::Amf::IAmfValue^* result );
 
 	private:
-		amf0_parser( void );
+		amf0_parser();
+#if !_DEBUG &&!_WINDOWS_PHONE
+		amf0_parser( const amf0_parser& ) = delete;
+		amf0_parser( amf0_parser&& ) = delete;
+
+		amf0_parser& operator=( const amf0_parser& ) = delete;
+		amf0_parser& operator=( amf0_parser&& ) = delete;
+#endif
 
 		Mntone::Data::Amf::IAmfValue^ parse_value( uint8*& input, size_t& length );
 
