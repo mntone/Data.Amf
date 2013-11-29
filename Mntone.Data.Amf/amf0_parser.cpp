@@ -237,8 +237,8 @@ IAmfValue^ amf0_parser::parse_typed_object( uint8*& input, size_t& length )
 	if( length < 6 )
 		throw amf_exception( "Invalid typedObject." );
 
-	const auto& class_name = parse_utf8( input, length );
-	const auto& out = ref new AmfObject( class_name );
+	const auto& out = ref new AmfObject();
+	out->ClassName = parse_utf8( input, length );
 	reference_buffer_.push_back( out );
 
 	const auto& data = parse_object_base( input, length );
@@ -246,9 +246,15 @@ IAmfValue^ amf0_parser::parse_typed_object( uint8*& input, size_t& length )
 	return out;
 }
 
+#if _WINDOWS_PHONE
 std::map<Platform::String^, IAmfValue^> amf0_parser::parse_object_base( uint8*& input, size_t& length )
 {
 	std::map<Platform::String^, IAmfValue^> data;
+#else
+std::unordered_map<Platform::String^, IAmfValue^> amf0_parser::parse_object_base( uint8*& input, size_t& length )
+{
+	std::unordered_map<Platform::String^, IAmfValue^> data;
+#endif
 	while( length >= 3 && ( input[0] != 0x00 || input[1] != 0x00 || input[2] != 0x09 ) )
 	{
 		const auto& prop = parse_property( input, length );

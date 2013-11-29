@@ -45,7 +45,11 @@ namespace mntone { namespace data { namespace amf {
 		Mntone::Data::Amf::IAmfValue^ parse_object( uint8*& input, size_t& length );
 		Mntone::Data::Amf::IAmfValue^ parse_ecma_array( uint8*& input, size_t& length );
 		Mntone::Data::Amf::IAmfValue^ parse_typed_object( uint8*& input, size_t& length );
+#if _WINDOWS_PHONE
 		std::map<Platform::String^, Mntone::Data::Amf::IAmfValue^> parse_object_base( uint8*& input, size_t& length );
+#else
+		std::unordered_map<Platform::String^, Mntone::Data::Amf::IAmfValue^> parse_object_base( uint8*& input, size_t& length );
+#endif
 		std::pair<Platform::String^, Mntone::Data::Amf::IAmfValue^> parse_property( uint8*& input, size_t& length );
 
 		Mntone::Data::Amf::IAmfValue^ parse_avmplus_object( uint8*& input, size_t& length );
