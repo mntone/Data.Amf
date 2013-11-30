@@ -7,13 +7,13 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 {
 	TEST_METHOD( AmfUndefinedValue_CreateTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
-		Assert::IsTrue( AmfValueType::Undefined == val->ValueType );
+		const auto& val = CreateDefaultUndefined();
+		Assert::IsTrue( val->ValueType == AmfValueType::Undefined );
 	}
 
 	TEST_METHOD( AmfUndefinedValue_GetBooleanTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetBoolean();
@@ -22,7 +22,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetVectorObjectTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorObject();
@@ -31,7 +31,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetIntegerTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetNumber();
@@ -40,7 +40,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetStringTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetString();
@@ -49,7 +49,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetDateTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetDate();
@@ -58,7 +58,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetByteArrayTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetByteArray();
@@ -67,7 +67,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetVectorIntTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorInt();
@@ -76,7 +76,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetVectorUintTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorUint();
@@ -85,7 +85,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetVectorDoubleTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorDouble();
@@ -94,7 +94,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetObjectTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetObject();
@@ -103,7 +103,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetArrayTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetArray();
@@ -112,7 +112,7 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_GetDictionaryTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetDictionary();
@@ -121,12 +121,12 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 
 	TEST_METHOD( AmfUndefinedValue_ToStringTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultUndefined();
 		Assert::AreEqual( L"undefined", val->ToString() );
 	}
 
 private:
-	AmfValue^ GeneralCareteAmfValue()
+	AmfValue^ CreateDefaultUndefined()
 	{
 		return AmfValue::CreateUndefinedValue();
 	}

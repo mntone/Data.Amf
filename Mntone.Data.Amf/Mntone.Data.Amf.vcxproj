@@ -269,6 +269,7 @@
     <ClCompile Include="AmfArray.cpp" />
     <ClCompile Include="AmfDictionary.cpp" />
     <ClCompile Include="AmfObject.cpp" />
+    <ClCompile Include="AmfPair.cpp" />
     <ClCompile Include="AmfValue.cpp" />
     <ClCompile Include="com_exception_helper.cpp" />
     <ClCompile Include="pch.cpp">

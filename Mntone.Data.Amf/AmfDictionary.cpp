@@ -48,8 +48,6 @@ AmfDictionary^ AmfDictionary::GetDictionary()
 	return safe_cast<AmfDictionary^>( this );
 }
 
-bool AmfDictionary::IndexOfPair( IAmfValue^ key, IAmfValue^ value, uint32* index ) { return vector_->IndexOf( ref new AmfPair( key, value ), index ); }
-
 void AmfDictionary::SetPairAt( uint32 index, IAmfValue^ key, IAmfValue^ value ) { vector_->SetAt( index, ref new AmfPair( key, value ) ); }
 void AmfDictionary::InsertPairAt( uint32 index, IAmfValue^ key, IAmfValue^ value ) { vector_->InsertAt( index, ref new AmfPair( key, value ) ); }
 void AmfDictionary::AppendPair( IAmfValue^ key, IAmfValue^ value ) { vector_->Append( ref new AmfPair( key, value ) ); }
@@ -77,12 +75,8 @@ Platform::String^ AmfDictionary::ToString()
 	buf << '{';
 	for( const auto& item : vector_ )
 	{
-		const auto& key = item->Key->ToString();
-		const auto& value = item->Value->ToString();
-		buf.put( L'"' );
-		buf.write( key->Data(), key->Length() );
-		buf.write( L"\": ", 3 );
-		buf.write( value->Data(), value->Length() );
+		const auto& str = item->ToString();
+		buf.write( str->Data(), str->Length() );
 		buf.write( L", ", 2 );
 	}
 	auto str = buf.str();

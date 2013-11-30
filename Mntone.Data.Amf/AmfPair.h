@@ -11,14 +11,14 @@ namespace Mntone { namespace Data { namespace Amf {
 		public IAmfPair
 	{
 	public:
-		AmfPair()
-		{ }
-		AmfPair( Windows::Foundation::Collections::IKeyValuePair<IAmfValue^, IAmfValue^>^ value ) :
-			key_( std::move( value->Key ) ), value_( std::move( value->Value ) )
-		{ }
-		AmfPair( IAmfValue^ key, IAmfValue^ value ):
-			key_( std::move( key ) ), value_( std::move( value ) )
-		{ }
+		AmfPair();
+		AmfPair( Windows::Foundation::Collections::IKeyValuePair<IAmfValue^, IAmfValue^>^ value );
+		AmfPair( IAmfValue^ key, IAmfValue^ value );
+
+		// IStringable
+#if !_WINDOWS_PHONE
+		virtual Platform::String^ ToString() override sealed;
+#endif
 
 	public:
 		property AmfValueType KeyType

@@ -37,5 +37,6 @@
     <ClCompile Include="amf0_sequencer.cpp" />
     <ClCompile Include="amf3_sequencer.cpp" />
     <ClCompile Include="AmfDictionary.cpp" />
+    <ClCompile Include="AmfPair.cpp" />
   </ItemGroup>
 </Project>

@@ -33,6 +33,8 @@
     <ClCompile Include="AmfNumberValueUnitTest.cpp" />
     <ClCompile Include="Amf0AmvplusUnitTest.cpp" />
     <ClCompile Include="AmfObjectUnitTest.cpp" />
+    <ClCompile Include="AmfDictionaryUnitTest.cpp" />
+    <ClCompile Include="AmfNullValueUnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Images\UnitTestLogo.scale-100.png">

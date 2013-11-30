@@ -8,13 +8,13 @@ TEST_CLASS( AmfStringValueUnitTest )
 public:
 	TEST_METHOD( AmfStringValue_CreateTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
-		Assert::IsTrue( AmfValueType::String == val->ValueType );
+		const auto& val = CreateDefaultString();
+		Assert::IsTrue( val->ValueType == AmfValueType::String );
 	}
 
 	TEST_METHOD( AmfStringValue_GetBooleanTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetBoolean();
@@ -23,7 +23,7 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetNumberTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetNumber();
@@ -32,13 +32,13 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetStringTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		Assert::AreEqual( generalTestValue_, val->GetString() );
 	}
 
 	TEST_METHOD( AmfStringValue_GetDateTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetDate();
@@ -47,7 +47,7 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetByteArrayTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetByteArray();
@@ -56,7 +56,7 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetVectorIntTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorInt();
@@ -65,7 +65,7 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetVectorUintTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorUint();
@@ -74,7 +74,7 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetVectorDoubleTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorDouble();
@@ -83,7 +83,7 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetVectorObjectTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorObject();
@@ -92,7 +92,7 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetObjectTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetObject();
@@ -101,7 +101,7 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetArrayTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetArray();
@@ -110,7 +110,7 @@ public:
 
 	TEST_METHOD( AmfStringValue_GetDictionaryTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetDictionary();
@@ -119,12 +119,12 @@ public:
 
 	TEST_METHOD( AmfStringValue_ToStringTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultString();
 		Assert::AreEqual( L"\"" + generalTestValue_ + L"\"", val->ToString() );
 	}
 
 private:
-	AmfValue^ GeneralCareteAmfValue()
+	AmfValue^ CreateDefaultString()
 	{
 		return AmfValue::CreateStringValue( generalTestValue_ );
 	}

@@ -12,6 +12,7 @@
     <ClCompile Include="amf3_sequencer.cpp" />
     <ClCompile Include="AmfDictionary.cpp" />
     <ClCompile Include="AmfValue.cpp" />
+    <ClCompile Include="AmfPair.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

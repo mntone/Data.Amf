@@ -8,13 +8,13 @@ TEST_CLASS( AmfDateValueUnitTest )
 public:
 	TEST_METHOD( AmfDateValue_CreateTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
-		Assert::IsTrue( AmfValueType::Date == val->ValueType );
+		const auto& val = CreateDefaultDate();
+		Assert::IsTrue( val->ValueType == AmfValueType::Date );
 	}
 
 	TEST_METHOD( AmfDateValue_GetBooleanTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetBoolean();
@@ -23,7 +23,7 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetNumberTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetNumber();
@@ -32,7 +32,7 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetStringTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetString();
@@ -41,13 +41,13 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetDateTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		Assert::IsTrue( generalTestValue_.UniversalTime == val->GetDate().UniversalTime );
 	}
 
 	TEST_METHOD( AmfDateValue_GetByteArrayTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetByteArray();
@@ -56,7 +56,7 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetVectorIntTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorInt();
@@ -65,7 +65,7 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetVectorUintTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorUint();
@@ -74,7 +74,7 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetVectorDoubleTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorDouble();
@@ -83,7 +83,7 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetVectorObjectTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetVectorObject();
@@ -92,7 +92,7 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetObjectTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetObject();
@@ -101,7 +101,7 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetArrayTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetArray();
@@ -110,7 +110,7 @@ public:
 
 	TEST_METHOD( AmfDateValue_GetDictionaryTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
 			val->GetDictionary();
@@ -119,12 +119,12 @@ public:
 
 	TEST_METHOD( AmfDateValue_ToStringTest )
 	{
-		const auto& val = GeneralCareteAmfValue();
+		const auto& val = CreateDefaultDate();
 		Assert::AreEqual( generalTestValue_.ToString(), val->ToString() );
 	}
 
 private:
-	AmfValue^ GeneralCareteAmfValue()
+	AmfValue^ CreateDefaultDate()
 	{
 		return AmfValue::CreateDateValue( generalTestValue_ );
 	}

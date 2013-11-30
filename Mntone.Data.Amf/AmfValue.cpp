@@ -119,6 +119,7 @@ Platform::String^ AmfValue::ToString()
 {
 	switch( this->ValueType )
 	{
+	case AmfValueType::Null: return L"null";
 	case AmfValueType::Undefined: return L"undefined";
 	case AmfValueType::String:
 	case AmfValueType::Xml:

@@ -649,7 +649,7 @@ public:
 			Assert::IsTrue( val->ValueType == AmfValueType::Array );
 
 			const auto& ary = val->GetArray();
-			Assert::AreEqual<uint32>( 4, ary->Size );
+			Assert::AreEqual( 4u, ary->Size );
 			Assert::AreEqual( L"_result", ary->GetStringAt( 0 )->Data() );
 			Assert::AreEqual( 1.0, ary->GetNumberAt( 1 ) );
 

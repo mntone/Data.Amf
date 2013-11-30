@@ -89,12 +89,12 @@ namespace Mntone { namespace Data { namespace Amf {
 		property Platform::String^ ClassName
 		{
 			virtual Platform::String^ get() { return ClassName_; }
-			virtual void set( Platform::String^ value ) { ClassName_ = value; }
+			virtual void set( Platform::String^ value ) { ClassName_ = std::move( value ); }
 		}
 		property bool Externalizable
 		{
 			virtual bool get() { return Externalizable_; }
-			virtual void set( bool value ) { Externalizable_ = value; }
+			virtual void set( bool value ) { Externalizable_ = std::move( value ); }
 		}
 
 		// IMap

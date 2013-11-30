@@ -30,20 +30,17 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfArray^ GetArray();
 		virtual AmfDictionary^ GetDictionary();
 
-		// IAmfDictionary: read methods	
-		virtual bool IndexOfPair( IAmfValue^ key, IAmfValue^ value, uint32* index );
-
 		// IAmfDictionary: write methods
 		virtual void SetPairAt( uint32 index, IAmfValue^ key, IAmfValue^ value );
 		virtual void InsertPairAt( uint32 index, IAmfValue^ key, IAmfValue^ value );
 		virtual void AppendPair( IAmfValue^ key, IAmfValue^ value );
 
 		// IIterable
-		virtual Windows::Foundation::Collections::IIterator<AmfPair^>^ First( );
+		virtual Windows::Foundation::Collections::IIterator<AmfPair^>^ First();
 
 		// IVector: read methods
 		virtual AmfPair^ GetAt( uint32 index );
-		virtual Windows::Foundation::Collections::IVectorView<AmfPair^>^ GetView( );
+		virtual Windows::Foundation::Collections::IVectorView<AmfPair^>^ GetView();
 		virtual bool IndexOf( AmfPair^ value, uint32* index );
 
 		// IVector: write methods
