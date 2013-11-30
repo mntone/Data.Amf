@@ -109,6 +109,15 @@ public:
 		} );
 	}
 
+	TEST_METHOD( AmfBooleanValue_GetDictionaryTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetDictionary();
+		} );
+	}
+
 	TEST_METHOD( AmfBooleanValue_ToStringTest )
 	{
 		const auto& val = GeneralCareteAmfValue();

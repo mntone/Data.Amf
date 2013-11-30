@@ -108,6 +108,15 @@ public:
 		} );
 	}
 
+	TEST_METHOD( AmfObject_GetDictionaryTest )
+	{
+		const auto& obj = GeneralCreateAmfObject();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			obj->GetDictionary();
+		} );
+	}
+
 	TEST_METHOD( AmfObject_ToStringTest )
 	{
 		const auto& obj = GeneralCreateAmfObject();
@@ -475,6 +484,37 @@ public:
 		AssertHelper::ExpectInvalidOperatonException( [=]
 		{
 			obj->GetNamedArray( key );
+		} );
+	}
+
+	TEST_METHOD( AmfObject_GetNamedDictionaryTest )
+	{
+		const auto& obj = GeneralCreateAmfObject();
+		const auto& val = ref new AmfDictionary();
+		const auto& key = ref new Platform::String( L"testKey" );
+		obj->SetNamedValue( key, val );
+		Assert::AreEqual( val, obj->GetNamedDictionary( key ) );
+	}
+
+	TEST_METHOD( AmfObject_GetNamedDictionaryTest_OutOfRange )
+	{
+		const auto& obj = GeneralCreateAmfObject();
+		const auto& key = ref new Platform::String( L"testKey" );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			obj->GetNamedDictionary( key );
+		} );
+	}
+
+	TEST_METHOD( AmfObject_GetNamedDictionaryTest_InvalidType )
+	{
+		const auto& obj = GeneralCreateAmfObject();
+		const auto& val = ref new Platform::String( L"testValue" );
+		const auto& key = ref new Platform::String( L"testKey" );
+		obj->SetNamedValue( key, AmfValue::CreateStringValue( val ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			obj->GetNamedDictionary( key );
 		} );
 	}
 

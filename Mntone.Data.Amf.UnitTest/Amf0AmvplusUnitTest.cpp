@@ -577,6 +577,66 @@ public:
 		} );
 	}
 
+	TEST_METHOD( Amf0Amvplus_⑰DictionaryTest‐0_Null )
+	{
+		ParserTest( ref new U8Array{ 0x11, 0x11, 0x1, 0x0 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Dictionary );
+
+			const auto& dic = val->GetDictionary();
+			Assert::AreEqual( 0u, dic->Size );
+		} );
+	}
+
+	TEST_METHOD( Amf0Amvplus_⑰DictionaryTest‐1_test )
+	{
+		ParserTest( ref new U8Array{ 0x11, 0x11, 0x7, 0x0, 0xa, 0xb, 0x1, 0x3, 0x62, 0x4, 0x3, 0x3, 0x61, 0x4, 0x2, 0x1, 0x4, 0x3, 0xa, 0x1, 0x3, 0x79, 0x4, 0x5, 0x3, 0x78, 0x4, 0x4, 0x1, 0x4, 0x4, 0x6, 0x2, 0x4, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Dictionary );
+
+			const auto& dic = val->GetDictionary();
+			Assert::AreEqual( 3u, dic->Size );
+
+			const auto& first = dic->GetAt( 0 );
+			Assert::IsTrue( first->KeyType == AmfValueType::Object );
+			const auto& firstKey = first->Key->GetObject();
+			Assert::AreEqual( 2.0, firstKey->GetNamedNumber( "a" ) );
+			Assert::AreEqual( 3.0, firstKey->GetNamedNumber( "b" ) );
+			Assert::IsTrue( first->ValueType == AmfValueType::Number );
+			Assert::AreEqual( 3.0, first->Value->GetNumber() );
+
+			const auto& second = dic->GetAt( 1 );
+			Assert::IsTrue( second->KeyType == AmfValueType::Object );
+			const auto& secondKey = second->Key->GetObject();
+			Assert::AreEqual( 4.0, secondKey->GetNamedNumber( "x" ) );
+			Assert::AreEqual( 5.0, secondKey->GetNamedNumber( "y" ) );
+			Assert::IsTrue( second->ValueType == AmfValueType::Number );
+			Assert::AreEqual( 4.0, second->Value->GetNumber() );
+
+			const auto& third = dic->GetAt( 2 );
+			Assert::IsTrue( third->KeyType == AmfValueType::String );
+			Assert::AreEqual( L"a", third->Key->GetString() );
+			Assert::IsTrue( third->ValueType == AmfValueType::Number );
+			Assert::AreEqual( 2.0, third->Value->GetNumber() );
+		} );
+	}
+
+	TEST_METHOD( Amf0Amvplus_⑰DictionaryTest‐2_NullAndRef )
+	{
+		ParserTest( ref new U8Array{ 0x11, 9, 0x5, 0x1, 0x11, 0x1, 0x0, 0x11, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+
+			const auto& dic = ary->GetDictionaryAt( 0 );
+			Assert::AreEqual( 0u, dic->Size );
+
+			Assert::IsTrue( ary->GetAt( 1 ) == dic );
+		} );
+	}
+
 	TEST_METHOD( Amf0Amvplus_⑱UnknownTypeTest‐0 )
 	{
 		ParserFailureExceptionTest( ref new U8Array{ 0x11, 16 } );
@@ -663,8 +723,8 @@ private:
 	void ParserTest( U8Array^ expected, std::function<void( IAmfValue^ )> checkHandler )
 	{
 		const auto& amf = amf0_parser::parse( expected );
-		const auto& str = amf->ToString( );
-		Logger::WriteMessage( str->Data( ) );
+		const auto& str = amf->ToString();
+		Logger::WriteMessage( str->Data() );
 		Logger::WriteMessage( L"\n" );
 		checkHandler( amf );
 	}

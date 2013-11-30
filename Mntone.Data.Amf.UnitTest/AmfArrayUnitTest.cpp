@@ -121,6 +121,14 @@ public:
 		} );
 	}
 
+	TEST_METHOD( AmfArray_GetDictionaryTest )
+	{
+		InvalidOperationTest( []( AmfArray^ ary )
+		{
+			ary->GetDictionary();
+		} );
+	}
+
 	TEST_METHOD( AmfArray_GetArrayTest )
 	{
 		const auto& ary = ref new AmfArray();
@@ -320,35 +328,6 @@ public:
 		} );
 	}
 
-	TEST_METHOD( AmfArray_GetArrayAtTest )
-	{
-		auto ary = ref new AmfArray();
-		auto valAry = ref new AmfArray();
-		ary->Append( valAry );
-		Assert::AreEqual( valAry, ary->GetArrayAt( 0 ) );
-	}
-
-	TEST_METHOD( AmfArray_GetArrayAtTest_OutOfRange )
-	{
-		auto ary = ref new AmfArray();
-		auto valAry = ref new AmfArray();
-		ary->Append( valAry );
-		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
-		{
-			ary->GetArrayAt( 1 );
-		} );
-	}
-
-	TEST_METHOD( AmfArray_GetArrayAtTest_InvalidType )
-	{
-		auto ary = ref new AmfArray();
-		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
-		AssertHelper::ExpectInvalidOperatonException( [=]
-		{
-			ary->GetArrayAt( 0 );
-		} );
-	}
-
 	TEST_METHOD( AmfArray_GetVectorDoubleAtTest )
 	{
 		auto ary = ref new AmfArray();
@@ -447,7 +426,7 @@ public:
 	TEST_METHOD( AmfArray_GetVectorObjectAtTest_OutOfRange )
 	{
 		auto ary = ref new AmfArray();
-		auto vec = ref new Platform::Collections::Vector<IAmfValue^>{ ref new AmfObject( ), ref new AmfObject( ) };
+		auto vec = ref new Platform::Collections::Vector<IAmfValue^>{ ref new AmfObject(), ref new AmfObject() };
 		ary->Append( AmfValue::CreateVectorObjectValue( vec ) );
 		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
 		{
@@ -491,6 +470,64 @@ public:
 		AssertHelper::ExpectInvalidOperatonException( [=]
 		{
 			ary->GetObjectAt( 0 );
+		} );
+	}
+
+	TEST_METHOD( AmfArray_GetArrayAtTest )
+	{
+		auto ary = ref new AmfArray();
+		auto valAry = ref new AmfArray();
+		ary->Append( valAry );
+		Assert::AreEqual( valAry, ary->GetArrayAt( 0 ) );
+	}
+
+	TEST_METHOD( AmfArray_GetArrayAtTest_OutOfRange )
+	{
+		auto ary = ref new AmfArray();
+		auto valAry = ref new AmfArray();
+		ary->Append( valAry );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetArrayAt( 1 );
+		} );
+	}
+
+	TEST_METHOD( AmfArray_GetArrayAtTest_InvalidType )
+	{
+		auto ary = ref new AmfArray();
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetArrayAt( 0 );
+		} );
+	}
+
+	TEST_METHOD( AmfArray_GetDictionaryAtTest )
+	{
+		auto ary = ref new AmfArray();
+		auto amfDictionary = ref new AmfDictionary();
+		ary->Append( amfDictionary );
+		Assert::AreEqual( amfDictionary, ary->GetDictionaryAt( 0 ) );
+	}
+
+	TEST_METHOD( AmfArray_GetDictionaryAtTest_OutOfRange )
+	{
+		auto ary = ref new AmfArray();
+		auto amfDictionary = ref new AmfObject();
+		ary->Append( amfDictionary );
+		Assert::ExpectException<Platform::OutOfBoundsException^>( [=]
+		{
+			ary->GetDictionaryAt( 1 );
+		} );
+	}
+
+	TEST_METHOD( AmfArray_GetDictionaryAtTest_InvalidType )
+	{
+		auto ary = ref new AmfArray();
+		ary->Append( AmfValue::CreateStringValue( L"invalid type" ) );
+		AssertHelper::ExpectInvalidOperatonException( [=]
+		{
+			ary->GetDictionaryAt( 0 );
 		} );
 	}
 

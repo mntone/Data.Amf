@@ -81,6 +81,15 @@ public:
 		} );
 	}
 
+	TEST_METHOD( AmfStringValue_GetVectorObjectTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetVectorObject();
+		} );
+	}
+
 	TEST_METHOD( AmfStringValue_GetObjectTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
@@ -99,12 +108,12 @@ public:
 		} );
 	}
 
-	TEST_METHOD( AmfStringValue_GetVectorObjectTest )
+	TEST_METHOD( AmfStringValue_GetDictionaryTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
 		AssertHelper::ExpectInvalidOperatonException( [=]()
 		{
-			val->GetVectorObject();
+			val->GetDictionary();
 		} );
 	}
 

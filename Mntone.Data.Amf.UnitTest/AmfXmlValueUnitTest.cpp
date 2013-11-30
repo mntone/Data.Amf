@@ -109,6 +109,15 @@ public:
 		} );
 	}
 
+	TEST_METHOD( AmfXmlValue_GetDictionaryTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetDictionary();
+		} );
+	}
+
 	TEST_METHOD( AmfXmlValue_ToStringTest )
 	{
 		const auto& val = GeneralCareteAmfValue();

@@ -108,6 +108,15 @@ public:
 		} );
 	}
 
+	TEST_METHOD( AmfVectorDoubleValue_GetDictionaryTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetDictionary();
+		} );
+	}
+
 	TEST_METHOD( AmfVectorDoubleValue_ToStringTest )
 	{
 		const auto& val = GeneralCareteAmfValue();

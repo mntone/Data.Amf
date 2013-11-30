@@ -110,6 +110,15 @@ TEST_CLASS( AmfUndefinedValueUnitTest )
 		} );
 	}
 
+	TEST_METHOD( AmfUndefinedValue_GetDictionaryTest )
+	{
+		const auto& val = GeneralCareteAmfValue();
+		AssertHelper::ExpectInvalidOperatonException( [=]()
+		{
+			val->GetDictionary();
+		} );
+	}
+
 	TEST_METHOD( AmfUndefinedValue_ToStringTest )
 	{
 		const auto& val = GeneralCareteAmfValue();
