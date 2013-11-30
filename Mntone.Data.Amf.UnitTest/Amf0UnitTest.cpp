@@ -147,6 +147,11 @@ public:
 		} );
 	}
 
+	TEST_METHOD( Amf0_⑦ReferenceTest‐0_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 10, 0, 0, 0, 2, 2, 0, 0, 7, 0, 1 } );
+	}
+
 	TEST_METHOD( Amf0_⑧EcmaArrayTest‐0_Null )
 	{
 		Test( ref new U8Array{ 8, 0, 0, 0, 0, 0, 0, 9 }, []( IAmfValue^ val )

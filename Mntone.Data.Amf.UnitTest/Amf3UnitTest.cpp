@@ -190,7 +190,7 @@ public:
 		Test( ref new U8Array{ 6, 1 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::String );
-			Assert::AreEqual( val->GetString()->Data(), L"" );
+			Assert::AreEqual( L"", val->GetString()->Data() );
 		} );
 	}
 
@@ -199,7 +199,7 @@ public:
 		Test( ref new U8Array{ 6, 11, 0x41, 0x53, 0x43, 0x49, 0x49 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::String );
-			Assert::AreEqual( val->GetString()->Data(), L"ASCII" );
+			Assert::AreEqual( L"ASCII", val->GetString() );
 		} );
 	}
 
@@ -208,7 +208,7 @@ public:
 		Test( ref new U8Array{ 6, 13, 0xc2, 0xbd, 0x3a, 0x20, 0x32, 0x42 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::String );
-			Assert::AreEqual( L"½: 2B", val->GetString()->Data() );
+			Assert::AreEqual( L"½: 2B", val->GetString() );
 		} );
 	}
 
@@ -217,8 +217,26 @@ public:
 		Test( ref new U8Array{ 6, 15, 0xe2, 0x91, 0xb4, 0x3a, 0x20, 0x33, 0x42 }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::String );
-			Assert::AreEqual( L"⑴: 3B", val->GetString()->Data() );
+			Assert::AreEqual( L"⑴: 3B", val->GetString() );
 		} );
+	}
+
+	TEST_METHOD( Amf3_⑥StringTest‐4_StringAndRef )
+	{
+		Test( ref new U8Array{ 0x9, 0x5, 0x1, 0x6, 0x7, 0x61, 0x62, 0x63, 0x6, 0x0 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+			Assert::AreEqual( L"abc", ary->GetStringAt( 0 ) );
+			Assert::AreEqual( L"abc", ary->GetStringAt( 1 ) );
+		} );
+	}
+
+	TEST_METHOD( Amf3_⑥StringTest‐5_String_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 0x9, 0x5, 0x1, 0x6, 0x7, 0x61, 0x62, 0x63, 0x6, 0x2 } );
 	}
 
 	TEST_METHOD( Amf3_⑦XmlDocumentTest‐0_RootNode )
@@ -226,8 +244,29 @@ public:
 		ParserTest( ref new U8Array{ 7, 13, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e }, []( IAmfValue^ val )
 		{
 			Assert::IsTrue( val->ValueType == AmfValueType::Xml );
-			Assert::AreEqual( L"<root>", val->GetString()->Data() );
+			Assert::AreEqual( L"<root>", val->GetString() );
 		} );
+	}
+
+	TEST_METHOD( Amf3_⑦XmlDocumentTest‐1_RootNodeAndRef )
+	{
+		ParserTest( ref new U8Array{ 9, 0x5, 0x1, 7, 13, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e, 7, 0x2 }, []( IAmfValue^ val )
+		{
+			Assert::IsTrue( val->ValueType == AmfValueType::Array );
+
+			const auto& ary = val->GetArray();
+			Assert::AreEqual( 2u, ary->Size );
+			
+			const auto& xml = ary->GetAt( 0 );
+			Assert::IsTrue( xml->ValueType == AmfValueType::Xml );
+			Assert::AreEqual( L"<root>", xml->GetString() );
+			Assert::IsTrue( ary->GetAt( 1 ) == xml );
+		} );
+	}
+
+	TEST_METHOD( Amf3_⑦XmlDocumentTest‐2_RootNode_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 9, 0x5, 0x1, 7, 13, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e, 7, 0x4 } );
 	}
 
 	TEST_METHOD( Amf3_⑧DateTest‐0_2013／10／13 )
@@ -265,6 +304,11 @@ public:
 			Assert::IsTrue( exp.UniversalTime == ary->GetDateAt( 0 ).UniversalTime );
 			Assert::IsTrue( exp.UniversalTime == ary->GetDateAt( 1 ).UniversalTime );
 		} );
+	}
+
+	TEST_METHOD( Amf3_⑧DateTest‐2_2013／11／02_20：28：52．0100_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 9, 0x5, 0x1, 0x8, 0x1, 0x42, 0x74, 0x21, 0x89, 0x2a, 0x18, 0x40, 0x0, 0x8, 0x4 } );
 	}
 
 	TEST_METHOD( Amf3_⑨ArrayTest‐0_NumKeyAndStrKey )
@@ -406,6 +450,11 @@ public:
 		} );
 	}
 
+	TEST_METHOD( Amf3_⑪XmlTest‐2_RootNode_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 9, 0x5, 0x1, 11, 13, 0x3c, 0x72, 0x6f, 0x6f, 0x74, 0x3e, 0xb, 0x4 } );
+	}
+
 	TEST_METHOD( Amf3_⑫ByteArrayTest‐0_234 )
 	{
 		Test( ref new U8Array{ 12, 0x7, 0x2, 0x3, 0x4 }, []( IAmfValue^ val )
@@ -417,7 +466,7 @@ public:
 		} );
 	}
 
-	TEST_METHOD( Amf3_⑫ByteArrayTest‐0_234AndRef )
+	TEST_METHOD( Amf3_⑫ByteArrayTest‐1_234AndRef )
 	{
 		Test( ref new U8Array{ 9, 0x5, 0x1, 12, 0x7, 0x2, 0x3, 0x4, 0xc, 0x2 }, []( IAmfValue^ val )
 		{
@@ -431,6 +480,11 @@ public:
 			AssertHelper::AreArrayEqual( ref new U8Array{ 2, 3, 4 }, ba->GetByteArray() );
 			Assert::IsTrue( ary->GetAt( 1 ) == ba );
 		} );
+	}
+
+	TEST_METHOD( Amf3_⑫ByteArrayTest‐2_234_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 9, 0x5, 0x1, 12, 0x7, 0x2, 0x3, 0x4, 0xc, 0x4 } );
 	}
 
 	TEST_METHOD( Amf3_⑬VectorIntTest‐0_2／3 )
@@ -466,6 +520,11 @@ public:
 		} );
 	}
 
+	TEST_METHOD( Amf3_⑬VectorIntTest‐2_2／3_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 9, 0x5, 0x1, 13, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3, 0xd, 0x4 } );
+	}
+
 	TEST_METHOD( Amf3_⑭VectorUintTest‐0_2／3 )
 	{
 		Test( ref new U8Array{ 14, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3 }, []( IAmfValue^ val )
@@ -499,6 +558,11 @@ public:
 		} );
 	}
 
+	TEST_METHOD( Amf3_⑬VectorUintTest‐2_2／3_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 9, 0x5, 0x1, 14, 0x5, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x3, 0xe, 0x4 } );
+	}
+
 	TEST_METHOD( Amf3_⑮VectorDoubleTest‐0_2．0／3．0 )
 	{
 		Test( ref new U8Array{ 15, 0x5, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 }, []( IAmfValue^ val )
@@ -530,6 +594,11 @@ public:
 			Assert::AreEqual( 3.0, vd->GetAt( 1 ) );
 			Assert::IsTrue( ary->GetAt( 1 ) == ivd );
 		} );
+	}
+
+	TEST_METHOD( Amf3_⑬VectorDoubleTest‐2_2．0／3．0_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 9, 0x5, 0x1, 15, 0x5, 0x0, 0x40, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x40, 0x8, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0xf, 0x4 } );
 	}
 
 	TEST_METHOD( Amf3_⑯VectorObjectTest‐0_abcAnd1 )
@@ -575,6 +644,11 @@ public:
 			Assert::AreEqual( 1.0, integer->GetNumber() );
 			Assert::IsTrue( ary->GetAt( 1 ) == ivo );
 		} );
+	}
+
+	TEST_METHOD( Amf3_⑯VectorObjectTest‐2_abcAnd1_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 9, 0x5, 0x1, 16, 0x5, 0x0, 0x1, 0x6, 0x7, 0x61, 0x62, 0x63, 0x4, 0x1, 0x10, 0x4 } );
 	}
 
 	TEST_METHOD( Amf3_⑰DictionaryTest‐0_Null )
@@ -635,6 +709,11 @@ public:
 
 			Assert::IsTrue( ary->GetAt( 1 ) == dic );
 		} );
+	}
+
+	TEST_METHOD( Amf3_⑰DictionaryTest‐3_Null_InvalidReference )
+	{
+		ParserFailureExceptionTest( ref new U8Array{ 9, 0x5, 0x1, 0x11, 0x1, 0x0, 0x11, 0x4 } );
 	}
 
 	TEST_METHOD( Amf3_⑱UnknownTypeTest‐0 )
