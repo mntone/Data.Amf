@@ -39,24 +39,24 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual void AppendPair( IAmfValue^ key, IAmfValue^ value );
 
 		// IIterable
-		virtual Windows::Foundation::Collections::IIterator<IAmfPair^>^ First();
+		virtual Windows::Foundation::Collections::IIterator<AmfPair^>^ First( );
 
 		// IVector: read methods
-		virtual IAmfPair^ GetAt( uint32 index );
-		virtual Windows::Foundation::Collections::IVectorView<IAmfPair^>^ GetView();
-		virtual bool IndexOf( IAmfPair^ value, uint32* index );
+		virtual AmfPair^ GetAt( uint32 index );
+		virtual Windows::Foundation::Collections::IVectorView<AmfPair^>^ GetView( );
+		virtual bool IndexOf( AmfPair^ value, uint32* index );
 
 		// IVector: write methods
-		virtual void SetAt( uint32 index, IAmfPair^ value );
-		virtual void InsertAt( uint32 index, IAmfPair^ value );
+		virtual void SetAt( uint32 index, AmfPair^ value );
+		virtual void InsertAt( uint32 index, AmfPair^ value );
 		virtual void RemoveAt( uint32 index );
-		virtual void Append( IAmfPair^ value );
+		virtual void Append( AmfPair^ value );
 		virtual void RemoveAtEnd();
 		virtual void Clear();
 
 		// IVector: bulk transfer methods
-		virtual uint32 GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfPair^>^ items );
-		virtual void ReplaceAll( const Platform::Array<IAmfPair^>^ items );
+		virtual uint32 GetMany( uint32 startIndex, Platform::WriteOnlyArray<AmfPair^>^ items );
+		virtual void ReplaceAll( const Platform::Array<AmfPair^>^ items );
 
 		// IStringable
 #if !_WINDOWS_PHONE
@@ -69,7 +69,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		static bool TryParse( const Platform::Array<uint8>^ input, AmfEncodingType type, AmfDictionary^* result );
 
 	internal:
-		void SetData( std::vector<IAmfPair^> data );
+		void SetData( std::vector<AmfPair^> data );
 
 	public:
 		// IAmfValue
@@ -86,7 +86,7 @@ namespace Mntone { namespace Data { namespace Amf {
 
 	private:
 		AmfValueType ValueType_;
-		Platform::Collections::Vector<IAmfPair^>^ vector_;
+		Platform::Collections::Vector<AmfPair^>^ vector_;
 	};
 
 } } }

@@ -389,9 +389,13 @@ Mntone::Data::Amf::IAmfValue^ amf3_parser::parse_dictionary( uint8*& input, size
 	length -= 1;
 
 	const size_t& array_length = value >> 1;
-	std::vector<IAmfPair^> vector( array_length );
+	std::vector<AmfPair^> vector( array_length );
 	for( size_t i = 0; i < array_length; ++i )
-		vector[i] = ref new AmfPair( parse_value( input, length ), parse_value( input, length ) );
+	{
+		const auto& key = parse_value( input, length );
+		const auto& value = parse_value( input, length );
+		vector[i] = ref new AmfPair( key, value );
+	}
 
 	dic->SetData( std::move( vector ) );
 	return dic;

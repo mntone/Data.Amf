@@ -1,12 +1,12 @@
 #pragma once
-#include "IAmfPair.h"
+#include "AmfPair.h"
 
 namespace Mntone { namespace Data { namespace Amf {
 
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public interface class IAmfDictionary:
 		public IAmfValue,
-		public Windows::Foundation::Collections::IVector<IAmfPair^>
+		public Windows::Foundation::Collections::IVector<AmfPair^>
 	{		
 		// IAmfDictionary: read methods
 		bool IndexOfPair( IAmfValue^ key, IAmfValue^ value, uint32* index );

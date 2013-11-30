@@ -12,7 +12,7 @@ using namespace Mntone::Data::Amf;
 
 AmfDictionary::AmfDictionary() :
 	ValueType_( AmfValueType::Dictionary ),
-	vector_( ref new Platform::Collections::Vector<IAmfPair^>( ) )
+	vector_( ref new Platform::Collections::Vector<AmfPair^>( ) )
 { }
 
 Platform::Array<uint8>^ AmfDictionary::Sequencify()
@@ -54,21 +54,21 @@ void AmfDictionary::SetPairAt( uint32 index, IAmfValue^ key, IAmfValue^ value ) 
 void AmfDictionary::InsertPairAt( uint32 index, IAmfValue^ key, IAmfValue^ value ) { vector_->InsertAt( index, ref new AmfPair( key, value ) ); }
 void AmfDictionary::AppendPair( IAmfValue^ key, IAmfValue^ value ) { vector_->Append( ref new AmfPair( key, value ) ); }
 
-Windows::Foundation::Collections::IIterator<IAmfPair^>^ AmfDictionary::First() { return vector_->First(); }
+Windows::Foundation::Collections::IIterator<AmfPair^>^ AmfDictionary::First( ) { return vector_->First( ); }
 
-IAmfPair^ AmfDictionary::GetAt( uint32 index ) { return vector_->GetAt( index ); }
-Windows::Foundation::Collections::IVectorView<IAmfPair^>^ AmfDictionary::GetView() { return vector_->GetView(); }
-bool AmfDictionary::IndexOf( IAmfPair^ value, uint32 *index ) { return vector_->IndexOf( value, index ); }
+AmfPair^ AmfDictionary::GetAt( uint32 index ) { return vector_->GetAt( index ); }
+Windows::Foundation::Collections::IVectorView<AmfPair^>^ AmfDictionary::GetView( ) { return vector_->GetView( ); }
+bool AmfDictionary::IndexOf( AmfPair^ value, uint32 *index ) { return vector_->IndexOf( value, index ); }
 
-void AmfDictionary::SetAt( uint32 index, IAmfPair^ value ) { vector_->SetAt( index, value ); }
-void AmfDictionary::InsertAt( uint32 index, IAmfPair^ value ) { vector_->InsertAt( index, value ); }
+void AmfDictionary::SetAt( uint32 index, AmfPair^ value ) { vector_->SetAt( index, value ); }
+void AmfDictionary::InsertAt( uint32 index, AmfPair^ value ) { vector_->InsertAt( index, value ); }
 void AmfDictionary::RemoveAt( uint32 index ) { vector_->RemoveAt( index ); }
-void AmfDictionary::Append( IAmfPair^ value ) { vector_->Append( value ); }
+void AmfDictionary::Append( AmfPair^ value ) { vector_->Append( value ); }
 void AmfDictionary::RemoveAtEnd() { vector_->RemoveAtEnd(); }
 void AmfDictionary::Clear() { vector_->Clear(); }
 
-uint32 AmfDictionary::GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfPair^>^ items ) { return vector_->GetMany( startIndex, items ); }
-void AmfDictionary::ReplaceAll( const Platform::Array<IAmfPair^>^ items ) { vector_->ReplaceAll( items ); }
+uint32 AmfDictionary::GetMany( uint32 startIndex, Platform::WriteOnlyArray<AmfPair^>^ items ) { return vector_->GetMany( startIndex, items ); }
+void AmfDictionary::ReplaceAll( const Platform::Array<AmfPair^>^ items ) { vector_->ReplaceAll( items ); }
 
 #if !_WINDOWS_PHONE
 Platform::String^ AmfDictionary::ToString()
@@ -122,7 +122,7 @@ bool AmfDictionary::TryParse( const Platform::Array<uint8>^ input, AmfEncodingTy
 	return amf0_parser::try_parse( input, buf );
 }
 
-void AmfDictionary::SetData( std::vector<IAmfPair^> data )
+void AmfDictionary::SetData( std::vector<AmfPair^> data )
 {
-	vector_ = ref new Platform::Collections::Vector<IAmfPair^>( std::move( data ) );
+	vector_ = ref new Platform::Collections::Vector<AmfPair^>( std::move( data ) );
 }
