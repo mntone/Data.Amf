@@ -410,6 +410,16 @@ public:
 		} );
 	}
 
+	TEST_METHOD( Amf3_⑨ArrayTest‐6_StringNullKeyExceptionTest )
+	{
+		Assert::ExpectException<Platform::InvalidArgumentException^>( [=]
+		{
+			const auto& ary = AmfObject::CreateEcmaArray();
+			ary->Insert( "", AmfValue::CreateBooleanValue( true ) );
+			SequencerTest( ary );
+		} );
+	}
+
 	TEST_METHOD( Amf3_⑩ObjectTest‐0_Default )
 	{
 		Test( ref new U8Array{ 10, 0xb, 0x1, 0x3, 0x61, 0x4, 0x2, 0x3, 0x62, 0x4, 0x3, 0x1 }, []( IAmfValue^ val )

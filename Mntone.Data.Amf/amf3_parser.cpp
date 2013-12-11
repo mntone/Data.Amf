@@ -200,7 +200,7 @@ IAmfValue^ amf3_parser::parse_array( uint8*& input, size_t& length )
 	while( length > 0 )
 	{
 		const auto& key = parse_string_base( input, length );
-		if( key->Length() == 0 )
+		if( key == "" )
 			break;
 
 		if( obj == nullptr )

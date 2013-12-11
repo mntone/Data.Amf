@@ -75,7 +75,13 @@ IAmfValue^ AmfObject::Lookup( Platform::String^ key ) { return map_->Lookup( key
 bool AmfObject::HasKey( Platform::String^ key ) { return map_->HasKey( key ); }
 Windows::Foundation::Collections::IMapView<Platform::String^, IAmfValue^>^ AmfObject::GetView() { return map_->GetView(); }
 
-bool AmfObject::Insert( Platform::String^ key, IAmfValue^ value ) { return map_->Insert( key, value ); }
+bool AmfObject::Insert( Platform::String^ key, IAmfValue^ value )
+{
+	if( key == "" )
+		throw ref new Platform::InvalidArgumentException( "Invalid key." );
+
+	return map_->Insert( key, value );
+}
 void AmfObject::Remove( Platform::String^ key ) { map_->Remove( key ); }
 void AmfObject::Clear() { map_->Clear(); }
 
