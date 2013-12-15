@@ -83,7 +83,7 @@ IAmfValue^ amf0_parser::parse_number( uint8*& input, size_t& length )
 		throw amf_exception( "Invalid number." );
 
 	float64 data;
-	utilities::convert_big_endian( input, &data, 8 );
+	utility::convert_big_endian( input, 8, &data );
 	input += 8;
 	length -= 8;
 
@@ -118,7 +118,7 @@ IAmfValue^ amf0_parser::parse_reference( uint8*& input, size_t& length )
 		throw amf_exception( "Invalid reference." );
 
 	uint16 data( 0 );
-	utilities::convert_big_endian( input, &data, 2 );
+	utility::convert_big_endian( input, 2, &data );
 	input += 2;
 	length -= 2;
 
@@ -134,11 +134,11 @@ IAmfValue^ amf0_parser::parse_date( uint8*& input, size_t& length )
 		throw amf_exception( "Invalid date." );
 
 	float64 data( 0.0 );
-	utilities::convert_big_endian( input, &data, 8 );
+	utility::convert_big_endian( input, 8, &data );
 	input += 10;
 	length -= 10;
 
-	return AmfValue::CreateDateValue( utilities::unix_time_to_date_time( static_cast<uint64>( data ) ) );
+	return AmfValue::CreateDateValue( utility::unix_time_to_date_time( static_cast<uint64>( data ) ) );
 }
 
 IAmfValue^ amf0_parser::parse_string( uint8*& input, size_t& length )
@@ -165,7 +165,7 @@ IAmfValue^ amf0_parser::parse_strict_array( uint8*& input, size_t& length )
 	reference_buffer_.push_back( out );
 
 	uint32 arrayCount( 0 );
-	utilities::convert_big_endian( input, &arrayCount, 4 );
+	utility::convert_big_endian( input, 4, &arrayCount );
 	input += 4;
 	length -= 4;
 
@@ -222,7 +222,7 @@ IAmfValue^ amf0_parser::parse_ecma_array( uint8*& input, size_t& length )
 	reference_buffer_.push_back( out );
 
 	//uint32 associative_count( 0 );
-	//utilities::convert_big_endian( input, &associative_count, 4 );
+	//utility::convert_big_endian( input, &associative_count, 4 );
 	input += 4;
 	length -= 4;
 
@@ -291,7 +291,7 @@ Platform::String^ amf0_parser::parse_utf8( uint8*& input, size_t& length )
 		throw amf_exception( "Invalid string." );
 
 	uint32 text_length( 0 );
-	utilities::convert_big_endian( input, &text_length, 2 );
+	utility::convert_big_endian( input, 2, &text_length );
 	input += 2;
 	length -= 2;
 
@@ -304,7 +304,7 @@ Platform::String^ amf0_parser::parse_utf8_long( uint8*& input, size_t& length )
 		throw amf_exception( "Invalid string." );
 
 	uint32 text_length( 0 );
-	utilities::convert_big_endian( input, &text_length, 4 );
+	utility::convert_big_endian( input, 4, &text_length );
 	input += 4;
 	length -= 4;
 
@@ -323,5 +323,5 @@ Platform::String^ amf0_parser::parse_utf8_base( uint8*& input, size_t& length, c
 	buf.write( reinterpret_cast<char*>( input ), text_length );
 	input += text_length;
 	length -= text_length;
-	return utilities::char_utf8_to_platform_string( buf.str() );
+	return utility::char_utf8_to_platform_string( buf.str() );
 }

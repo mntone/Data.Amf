@@ -2,7 +2,6 @@
 
 // STL Headers:
 #include <memory>
-#include <string>
 #include <sstream>
 #include <locale>
 #include <tuple>
@@ -10,6 +9,7 @@
 #include <map>
 #include <unordered_map>
 #include <utility>
+#include <limits>
 
 // Windows Header Files:
 #define WIN32_LEAN_AND_MEAN
@@ -25,5 +25,5 @@
 #undef NOMINMAX
 #include <collection.h>
 
-// This Project Header Files:
-#include "utilities.h"
+// This Project Headers:
+#include "utility.h"

@@ -113,7 +113,7 @@ IAmfValue^ amf3_parser::parse_double( uint8*& input, size_t& length )
 		throw amf_exception( "Invalid double." );
 
 	float64 data;
-	utilities::convert_big_endian( input, &data, 8 );
+	utility::convert_big_endian( input, 8, &data );
 	input += 8;
 	length -= 8;
 
@@ -148,7 +148,7 @@ Platform::String^ amf3_parser::parse_string_base( uint8*& input, size_t& length 
 	input += text_length;
 	length -= text_length;
 
-	const auto& str = utilities::char_utf8_to_platform_string( buf.str() );
+	const auto& str = utility::char_utf8_to_platform_string( buf.str() );
 	string_reference_buffer_.push_back( str );
 	return str;
 }
@@ -175,11 +175,11 @@ IAmfValue^ amf3_parser::parse_date( uint8*& input, size_t& length )
 		throw amf_exception( "Invalid date." );
 
 	float64 data( 0.0 );
-	utilities::convert_big_endian( input, &data, 8 );
+	utility::convert_big_endian( input, 8, &data );
 	input += 8;
 	length -= 8;
 
-	const auto& date = AmfValue::CreateDateValue( utilities::unix_time_to_date_time( static_cast<uint64>( data ) ) );
+	const auto& date = AmfValue::CreateDateValue( utility::unix_time_to_date_time( static_cast<uint64>( data ) ) );
 	object_reference_buffer_.push_back( date );
 	return date;
 }
@@ -414,7 +414,7 @@ Platform::String^ amf3_parser::parse_utf8( uint8*& input, size_t& length, const 
 	input += text_length;
 	length -= text_length;
 
-	return utilities::char_utf8_to_platform_string( buf.str() );
+	return utility::char_utf8_to_platform_string( buf.str() );
 }
 
 uint32 amf3_parser::parse_unsigned_29bit_integer( uint8*& input, size_t& length )

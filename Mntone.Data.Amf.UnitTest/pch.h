@@ -4,10 +4,10 @@
 #include <sstream>
 #include <functional>
 
-// Windows Header Files:
+// Windows Headers:
 #include <collection.h>
 
-// This Project Header Files:
+// This Project Headers:
 #include "CppUnitTest.h"
 #include "AssertHelper.h"
 

@@ -13,7 +13,6 @@
     <ClInclude Include="IAmfArray.h" />
     <ClInclude Include="IAmfObject.h" />
     <ClInclude Include="IAmfValue.h" />
-    <ClInclude Include="Utilities.h" />
     <ClInclude Include="com_exception_helper.h" />
     <ClInclude Include="amf0_parser.h" />
     <ClInclude Include="amf_exception.h" />
@@ -24,13 +23,13 @@
     <ClInclude Include="AmfPair.h" />
     <ClInclude Include="IAmfDictionary.h" />
     <ClInclude Include="IAmfPair.h" />
+    <ClInclude Include="utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="AmfArray.cpp" />
     <ClCompile Include="AmfObject.cpp" />
     <ClCompile Include="AmfValue.cpp" />
-    <ClCompile Include="Utilities.cpp" />
     <ClCompile Include="com_exception_helper.cpp" />
     <ClCompile Include="amf0_parser.cpp" />
     <ClCompile Include="amf3_parser.cpp" />
@@ -38,5 +37,6 @@
     <ClCompile Include="amf3_sequencer.cpp" />
     <ClCompile Include="AmfDictionary.cpp" />
     <ClCompile Include="AmfPair.cpp" />
+    <ClCompile Include="utility.cpp" />
   </ItemGroup>
 </Project>

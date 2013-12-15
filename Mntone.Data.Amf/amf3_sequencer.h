@@ -56,7 +56,7 @@ namespace mntone { namespace data { namespace amf {
 			{
 				const auto& data = input->GetAt( i );
 				uint8 buf[S];
-				utilities::convert_big_endian( &data, buf, S );
+				utility::convert_big_endian( &data, S, buf );
 				stream.write( buf, S );
 			}
 		}

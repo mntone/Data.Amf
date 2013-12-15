@@ -94,7 +94,7 @@ void amf3_sequencer::sequencify_double( IAmfValue^ input, std::basic_ostringstre
 	stream.put( amf3_type::amf3_double );
 
 	uint8 buf[8];
-	utilities::convert_big_endian( &data, buf, 8 );
+	utility::convert_big_endian( &data, 8, buf );
 	stream.write( buf, 8 );
 }
 
@@ -126,7 +126,7 @@ void amf3_sequencer::sequencify_string_base( Platform::String^ input, std::basic
 	}
 
 	{
-		const auto& data = utilities::platform_string_to_char_utf8( input );
+		const auto& data = utility::platform_string_to_char_utf8( input );
 		const auto& length = data.size();
 		sequencify_unsigned_28bit_integer_and_reference( length, false, stream );
 		stream.write( reinterpret_cast<const uint8*>( data.c_str() ), length );
@@ -148,9 +148,9 @@ void amf3_sequencer::sequencify_date( IAmfValue^ input, std::basic_ostringstream
 	object_reference_buffer_.push_back( input );
 	sequencify_unsigned_28bit_integer_and_reference( 0, false, stream );
 
-	const auto& data = static_cast<float64>( utilities::date_time_to_unix_time( input->GetDate() ) );
+	const auto& data = static_cast<float64>( utility::date_time_to_unix_time( input->GetDate() ) );
 	uint8 buf[8];
-	utilities::convert_big_endian( &data, buf, 8 );
+	utility::convert_big_endian( &data, 8, buf );
 	stream.write( buf, 8 );
 }
 
@@ -166,7 +166,7 @@ void amf3_sequencer::sequencify_xml( IAmfValue^ input, std::basic_ostringstream<
 	}
 	object_reference_buffer_.push_back( input );
 
-	const auto& data = utilities::platform_string_to_char_utf8( input->GetString() );
+	const auto& data = utility::platform_string_to_char_utf8( input->GetString() );
 	const auto& length = data.size();
 	sequencify_unsigned_28bit_integer_and_reference( length, false, stream );
 	stream.write( reinterpret_cast<const uint8*>( data.c_str() ), length );

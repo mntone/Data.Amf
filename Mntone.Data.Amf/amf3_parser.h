@@ -67,7 +67,7 @@ public:
 			for( size_t i = 0; i < array_length; ++i, input += size, length -= size )
 			{
 				T data;
-				utilities::convert_big_endian( input, &data, size );
+				utility::convert_big_endian( input, size, &data );
 				vector[i] = data;
 			}
 

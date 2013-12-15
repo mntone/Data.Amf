@@ -1,18 +1,19 @@
 #include "pch.h"
-#include "utilities.h"
+#include "utility.h"
 
 using namespace mntone::data::amf;
 
-void utilities::convert_big_endian( const void *const from, void *const to, const size_t size )
+void utility::convert_big_endian( const void* first, size_t size, void* dest )
 {
-	auto const from_ptr = reinterpret_cast<const uint8 *>( from );
-	auto const to_ptr = reinterpret_cast<uint8 *>( to );
+	auto ptr = reinterpret_cast<const uint8*>( first ) + size;
+	auto pdest = reinterpret_cast<uint8*>( dest );
 
-	for( auto i = 0u; i < size; ++i )
-		to_ptr[i] = from_ptr[size - i - 1];
+	for( ; first != ptr; ++pdest )
+		*pdest = *--ptr;
 }
 
-Platform::String^ utilities::char_utf8_to_platform_string( const std::string& char_utf8 )
+
+Platform::String^ utility::char_utf8_to_platform_string( const std::string& char_utf8 )
 {
 	const auto& char_utf8_length = static_cast<int32>( char_utf8.length() );
 	const auto& length = MultiByteToWideChar( CP_UTF8, 0, char_utf8.c_str(), char_utf8_length, nullptr, 0 );
@@ -26,7 +27,7 @@ Platform::String^ utilities::char_utf8_to_platform_string( const std::string& ch
 	return ref new Platform::String( buffer.data() );
 }
 
-std::string utilities::platform_string_to_char_utf8( Platform::String^ platform_string )
+std::string utility::platform_string_to_char_utf8( Platform::String^ platform_string )
 {
 	const auto& length = WideCharToMultiByte( CP_UTF8, 0, platform_string->Data(), platform_string->Length(), nullptr, 0, nullptr, nullptr );
 	if( length == 0 )
@@ -39,12 +40,12 @@ std::string utilities::platform_string_to_char_utf8( Platform::String^ platform_
 	return std::string( buffer.data() );
 }
 
-uint64 utilities::date_time_to_unix_time( Windows::Foundation::DateTime date_time )
+uint64 utility::date_time_to_unix_time( Windows::Foundation::DateTime date_time )
 {
 	return ( date_time.UniversalTime - 116444736000000000ull ) / 10000ull;
 }
 
-Windows::Foundation::DateTime utilities::unix_time_to_date_time( const uint64 date_time )
+Windows::Foundation::DateTime utility::unix_time_to_date_time( const uint64 date_time )
 {
 	Windows::Foundation::DateTime d;
 	d.UniversalTime = 10000ll * date_time + 116444736000000000ll;

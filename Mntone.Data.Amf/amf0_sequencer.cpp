@@ -73,13 +73,13 @@ void amf0_sequencer::sequencify_number( IAmfValue^ input, std::basic_ostringstre
 
 	const auto& data = input->GetNumber();
 	uint8 buf[8];
-	utilities::convert_big_endian( &data, buf, 8 );
+	utility::convert_big_endian( &data, 8, buf );
 	stream.write( buf, 8 );
 }
 
 void amf0_sequencer::sequencify_string( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
 {
-	const auto& data = utilities::platform_string_to_char_utf8( input->GetString() );
+	const auto& data = utility::platform_string_to_char_utf8( input->GetString() );
 	if( data.length() > 0xffff )
 	{
 		stream.put( amf0_type::amf0_long_string );
@@ -96,9 +96,9 @@ void amf0_sequencer::sequencify_date( IAmfValue^ input, std::basic_ostringstream
 {
 	stream.put( amf0_type::amf0_date );
 
-	const auto& data = static_cast<float64>( utilities::date_time_to_unix_time( input->GetDate() ) );
+	const auto& data = static_cast<float64>( utility::date_time_to_unix_time( input->GetDate() ) );
 	uint8 buf[10];
-	utilities::convert_big_endian( &data, buf, 8 );
+	utility::convert_big_endian( &data, 8, buf );
 
 #if _WINDOWS_PHONE
 	buf[8] = 0;
@@ -113,7 +113,7 @@ void amf0_sequencer::sequencify_date( IAmfValue^ input, std::basic_ostringstream
 	int16 offset = 60 * ( static_cast<int16>( calendar->Hour ) - ltHour ) + static_cast<int16>( calendar->Minute ) - ltMinute;
 	if( calendar->Day != ltDay )
 		offset -= 60 * 24;
-	utilities::convert_big_endian( &offset, buf + 8, 2 );
+	utility::convert_big_endian( &offset, 2, buf + 8 );
 #endif
 
 	stream.write( buf, 10 );
@@ -165,7 +165,7 @@ void amf0_sequencer::sequencify_ecma_array( IAmfValue^ input, std::basic_ostring
 
 	const auto& associativeCount = obj->Size;
 	uint8 buf[4];
-	utilities::convert_big_endian( &associativeCount, buf, 4 );
+	utility::convert_big_endian( &associativeCount, 4, buf );
 	stream.write( buf, 4 );
 
 	sequencify_object_base( obj, stream );
@@ -200,7 +200,7 @@ void amf0_sequencer::sequencify_strict_array( IAmfValue^ input, std::basic_ostri
 
 	const auto& length = ary->Size;
 	uint8 buf[4];
-	utilities::convert_big_endian( &length, buf, 4 );
+	utility::convert_big_endian( &length, 4, buf );
 	stream.write( buf, 4 );
 
 	for( const auto& item : ary )
@@ -210,12 +210,12 @@ void amf0_sequencer::sequencify_strict_array( IAmfValue^ input, std::basic_ostri
 void amf0_sequencer::sequencify_utf8( const std::string& input, std::basic_ostringstream<uint8>& stream )
 {
 	const auto& full_length = input.length();
-	if( full_length > UINT16_MAX )
+	if( full_length > std::numeric_limits<uint16>::max() )
 		throw amf_exception( "Invalid Utf8 length." );
 	const auto& length = static_cast<uint16>( full_length );
 
 	uint8 buf[2];
-	utilities::convert_big_endian( &length, buf, 2 );
+	utility::convert_big_endian( &length, 2, buf );
 	stream.write( buf, 2 );
 
 	if( length != 0 )
@@ -224,7 +224,7 @@ void amf0_sequencer::sequencify_utf8( const std::string& input, std::basic_ostri
 
 void amf0_sequencer::sequencify_utf8( Platform::String^ input, std::basic_ostringstream<uint8>& stream )
 {
-	sequencify_utf8( utilities::platform_string_to_char_utf8( input ), stream );
+	sequencify_utf8( utility::platform_string_to_char_utf8( input ), stream );
 }
 
 void amf0_sequencer::sequencify_utf8( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
@@ -235,12 +235,12 @@ void amf0_sequencer::sequencify_utf8( IAmfValue^ input, std::basic_ostringstream
 void amf0_sequencer::sequencify_utf8_long( const std::string& input, std::basic_ostringstream<uint8>& stream )
 {
 	const auto& full_length = input.length();
-	if( full_length > UINT32_MAX )
+	if( full_length > std::numeric_limits<uint32>::max() )
 		throw amf_exception( "Invalid Utf8 length." );
 	const auto& length = static_cast<uint32>( full_length );
 
 	uint8 buf[4];
-	utilities::convert_big_endian( &length, buf, 4 );
+	utility::convert_big_endian( &length, 4, buf );
 	stream.write( buf, 4 );
 
 	if( length != 0 )
@@ -249,7 +249,7 @@ void amf0_sequencer::sequencify_utf8_long( const std::string& input, std::basic_
 
 void amf0_sequencer::sequencify_utf8_long( Platform::String^ input, std::basic_ostringstream<uint8>& stream )
 {
-	sequencify_utf8_long( utilities::platform_string_to_char_utf8( input ), stream );
+	sequencify_utf8_long( utility::platform_string_to_char_utf8( input ), stream );
 }
 
 void amf0_sequencer::sequencify_utf8_long( IAmfValue^ input, std::basic_ostringstream<uint8>& stream )
@@ -262,7 +262,7 @@ int32 amf0_sequencer::index_of_object_identical_to( IAmfValue^ input )
 	const int32& length = static_cast<int32>( reference_buffer_.size() );
 	for( int32 i = 0u; i < length; ++i )
 	{
-		if( i > UINT16_MAX )
+		if( i > std::numeric_limits<uint16>::max() )
 			break;
 
 		const auto& value = reference_buffer_[i];
@@ -278,6 +278,6 @@ void amf0_sequencer::sequencify_reference( int32 input, std::basic_ostringstream
 
 	const auto& data = static_cast<uint16>( input );
 	uint8 buf[2];
-	utilities::convert_big_endian( &data, buf, 2 );
+	utility::convert_big_endian( &data, 2, buf );
 	stream.write( buf, 2 );
 }
