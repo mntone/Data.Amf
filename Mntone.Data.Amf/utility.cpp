@@ -13,31 +13,30 @@ void utility::convert_big_endian( const void* first, size_t size, void* dest )
 }
 
 
-Platform::String^ utility::char_utf8_to_platform_string( const std::string& char_utf8 )
+Platform::String^ utility::char_utf8_to_platform_string( const uint8_t* const ptr, const int32 utf8_length )
 {
-	const auto& char_utf8_length = static_cast<int32>( char_utf8.length() );
-	const auto& length = MultiByteToWideChar( CP_UTF8, 0, char_utf8.c_str(), char_utf8_length, nullptr, 0 );
-	if( length == 0 )
+	const auto& str = reinterpret_cast<const char* const>( ptr );
+	const auto& utf16_length = MultiByteToWideChar( CP_UTF8, 0, str, utf8_length, nullptr, 0 );
+	if( utf16_length == 0 )
 		return "";
 
-	const auto& buffer_length = length + 1;
+	const auto& buffer_length = utf16_length + 1;
 	std::vector<char16> buffer( buffer_length, 0 );
-	if( MultiByteToWideChar( CP_UTF8, 0, char_utf8.c_str(), char_utf8_length, buffer.data(), buffer_length ) == 0 )
+	if( MultiByteToWideChar( CP_UTF8, 0, str, utf8_length, buffer.data(), buffer_length ) == 0 )
 		throw ref new Platform::InvalidArgumentException( "Invaild text" );
-	return ref new Platform::String( buffer.data() );
+	return ref new Platform::String( buffer.data(), utf16_length );
 }
 
 std::string utility::platform_string_to_char_utf8( Platform::String^ platform_string )
 {
-	const auto& length = WideCharToMultiByte( CP_UTF8, 0, platform_string->Data(), platform_string->Length(), nullptr, 0, nullptr, nullptr );
-	if( length == 0 )
+	const auto& utf8_length = WideCharToMultiByte( CP_UTF8, 0, platform_string->Data(), platform_string->Length(), nullptr, 0, nullptr, nullptr );
+	if( utf8_length == 0 )
 		return std::string( "" );
 
-	const auto& buffer_length = length + 1;
-	std::vector<char> buffer( buffer_length, 0 );
-	if( WideCharToMultiByte( CP_UTF8, 0, platform_string->Data(), platform_string->Length(), buffer.data(), buffer_length, nullptr, nullptr ) == 0 )
+	std::string buffer( utf8_length, 0 );
+	if( WideCharToMultiByte( CP_UTF8, 0, platform_string->Data(), platform_string->Length(), &buffer[0], utf8_length, nullptr, nullptr ) == 0 )
 		throw ref new Platform::InvalidArgumentException( "Invaild text" );
-	return std::string( buffer.data() );
+	return buffer;
 }
 
 uint64 utility::date_time_to_unix_time( Windows::Foundation::DateTime date_time )

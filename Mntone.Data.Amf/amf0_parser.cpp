@@ -319,9 +319,8 @@ Platform::String^ amf0_parser::parse_utf8_base( uint8*& input, size_t& length, c
 	if( length < text_length )
 		throw amf_exception( "Invalid string." );
 
-	std::ostringstream buf;
-	buf.write( reinterpret_cast<char*>( input ), text_length );
+	auto ret = utility::char_utf8_to_platform_string( input, text_length );
 	input += text_length;
 	length -= text_length;
-	return utility::char_utf8_to_platform_string( buf.str() );
+	return ret;
 }

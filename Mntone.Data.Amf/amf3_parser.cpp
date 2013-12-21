@@ -143,12 +143,9 @@ Platform::String^ amf3_parser::parse_string_base( uint8*& input, size_t& length 
 	if( length < text_length )
 		throw amf_exception( "Invalid string." );
 
-	std::stringstream buf;
-	buf.write( reinterpret_cast<char*>( input ), text_length );
+	const auto& str = utility::char_utf8_to_platform_string( input, text_length );
 	input += text_length;
 	length -= text_length;
-
-	const auto& str = utility::char_utf8_to_platform_string( buf.str() );
 	string_reference_buffer_.push_back( str );
 	return str;
 }
@@ -409,12 +406,10 @@ Platform::String^ amf3_parser::parse_utf8( uint8*& input, size_t& length, const 
 	if( length < text_length )
 		throw amf_exception( "Invalid utf8." );
 
-	std::ostringstream buf;
-	buf.write( reinterpret_cast<char*>( input ), text_length );
+	auto ret = utility::char_utf8_to_platform_string( input, text_length );
 	input += text_length;
 	length -= text_length;
-
-	return utility::char_utf8_to_platform_string( buf.str() );
+	return ret;
 }
 
 uint32 amf3_parser::parse_unsigned_29bit_integer( uint8*& input, size_t& length )
