@@ -1,7 +1,7 @@
 # Data::Amf for Windows Runtime (Mntone::Data::Amf, Windows 8.1)
 
 ## License
-This library and demoapp is “3-clause BSD license.”
+This library and demoapp is “2-clause BSD license.”
 You must check “[license.en-US.md](./license.en-US.md).”
 
 ## API reference for Mntone::Data::Amf
