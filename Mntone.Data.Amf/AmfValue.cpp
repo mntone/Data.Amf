@@ -136,7 +136,7 @@ Platform::String^ AmfValue::ToString()
 			if( length != 1 )
 				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str(), static_cast<uint32>( str.length() ) );
+			return Platform::StringReference( str.c_str(), str.length() );
 		}
 	case AmfValueType::VectorInt:
 		{
@@ -150,7 +150,7 @@ Platform::String^ AmfValue::ToString()
 			if( length != 1 )
 				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str(), static_cast<uint32>( str.length() ) );
+			return Platform::StringReference( str.c_str(), str.length() );
 	}
 	case AmfValueType::VectorUint:
 		{
@@ -164,7 +164,7 @@ Platform::String^ AmfValue::ToString()
 			if( length != 1 )
 				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str(), static_cast<uint32>( str.length() ) );
+			return Platform::StringReference( str.c_str(), str.length() );
 		}
 	case AmfValueType::VectorDouble:
 		{
@@ -178,7 +178,7 @@ Platform::String^ AmfValue::ToString()
 			if( length != 1 )
 				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str(), static_cast<uint32>( str.length() ) );
+			return Platform::StringReference( str.c_str(), str.length() );
 		}
 	case AmfValueType::VectorObject:
 		{
@@ -197,7 +197,7 @@ Platform::String^ AmfValue::ToString()
 			if( length != 1 )
 				str.erase( length - 2 );
 			str += L']';
-			return ref new Platform::String( str.c_str(), static_cast<uint32>( str.length() ) );
+			return Platform::StringReference( str.c_str(), str.length() );
 		}
 	default: return value_->ToString();
 	}

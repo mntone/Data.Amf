@@ -27,6 +27,6 @@ Platform::String^ AmfPair::ToString()
 	buf.write( value->Data(), value->Length() );
 
 	auto str = buf.str();
-	return ref new Platform::String( str.c_str(), static_cast<uint32>( str.length() ) );
+	return Platform::StringReference( str.c_str(), str.length() );
 }
 #endif
