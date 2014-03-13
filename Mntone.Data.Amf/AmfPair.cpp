@@ -18,15 +18,17 @@ AmfPair::AmfPair( IAmfValue^ key, IAmfValue^ value ) :
 #if !_WINDOWS_PHONE
 Platform::String^ AmfPair::ToString()
 {
-	const auto& key = Key->ToString();
-	const auto& value = Value->ToString();
+	std::wstring buf;
+	{
+		const auto& key = Key->ToString();
+		buf += std::wstring( key->Data(), key->Length() );
+	}
+	buf += L": ";
+	{
+		const auto& value = Value->ToString();
+		buf += std::wstring( value->Data(), value->Length() );
+	}
 
-	std::wostringstream buf;
-	buf.write( key->Data(), key->Length() );
-	buf.write( L": ", 2 );
-	buf.write( value->Data(), value->Length() );
-
-	auto str = buf.str();
-	return Platform::StringReference( str.c_str(), str.length() );
+	return Platform::StringReference( buf.c_str(), buf.length() );
 }
 #endif

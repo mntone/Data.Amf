@@ -88,24 +88,28 @@ void AmfObject::Clear() { map_->Clear(); }
 #if !_WINDOWS_PHONE
 Platform::String^ AmfObject::ToString()
 {
-	std::wostringstream buf;
-	buf << '{';
+	std::wstring buf;
+	buf += '{';
 	for( const auto& item : map_ )
 	{
-		const auto& key = item->Key->ToString();
-		const auto& value = item->Value->ToString();
-		buf.put( L'"' );
-		buf.write( key->Data(), key->Length() );
-		buf.write( L"\": ", 3 );
-		buf.write( value->Data(), value->Length() );
-		buf.write( L", ", 2 );
+		buf += '"';
+		{
+			const auto& key = item->Key->ToString();
+			buf += std::wstring( key->Data(), key->Length() );
+		}
+		buf += L"\": ";
+		{
+			const auto& value = item->Value->ToString();
+			buf += std::wstring( value->Data(), value->Length() );
+		}
+		buf += L", ";
 	}
-	auto str = buf.str();
-	const auto& length = str.length();
+
+	const auto& length = buf.length();
 	if( length != 1 )
-		str.erase( length - 2 );
-	str += L'}';
-	return Platform::StringReference( str.c_str(), str.length() );
+		buf.erase( length - 2 );
+	buf += L'}';
+	return Platform::StringReference( buf.c_str(), buf.length() );
 }
 #endif
 

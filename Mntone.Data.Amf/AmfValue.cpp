@@ -127,10 +127,12 @@ Platform::String^ AmfValue::ToString()
 	case AmfValueType::ByteArray:
 		{
 			auto ba = GetByteArray();
+
 			std::wostringstream buf;
 			buf.put( '[' );
 			for( const auto& b : ba )
 				buf << L"0x" << std::hex << b << L", ";
+
 			auto str = buf.str();
 			const auto& length = str.length();
 			if( length != 1 )
@@ -141,10 +143,12 @@ Platform::String^ AmfValue::ToString()
 	case AmfValueType::VectorInt:
 		{
 			auto vi = GetVectorInt();
+
 			std::wostringstream buf;
 			buf.put( '[' );
 			for( const auto& i : vi )
 				buf << i << L", ";
+
 			auto str = buf.str();
 			const auto& length = str.length();
 			if( length != 1 )
@@ -155,10 +159,12 @@ Platform::String^ AmfValue::ToString()
 	case AmfValueType::VectorUint:
 		{
 			auto vu = GetVectorUint();
+
 			std::wostringstream buf;
 			buf.put( '[' );
 			for( const auto& u : vu )
 				buf << u << L", ";
+
 			auto str = buf.str();
 			const auto& length = str.length();
 			if( length != 1 )
@@ -169,10 +175,12 @@ Platform::String^ AmfValue::ToString()
 	case AmfValueType::VectorDouble:
 		{
 			auto vd = GetVectorDouble();
+
 			std::wostringstream buf;
 			buf.put( '[' );
 			for( const auto& d : vd )
 				buf << d << L", ";
+
 			auto str = buf.str();
 			const auto& length = str.length();
 			if( length != 1 )
@@ -183,21 +191,20 @@ Platform::String^ AmfValue::ToString()
 	case AmfValueType::VectorObject:
 		{
 			auto vo = GetVectorObject();
-			std::wostringstream buf;
-			buf.put( '[' );
+
+			std::wstring buf;
 			for( const auto& o : vo )
 			{
 				const auto& str = o->ToString();
-				buf.write( str->Data(), str->Length() );
-				buf.put( L',' );
-				buf.put( L' ' );
+				buf += std::wstring( str->Data(), str->Length() );
+				buf += L", ";
 			}
-			auto str = buf.str();
-			const auto& length = str.length();
+
+			const auto& length = buf.length();
 			if( length != 1 )
-				str.erase( length - 2 );
-			str += L']';
-			return Platform::StringReference( str.c_str(), str.length() );
+				buf.erase( length - 2 );
+			buf += L']';
+			return Platform::StringReference( buf.c_str(), buf.length() );
 		}
 	default: return value_->ToString();
 	}

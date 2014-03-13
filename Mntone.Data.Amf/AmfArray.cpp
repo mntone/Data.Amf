@@ -80,20 +80,20 @@ void AmfArray::ReplaceAll( const Platform::Array<IAmfValue^>^ items ) { vector_-
 #if !_WINDOWS_PHONE
 Platform::String^ AmfArray::ToString()
 {
-	std::wstringstream buf;
-	buf << '[';
+	std::wstring buf;
+	buf += '[';
 	for( const auto& item : vector_ )
 	{
 		const auto& out = item->ToString();
-		buf.write( out->Data(), out->Length() );
-		buf.write( L", ", 2 );
+		buf += std::wstring( out->Data(), out->Length() );
+		buf += L", ";
 	}
-	auto str = buf.str();
-	const auto& length = str.length();
+
+	const auto& length = buf.length();
 	if( length != 1 )
-		str.erase( length - 2 );
-	str += L']';
-	return Platform::StringReference( str.c_str(), str.length() );
+		buf.erase( length - 2 );
+	buf += L']';
+	return Platform::StringReference( buf.c_str(), buf.length() );
 }
 #endif
 
