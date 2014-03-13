@@ -192,7 +192,7 @@ Platform::String^ AmfValue::ToString()
 		{
 			auto vo = GetVectorObject();
 
-			std::wstring buf;
+			std::wstring buf( L"[" );
 			for( const auto& o : vo )
 			{
 				const auto& str = o->ToString();
