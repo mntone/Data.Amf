@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <CodeSharingProject>248F659F-DAC5-46E8-AC09-60EC9FC95053</CodeSharingProject>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>ca4d49b8-eb4d-48ee-bcdf-2e107b0d2ac9</SharedGUID>
+    <ItemsProjectGuid>{348c6871-2a77-4475-8fd9-f428e53f58e7}</ItemsProjectGuid>
+    <ItemsRootNamespace>Mntone.Data.Amf</ItemsRootNamespace>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)amf0_parser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)amf0_sequencer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)amf0_type.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)amf3_parser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)amf3_sequencer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)amf3_traits_info.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)amf3_type.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AmfArray.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AmfDictionary.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AmfEncodingType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AmfObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AmfPair.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AmfValue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)AmfValueType.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)amf_exception.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)com_exception_helper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IAmfArray.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IAmfDictionary.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IAmfObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IAmfPair.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IAmfValue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)pch.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)amf0_parser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)amf0_sequencer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)amf3_parser.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)amf3_sequencer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AmfArray.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AmfDictionary.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AmfObject.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AmfPair.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)AmfValue.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)com_exception_helper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)pch.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)utility.cpp" />
+  </ItemGroup>
+</Project>

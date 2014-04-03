@@ -1,6 +1,8 @@
-/ipch
-/obj
 /bin
-/*.opensdf
-/*.sdf
-/*.v12.suo
+/obj
+/ipch
+/packages
+*.opensdf
+*.sdf
+*.suo
+*.vcxproj.user

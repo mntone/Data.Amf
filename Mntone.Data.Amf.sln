@@ -1,15 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30324.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mntone.Data.Amf", "Mntone.Data.Amf\Mntone.Data.Amf.vcxproj", "{889914AC-C034-4669-8B3D-364BF8EB0F35}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mntone.Data.Amf.Windows", "Mntone.Data.Amf.Windows\Mntone.Data.Amf.Windows.vcxproj", "{889914AC-C034-4669-8B3D-364BF8EB0F35}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mntone.Data.Amf.UnitTest", "Mntone.Data.Amf.UnitTest\Mntone.Data.Amf.UnitTest.vcxproj", "{33AB9711-482E-4792-AB96-912ED97C5B4F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mntone.Data.Amf (WP)", "Mntone.Data.Amf\Mntone.Data.Amf (WP).vcxproj", "{CA2CA6D2-D71B-4922-9CB6-33C62ECC88DA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mntone.Data.Amf.WindowsPhone8", "Mntone.Data.Amf.WindowsPhone8\Mntone.Data.Amf.WindowsPhone8.vcxproj", "{CA2CA6D2-D71B-4922-9CB6-33C62ECC88DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mntone.Data.Amf", "Mntone.Data.Amf", "{5A920A48-2D20-49A6-86AA-0B3EFF8F09B8}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mntone.Data.Amf.Shared", "Mntone.Data.Amf.Shared\Mntone.Data.Amf.Shared.vcxitems", "{348C6871-2A77-4475-8FD9-F428E53F58E7}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mntone.Data.Amf.WindowsPhone", "Mntone.Data.Amf.WindowsPhone\Mntone.Data.Amf.WindowsPhone.vcxproj", "{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Mntone.Data.Amf.Shared\Mntone.Data.Amf.Shared.vcxitems*{348c6871-2a77-4475-8fd9-f428e53f58e7}*SharedItemsImports = 9
+		Mntone.Data.Amf.Shared\Mntone.Data.Amf.Shared.vcxitems*{e3bbd12b-6f26-42a1-b806-cbd2a5da2b07}*SharedItemsImports = 4
+		Mntone.Data.Amf.Shared\Mntone.Data.Amf.Shared.vcxitems*{889914ac-c034-4669-8b3d-364bf8eb0f35}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
 		Debug|Win32 = Debug|Win32
@@ -53,8 +64,23 @@ Global
 		{CA2CA6D2-D71B-4922-9CB6-33C62ECC88DA}.Release|Win32.ActiveCfg = Release|Win32
 		{CA2CA6D2-D71B-4922-9CB6-33C62ECC88DA}.Release|Win32.Build.0 = Release|Win32
 		{CA2CA6D2-D71B-4922-9CB6-33C62ECC88DA}.Release|x64.ActiveCfg = Release|Win32
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Debug|ARM.ActiveCfg = Debug|ARM
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Debug|ARM.Build.0 = Debug|ARM
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Debug|Win32.Build.0 = Debug|Win32
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Debug|x64.ActiveCfg = Debug|Win32
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Release|ARM.ActiveCfg = Release|ARM
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Release|ARM.Build.0 = Release|ARM
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Release|Win32.ActiveCfg = Release|Win32
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Release|Win32.Build.0 = Release|Win32
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{889914AC-C034-4669-8B3D-364BF8EB0F35} = {5A920A48-2D20-49A6-86AA-0B3EFF8F09B8}
+		{348C6871-2A77-4475-8FD9-F428E53F58E7} = {5A920A48-2D20-49A6-86AA-0B3EFF8F09B8}
+		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07} = {5A920A48-2D20-49A6-86AA-0B3EFF8F09B8}
 	EndGlobalSection
 EndGlobal

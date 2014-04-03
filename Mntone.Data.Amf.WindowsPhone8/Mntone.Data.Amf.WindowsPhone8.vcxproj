@@ -95,43 +95,43 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="amf0_parser.h" />
-    <ClInclude Include="amf0_sequencer.h" />
-    <ClInclude Include="amf0_type.h" />
-    <ClInclude Include="amf3_parser.h" />
-    <ClInclude Include="amf3_sequencer.h" />
-    <ClInclude Include="amf3_traits_info.h" />
-    <ClInclude Include="amf3_type.h" />
-    <ClInclude Include="AmfArray.h" />
-    <ClInclude Include="AmfDictionary.h" />
-    <ClInclude Include="AmfEncodingType.h" />
-    <ClInclude Include="AmfObject.h" />
-    <ClInclude Include="AmfPair.h" />
-    <ClInclude Include="AmfValue.h" />
-    <ClInclude Include="AmfValueType.h" />
-    <ClInclude Include="amf_exception.h" />
-    <ClInclude Include="com_exception_helper.h" />
-    <ClInclude Include="IAmfArray.h" />
-    <ClInclude Include="IAmfDictionary.h" />
-    <ClInclude Include="IAmfObject.h" />
-    <ClInclude Include="IAmfPair.h" />
-    <ClInclude Include="IAmfValue.h" />
-    <ClInclude Include="utility.h" />
-    <ClInclude Include="pch.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/amf0_parser.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/amf0_sequencer.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/amf0_type.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/amf3_parser.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/amf3_sequencer.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/amf3_traits_info.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/amf3_type.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfArray.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfDictionary.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfEncodingType.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfObject.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfPair.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfValue.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfValueType.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/amf_exception.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/com_exception_helper.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfArray.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfDictionary.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfObject.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfPair.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfValue.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/utility.h" />
+    <ClInclude Include="../Mntone.Data.Amf.Shared/pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="amf0_parser.cpp" />
-    <ClCompile Include="amf0_sequencer.cpp" />
-    <ClCompile Include="amf3_parser.cpp" />
-    <ClCompile Include="amf3_sequencer.cpp" />
-    <ClCompile Include="AmfArray.cpp" />
-    <ClCompile Include="AmfDictionary.cpp" />
-    <ClCompile Include="AmfObject.cpp" />
-    <ClCompile Include="AmfPair.cpp" />
-    <ClCompile Include="AmfValue.cpp" />
-    <ClCompile Include="com_exception_helper.cpp" />
-    <ClCompile Include="utility.cpp" />
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="../Mntone.Data.Amf.Shared/amf0_parser.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/amf0_sequencer.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/amf3_parser.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/amf3_sequencer.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfArray.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfDictionary.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfObject.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfPair.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfValue.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/com_exception_helper.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/utility.cpp" />
+    <ClCompile Include="../Mntone.Data.Amf.Shared/pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
