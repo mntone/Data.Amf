@@ -57,6 +57,7 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
+    <TargetName>Mntone.Data.Amf</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
