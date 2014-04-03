@@ -38,6 +38,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="..\Mntone.Data.Amf.Shared\Mntone.Data.Amf.Shared.vcxitems" Label="Shared" />
   <ImportGroup Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -48,7 +49,6 @@
   <PropertyGroup>
     <OutDir>$(SolutionDir)bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(Platform)-$(Configuration)\$(ProjectName)\</IntDir>
-    <TargetName>Mntone.Data.Amf</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
@@ -57,12 +57,10 @@
       <WarningLevel>Level4</WarningLevel>
       <FloatingPointModel>Fast</FloatingPointModel>
       <SDLCheck>false</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_WINDOWS_PHONE;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalUsingDirectories>$(WindowsSDK_MetadataPath);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS_PHONE8;_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateWindowsMetadata>true</GenerateWindowsMetadata>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>ole32.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <StackReserveSize>4096</StackReserveSize>
@@ -94,49 +92,7 @@
       <Private>false</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="../Mntone.Data.Amf.Shared/amf0_parser.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/amf0_sequencer.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/amf0_type.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/amf3_parser.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/amf3_sequencer.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/amf3_traits_info.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/amf3_type.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfArray.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfDictionary.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfEncodingType.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfObject.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfPair.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfValue.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/AmfValueType.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/amf_exception.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/com_exception_helper.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfArray.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfDictionary.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfObject.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfPair.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/IAmfValue.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/utility.h" />
-    <ClInclude Include="../Mntone.Data.Amf.Shared/pch.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="../Mntone.Data.Amf.Shared/amf0_parser.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/amf0_sequencer.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/amf3_parser.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/amf3_sequencer.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfArray.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfDictionary.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfObject.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfPair.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/AmfValue.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/com_exception_helper.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/utility.cpp" />
-    <ClCompile Include="../Mntone.Data.Amf.Shared/pch.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsPhone\v$(TargetPlatformVersion)\Microsoft.Cpp.WindowsPhone.$(TargetPlatformVersion).targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

@@ -17,7 +17,7 @@ namespace mntone { namespace data { namespace amf {
 
 	private:
 		amf0_sequencer();
-#if !_DEBUG &&!_WINDOWS_PHONE
+#if !_DEBUG &&!_WINDOWS_PHONE8
 		amf0_sequencer( const amf0_sequencer& ) = delete;
 		amf0_sequencer( amf0_sequencer&& ) = delete;
 

@@ -11,7 +11,7 @@ using namespace Mntone::Data::Amf;
 
 AmfObject::AmfObject() :
 	ValueType_( AmfValueType::Object ),
-#if _WINDOWS_PHONE
+#if _WINDOWS_PHONE8
 	map_( ref new Platform::Collections::Map<Platform::String^, IAmfValue^>() ),
 #else
 	map_( ref new Platform::Collections::UnorderedMap<Platform::String^, IAmfValue^>() ),
@@ -85,7 +85,7 @@ bool AmfObject::Insert( Platform::String^ key, IAmfValue^ value )
 void AmfObject::Remove( Platform::String^ key ) { map_->Remove( key ); }
 void AmfObject::Clear() { map_->Clear(); }
 
-#if !_WINDOWS_PHONE
+#if !_WINDOWS_PHONE8
 Platform::String^ AmfObject::ToString()
 {
 	std::wstring buf;
@@ -148,7 +148,7 @@ bool AmfObject::TryParse( const Platform::Array<uint8>^ input, AmfEncodingType t
 	return amf0_parser::try_parse( input, buf );
 }
 
-#if _WINDOWS_PHONE
+#if _WINDOWS_PHONE8
 void AmfObject::SetData( std::map<Platform::String^, IAmfValue^> data )
 {
 	map_ = ref new Platform::Collections::Map<Platform::String^, IAmfValue^>( data );

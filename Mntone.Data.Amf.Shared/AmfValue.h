@@ -30,7 +30,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		virtual AmfDictionary^ GetDictionary();
 
 		// IStringable
-#if !_WINDOWS_PHONE
+#if !_WINDOWS_PHONE8
 		virtual Platform::String^ ToString() override sealed;
 #endif
 

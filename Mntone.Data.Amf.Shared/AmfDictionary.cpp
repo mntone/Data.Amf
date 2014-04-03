@@ -68,7 +68,7 @@ void AmfDictionary::Clear() { vector_->Clear(); }
 uint32 AmfDictionary::GetMany( uint32 startIndex, Platform::WriteOnlyArray<AmfPair^>^ items ) { return vector_->GetMany( startIndex, items ); }
 void AmfDictionary::ReplaceAll( const Platform::Array<AmfPair^>^ items ) { vector_->ReplaceAll( items ); }
 
-#if !_WINDOWS_PHONE
+#if !_WINDOWS_PHONE8
 Platform::String^ AmfDictionary::ToString()
 {
 	std::wstring buf;

@@ -100,7 +100,7 @@ void amf0_sequencer::sequencify_date( IAmfValue^ input, std::basic_ostringstream
 	uint8 buf[10];
 	utility::convert_big_endian( &data, 8, buf );
 
-#if _WINDOWS_PHONE
+#if _WINDOWS_PHONE8
 	buf[8] = 0;
 	buf[9] = 0;
 #else

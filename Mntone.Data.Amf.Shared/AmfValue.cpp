@@ -114,7 +114,7 @@ AmfDictionary^ AmfValue::GetDictionary()
 	throw com_exception_helper::create_invalid_operation_exception( L"Invalid value type." );
 }
 
-#if !_WINDOWS_PHONE
+#if !_WINDOWS_PHONE8
 Platform::String^ AmfValue::ToString()
 {
 	switch( this->ValueType )

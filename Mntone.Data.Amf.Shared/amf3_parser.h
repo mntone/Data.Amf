@@ -23,7 +23,7 @@ public:
 	public:
 #endif
 		amf3_parser();
-#if !_DEBUG &&!_WINDOWS_PHONE
+#if !_DEBUG &&!_WINDOWS_PHONE8
 		amf3_parser( const amf3_parser& ) = delete;
 		amf3_parser( amf3_parser&& ) = delete;
 

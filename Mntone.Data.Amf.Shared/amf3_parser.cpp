@@ -188,7 +188,7 @@ IAmfValue^ amf3_parser::parse_array( uint8*& input, size_t& length )
 		return get_object( value );
 
 	AmfObject^ obj;
-#if _WINDOWS_PHONE
+#if _WINDOWS_PHONE8
 	std::map<Platform::String^, IAmfValue^> map;
 #else
 	std::unordered_map<Platform::String^, IAmfValue^> map;
@@ -269,7 +269,7 @@ IAmfValue^ amf3_parser::parse_object( uint8*& input, size_t& length )
 	obj->Externalizable = info->externalizable;
 	object_reference_buffer_.push_back( obj );
 
-#if _WINDOWS_PHONE
+#if _WINDOWS_PHONE8
 	std::map<Platform::String^, IAmfValue^> map;
 #else
 	std::unordered_map<Platform::String^, IAmfValue^> map;

@@ -372,7 +372,7 @@ void amf3_sequencer::sequencify_ecma_array( IAmfValue^ input, std::basic_ostring
 	{
 		std::vector<std::pair<size_t, IAmfValue^>> list;
 		size_t i = numericKeysItem.size() - 1;
-#if _WINDOWS_PHONE
+#if _WINDOWS_PHONE8
 		auto itr = numericKeysItem.rbegin();
 		while( itr != numericKeysItem.rend() )
 #else

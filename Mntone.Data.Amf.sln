@@ -18,6 +18,7 @@ EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Mntone.Data.Amf.Shared\Mntone.Data.Amf.Shared.vcxitems*{348c6871-2a77-4475-8fd9-f428e53f58e7}*SharedItemsImports = 9
+		Mntone.Data.Amf.Shared\Mntone.Data.Amf.Shared.vcxitems*{ca2ca6d2-d71b-4922-9cb6-33c62ecc88da}*SharedItemsImports = 4
 		Mntone.Data.Amf.Shared\Mntone.Data.Amf.Shared.vcxitems*{e3bbd12b-6f26-42a1-b806-cbd2a5da2b07}*SharedItemsImports = 4
 		Mntone.Data.Amf.Shared\Mntone.Data.Amf.Shared.vcxitems*{889914ac-c034-4669-8b3d-364bf8eb0f35}*SharedItemsImports = 4
 	EndGlobalSection
@@ -80,6 +81,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{889914AC-C034-4669-8B3D-364BF8EB0F35} = {5A920A48-2D20-49A6-86AA-0B3EFF8F09B8}
+		{CA2CA6D2-D71B-4922-9CB6-33C62ECC88DA} = {5A920A48-2D20-49A6-86AA-0B3EFF8F09B8}
 		{348C6871-2A77-4475-8FD9-F428E53F58E7} = {5A920A48-2D20-49A6-86AA-0B3EFF8F09B8}
 		{E3BBD12B-6F26-42A1-B806-CBD2A5DA2B07} = {5A920A48-2D20-49A6-86AA-0B3EFF8F09B8}
 	EndGlobalSection

@@ -4,7 +4,7 @@ You treats Action Message Format with this component, which is used by ActionScr
 ## Environment
 You can use
 
-- Windows,
+- Windows (8.1),
 - Windows Phone (8.1),
 - Windows Phone 8.
 

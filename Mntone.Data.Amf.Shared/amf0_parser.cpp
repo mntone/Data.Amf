@@ -246,7 +246,7 @@ IAmfValue^ amf0_parser::parse_typed_object( uint8*& input, size_t& length )
 	return out;
 }
 
-#if _WINDOWS_PHONE
+#if _WINDOWS_PHONE8
 std::map<Platform::String^, IAmfValue^> amf0_parser::parse_object_base( uint8*& input, size_t& length )
 {
 	std::map<Platform::String^, IAmfValue^> data;

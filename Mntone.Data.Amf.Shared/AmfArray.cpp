@@ -77,7 +77,7 @@ void AmfArray::Clear() { vector_->Clear(); }
 uint32 AmfArray::GetMany( uint32 startIndex, Platform::WriteOnlyArray<IAmfValue^>^ items ) { return vector_->GetMany( startIndex, items ); }
 void AmfArray::ReplaceAll( const Platform::Array<IAmfValue^>^ items ) { vector_->ReplaceAll( items ); }
 
-#if !_WINDOWS_PHONE
+#if !_WINDOWS_PHONE8
 Platform::String^ AmfArray::ToString()
 {
 	std::wstring buf;

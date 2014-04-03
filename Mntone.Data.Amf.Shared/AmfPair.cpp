@@ -15,7 +15,7 @@ AmfPair::AmfPair( IAmfValue^ key, IAmfValue^ value ) :
 	key_( std::move( key ) ), value_( std::move( value ) )
 { }
 
-#if !_WINDOWS_PHONE
+#if !_WINDOWS_PHONE8
 Platform::String^ AmfPair::ToString()
 {
 	std::wstring buf;

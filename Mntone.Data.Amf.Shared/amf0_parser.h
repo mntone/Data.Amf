@@ -18,7 +18,7 @@ namespace mntone { namespace data { namespace amf {
 
 	private:
 		amf0_parser();
-#if !_DEBUG &&!_WINDOWS_PHONE
+#if !_DEBUG &&!_WINDOWS_PHONE8
 		amf0_parser( const amf0_parser& ) = delete;
 		amf0_parser( amf0_parser&& ) = delete;
 
@@ -45,7 +45,7 @@ namespace mntone { namespace data { namespace amf {
 		Mntone::Data::Amf::IAmfValue^ parse_object( uint8*& input, size_t& length );
 		Mntone::Data::Amf::IAmfValue^ parse_ecma_array( uint8*& input, size_t& length );
 		Mntone::Data::Amf::IAmfValue^ parse_typed_object( uint8*& input, size_t& length );
-#if _WINDOWS_PHONE
+#if _WINDOWS_PHONE8
 		std::map<Platform::String^, Mntone::Data::Amf::IAmfValue^> parse_object_base( uint8*& input, size_t& length );
 #else
 		std::unordered_map<Platform::String^, Mntone::Data::Amf::IAmfValue^> parse_object_base( uint8*& input, size_t& length );

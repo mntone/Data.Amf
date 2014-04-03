@@ -16,7 +16,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		AmfPair( IAmfValue^ key, IAmfValue^ value );
 
 		// IStringable
-#if !_WINDOWS_PHONE
+#if !_WINDOWS_PHONE8
 		virtual Platform::String^ ToString() override sealed;
 #endif
 
