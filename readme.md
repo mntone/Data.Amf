@@ -10,7 +10,7 @@ You can use
 
 ## License
 This library and demoapp is “2-clause BSD license.”
-You must check “[license.en-US.md](./license.en-US.md).”
+You must check “[license.md](./license.md).”
 
 ## API Reference
 If you know this library in detail, you check “[Document](./Document/)” folder.
