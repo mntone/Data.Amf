@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+    <metadata minClientVersion="2.5">
+        <id>ActionMessageFormat</id>
+        <version>0.9.6.1</version>
+        <title>Action Message Format for Windows Runtime</title>
+        <authors>mntone and qwerty</authors>
+        <owners>mntone</owners>
+        <licenseUrl>https://github.com/mntone/Data.Amf/blob/master/license.md</licenseUrl>
+        <projectUrl>https://github.com/mntone/Data.Amf</projectUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <description>Action Message Format for Windows Runtime is the reader and writer of AMF0 and AMF3.</description>
+        <summary>Read or write data in Action Message Format.</summary>
+        <releaseNotes>First NuGet version.</releaseNotes>
+        <copyright>Copyright (c) 2013-2014, mntone and qwerty. All rights reserved.</copyright>
+        <language>en-US</language>
+        <tags>WinRT Windows WindowsClient WindowsPhone mntone 8.1 Amf Flash Adobe</tags>
+        <references>
+            <reference file="Mntone.Data.Amf.winmd" />
+        </references>
+    </metadata>
+    <files>
+        <file src="build\native\ActionMessageFormat.targets" target="build\native\ActionMessageFormat.targets" />
+        <file src="build\win81\ActionMessageFormat.targets" target="build\win81\ActionMessageFormat.targets" />
+        <file src="build\wp8\ActionMessageFormat.targets" target="build\wp8\ActionMessageFormat.targets" />
+        <file src="build\wpa81\ActionMessageFormat.targets" target="build\wpa81\ActionMessageFormat.targets" />
+        <file src="lib\win81\ARM\Mntone.Data.Amf.dll" target="lib\win81\ARM\Mntone.Data.Amf.dll" />
+        <file src="lib\win81\ARM\Mntone.Data.Amf.pri" target="lib\win81\ARM\Mntone.Data.Amf.pri" />
+        <file src="lib\win81\ARM\Mntone.Data.Amf.winmd" target="lib\win81\ARM\Mntone.Data.Amf.winmd" />
+        <file src="lib\win81\x64\Mntone.Data.Amf.dll" target="lib\win81\x64\Mntone.Data.Amf.dll" />
+        <file src="lib\win81\x64\Mntone.Data.Amf.pri" target="lib\win81\x64\Mntone.Data.Amf.pri" />
+        <file src="lib\win81\x64\Mntone.Data.Amf.winmd" target="lib\win81\x64\Mntone.Data.Amf.winmd" />
+        <file src="lib\win81\x86\Mntone.Data.Amf.dll" target="lib\win81\x86\Mntone.Data.Amf.dll" />
+        <file src="lib\win81\x86\Mntone.Data.Amf.pri" target="lib\win81\x86\Mntone.Data.Amf.pri" />
+        <file src="lib\win81\x86\Mntone.Data.Amf.winmd" target="lib\win81\x86\Mntone.Data.Amf.winmd" />
+        <file src="lib\wp8\ARM\Mntone.Data.Amf.dll" target="lib\wp8\ARM\Mntone.Data.Amf.dll" />
+        <file src="lib\wp8\ARM\Mntone.Data.Amf.winmd" target="lib\wp8\ARM\Mntone.Data.Amf.winmd" />
+        <file src="lib\wp8\x86\Mntone.Data.Amf.dll" target="lib\wp8\x86\Mntone.Data.Amf.dll" />
+        <file src="lib\wp8\x86\Mntone.Data.Amf.winmd" target="lib\wp8\x86\Mntone.Data.Amf.winmd" />
+        <file src="lib\wpa81\ARM\Mntone.Data.Amf.dll" target="lib\wpa81\ARM\Mntone.Data.Amf.dll" />
+        <file src="lib\wpa81\ARM\Mntone.Data.Amf.pri" target="lib\wpa81\ARM\Mntone.Data.Amf.pri" />
+        <file src="lib\wpa81\ARM\Mntone.Data.Amf.winmd" target="lib\wpa81\ARM\Mntone.Data.Amf.winmd" />
+        <file src="lib\wpa81\x86\Mntone.Data.Amf.dll" target="lib\wpa81\x86\Mntone.Data.Amf.dll" />
+        <file src="lib\wpa81\x86\Mntone.Data.Amf.pri" target="lib\wpa81\x86\Mntone.Data.Amf.pri" />
+        <file src="lib\wpa81\x86\Mntone.Data.Amf.winmd" target="lib\wpa81\x86\Mntone.Data.Amf.winmd" />
+        <file src="license.md" target="license.md" />
+    </files>
+</package>
