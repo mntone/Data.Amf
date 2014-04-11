@@ -2,7 +2,8 @@
 /obj
 /ipch
 /packages
-/nuget
+/nuget/data/lib
+/nuget/data/*.*
 Generated Files
 *.opensdf
 *.sdf
