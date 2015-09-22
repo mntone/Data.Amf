@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
-    <metadata>
+    <metadata minClientVersion="2.5">
         <id>ActionMessageFormat</id>
-        <version>0.9.6.2</version>
+        <version>0.9.7</version>
         <title>Action Message Format for Windows Runtime</title>
         <authors>mntone and qwerty</authors>
         <owners>mntone</owners>
@@ -12,7 +12,7 @@
         <description>Action Message Format for Windows Runtime is the reader and writer of AMF0 and AMF3.</description>
         <summary>Read or write data in Action Message Format.</summary>
         <releaseNotes>x64 component loading fixes.</releaseNotes>
-        <copyright>Copyright (c) 2013-2014, mntone and qwerty. All rights reserved.</copyright>
+        <copyright>Copyright (c) 2013-2015, mntone and qwerty. All rights reserved.</copyright>
         <language>en-US</language>
         <tags>WinRT Windows WindowsClient WindowsPhone mntone 8.1 Amf Flash Adobe</tags>
         <references>

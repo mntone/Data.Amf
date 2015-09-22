@@ -4,8 +4,7 @@
 namespace Mntone { namespace Data { namespace Amf {
 
 	[Windows::Foundation::Metadata::WebHostHidden]
-	public interface class IAmfPair:
-		public Windows::Foundation::Collections::IKeyValuePair<IAmfValue^, IAmfValue^>
+	public interface class IAmfPair
 	{
 		property AmfValueType KeyType
 		{
@@ -13,6 +12,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		}
 		property IAmfValue^ Key
 		{
+			IAmfValue^ get();
 			void set( IAmfValue^ value );
 		}
 		property AmfValueType ValueType
@@ -21,6 +21,7 @@ namespace Mntone { namespace Data { namespace Amf {
 		}
 		property IAmfValue^ Value
 		{
+			IAmfValue^ get();
 			void set( IAmfValue^ value );
 		}
 	};
