@@ -1,6 +1,6 @@
 # Action Message Format for Windows Runtime
 
-[![NuGet](https://img.shields.io/nuget/v/ActionMessageFormat.svg?style=flat-square)](https://www.nuget.org/packages/ActionMessageFormat/) [![Downloads](https://img.shields.io/nuget/dt/ActionMessageFormat.svg?style=flat-square)](https://www.nuget.org/packages/https://img.shields.io/nuget/v/ActionMessageFormat.svg?style=flat-square/) [![License](https://img.shields.io/github/license/mntone/ActionMessageFormat.svg?style=flat-square)](https://github.com/mntone/Data.Amf/blob/master/license.md)
+[![NuGet](https://img.shields.io/nuget/v/ActionMessageFormat.svg?style=flat-square)](https://www.nuget.org/packages/ActionMessageFormat/) [![Downloads](https://img.shields.io/nuget/dt/ActionMessageFormat.svg?style=flat-square)](https://www.nuget.org/packages/https://img.shields.io/nuget/v/ActionMessageFormat.svg?style=flat-square/) [![License](https://img.shields.io/github/license/mntone/Data.Amf.svg?style=flat-square)](https://github.com/mntone/Data.Amf/blob/master/license.md)
 
 You treats Action Message Format with this component, which is used by ActionScript family.
 
